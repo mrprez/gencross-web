@@ -1,0 +1,28 @@
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Table INS 2
+Le Maître de Jeu mrprez vous a attribué le personnage Table INS 2.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Table INS 4
+Le Maître de Jeu mrprez vous a attribué le personnage Table INS 4.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Table INS 2
+Le Maître de Jeu mrprez vous a retiré le personnage Table INS 2.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Table INS 5
+Le Maître de Jeu mrprez vous a attribué le personnage Table INS 5.
+
+**************************************

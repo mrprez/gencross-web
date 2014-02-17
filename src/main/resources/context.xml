@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jee="http://www.springframework.org/schema/jee"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/jee classpath:/org/springframework/ejb/config/spring-jee-3.0.xsd">
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="load*" read-only="true"/>
+			<tx:method name="*" read-only="false" rollback-for="java.lang.Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="bsTxPointcut" expression="execution(* com.mrprez.gencross.web.bs.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="bsTxPointcut"/>
+	</aop:config>
+	<aop:config>
+		<aop:pointcut id="daoTxPointcut" expression="execution(* com.mrprez.gencross.web.dao.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoTxPointcut"/>
+	</aop:config>
+	
+	
+	<jee:jndi-lookup id="genCrossDataSource" jndi-name="java:comp/env/jdbc/GenCrossDB"/>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="genCrossDataSource"/>
+		<property name="mappingResources">
+			<list>
+				<value>gencross-mapping.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.show_sql=true
+				hibernate.autoReconnect=true
+			</value>
+		</property>
+	</bean>
+
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	
+	<!-- ********* -->
+	<!-- Couche BS -->
+	<!-- ********* -->
+	
+	<aop:config>
+		<aop:pointcut id="bsPointcut" expression="execution(* com.mrprez.gencross.web.bs.*.*(..))"/>
+		<aop:aspect id="bsAspect" ref="bsExceptionManager">
+			<aop:around method="catchException" pointcut-ref="bsPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<bean id="bsExceptionManager" class="com.mrprez.gencross.web.bs.util.ExceptionManagerBS"/>
+	
+	
+	<bean id="authentificationBS" class="com.mrprez.gencross.web.bs.AuthentificationBS" scope="singleton"/>
+	
+	<bean id="personnageFactory" class="com.mrprez.gencross.disk.PersonnageFactory" scope="singleton"/>
+    
+	<bean id="personnageBS" class="com.mrprez.gencross.web.bs.PersonnageBS" scope="singleton">
+		<property name="personnageFactory" ref="personnageFactory"/>
+	</bean>
+	
+	<bean id="tableBS" class="com.mrprez.gencross.web.bs.TableBS" scope="singleton">
+		<property name="personnageFactory" ref="personnageFactory"/>
+	</bean>
+	
+	<bean id="paramsBS" class="com.mrprez.gencross.web.bs.ParamsBS" scope="singleton"/>
+	
+	<bean id="personnageComparatorBS" class="com.mrprez.gencross.web.bs.PersonnageComparatorBS" scope="singleton"/>
+	
+	<bean id="exportBS" class="com.mrprez.gencross.web.bs.ExportBS" scope="singleton">
+		<constructor-arg><ref bean="TemplateFileResource"/></constructor-arg>
+	</bean>
+	
+	<bean id="gcrFileBS" class="com.mrprez.gencross.web.bs.GcrFileBS" scope="singleton">
+		<property name="personnageFactory" ref="personnageFactory"/>
+	</bean>
+	
+	<bean id="jobBS" class="com.mrprez.gencross.web.bs.JobBS" scope="singleton"/>
+	
+	<bean id="loggerBS" class="com.mrprez.gencross.web.bs.LoggerBS" scope="singleton"/>
+	
+	
+	<!-- ********** -->
+	<!-- Couche DAO -->
+	<!-- ********** -->
+	
+	<aop:config>
+		<aop:pointcut id="daoPointcut" expression="execution(* com.mrprez.gencross.web.dao.*.*(..))"/>
+		<aop:aspect id="daoAspect" ref="daoExceptionManager">
+			<aop:around method="catchException" pointcut-ref="daoPointcut"/>
+		</aop:aspect>
+	</aop:config>
+
+	
+	<bean id="daoExceptionManager" class="com.mrprez.gencross.web.dao.util.ExceptionManagerDAO" scope="singleton"/>
+	
+	
+	<bean id="UserDAO" class="com.mrprez.gencross.web.dao.UserDAO" scope="singleton">
+		<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<bean id="RoleDAO" class="com.mrprez.gencross.web.dao.RoleDAO" scope="singleton">
+		<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<bean id="PersonnageDAO" class="com.mrprez.gencross.web.dao.PersonnageDAO" scope="singleton">
+		<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<bean id="TableDAO" class="com.mrprez.gencross.web.dao.TableDAO" scope="singleton">
+		<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<bean id="ParamDAO" class="com.mrprez.gencross.web.dao.ParamDAO" scope="singleton">
+		<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<jee:jndi-lookup id="mailSenderSession" jndi-name="java:comp/env/mail/SenderSession"/>
+	
+	<jee:jndi-lookup id="mailReceiverSession" jndi-name="java:comp/env/mail/ReceiverSession"/>
+	
+	<bean id="MailResource" class="com.mrprez.gencross.web.dao.MailResource" scope="singleton">
+		<constructor-arg><ref bean="mailSenderSession"/></constructor-arg>
+		<constructor-arg><ref bean="mailReceiverSession"/></constructor-arg>
+		<property name="defaultFromAdress" value="genCrossBackup@mrprez.com"/>
+	</bean>
+	
+	<bean id="GoogleCalendarResource" class="com.mrprez.gencross.web.dao.GoogleCalendarResource" scope="singleton" lazy-init="true">
+		<constructor-arg><value>tables.gencross</value></constructor-arg>
+		<constructor-arg><value>19081983</value></constructor-arg>
+	</bean>
+<!-- 	<bean id="GoogleCalendarResource" class="com.mrprez.gencross.web.dao.GoogleCalendarResourceMock" scope="singleton"/> -->
+	
+	<bean id="TemplateFileResource" class="com.mrprez.gencross.web.dao.TemplateFileResource" scope="singleton"/>
+	
+	<bean id="SaveRepositoryResource" class="com.mrprez.gencross.web.dao.SaveRepositoryResource" scope="singleton"/>
+	
+	
+	
+</beans>

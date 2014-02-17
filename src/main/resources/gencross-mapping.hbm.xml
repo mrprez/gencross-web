@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="com.mrprez.gencross.web.bo">
+	
+	<class name="UserBO" table="USERS">
+        <id name="username" column="USER_NAME"/>
+		<property name="digest" column="DIGEST"/>
+		<property name="mail" column="MAIL"/>
+		<set name="roles" table="USER_ROLES">
+			<key column="USER_NAME"/>
+			<many-to-many column="ROLE_NAME" class="RoleBO"/>
+		</set>
+		<set name="personnagesAsPlayer" inverse="true">
+			<key column="USER_NAME"/>
+			<one-to-many class="PersonnageWorkBO"/>
+		</set>
+	</class>
+	
+	<class name="RoleBO" table="ROLES">
+        <id name="name" column="NAME"/>
+	</class>
+	
+	<class name="PersonnageWorkBO" table="PERSONNAGE_WORK">
+		<id name="id" column="ID">
+			<generator class="identity"/>
+		</id>
+		<timestamp name="lastUpdateDate" column="LAST_UPDATE_DATE"/>
+		<property name="name"/>
+		<property name="pluginName" column="TYPE"/>
+		<property name="validationDate" column="VALIDATION_DATE" type="timestamp"/>
+		<property name="background"/>
+		<many-to-one name="personnageData" column="PERSONNAGE" class="PersonnageDataBO" 
+				unique="true" not-null="true" cascade="delete"/>
+		<many-to-one name="validPersonnageData" column="VALID_PERSONNAGE" class="PersonnageDataBO" 
+				unique="true" not-null="true" cascade="delete"/>
+		<many-to-one name="player" column="USER_NAME" class="UserBO"/>
+		<many-to-one name="gameMaster" column="GM_NAME" class="UserBO"/>
+		<join table="TABLE_PERSONNAGE" inverse="true" optional="true">
+			<key column="PERSONNAGE"/>
+			<many-to-one name="table" column="RPG_TABLE" lazy="false"/>
+		</join>
+	</class>
+
+	<class name="PersonnageDataBO" table="PERSONNAGE">
+		<id name="id" column="ID">
+			<generator class="identity"/>
+		</id>
+		<timestamp name="lastUpdateDate" column="LAST_UPDATE_DATE"/>
+		<property name="data" type="blob"/>
+	</class>
+	
+	<class name="PersonnageXmlBO" table="PERSONNAGE">
+		<id name="id" column="ID">
+			<generator class="identity"/>
+		</id>
+		<timestamp name="lastUpdateDate" column="LAST_UPDATE_DATE"/>
+		<property name="data" type="blob"/>
+	</class>
+	
+    <class name="TableBO" table="RPG_TABLE">
+		<id name="id" column="ID">
+			<generator class="identity"/>
+		</id>
+        <property name="type"/>
+        <property name="name"/>
+        <many-to-one name="gameMaster" column="GM_NAME" class="UserBO"/>
+        <set name="personnages" table="TABLE_PERSONNAGE">
+            <key column="RPG_TABLE"/>
+            <many-to-many unique="true" column="PERSONNAGE" class="PersonnageWorkBO"/>
+        </set>
+        <set name="messages" sort="natural" cascade="all-delete-orphan">
+        	<key column="RPG_TABLE" not-null="true"/>
+        	<one-to-many class="TableMessageBO"/>
+        </set>
+    </class>
+    
+    <class name="TableMessageBO" table="TABLE_MESSAGE">
+		<id name="id" column="ID">
+			<generator class="identity"/>
+		</id>
+		<property name="data"/>
+		<property name="date"/>
+		<many-to-one name="author" column="AUTHOR" class="UserBO"/>
+    </class>
+    
+	<class name="ParamBO" table="PARAMS">
+		<id name="key" column="PARAM_KEY"/>
+		<property name="stringValue" column="PARAM_VALUE"/>
+		<property name="type" column="TYPE"/>
+	</class>
+
+
+</hibernate-mapping>

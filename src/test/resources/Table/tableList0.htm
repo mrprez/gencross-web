@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+		<title>Gen-Cross</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);" class="TableListAction" style="">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				
+
+
+
+<table class="menu">
+	<tbody>
+		<tr>
+			
+				<td id="personnageMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					<span class="menu">Personnages</span>
+					<ul class="subMenu">
+						<li class="subMenu"><a href="/gencross-web/List.action">Liste des personnages</a></li>
+						<li class="subMenu"><a href="/gencross-web/TableList.action">Liste des tables</a></li>
+						<li class="subMenu"><a href="/gencross-web/Create.action">Créer un personnage</a></li>
+					</ul>
+				</td>
+				<script language="Javascript">
+					$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
+				</script>
+			
+				<td id="accountManagementMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					<span class="menu">Gérer son compte</span>
+					<ul class="subMenu">
+						<li class="subMenu"><a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a></li>
+						<li class="subMenu"><a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a></li>
+					</ul>
+				</td>
+				<script language="Javascript">
+					$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
+				</script>
+				
+				<td class="menu">
+					<a href="/gencross-web/link!downloads.action" class="menu">Téléchargements</a>
+				</td>
+				
+				
+					<td id="administrationMenu" class="menu" onclick="javascript:showSubMenu(this)">
+						<span class="menu">Administration</span>
+						<ul class="subMenu">
+							<li class="subMenu"><a href="/gencross-web/ListUser.action">Liste des utilisateurs</a></li>
+							<li class="subMenu"><a href="/gencross-web/Params.action">Gestion des paramètres</a></li>
+							<li class="subMenu"><a href="/gencross-web/JobProcessing.action">Traitements programmés</a></li>
+							<li class="subMenu"><a href="/gencross-web/Logger.action">Gestion des logs</a></li>
+						</ul>
+					</td>
+					<script language="Javascript">
+						$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
+					</script>
+				
+				
+			
+		</tr>
+	</tbody>
+</table>
+
+
+			</div>
+			<div id="headerRight">
+				
+					<span id="username">mrprez</span>
+					<br>
+					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
+				
+			</div>
+			<div class="separator"></div>
+		</div>
+		<div id="content">
+		
+
+
+<table class="genCrossTable">
+	<thead>
+		<tr>
+			<th class="genCrossTable">Nom</th>
+			<th class="genCrossTable">Type</th>
+			<th class="genCrossTable">MJ</th>
+			<th class="genCrossTable">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		<form id="TableList!addTable" name="TableList!addTable" action="/gencross-web/TableList!addTable.action" method="post"></form>
+			<tr class="genCrossTable">
+				<td class="genCrossTable">
+					<input type="text" name="tableName" value="" id="TableList!addTable_tableName">
+				</td>
+				<td class="genCrossTable"><select name="tableType" id="TableList!addTable_tableType">
+    <option value="BSG">BSG</option>
+    <option value="Changelin">Changelin</option>
+    <option value="CthulhuPerso">CthulhuPerso</option>
+    <option value="Fusina">Fusina</option>
+    <option value="INS">INS</option>
+    <option value="L5A">L5A</option>
+    <option value="MV">MV</option>
+    <option value="MdT">MdT</option>
+    <option value="PolarisPerso">PolarisPerso</option>
+    <option value="Sens">Sens</option>
+    <option value="TiersAgePerso">TiersAgePerso</option>
+    <option value="Warhammer">Warhammer</option>
+    <option value="Yggdrasill">Yggdrasill</option>
+
+
+</select>
+</td>
+				<td class="genCrossTable">mrprez</td>
+				<td class="genCrossTable"><input type="submit" id="TableList!addTable_0" value="Créer">
+</td>
+			</tr>
+		
+
+
+
+
+	</tbody>
+</table>
+
+
+
+
+		</div>
+		<div id="footer"><center></center></div>
+	
+
+</body></html>

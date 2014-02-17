@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+		<title>Gen-Cross</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);" class="LoginAction" style="">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				
+
+
+
+<table class="menu">
+	<tbody>
+		<tr>
+			
+		</tr>
+	</tbody>
+</table>
+
+
+			</div>
+			<div id="headerRight">
+				
+			</div>
+			<div class="separator"></div>
+		</div>
+		<div id="content">
+		
+
+	<div id="loginContent">
+		<h3>Authentification</h3>
+		
+			<form id="Login" name="Login" action="/gencross-web/Login.action" method="post">
+<ul id="Login_" class="errorMessage">
+            <li><span>Login ou mot de passe incorrect</span></li>	</ul><table class="wwFormTable">
+					
+
+				<tbody><tr>
+    <td class="tdLabel"><label for="usernameField" class="label">Login:</label></td>
+    <td><input type="text" name="username" value="batman" id="usernameField"></td>
+</tr>
+
+				<tr>
+    <td class="tdLabel"><label for="Login_password" class="label">Password:</label></td>
+    <td><input type="password" name="password" id="Login_password"></td>
+</tr>
+
+				<tr>
+    <td colspan="2"><div align="center"><input type="submit" id="Login_0" value="Login">
+</div></td>
+</tr>
+
+			</tbody></table></form>
+
+
+
+
+			<a href="/gencross-web/Subscription.action">S'inscrire</a><br>
+			<a href="/gencross-web/ForgottenPassword.action">Mot de passe oublié</a><br>
+		
+		
+	</div>
+	<script language="Javascript">
+		document.getElementById("usernameField").focus();
+	</script>
+
+		</div>
+		<div id="footer"><center></center></div>
+	
+
+</body></html>

@@ -1,0 +1,33 @@
+package com.mrprez.gencross.web.bs.face;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.mrprez.gencross.export.FileGenerator;
+import com.mrprez.gencross.export.TemplatedFileGenerator;
+import com.mrprez.gencross.web.bo.PersonnageWorkBO;
+import com.mrprez.gencross.web.bo.UserBO;
+
+public interface IExportBS {
+
+	
+	Set<Class<? extends TemplatedFileGenerator>> getTemplatedFileGeneratorList();
+
+	byte[] export(PersonnageWorkBO personnageWork, FileGenerator fileGenerator) throws Exception;
+
+	byte[] export(PersonnageWorkBO personnageWork, TemplatedFileGenerator fileGenerator, String templateName) throws Exception;
+
+	byte[] export(PersonnageWorkBO personnageWork, TemplatedFileGenerator fileGenerator, File templateFile) throws Exception;
+	
+	Map<Class<? extends TemplatedFileGenerator>, List<String>> getTemplateFiles();
+
+	FileGenerator getGenerator(String className) throws Exception;
+
+	List<String[]> multiExport(Collection<Integer> personnageIdList, UserBO user)throws Exception;
+
+	
+
+}

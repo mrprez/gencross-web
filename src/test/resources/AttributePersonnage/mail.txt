@@ -1,0 +1,35 @@
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: guillaume.gagneret@gmail.com;
+Subject: GenCrossWeb - Test attibution
+Le joueur azerty vous a attribué les droits de Maître de Jeu pour le personnage Test attibution.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Test attibution
+Le Maître de Jeu mrprez vous a retiré le personnage Test attibution.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: qwerty@qw.qw;
+Subject: GenCrossWeb - Test attibution
+Le Maître de Jeu mrprez vous a attribué le personnage Test attibution.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: guillaume.gagneret@gmail.com;
+Subject: GenCrossWeb - Test attibution
+Le joueur qwerty vous a retiré les droits de Maître de Jeu pour le personnage Test attibution.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Test attibution
+Le joueur qwerty vous a attribué les droits de Maître de Jeu pour le personnage Test attibution.
+
+**************************************

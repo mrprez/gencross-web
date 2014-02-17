@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+		<title>Gen-Cross</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);" class="MultiExportAction" style="">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				
+
+
+
+<table class="menu">
+	<tbody>
+		<tr>
+			
+				<td id="personnageMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					<span class="menu">Personnages</span>
+					<ul class="subMenu">
+						<li class="subMenu"><a href="/gencross-web/List.action">Liste des personnages</a></li>
+						<li class="subMenu"><a href="/gencross-web/TableList.action">Liste des tables</a></li>
+						<li class="subMenu"><a href="/gencross-web/Create.action">Créer un personnage</a></li>
+					</ul>
+				</td>
+				<script language="Javascript">
+					$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
+				</script>
+			
+				<td id="accountManagementMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					<span class="menu">Gérer son compte</span>
+					<ul class="subMenu">
+						<li class="subMenu"><a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a></li>
+						<li class="subMenu"><a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a></li>
+					</ul>
+				</td>
+				<script language="Javascript">
+					$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
+				</script>
+				
+				<td class="menu">
+					<a href="/gencross-web/link!downloads.action" class="menu">Téléchargements</a>
+				</td>
+				
+				
+					<td id="administrationMenu" class="menu" onclick="javascript:showSubMenu(this)">
+						<span class="menu">Administration</span>
+						<ul class="subMenu">
+							<li class="subMenu"><a href="/gencross-web/ListUser.action">Liste des utilisateurs</a></li>
+							<li class="subMenu"><a href="/gencross-web/Params.action">Gestion des paramètres</a></li>
+							<li class="subMenu"><a href="/gencross-web/JobProcessing.action">Traitements programmés</a></li>
+							<li class="subMenu"><a href="/gencross-web/Logger.action">Gestion des logs</a></li>
+						</ul>
+					</td>
+					<script language="Javascript">
+						$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
+					</script>
+				
+				
+			
+		</tr>
+	</tbody>
+</table>
+
+
+			</div>
+			<div id="headerRight">
+				
+					<span id="username">mrprez</span>
+					<br>
+					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
+				
+			</div>
+			<div class="separator"></div>
+		</div>
+		<div id="content">
+		
+
+	<div id="tableTitle">
+		<span>Table INS</span>
+	</div>
+	
+	<div id="multiExportResultReturn">
+		<a href="/gencross-web/MultiExport.action?tableId=1&amp;exportedPjList=3%2C+4&amp;exportedPnjList=2%2C+7"><img alt="&lt;==" src="/gencross-web/img/left_arrow.png"> Retour</a>
+	</div>
+	
+	<table class="exportTable">
+		
+			<tbody><tr class="exportTable">
+				<th class="exportTable"><pre>Superieur</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable">Abalam - Prince de la Folie</td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Identité</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Grade</pre></th>
+				
+					<td class="exportTable">0</td>
+				
+					<td class="exportTable">0</td>
+				
+					<td class="exportTable">0</td>
+				
+					<td class="exportTable">0</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Caracteristiques</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Force</pre></th>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Agilité</pre></th>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">3</td>
+				
+					<td class="exportTable">2</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Perception</pre></th>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Volonté</pre></th>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Présence</pre></th>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Foi/Chance</pre></th>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+					<td class="exportTable">2</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Blessures</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Points de fatigue</pre></th>
+				
+					<td class="exportTable">4</td>
+				
+					<td class="exportTable">4</td>
+				
+					<td class="exportTable">4</td>
+				
+					<td class="exportTable">4</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Blessures légères</pre></th>
+				
+					<td class="exportTable">5</td>
+				
+					<td class="exportTable">5</td>
+				
+					<td class="exportTable">5</td>
+				
+					<td class="exportTable">5</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Blessures graves</pre></th>
+				
+					<td class="exportTable">10</td>
+				
+					<td class="exportTable">10</td>
+				
+					<td class="exportTable">10</td>
+				
+					<td class="exportTable">10</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Blessures fatales</pre></th>
+				
+					<td class="exportTable">15</td>
+				
+					<td class="exportTable">15</td>
+				
+					<td class="exportTable">15</td>
+				
+					<td class="exportTable">15</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Morts subites</pre></th>
+				
+					<td class="exportTable">20</td>
+				
+					<td class="exportTable">20</td>
+				
+					<td class="exportTable">20</td>
+				
+					<td class="exportTable">20</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Talents principaux</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Baratin</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Combat</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1+</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Corps à corps</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1+</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Défense</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1+</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Discrétion</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1+</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Discussion</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Enquête</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Fouille</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Intrusion</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Médecine</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Séduction</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Tir</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre></pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable">Arme de poing : 1</td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Talents exotiques</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>PA en talents secondaires</pre></th>
+				
+					<td class="exportTable">0</td>
+				
+					<td class="exportTable">0</td>
+				
+					<td class="exportTable">0</td>
+				
+					<td class="exportTable">0</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Talents secondaires</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Acrobatie</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1+</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Aisance sociale</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Art</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Athlétisme</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Conduite</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1+</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Culture génle</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Hobby</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Informatique</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Intimidation</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Langues</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Métier</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Navigation</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Pilotage</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Sv. criminel</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Sv. espion</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Sv. militaire</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Sv. occulte</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Science</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Survie</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>  Technique</pre></th>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+					<td class="exportTable">1</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Pouvoirs</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre></pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable">Adhérence : 1</td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Pouvoirs de grade</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre></pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable">Folie : 0</td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>PP</pre></th>
+				
+					<td class="exportTable">4</td>
+				
+					<td class="exportTable">4</td>
+				
+					<td class="exportTable">4</td>
+				
+					<td class="exportTable">4</td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Avantages</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+			<tr class="exportTable">
+				<th class="exportTable"><pre>Limitations</pre></th>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+					<td class="exportTable"></td>
+				
+			</tr>
+		
+	</tbody></table>
+	
+
+		</div>
+		<div id="footer"><center></center></div>
+	
+
+</body></html>

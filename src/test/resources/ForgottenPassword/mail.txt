@@ -1,0 +1,7 @@
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb: Mot de passe oublié
+Votre nouveau mot de passe: XXXXXXXX
+
+**************************************

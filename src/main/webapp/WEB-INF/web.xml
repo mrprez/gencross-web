@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="GenCross" version="2.4" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>GenCross</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/context.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/gencross-taglib-URI</taglib-uri>
+			<taglib-location>/WEB-INF/classes/gencross.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
+    <servlet> 
+		<servlet-name>QuartzInitializer</servlet-name> 
+		<servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class> 
+		<init-param>
+			<param-name>shutdown-on-unload</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>config-file</param-name>
+			<param-value>quartz.properties</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>Migration</servlet-name> 
+		<servlet-class>com.mrprez.gencross.web.MigrationServlet</servlet-class> 
+		<init-param>
+			<param-name>migration</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+    
+    <welcome-file-list>
+        <welcome-file>List.action</welcome-file>
+    </welcome-file-list>
+
+</web-app>

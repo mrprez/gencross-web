@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	      version="2.0">
+
+	<description>Tags pour l'application web GenCrossWeb</description>
+	<display-name>GenCross Taglib</display-name>
+	<tlib-version>0.1</tlib-version>
+	<short-name>gcr</short-name>
+	<tag>
+		<description>Redirige si le user connecté n'a pas le bon role</description>
+		<name>security-redirection</name>
+		<tag-class>com.mrprez.gencross.web.action.tag.SecurityRedirectTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>role</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>target</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>Affiche son contenu que si le user a le role précisé</description>
+		<name>role</name>
+		<tag-class>com.mrprez.gencross.web.action.tag.RoleAccessTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>allowedRole</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	
+</taglib>

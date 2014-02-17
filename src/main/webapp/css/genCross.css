@@ -1,0 +1,910 @@
+﻿/* Style générale */
+body{
+	margin: 0;
+}
+
+a {
+	font-weight: bold;
+	color: #215F88;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline ;
+}
+
+img {
+	border: none;
+}
+
+button{
+	border: solid 1px #215F88;
+	margin: 3px;
+	background-color: #BDD8EA;
+	cursor: pointer;
+	font-weight: bold;
+	color: #215F88;
+}
+
+input[type="submit"][disabled]{
+	border: solid 1px #888888;
+	color: #888888;
+	background-color: #DDDDDD;
+	cursor: default;
+}
+
+input[type="submit"]{
+	border: solid 1px #215F88;
+	margin: 3px;
+	background-color: #BDD8EA;
+	cursor: pointer;
+	font-weight: bold;
+	color: #215F88;
+}
+
+input[type="button"]{
+	border: solid 1px #215F88;
+	margin: 3px;
+	background-color: #BDD8EA;
+	cursor: pointer;
+	font-weight: bold;
+	color: #215F88;
+}
+
+.errorMessage{
+	font-size: small;
+	color: red;
+}
+
+.editImg{
+	cursor: pointer;
+}
+
+#content{
+	margin-top: 20px;
+	margin-left: 110px;
+	margin-right: 100px;
+}
+
+#header{
+	width: 100%;
+	vertical-align:top;
+	clear: both;
+	margin: 0;
+}
+
+#headerLeft{
+	float: left;
+	width: 80%;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+
+#headerRight{
+	text-align: right;
+	float: left;
+	width: 15%;
+	margin-right: 5%;
+	margin: 0;
+}
+
+#username{
+	right: 0;
+}
+
+table.menu{
+	display: inline-block;
+}
+
+td.menu{
+	border: 2px outset #215F88;
+	background-color: #215F88;
+}
+td.menu:hover{
+	border: 2px inset #215F88;
+}
+
+ul.subMenu{
+	display: none;
+	position: absolute;
+	list-style-type: none;
+	padding: 0;
+	background-color: #BDD8EA;
+	margin: 3px 0 0 -3px;
+	border-top: 1px solid #215F88;
+	z-index: 100;
+}
+
+li.subMenu{
+	border-bottom: 1px solid #215F88;
+	border-left: 1px solid #215F88;
+	border-right: 1px solid #215F88;
+	border-collapse: collapse;
+	padding-left: 15px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+a.menu{
+	font-family: sans-serif;
+	font-size: small;
+	color: white;
+	display: inline-block;
+	padding: 5px 15px;
+}
+
+span.menu{
+	font-family: sans-serif;
+	font-size: small;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 15px;
+}
+
+span.menu:hover{
+	text-decoration: underline;
+}
+
+.separator{
+	clear: both;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	height: 0;
+}
+
+.button{
+	background-color: #BDD8EA;
+	padding: 5px;
+	border: 1px solid #215F88;
+}
+
+table.genCrossTable{
+	border: solid 3px #215F88;
+}
+
+th.genCrossTable{
+	background-color: #2B73A8;
+	color: #FFFFFF;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+th.genCrossTable a{
+	color: #FFFFFF;
+}
+
+tr.genCrossTable{
+	border: solid 1px #215F88;
+	padding: 5px;
+}
+
+tr.highlightable:hover{
+	background-color: #CCCCCC;
+}
+
+td.genCrossTable{
+	border: solid 1px #215F88;
+	padding: 5px;
+	text-align: center;
+}
+
+td.summaryTableLine{
+	font-weight: bold;
+}
+
+#footer{
+	font-size: small;
+	color: gray;
+	margin-top: 25px;
+}
+
+
+/* Login */
+#loginContent{
+	margin: 0 auto;
+	width: 300px;
+}
+
+
+/* Liste des personnages */
+td.listePersonnageTitre{
+	font-weight: bold;
+	padding-right: 50px;
+}
+
+.personnageListContainer{
+	vertical-align: top;
+	padding-right: 25px;
+}
+
+.imgForm{
+	display: inline;
+}
+
+.gcrForm{
+	display: none;
+	position: absolute;
+}
+
+/* Edition des personnages */
+
+.personnageFooterElement{
+	font-weight: normal;
+	font-size: small;
+	padding-left: 30px;
+	color: gray;
+}
+
+#personnageName{
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+	padding-bottom: 10px;
+	font-family: sans-serif;
+}
+
+#playerName{
+	font-weight: normal;
+	padding-left: 10px;
+}
+
+#gamemasterName{
+	font-weight: normal;
+	padding-left: 10px;
+}
+
+#tableName{
+	font-weight: normal;
+	padding-left: 10px;
+}
+
+#tableName a{
+	font-weight: normal;
+}
+
+#personnageMainTable{
+	width:100%;
+	border-spacing: 20px 5px;
+}
+
+#treePanel{
+	padding: 10px;
+	border: 5px ridge #215F88;
+	height:100%;
+	vertical-align: top;
+}
+
+#historyPanel{
+	padding: 10px;
+	border: 5px ridge #215F88;
+	height:100%;
+	vertical-align:top;
+}
+
+#peronnageCommentPanel{
+	padding: 0;
+	border: 5px ridge #215F88;
+	height:100%;
+	vertical-align:top;
+}
+
+#phasePanel{
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.pointPool_name{
+	padding-left: 15px;
+}
+
+.pointPoolForm{
+	display: none;
+	position: absolute;
+	background-color: #90AFC3;
+	border: solid 2px #215F88;
+	padding: 3px 3px 0 3px;
+	margin-left: 5px;
+	margin-top: -15px;
+	border-spacing: 0;
+	text-align: center;
+}
+
+.pointPoolForm td{
+	padding: 0;
+	height: 20px;
+}
+
+.pointPoolForm tr{
+	padding: 0;
+	height: 20px;
+}
+
+.actionIcon{
+	float: right;
+	margin: 0;
+}
+
+.actionIcon img{
+	border: none;
+	margin-left: 5px;
+}
+
+.editButton{
+	display: inline;
+}
+
+a.motherPropertyName{
+	color: black;
+	cursor: pointer;
+	font-weight: normal;
+	display: inline-block;
+	border-bottom: 1px solid white;
+}
+
+a.motherPropertyName:hover{
+	color: #1f0f9f;
+}
+
+li.property{
+	list-style-type: none;
+}
+
+img.expandImg{
+	border: none;
+}
+
+ul.expandable{
+	display:none;
+}
+
+ul.expanded{
+	display:block;
+}
+
+li.addProperty{
+	list-style-image: none;
+	list-style-type: none;
+	font-style: italic;
+	display: inline-block;
+}
+
+span.addProperty{
+	cursor: pointer;
+}
+
+form.addPropertyForm{
+	display: none;
+	border: solid 1px #BDD8EA;
+	padding: 0 1px;
+}
+
+form.removeForm{
+	display: inline;
+	margin: 0 0 0 8px;
+	padding:0;
+	cursor: pointer;
+}
+
+.editPropertyImg{
+	margin-left: 15px;
+}
+
+img.foldImg{
+	cursor: pointer;
+	vertical-align: sub;
+}
+
+form.editForm{
+	display: none;
+	margin-left: 15px;
+	border: solid 1px #BDD8EA;
+	padding: 0px 1px;
+}
+
+.minusButton{
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	border-spacing: 0;
+}
+
+.plusButton{
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	border-spacing: 0;
+}
+
+.displayedNewValue{
+	font-weight: bold;
+	font-family: sans-serif;
+	display: inline-block;
+	width: 35px;
+	text-align: center;
+}
+
+#commentDisplayer{
+	display: none;
+	position: absolute;
+	z-index: 10;
+	background-color: white;
+	border: 4px solid #215F88;
+	padding: 3px;
+}
+
+#commentEditor{
+	display: none;
+	position: absolute;
+	z-index: 10;
+	background-color: white;
+	border: 4px solid #215F88;
+	padding: 3px;
+}
+
+.comment{
+	display: none;
+}
+
+#commentCommand{
+	text-align: right;
+}
+
+#commentEditorCommand{
+	text-align: right;
+}
+
+#commentContent{
+	border: 1px solid #90AFC3;
+	padding: 1px;
+	font-family: Serif;
+}
+
+#validationCommentDiv{
+	text-align: center;
+}
+
+.activeImg{
+	cursor: pointer;
+}
+
+.errors{
+	font-family: Sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: red;
+}
+
+#waitMask {
+	position: fixed;
+	background-color: white;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.waitImage{
+	position: fixed;
+	left: 50%;
+	margin-left: -40px;
+	top: 50%;
+	margin-top: -40px;
+	display: block;
+	opacity: 0.5;
+	z-index: 20;
+}
+
+#tooLongWaitMsg{
+	display: none;
+	position: fixed;
+	width: 100%;
+	text-align: center;
+	top: 50%;
+	margin-top: 60px;
+	z-index: 20;
+	opacity: 1;
+}
+
+#ajaxError{
+	display: none;
+	width: 300px;
+	height: 100px;
+	padding: 5px;
+	border: 5px solid #215F88;
+	position: fixed;
+	z-index: 20;
+	left: 50%;
+	margin-left: -150px;
+	top: 50%;
+	margin-top: -50px;
+	background-color: white;
+	text-align: center;
+	font-size: large;
+	line-height: 30px;
+}
+
+table.pointPool{
+	display: inline-block;
+}
+
+.historyColumn{
+	display:none;
+}
+
+#historyTable {
+	text-align: center;
+	border-collapse: collapse;
+	border: 2px ridge gray;
+	width: 100%;
+}
+
+#historyTable tr{
+	text-align: center;
+	border-collapse: collapse;
+	border: 2px ridge gray;
+}
+
+#historyTable td{
+	font-size: 10pt;
+	text-align: center;
+	border-collapse: collapse;
+	border: 2px ridge gray;
+}
+
+#historyTable th{
+	text-align: center;
+	border-collapse: collapse;
+	border: 2px ridge gray;
+}
+
+#seeNotValidateButton{
+	width: 160px;
+}
+
+.historyIndex{
+	display: none;
+}
+
+.historyEditForm{
+	display: none;
+}
+
+.historyFormImg{
+	vertical-align: sub;
+}
+
+.historyFormCost{
+	padding: 0;
+}
+
+#displayButtons{
+	width: 0;
+	vertical-align: top;
+}
+
+.personnageCommentColumn{
+	display:none;
+}
+
+/* Background */
+
+#backgroundDiv{
+	width: 100%;
+}
+
+#backgroundDiv table {
+	width: 100%;
+}
+
+#message{
+	margin-left: 30px;
+	margin-bottom: 5px;
+}
+
+#characterSheetLink{
+	float: left;
+}
+
+
+/* Export */
+
+.templateFileList{
+	display: none;
+}
+
+.exportForm label {
+	display: none;
+}
+
+#uploadTemplateFile{
+	display: none;
+}
+
+/* Subscription */
+
+#subscriptionDiv{
+	margin-left: 100px;
+}
+
+#subscriptionTitle{
+	font-weight: bold;
+	font-size: large;
+	padding-left: 20px;
+}
+
+#subscriptionForm{
+	margin-top: 20px;
+}
+
+
+/* Attribution */
+
+.attributionFormContainer{
+	margin-left: 100px;
+}
+
+.currentOwner{
+	font-weight: bold;
+}
+
+.currentOwnerUsername{
+	font-family:sans-serif;
+}
+
+table.attributionForm{
+	margin-top: 10px;
+}
+
+.attributionButton{
+	margin-top: 10px;
+}
+
+
+/* Upload */
+
+.uploadForm .tdLabel {
+	width: 150px;
+	margin-left: 100px;
+	padding-right: 10px;
+	text-align: right;
+}
+
+
+/* Creation de personnage */
+
+#Create{
+	margin-left: 100px;
+	margin-bottom: 30px;
+}
+
+#createFromFileButton{
+	margin-left: 10px;
+	margin-top: 30px;
+}
+
+
+/* Edit Table */
+
+#pnjAndPjDiv{
+	display: table-row;
+	vertical-align: top;
+}
+
+#pjList{
+	margin-left: 10px;
+}
+
+#pnjDiv{
+	display: table-cell;
+}
+
+#pjDiv{
+	margin-top: 15px;
+}
+
+#tableTitle{
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+	padding-bottom: 10px;
+	font-family: sans-serif;
+}
+
+#attachPersonnageForm{
+	margin-left: 110px;
+}
+
+#transformInPnjForm{
+	display: inline;
+}
+
+#editTableActionsDiv{
+	margin-top: 25px;
+}
+
+#bindPersonnageForm{
+	font-weight: bold;
+}
+
+#messageListDiv{
+	margin-top: 25px;
+	width: 100%;
+}
+
+#messageList{
+	width: 100%;
+}
+
+.messageAuthor{
+	font-weight: bold;
+	float: left;
+	cursor: pointer;
+}
+
+.messageDate{
+	float: right;
+}
+
+.removeMessageForm{
+	float: left;
+	margin-left: 10px;
+}
+
+.messageContent{
+	padding-top: 4px;
+	clear: both;
+	text-align: justify;
+	display: none;
+}
+
+#addMessageForm table {
+	width: 100%;
+}
+
+/* Table Pool Points */
+td.unvalidated {
+	font-weight: bold;
+	border-width: 2px;
+}
+
+#backToEditTableDiv{
+	margin-top: 10px;
+}
+
+/* Multi Export */
+ul.exportedList{
+	list-style-type: none;
+	display: inline-block;
+	border: 5px ridge #215F88;
+	margin: 5px;
+	padding: 0;
+	vertical-align: top;
+}
+
+.exportedList li{
+	padding: 5px 10px 5px 5px;
+}
+
+.exportedList span.checkboxlistLabel{
+	font-weight: bold;
+	background-color: #215F88;
+	color: white;
+	padding: 3px 5px;
+	display: block;
+}
+
+/* Multi Export Result */
+th.exportTable {
+	text-align: left;
+	border: 1px solid #215F88;
+}
+
+th.exportTable pre {
+	margin: 0;
+}
+
+td.exportTable {
+	text-align: center;
+	border: 1px solid #215F88;
+}
+
+table.exportTable {
+	border-collapse: collapse;
+	border: 5px ridge #215F88;
+}
+
+#multiExportResultReturn{
+	float: right;
+}
+
+/* Plan Game */
+#newEvent{
+	display: none;
+	background-color: white;
+	border: 1px solid #BDD8EA;
+	z-index: 10;
+	width: 300px;
+	padding-bottom: 10px;
+}
+
+#newHeader{
+	font-weight: bold;
+	font-family: sans-serif;
+	color: #215F88;
+	padding: 15px;
+}
+
+#newGameDatesTable{
+	margin-left: 15px;
+}
+
+#newGameTitleLabel{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.newGameDateLabel{
+	margin-right: 15px;
+}
+
+
+/* User List */
+
+td.userName{
+	width: 150px;
+}
+
+
+/* Params */
+
+.paramForm{
+	display: none;
+}
+
+
+/* Plugins */
+
+form.plugins{
+	margin-left: 10%;
+	margin-top: 20px;
+}
+
+.disabledAction{
+	font-weight: bold;
+	color: grey;
+	cursor: default;
+}
+
+
+/* Logs */
+
+#appenderTable{
+	margin-bottom: 30px;
+}
+
+
+/* Success page */
+
+#successContent{
+	margin-left: 100px;
+}
+
+
+/* Exception */
+
+.message{
+	font-weight: bold;
+}
+

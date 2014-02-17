@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
+  version="1.8">
+	
+	<schedule>
+		<job>
+			<name>send-personnage-job</name>
+			<group>GENCROSS_GROUP</group>
+
+			<description>Envoi des personnages par mail</description>
+			<job-class>com.mrprez.gencross.web.quartz.PersonnageSenderJob</job-class>
+            <job-data-map>
+				<entry>
+					<key>toAdress</key>
+					<value>save.gencross@gmail.com</value>
+				</entry>
+			</job-data-map>
+		</job>
+		
+		<trigger>
+			<cron>
+				<name>send-personnage-cron</name>
+				<group>GENCROSS_GROUP</group>
+				<job-name>send-personnage-job</job-name>
+
+				<job-group>GENCROSS_GROUP</job-group>
+				<cron-expression>${cron-expression}</cron-expression>
+				<!-- cron-expression>0 0,5,10,15,20,25,30,35,40,45,50,55 * * * ?</cron-expression -->
+
+			</cron>
+		</trigger>
+		
+	</schedule>
+	
+  
+    <schedule>
+		<job>
+			<name>save-personnage-job</name>
+			<group>GENCROSS_GROUP</group>
+
+			<description>Sauvegarde des personnages en fichiers</description>
+			<job-class>com.mrprez.gencross.web.quartz.PersonnageSaverJob</job-class>
+		</job>
+
+		<trigger>
+			<cron>
+				<name>save-personnage-cron</name>
+				<group>GENCROSS_GROUP</group>
+				<job-name>save-personnage-job</job-name>
+
+				<job-group>GENCROSS_GROUP</job-group>
+				<cron-expression>0 0 2 * * ?</cron-expression>
+				<!-- cron-expression>0 2,7,12,17,22,27,32,37,42,47,52,57 * * * ?</cron-expression -->
+
+			</cron>
+		</trigger>
+		
+	</schedule>
+  
+</job-scheduling-data>

@@ -1,0 +1,5 @@
+<Context path="/gencross-web" reloadable="true" >
+	<Logger className="org.apache.catalina.logger.SystemOutLogger" verbosity="4" timestamp="true"/>
+	
+			
+</Context>

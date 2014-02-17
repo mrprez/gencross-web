@@ -1,0 +1,13 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN"
+       "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="mail">
+		<field-validator type="requiredstring">
+			<message>Veuillez renseigner votre adresse mail</message>
+		</field-validator>
+		<field-validator type="email">
+			<message>Veuillez renseigner une adresse mail valide</message>
+		</field-validator>
+	</field>
+	
+</validators>

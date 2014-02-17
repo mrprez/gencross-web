@@ -1,0 +1,36 @@
+**************************************
+Date:13:01:01 14/02/2013
+From: guillaume.gagneret@gmail.com
+To: tables.gencross@gmail.com;
+Subject:Sujet non conforme
+Message sans aucune importance.
+
+
+**************************************
+Date:13:02:02 14/02/2013
+From: test@test.fr
+To: tables.gencross@gmail.com;
+Subject:[Tests messages] Message OK
+Premier message pour la table
+Tests messages
+
+**************************************
+Date:13:03:03 14/02/2013
+From: guillaume.gagneret@gmail.com
+To: tables.gencross@gmail.com;
+Subject:[Tests messages] Message OK
+Message d'un utilisateur qui n'est pas sur la table.
+
+**************************************
+Date:13:04:04 14/02/2013
+From: inconnu@gmail.com
+To: tables.gencross@gmail.com;
+Subject:[Tests messages] Message OK
+Message d'un utilisateur inconnu.
+
+**************************************
+Date:13:05:05 14/02/2013
+From: guillaume.gagneret@gmail.com
+To: tables.gencross@gmail.com;
+Subject:[Table inconnu] Message KO
+Message associé à aucune table.

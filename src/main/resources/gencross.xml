@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	
+	<package name="genCross" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="userSecurity" class="com.mrprez.gencross.web.action.interceptor.SecurityInterceptor"/>
+			<interceptor name="actionMessage" class="com.mrprez.gencross.web.action.interceptor.ActionMessageInterceptor"/>
+			<interceptor name="fileUpload" class="org.apache.struts2.interceptor.FileUploadInterceptor"/>
+			<interceptor name="maintenance" class="com.mrprez.gencross.web.action.interceptor.MaintenanceInterceptor"/>
+			<interceptor name="trace" class="com.mrprez.gencross.web.action.interceptor.TraceInterceptor"/>
+			
+			<interceptor-stack name="gencrossStack">
+				<interceptor-ref name="basicStack"/>
+				<interceptor-ref name="trace"/>
+				<interceptor-ref name="maintenance"/>
+				<interceptor-ref name="exception">
+					<param name="logEnabled">true</param>
+				</interceptor-ref>
+				<interceptor-ref name="servletConfig"/>
+				<interceptor-ref name="prepare"/>
+				<interceptor-ref name="checkbox"/>
+				<interceptor-ref name="multiselect"/>
+				<interceptor-ref name="actionMappingParams"/>
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError"/>
+				
+            </interceptor-stack>
+			
+			
+			<interceptor-stack name="userSecurityStack">
+				<interceptor-ref name="userSecurity"/>
+				<interceptor-ref name="gencrossStack"/>
+			</interceptor-stack>
+			
+			<interceptor-stack name="adminSecurityStack">
+				<interceptor-ref name="userSecurity">
+					<param name="allowedRoles">manager</param>
+				</interceptor-ref>
+				<interceptor-ref name="gencrossStack"/>
+			</interceptor-stack>
+			
+			<interceptor-stack name="validationSubStack">
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">execute</param>
+				</interceptor-ref>
+	            <interceptor-ref name="workflow"/>
+			</interceptor-stack>
+				
+		</interceptors>
+		
+		<default-interceptor-ref name="validationWorkflowStack"/>
+		
+		<default-action-ref name="List"/>
+		
+		<global-results>
+			<result name="Exception">/jsp/exception.jsp</result>
+			<result name="">Login</result>
+			<result name="Login">/jsp/login.jsp</result>
+			<result name="Forbiden">/jsp/403.jsp</result>
+			<result name="Maintenance">/jsp/maintenance.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="Exception"/>
+		</global-exception-mappings>
+		
+		
+        <action name="Login" class="com.mrprez.gencross.web.action.LoginAction">
+            <interceptor-ref name="gencrossStack"/>
+            <result name="input">/jsp/login.jsp</result>
+            <result name="success" type="redirectAction">List</result>
+            <result name="error">/jsp/login.jsp</result>
+        </action>
+        
+        <action name="Disconnect" method="disconnect" class="com.mrprez.gencross.web.action.LoginAction">
+        	<interceptor-ref name="gencrossStack"/>
+        	<result name="success" type="redirectAction">Login</result>
+        </action>
+        
+        <action name="Subscription!*" method="{1}" class="com.mrprez.gencross.web.action.SubscriptionAction">
+            <interceptor-ref name="gencrossStack"/>
+            <interceptor-ref name="validationSubStack"/>
+            <result name="success" type="redirectAction">List</result>
+            <result name="error">/jsp/subscription.jsp</result>
+            <result name="input">/jsp/subscription.jsp</result>
+        </action>
+        
+        <action name="ForgottenPassword" class="com.mrprez.gencross.web.action.ForgottenPasswordAction">
+            <interceptor-ref name="gencrossStack"/>
+            <result name="input">/jsp/forgottenPassword.jsp</result>
+            <result name="error">/jsp/forgottenPassword.jsp</result>
+            <result name="success">/jsp/success.jsp</result>
+        </action>
+        
+        <action name="ChangePassword!*" method="{1}" class="com.mrprez.gencross.web.action.ChangePasswordAction">
+            <interceptor-ref name="userSecurityStack"/>
+			<interceptor-ref name="validationSubStack"/>
+            <result name="input">/jsp/changePassword.jsp</result>
+            <result name="error">/jsp/changePassword.jsp</result>
+            <result name="success">/jsp/success.jsp</result>
+        </action>
+        
+        <action name="ChangeMail!*" method="{1}" class="com.mrprez.gencross.web.action.ChangeMailAction">
+            <interceptor-ref name="userSecurityStack"/>
+            <interceptor-ref name="validationSubStack"/>
+			<result name="input">/jsp/changeMail.jsp</result>
+            <result name="error">/jsp/changeMail.jsp</result>
+            <result name="success">/jsp/success.jsp</result>
+        </action>
+        
+        <action name="Create!*" method="{1}" class="com.mrprez.gencross.web.action.CreatePersonnageAction">
+        	<interceptor-ref name="userSecurityStack"/>
+        	<result name="success" type="redirectAction">
+        		<param name="actionName">Edit</param>
+        		<param name="personnageId">${personnageId}</param>
+        	</result>
+        	<result name="input">/jsp/createPersonnage.jsp</result>
+        	<result name="error">/jsp/createPersonnage.jsp</result>
+        </action>
+        
+        <action name="Edit!*" method="{1}" class="com.mrprez.gencross.web.action.EditPersonnageAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<interceptor-ref name="actionMessage"/>
+        	<result name="input">/jsp/editPersonnage.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+		</action>
+		
+		<action name="Background!*" method="{1}" class="com.mrprez.gencross.web.action.BackgroundAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<interceptor-ref name="actionMessage"/>
+        	<result name="input">/jsp/background.jsp</result>
+        	<result name="success" type="redirectAction">
+        		<param name="actionName">Background</param>
+        		<param name="personnageId">${personnageId}</param>
+        	</result>
+		</action>
+		
+		<action name="HelpFile" class="com.mrprez.gencross.web.action.HelpFileAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">helpFileInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="error">/jsp/error.jsp</result>
+		</action>
+		
+		<action name="EditAjax!*" method="{1}" class="com.mrprez.gencross.web.action.EditPersonnageAjaxAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="input">/jsp/ajax/modifications.jsp</result>
+			<result name="property">/jsp/ajax/reloadProperty.jsp</result>
+			<result name="errorList">/jsp/include/errors.jsp</result>
+			<result name="pointPool">/jsp/ajax/reloadPointPool.jsp</result>
+			<result name="history">/jsp/ajax/reloadHistory.jsp</result>
+			<result name="historyItem">/jsp/ajax/reloadHistoryItem.jsp</result>
+		</action>
+		
+		<action name="EditTable!*" method="{1}" class="com.mrprez.gencross.web.action.EditTableAction">
+			<interceptor-ref name="userSecurityStack"/>
+        	<result name="input">/jsp/editTable.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">EditTable</param>
+        		<param name="id">${id}</param>
+        	</result>
+		</action>
+		
+		<action name="PlanGame!*" method="{1}" class="com.mrprez.gencross.web.action.PlanGameAction">
+			<interceptor-ref name="userSecurityStack"/>
+        	<result name="input">/jsp/planGame.jsp</result>
+        	<result name="success" type="redirectAction">
+				<param name="actionName">PlanGame</param>
+        		<param name="tableId">${tableId}</param>
+        	</result>
+        	<result name="events">/jsp/ajax/plannedEvents.jsp</result>
+		</action>
+		
+		<action name="MultiExport!*" method="{1}" class="com.mrprez.gencross.web.action.MultiExportAction">
+			<interceptor-ref name="userSecurityStack"/>
+        	<result name="input">/jsp/multiExport.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+			<result name="success">/jsp/multiExportResult.jsp</result>
+			<result name="file" type="stream">
+				<param name="contentType">application/download</param> 
+				<param name="inputName">inputStream</param> 
+				<param name="bufferSize">1024</param>
+				<param name="contentLength">${fileSize}</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+			</result>
+		</action>
+		
+		<action name="TablePointsPools!*" method="{1}" class="com.mrprez.gencross.web.action.TablePointsPoolsAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="input">/jsp/tablePointsPools.jsp</result>
+			<result name="error">/jsp/tablePointsPools.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">TablePointsPools</param>
+        		<param name="id">${id}</param>
+        	</result>
+		</action>
+		
+		<action name="List!*" method="{1}" class="com.mrprez.gencross.web.action.PersonnageListAction">
+			<interceptor-ref name="userSecurityStack"/>
+        	<result name="input">/jsp/listPersonnage.jsp</result>
+        	<result name="success" type="redirectAction">List</result>
+        	<result name="edit">/jsp/editPersonnage.jsp</result>
+			<result name="error">/jsp/listPersonnage.jsp</result>
+			<result name="redirect" type="redirectAction">List</result>
+			<result name="download" type="stream">
+				<param name="contentType">application/download</param> 
+				<param name="inputName">inputStream</param> 
+				<param name="bufferSize">1024</param>
+				<param name="contentLength">${fileSize}</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+			</result>
+		</action>
+		
+		<action name="TableList!*" method="{1}" class="com.mrprez.gencross.web.action.TableListAction">
+			<interceptor-ref name="userSecurityStack"/>
+        	<result name="input">/jsp/listTable.jsp</result>
+        	<result name="error">/jsp/listTable.jsp</result>
+        	<result name="success" type="redirectAction">TableList</result>
+		</action>
+		
+		<action name="Upload!*" method="{1}" class="com.mrprez.gencross.web.action.UploadAction">
+			<interceptor-ref name="fileUpload"/>
+			<interceptor-ref name="userSecurityStack"/>
+        	<result name="input">/jsp/upload.jsp</result>
+        	<result name="error">/jsp/upload.jsp</result>
+        	<result name="success" type="redirectAction">
+        		<param name="actionName">Edit</param>
+        		<param name="personnageId">${personnageId}</param>
+        	</result>
+		</action>
+		
+		<action name="AttributeGameMaster!*" method="{1}" class="com.mrprez.gencross.web.action.AttributeGameMasterAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="error">/jsp/listPersonnage.jsp</result>
+			<result name="input">/jsp/attributeGameMaster.jsp</result>
+			<result name="success">/jsp/success.jsp</result>
+		</action>
+		
+		<action name="AttributePlayer!*" method="{1}" class="com.mrprez.gencross.web.action.AttributePlayerAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="error">/jsp/listPersonnage.jsp</result>
+			<result name="input">/jsp/attributePlayer.jsp</result>
+			<result name="success">/jsp/success.jsp</result>
+		</action>
+		
+		<action name="AttributePlayerInTable!*" method="{1}" class="com.mrprez.gencross.web.action.AttributePlayerAction">
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="error">/jsp/listPersonnage.jsp</result>
+			<result name="input">/jsp/attributePlayerInTable.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">EditTable</param>
+        		<param name="id">${tableId}</param>
+        	</result>
+		</action>
+		
+		<action name="Export!*" method="{1}" class="com.mrprez.gencross.web.action.ExportAction">
+			<interceptor-ref name="fileUpload"/>
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="input">/jsp/export.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/download</param> 
+				<param name="inputName">inputStream</param> 
+				<param name="bufferSize">1024</param>
+				<param name="contentLength">${fileSize}</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+			</result>
+		</action>
+		
+		<action name="Download!*" method="{1}" class="com.mrprez.gencross.web.action.DownloadAction">
+			<interceptor-ref name="fileUpload"/>
+			<interceptor-ref name="userSecurityStack"/>
+			<result name="input">/jsp/downloads.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/download</param> 
+				<param name="inputName">inputStream</param> 
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+			</result>
+		</action>
+		
+		<action name="ListUser!*" method="{1}" class="com.mrprez.gencross.web.action.ListUserAction">
+			<interceptor-ref name="adminSecurityStack"/>
+			<result name="input">/jsp/listUser.jsp</result>
+		</action>
+		
+		<action name="Params!*" method="{1}" class="com.mrprez.gencross.web.action.ParamsAction">
+			<interceptor-ref name="adminSecurityStack"/>
+			<result name="input">/jsp/params.jsp</result>
+			<result name="success" type="redirectAction">Params</result>
+		</action>
+		
+		<action name="JobProcessing!*" method="{1}" class="com.mrprez.gencross.web.action.JobProcessingAction">
+			<interceptor-ref name="adminSecurityStack"/>
+			<result name="input">/jsp/scheduler.jsp</result>
+			<result name="success" type="redirectAction">JobProcessing</result>
+		</action>
+		
+		<action name="Logger!*" method="{1}" class="com.mrprez.gencross.web.action.LoggerAction">
+			<interceptor-ref name="adminSecurityStack"/>
+			<result name="input">/jsp/loggers.jsp</result>
+			<result name="success" type="redirectAction">Logger</result>
+			<result name="download" type="stream">
+				<param name="contentType">application/download</param> 
+				<param name="inputName">inputStream</param> 
+				<param name="bufferSize">1024</param>
+				<param name="contentDisposition">attachment;filename=${appenderName}.log</param>
+			</result>
+		</action>
+		
+		
+		<action name="link!*">
+			<result>/jsp/{1}.jsp</result>
+		</action>
+		
+		<action name="*">
+			<result type="redirectAction">List</result>
+		</action>
+        
+    </package>
+</struts>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+		<title>Gen-Cross</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=8">
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
+		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);" class="AttributePlayerAction" style="">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				
+
+
+
+<table class="menu">
+	<tbody>
+		<tr>
+			
+				<td id="personnageMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					<span class="menu">Personnages</span>
+					<ul class="subMenu">
+						<li class="subMenu"><a href="/gencross-web/List.action">Liste des personnages</a></li>
+						<li class="subMenu"><a href="/gencross-web/TableList.action">Liste des tables</a></li>
+						<li class="subMenu"><a href="/gencross-web/Create.action">Créer un personnage</a></li>
+					</ul>
+				</td>
+				<script language="Javascript">
+					$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
+				</script>
+			
+				<td id="accountManagementMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					<span class="menu">Gérer son compte</span>
+					<ul class="subMenu">
+						<li class="subMenu"><a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a></li>
+						<li class="subMenu"><a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a></li>
+					</ul>
+				</td>
+				<script language="Javascript">
+					$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
+				</script>
+				
+				<td class="menu">
+					<a href="/gencross-web/link!downloads.action" class="menu">Téléchargements</a>
+				</td>
+				
+				
+					<td id="administrationMenu" class="menu" onclick="javascript:showSubMenu(this)">
+						<span class="menu">Administration</span>
+						<ul class="subMenu">
+							<li class="subMenu"><a href="/gencross-web/ListUser.action">Liste des utilisateurs</a></li>
+							<li class="subMenu"><a href="/gencross-web/Params.action">Gestion des paramètres</a></li>
+							<li class="subMenu"><a href="/gencross-web/JobProcessing.action">Traitements programmés</a></li>
+							<li class="subMenu"><a href="/gencross-web/Logger.action">Gestion des logs</a></li>
+						</ul>
+					</td>
+					<script language="Javascript">
+						$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
+					</script>
+				
+				
+			
+		</tr>
+	</tbody>
+</table>
+
+
+			</div>
+			<div id="headerRight">
+				
+					<span id="username">mrprez</span>
+					<br>
+					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
+				
+			</div>
+			<div class="separator"></div>
+		</div>
+		<div id="content">
+		
+
+<div class="attributionFormContainer">
+	<form id="AttributePlayerInTable!attribute" name="AttributePlayerInTable!attribute" action="/gencross-web/AttributePlayerInTable!attribute.action" method="post" class="attributionForm">
+<h2>Attribuer "Table INS 4" à un Joueur</h2><table class="attributionForm">
+		
+		
+		
+		<tbody><tr>
+    <td class="tdLabel"><label for="AttributePlayerInTable!attribute_newPlayerName" class="label">Nouveau Joueur:</label></td>
+    <td><select name="newPlayerName" id="AttributePlayerInTable!attribute_newPlayerName">
+    <option value="azerty">azerty</option>
+    <option value="mrprez">mrprez</option>
+    <option value="qwerty">qwerty</option>
+
+
+</select>
+</td>
+</tr>
+
+		<input type="hidden" name="personnageId" value="4" id="AttributePlayerInTable!attribute_personnageId">
+		<input type="hidden" name="tableId" value="1" id="AttributePlayerInTable!attribute_tableId">
+		<tr>
+    <td colspan="2"><div align="right"><input type="submit" id="AttributePlayerInTable!attribute_0" value="Valider" class="attributionButton">
+</div></td>
+</tr>
+
+	</tbody></table></form>
+
+
+
+
+</div>
+
+
+		</div>
+		<div id="footer"><center></center></div>
+	
+
+</body></html>

@@ -1,0 +1,32 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN"
+       "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="username">
+		<field-validator type="requiredstring">
+			<message>Veuillez renseigner votre login</message>
+		</field-validator>
+	</field>
+	<field name="password">
+		<field-validator type="requiredstring">
+			<message>Veuillez renseigner votre mot de passe</message>
+		</field-validator>
+	</field>
+	<field name="confirmPassword">
+		<field-validator type="requiredstring">
+			<message>Veuillez confirmer votre mot de passe</message>
+		</field-validator>
+	</field>
+	<field name="mail">
+		<field-validator type="requiredstring">
+			<message>Veuillez renseigner votre adresse mail</message>
+		</field-validator>
+		<field-validator type="email">
+			<message>Veuillez renseigner une adresse mail valide</message>
+		</field-validator>
+	</field>
+
+	<validator type="expression">
+		<param name="expression">password.equals(confirmPassword)</param>
+		<message>Votre mot de passe est différent de sa confirmation</message>
+	</validator>
+</validators>
