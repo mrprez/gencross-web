@@ -20,6 +20,11 @@
 		<axis2.version>1.6.2</axis2.version>
 	</properties>
 	
+	<scm>
+		<connection>scm:git:git://github.com/mrprez/gencross-web.git</connection>
+		<developerConnection>scm:git:https://github.com/mrprez/gencross-web.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 	
 	<dependencies>
 		<dependency>
