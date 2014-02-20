@@ -3,21 +3,21 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<appender name="file" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="C:/Documents and Settings/Tomcat/Mes documents/GenCrossWebLogs/GenCrossWeb.log"/>
+		<param name="file" value="M:/apache-tomcat-6.0.26/logs/GenCrossWeb.log"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
 		</layout>
 	</appender>
 	
 	<appender name="quartzFile" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="C:/Documents and Settings/Tomcat/Mes documents/GenCrossWebLogs/GenCrossQuartz.log"/>
+		<param name="file" value="M:/apache-tomcat-6.0.26/logs/GenCrossQuartz.log"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
 		</layout>
 	</appender>
 	
 	<appender name="delayFile" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="C:/Documents and Settings/Tomcat/Mes documents/GenCrossWebLogs/GenCrossResponseDelay.log"/>
+		<param name="file" value="M:/apache-tomcat-6.0.26/logs/GenCrossResponseDelay.log"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
 		</layout>
