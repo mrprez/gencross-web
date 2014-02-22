@@ -28,11 +28,11 @@
 		<property name="name"/>
 		<property name="pluginName" column="TYPE"/>
 		<property name="validationDate" column="VALIDATION_DATE" type="timestamp"/>
-		<property name="background"/>
+		<property name="background" lazy="true"/>
 		<many-to-one name="personnageData" column="PERSONNAGE" class="PersonnageDataBO" 
-				unique="true" not-null="true" cascade="delete"/>
+				unique="true" not-null="true" cascade="delete" lazy="proxy"/>
 		<many-to-one name="validPersonnageData" column="VALID_PERSONNAGE" class="PersonnageDataBO" 
-				unique="true" not-null="true" cascade="delete"/>
+				unique="true" not-null="true" cascade="delete" lazy="proxy"/>
 		<many-to-one name="player" column="USER_NAME" class="UserBO"/>
 		<many-to-one name="gameMaster" column="GM_NAME" class="UserBO"/>
 		<join table="TABLE_PERSONNAGE" inverse="true" optional="true">

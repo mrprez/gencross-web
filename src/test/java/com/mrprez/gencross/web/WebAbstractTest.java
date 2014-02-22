@@ -208,7 +208,7 @@ public abstract class WebAbstractTest {
 				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
 			}catch (WebDriverException e) {
 				startTryNb++;
-				if(startTryNb>100){
+				if(startTryNb>10){
 					throw e;
 				}
 				Thread.sleep(1000);
