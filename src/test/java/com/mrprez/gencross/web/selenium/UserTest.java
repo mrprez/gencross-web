@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web;
+package com.mrprez.gencross.web.selenium;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ public class UserTest extends WebAbstractTest {
 
 	@Test
 	public void testUser() throws Exception {
+		System.out.println("testUser()");
 		driver.get(baseUrl + context);
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("batman");

@@ -18,6 +18,7 @@
 	<properties>
 		<org.springframework.version>3.1.1.RELEASE</org.springframework.version>
 		<axis2.version>1.6.2</axis2.version>
+		<plugins-repository.version>1.1-SNAPSHOT</plugins-repository.version>
 	</properties>
 	
 	<scm>
@@ -181,27 +182,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>pluginsToWtp</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.mrprez.gencross</groupId>
-									<artifactId>plugins-repository</artifactId>
-									<version>1.0</version>
-									<classifier>repository</classifier>
-									<type>zip</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/m2e-wtp/web-resources/WEB-INF/lib</outputDirectory>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-					<execution>
-						<id>pluginsToWar</id>
+						<id>plugins-for-selenium-test</id>
 						<phase>prepare-package</phase>
 						<goals>
 							<goal>unpack</goal>
@@ -211,13 +192,59 @@
 								<artifactItem>
 									<groupId>com.mrprez.gencross</groupId>
 									<artifactId>plugins-repository</artifactId>
-									<version>1.0</version>
+									<version>${plugins-repository.version}</version>
 									<classifier>repository</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/gencross-web/WEB-INF/lib</outputDirectory>
+									<outputDirectory>${project.build.directory}/${project.name}/WEB-INF/lib</outputDirectory>
 								</artifactItem>
 							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>com/mrprez/gencross/web/selenium/*</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>selenium-test</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>com/mrprez/gencross/web/selenium/*</include>
+							</includes>
+							<systemProperties>
+					            <property>
+									<name>basedir</name>
+									<value>${basedir}</value>
+								</property>
+								<property>
+									<name>project.build.directory</name>
+									<value>${project.build.directory}</value>
+								</property>
+								<property>
+									<name>project.name</name>
+									<value>${project.name}</value>
+								</property>
+								
+					        </systemProperties>
 						</configuration>
 					</execution>
 				</executions>
@@ -265,6 +292,9 @@
 										</versionRange>
 										<goals>
 											<goal>unpack</goal>
+											<goal>
+												copy-dependencies
+											</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
