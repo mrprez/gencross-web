@@ -19,7 +19,7 @@ public class PageTester extends TemplateTester {
 	private static String HTML_EXTENSION = ".htm";
 	
 	private List<ExpectedCondition<Boolean>> waitConditionList = new ArrayList<ExpectedCondition<Boolean>>();
-	private long sleepTime = 300;
+	private long sleepTime = 1000;
 
 	
 	public PageTester(String maskGroup, String maskGroupRepositoryPath, String workDirPath) {
