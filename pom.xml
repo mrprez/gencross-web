@@ -370,7 +370,7 @@
 										</property>
 										<property>
 											<name>jdk.path</name>
-											<value>M:/jdk1.6.0_04</value>
+											<value>C:/Program Files/Java/jdk1.6.0_33</value>
 										</property>
 										<property>
 											<name>selenium.path</name>
