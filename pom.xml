@@ -362,7 +362,7 @@
 										</property>
 										<property>
 											<name>tomcat.path</name>
-											<value>C:\\run\\apache-tomcat-6.0.26</value>
+											<value>C:\\run\\selenium-apache-tomcat-6.0.26</value>
 										</property>
 										<property>
 											<name>mail.path</name>
