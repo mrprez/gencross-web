@@ -84,17 +84,14 @@ public abstract class WebAbstractTest {
 		if (System.getProperty("propertiesFile") != null) {
 			System.out.println("load properties file: "
 					+ System.getProperty("propertiesFile"));
-			properties
-					.load(new FileReader(System.getProperty("propertiesFile")));
+			properties.load(new FileReader(System.getProperty("propertiesFile")));
 		} else {
 			System.out.println("load default properties file.");
-			properties.load(ClassLoader
-					.getSystemResourceAsStream("tests.properties"));
+			properties.load(ClassLoader.getSystemResourceAsStream("tests.properties"));
 		}
 
 		for (Object key : properties.keySet()) {
-			System.out.println(key + "="
-					+ properties.getProperty(key.toString()));
+			System.out.println(key + "=" + getProperty(key.toString()));
 		}
 
 		init();
