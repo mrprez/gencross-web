@@ -247,9 +247,7 @@
 										</versionRange>
 										<goals>
 											<goal>unpack</goal>
-											<goal>
-												copy-dependencies
-											</goal>
+											<goal>copy-dependencies</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -345,7 +343,7 @@
 								</goals>
 								<configuration>
 									<includes>
-										<include>com/mrprez/gencross/web/selenium/toto/*</include>
+										<include>com/mrprez/gencross/web/selenium/*</include>
 									</includes>
 									<systemProperties>
 							            <property>
