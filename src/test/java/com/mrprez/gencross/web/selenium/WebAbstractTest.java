@@ -82,8 +82,7 @@ public abstract class WebAbstractTest {
 		properties = new Properties();
 
 		if (System.getProperty("propertiesFile") != null) {
-			System.out.println("load properties file: "
-					+ System.getProperty("propertiesFile"));
+			System.out.println("load properties file: " + System.getProperty("propertiesFile"));
 			properties.load(new FileReader(System.getProperty("propertiesFile")));
 		} else {
 			System.out.println("load default properties file.");
@@ -115,8 +114,7 @@ public abstract class WebAbstractTest {
 			int end = value.indexOf("}", begin);
 			String subPropertyKey = value.substring(begin + 2, end);
 			String subPropertyValue = getProperty(subPropertyKey);
-			value = value.substring(0, begin) + subPropertyValue
-					+ value.substring(end + 1);
+			value = value.substring(0, begin) + subPropertyValue + value.substring(end + 1);
 		}
 		return value;
 	}
@@ -132,15 +130,9 @@ public abstract class WebAbstractTest {
 		pageTester = new PageTester(name, root.getAbsolutePath(),
 				getProperty("project.build.directory") + "/seleniumTestResult");
 		pageTester.setIgnoreWhiteSpace(true);
-		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}",
-				"jsessionid=00000000000000000000000000000000");
-		pageTester.addReplacementRule(
-				"<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>",
-				"");
-		pageTester
-				.addReplacementRule(
-						"<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>",
-						"");
+		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}", "jsessionid=00000000000000000000000000000000");
+		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
+		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
 		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver driver) {
@@ -148,9 +140,7 @@ public abstract class WebAbstractTest {
 			}
 		});
 
-		mailTester = new MailTester(name, root.getAbsolutePath(),
-				getProperty("project.build.directory") + "/seleniumTestResult",
-				getProperty(MAIL_PATH));
+		mailTester = new MailTester(name, root.getAbsolutePath(), getProperty("project.build.directory") + "/seleniumTestResult", getProperty(MAIL_PATH));
 		mailTester.deleteMailFile();
 	}
 
@@ -212,17 +202,14 @@ public abstract class WebAbstractTest {
 		System.out.println("launchTomcat");
 
 		StringBuilder tomcatClasspath = new StringBuilder();
-		tomcatClasspath.append(tomcatDir.getAbsolutePath())
-				.append("/bin/bootstrap.jar").append(File.pathSeparator);
-		tomcatClasspath.append(tomcatDir.getAbsolutePath()).append(
-				"/bin/tomcat-juli.jar");
+		tomcatClasspath.append(tomcatDir.getAbsolutePath()).append("/bin/bootstrap.jar").append(File.pathSeparator);
+		tomcatClasspath.append(tomcatDir.getAbsolutePath()).append("/bin/tomcat-juli.jar");
 
 		List<String> command = new ArrayList<String>();
 		command.add(getProperty(JDK_PATH_VAR_NAME) + "\\bin\\java.exe");
 		command.add("-Dcatalina.base=" + tomcatDir.getAbsolutePath());
 		command.add("-Dcatalina.home=" + tomcatDir.getAbsolutePath());
-		command.add("-Djava.endorsed.dirs=" + tomcatDir.getAbsolutePath()
-				+ File.separator + "endorsed");
+		command.add("-Djava.endorsed.dirs=" + tomcatDir.getAbsolutePath() + File.separator + "endorsed");
 		command.add("-classpath");
 		command.add(tomcatClasspath.toString());
 		command.add("org.apache.catalina.startup.Bootstrap");
@@ -230,10 +217,8 @@ public abstract class WebAbstractTest {
 		System.out.println("Tomcat cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		tomcatProcess = processBuilder.start();
-		new InputStreamRedirector(tomcatProcess.getInputStream(), System.out,
-				"[Tomcat]").start();
-		new InputStreamRedirector(tomcatProcess.getErrorStream(), System.err,
-				"[Tomcat]").start();
+		new InputStreamRedirector(tomcatProcess.getInputStream(), System.out, "[Tomcat]").start();
+		new InputStreamRedirector(tomcatProcess.getErrorStream(), System.err, "[Tomcat]").start();
 
 	}
 
@@ -246,14 +231,11 @@ public abstract class WebAbstractTest {
 		command.add(getProperty(SELENIUM_SERVER_PATH_VAR_NAME));
 		command.add("-role");
 		command.add("hub");
-		System.out.println("Selenium hub cmd: "
-				+ StringUtils.join(command, " "));
+		System.out.println("Selenium hub cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		seleniumHubProcess = processBuilder.start();
-		new InputStreamRedirector(seleniumHubProcess.getInputStream(),
-				System.out, "[SeleniumHub]").start();
-		new InputStreamRedirector(seleniumHubProcess.getErrorStream(),
-				System.err, "[SeleniumHub]").start();
+		new InputStreamRedirector(seleniumHubProcess.getInputStream(), System.out, "[SeleniumHub]").start();
+		new InputStreamRedirector(seleniumHubProcess.getErrorStream(), System.err, "[SeleniumHub]").start();
 
 	}
 
@@ -261,10 +243,7 @@ public abstract class WebAbstractTest {
 		System.out.println("launchSeleniumNode");
 
 		if (!isPortAvailable(seleniumNodePort)) {
-			System.out
-					.println("Port "
-							+ seleniumNodePort
-							+ " is bound. A selenium node have to be started on this port");
+			System.out.println("Port " + seleniumNodePort + " is bound. A selenium node have to be started on this port");
 			return;
 		}
 
@@ -276,16 +255,12 @@ public abstract class WebAbstractTest {
 		command.add("node");
 		command.add("-hub");
 		command.add("http://localhost:4444/grid/register");
-		command.add("-Dwebdriver.chrome.driver="
-				+ getProperty("webdriver.chrome.driver"));
-		System.out.println("Selenium node cmd: "
-				+ StringUtils.join(command, " "));
+		command.add("-Dwebdriver.chrome.driver=" + getProperty("webdriver.chrome.driver"));
+		System.out.println("Selenium node cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		seleniumNodeProcess = processBuilder.start();
-		new InputStreamRedirector(seleniumNodeProcess.getInputStream(),
-				System.out, "[SeleniumNode]").start();
-		new InputStreamRedirector(seleniumNodeProcess.getErrorStream(),
-				System.err, "[SeleniumNode]").start();
+		new InputStreamRedirector(seleniumNodeProcess.getInputStream(), System.out, "[SeleniumNode]").start();
+		new InputStreamRedirector(seleniumNodeProcess.getErrorStream(), System.err, "[SeleniumNode]").start();
 	}
 
 	private void launchRemoteWebDriver() throws InterruptedException,
@@ -293,9 +268,7 @@ public abstract class WebAbstractTest {
 		int startTryNb = 0;
 		while (driver == null) {
 			try {
-				driver = new RemoteWebDriver(new URL(
-						"http://localhost:4444/wd/hub"),
-						DesiredCapabilities.chrome());
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
 			} catch (WebDriverException e) {
 				startTryNb++;
 				if (startTryNb > 10) {
@@ -343,10 +316,8 @@ public abstract class WebAbstractTest {
 			e.printStackTrace();
 		}
 
-		Assert.assertTrue("Some templates are missing",
-				pageTester.isAllTemplatePresent());
-		Assert.assertTrue("Mail template is missing",
-				mailTester.isAllTemplatePresent());
+		Assert.assertTrue("Some templates are missing", pageTester.isAllTemplatePresent());
+		Assert.assertTrue("Mail template is missing", mailTester.isAllTemplatePresent());
 
 	}
 
@@ -382,8 +353,7 @@ public abstract class WebAbstractTest {
 		public void run() {
 			try {
 				String line;
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(inputStream));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 				while ((line = reader.readLine()) != null) {
 					printStream.println(header + " " + line);
 				}
