@@ -20,6 +20,10 @@
 	</tx:advice>
 	
 	<aop:config>
+		<aop:pointcut id="actionTxPointcut" expression="execution(* com.mrprez.gencross.web.action.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="actionTxPointcut"/>
+	</aop:config>
+	<aop:config>
 		<aop:pointcut id="bsTxPointcut" expression="execution(* com.mrprez.gencross.web.bs.*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="bsTxPointcut"/>
 	</aop:config>
