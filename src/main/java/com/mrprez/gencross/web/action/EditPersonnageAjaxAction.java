@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
-import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
@@ -50,6 +49,9 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	private Integer personnageWorkId;
 	private PersonnageWorkBO personnageWork;
 	
+	private IPersonnageBS personnageBS;
+	private IPersonnageComparatorBS personnageComparatorBS;
+	
 	
 	public String expand() throws Exception {
 		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
@@ -76,10 +78,7 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 			return ERROR;
 		}
 		Personnage personnageRef = personnageWork.getPersonnage().clone();
-		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.setNewValue(personnageWork, newValue, propertyAbsoluteName);
-		
 		loadDifferences(personnageWork.getPersonnage(), personnageRef);
 		
 		return INPUT;
@@ -92,10 +91,7 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 			return ERROR;
 		}
 		Personnage personnageRef = personnageWork.getPersonnage().clone();
-		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.addPropertyFromOption(personnageWork, motherProperty, optionProperty, specification);
-		
 		loadDifferences(personnageWork.getPersonnage(), personnageRef);
 		
 		return INPUT;
@@ -108,10 +104,7 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 			return ERROR;
 		}
 		Personnage personnageRef = personnageWork.getPersonnage().clone();
-		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.addFreeProperty(personnageWork, motherProperty, newProperty);
-		
 		loadDifferences(personnageWork.getPersonnage(), personnageRef);
 		
 		return INPUT;
@@ -124,17 +117,13 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 			return ERROR;
 		}
 		Personnage personnageRef = personnageWork.getPersonnage().clone();
-		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.removeProperty(personnageWork, propertyAbsoluteName);
-		
 		loadDifferences(personnageWork.getPersonnage(), personnageRef);
 		
 		return INPUT;
 	}
 	
 	private void loadDifferences(Personnage personnage, Personnage personnageRef) throws Exception{
-		IPersonnageComparatorBS personnageComparatorBS = (IPersonnageComparatorBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageComparatorBS");
 		updatedProperties = personnageComparatorBS.findPropertiesDifferences(personnage, personnageRef);
 		reloadErrors = !personnageComparatorBS.hasTheSameErrors(personnage, personnageRef);
 		updatedPointPoolIndexes = personnageComparatorBS.findPointPoolDifferences(personnage, personnageRef);
@@ -218,7 +207,6 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 		if(personnageWork==null){
 			return ERROR;
 		}
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.changeComment(personnageWork, propertyAbsoluteName, comment);
 		updatedProperties = new HashSet<String>(1);
 		updatedProperties.add(propertyAbsoluteName);
@@ -236,7 +224,6 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 		if(!isUserPersonnageGameMaster(user, personnageWork)){
 			return ERROR;
 		}
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.modifyPointPool(personnageWork, pointPoolName, pointPoolModification);
 		updatedPointPoolIndexes = new HashSet<Integer>(1);
 		int index = Arrays.asList(personnageWork.getPersonnage().getPointPools().keySet().toArray()).indexOf(pointPoolName);
@@ -258,7 +245,6 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 		String oldPointPoolName = personnageWork.getPersonnage().getHistory().get(historyIndex).getPointPool();
 		updatedPointPoolIndexes.add(Arrays.asList(personnageWork.getPersonnage().getPointPools().keySet().toArray()).indexOf(oldPointPoolName));
 		updatedPointPoolIndexes.add(Arrays.asList(personnageWork.getPersonnage().getPointPools().keySet().toArray()).indexOf(pointPoolName));
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.modifyHistory(personnageWork, pointPoolName, cost, historyIndex);
 		changedHistory = new HashSet<Integer>();
 		changedHistory.add(historyIndex);
@@ -425,6 +411,22 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	public void setPersonnageWork(PersonnageWorkBO personnageWork) {
 		this.personnageWork = personnageWork;
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+
+	public IPersonnageComparatorBS getPersonnageComparatorBS() {
+		return personnageComparatorBS;
+	}
+
+	public void setPersonnageComparatorBS(IPersonnageComparatorBS personnageComparatorBS) {
+		this.personnageComparatorBS = personnageComparatorBS;
 	}
 	
 	

@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bs.face.IParamsBS;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,17 +23,16 @@ public class ParamsAction extends ActionSupport {
 	private Integer milliSeconds;
 	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss,SSS");
 	
+	private IParamsBS paramsBS;
+	
 	
 	public String execute() throws Exception {
-		IParamsBS paramsBS = (IParamsBS)ContextLoader.getCurrentWebApplicationContext().getBean("paramsBS");
 		paramList = paramsBS.getAllParms();
-		
 		
 		return INPUT;
 	}
 	
 	public String edit() throws Exception {
-		IParamsBS paramsBS = (IParamsBS)ContextLoader.getCurrentWebApplicationContext().getBean("paramsBS");
 		ParamBO param = paramsBS.getParam(key);
 		if(param.getType()==ParamBO.DATE_TYPE){
 			String dateString = day+" "+hour+":"+minutes+":"+seconds+","+milliSeconds;
@@ -143,6 +140,14 @@ public class ParamsAction extends ActionSupport {
 
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
+	}
+
+	public IParamsBS getParamsBS() {
+		return paramsBS;
+	}
+
+	public void setParamsBS(IParamsBS paramsBS) {
+		this.paramsBS = paramsBS;
 	}
 	
 	

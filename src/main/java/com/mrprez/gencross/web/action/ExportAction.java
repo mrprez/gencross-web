@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.action.util.SessionUtil;
@@ -30,9 +28,10 @@ public class ExportAction extends ActionSupport {
 	private InputStream inputStream;
 	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles;
 	
+	private IExportBS exportBS;
+	
 	
 	public String execute() throws Exception {
-		IExportBS exportBS = (IExportBS)ContextLoader.getCurrentWebApplicationContext().getBean("exportBS");
 		templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
 		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles();
 		for(Class<? extends TemplatedFileGenerator> clazz : originTemplateFiles.keySet()){
@@ -48,7 +47,6 @@ public class ExportAction extends ActionSupport {
 		if(personnageWork==null){
 			return ERROR;
 		}
-		IExportBS exportBS = (IExportBS)ContextLoader.getCurrentWebApplicationContext().getBean("exportBS");
 		FileGenerator fileGenerator = exportBS.getGenerator(fileGeneratorName);
 		if(fileGenerator==null){
 			super.addActionError("Type d'export introuvable.");
@@ -121,6 +119,14 @@ public class ExportAction extends ActionSupport {
 	}
 	public void setPersonnageId(Integer personnageId) {
 		this.personnageId = personnageId;
+	}
+
+	public IExportBS getExportBS() {
+		return exportBS;
+	}
+
+	public void setExportBS(IExportBS exportBS) {
+		this.exportBS = exportBS;
 	}
 	
 	

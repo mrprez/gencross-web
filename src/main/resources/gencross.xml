@@ -71,19 +71,19 @@
 		</global-exception-mappings>
 		
 		
-        <action name="Login" class="com.mrprez.gencross.web.action.LoginAction">
+        <action name="Login" class="loginAction">
             <interceptor-ref name="gencrossStack"/>
             <result name="input">/jsp/login.jsp</result>
             <result name="success" type="redirectAction">List</result>
             <result name="error">/jsp/login.jsp</result>
         </action>
         
-        <action name="Disconnect" method="disconnect" class="com.mrprez.gencross.web.action.LoginAction">
+        <action name="Disconnect" method="disconnect" class="loginAction">
         	<interceptor-ref name="gencrossStack"/>
         	<result name="success" type="redirectAction">Login</result>
         </action>
         
-        <action name="Subscription!*" method="{1}" class="com.mrprez.gencross.web.action.SubscriptionAction">
+        <action name="Subscription!*" method="{1}" class="subscriptionAction">
             <interceptor-ref name="gencrossStack"/>
             <interceptor-ref name="validationSubStack"/>
             <result name="success" type="redirectAction">List</result>
@@ -91,14 +91,14 @@
             <result name="input">/jsp/subscription.jsp</result>
         </action>
         
-        <action name="ForgottenPassword" class="com.mrprez.gencross.web.action.ForgottenPasswordAction">
+        <action name="ForgottenPassword" class="forgottenPasswordAction">
             <interceptor-ref name="gencrossStack"/>
             <result name="input">/jsp/forgottenPassword.jsp</result>
             <result name="error">/jsp/forgottenPassword.jsp</result>
             <result name="success">/jsp/success.jsp</result>
         </action>
         
-        <action name="ChangePassword!*" method="{1}" class="com.mrprez.gencross.web.action.ChangePasswordAction">
+        <action name="ChangePassword!*" method="{1}" class="changePasswordAction">
             <interceptor-ref name="userSecurityStack"/>
 			<interceptor-ref name="validationSubStack"/>
             <result name="input">/jsp/changePassword.jsp</result>
@@ -106,7 +106,7 @@
             <result name="success">/jsp/success.jsp</result>
         </action>
         
-        <action name="ChangeMail!*" method="{1}" class="com.mrprez.gencross.web.action.ChangeMailAction">
+        <action name="ChangeMail!*" method="{1}" class="changeMailAction">
             <interceptor-ref name="userSecurityStack"/>
             <interceptor-ref name="validationSubStack"/>
 			<result name="input">/jsp/changeMail.jsp</result>
@@ -114,7 +114,7 @@
             <result name="success">/jsp/success.jsp</result>
         </action>
         
-        <action name="Create!*" method="{1}" class="com.mrprez.gencross.web.action.CreatePersonnageAction">
+        <action name="Create!*" method="{1}" class="createPersonnageAction">
         	<interceptor-ref name="userSecurityStack"/>
         	<result name="success" type="redirectAction">
         		<param name="actionName">Edit</param>
@@ -124,14 +124,14 @@
         	<result name="error">/jsp/createPersonnage.jsp</result>
         </action>
         
-        <action name="Edit!*" method="{1}" class="com.mrprez.gencross.web.action.EditPersonnageAction">
+        <action name="Edit!*" method="{1}" class="editPersonnageAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<interceptor-ref name="actionMessage"/>
         	<result name="input">/jsp/editPersonnage.jsp</result>
 			<result name="error">/jsp/error.jsp</result>
 		</action>
 		
-		<action name="Background!*" method="{1}" class="com.mrprez.gencross.web.action.BackgroundAction">
+		<action name="Background!*" method="{1}" class="backgroundAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<interceptor-ref name="actionMessage"/>
         	<result name="input">/jsp/background.jsp</result>
@@ -141,7 +141,7 @@
         	</result>
 		</action>
 		
-		<action name="HelpFile" class="com.mrprez.gencross.web.action.HelpFileAction">
+		<action name="HelpFile" class="helpFileAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="success" type="stream">
 				<param name="contentType">application/octet-stream</param>
@@ -151,7 +151,7 @@
 			<result name="error">/jsp/error.jsp</result>
 		</action>
 		
-		<action name="EditAjax!*" method="{1}" class="com.mrprez.gencross.web.action.EditPersonnageAjaxAction">
+		<action name="EditAjax!*" method="{1}" class="editPersonnageAjaxAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="input">/jsp/ajax/modifications.jsp</result>
 			<result name="property">/jsp/ajax/reloadProperty.jsp</result>
@@ -161,7 +161,7 @@
 			<result name="historyItem">/jsp/ajax/reloadHistoryItem.jsp</result>
 		</action>
 		
-		<action name="EditTable!*" method="{1}" class="com.mrprez.gencross.web.action.EditTableAction">
+		<action name="EditTable!*" method="{1}" class="editTableAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/editTable.jsp</result>
 			<result name="error">/jsp/error.jsp</result>
@@ -171,7 +171,7 @@
         	</result>
 		</action>
 		
-		<action name="PlanGame!*" method="{1}" class="com.mrprez.gencross.web.action.PlanGameAction">
+		<action name="PlanGame!*" method="{1}" class="planGameAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/planGame.jsp</result>
         	<result name="success" type="redirectAction">
@@ -181,7 +181,7 @@
         	<result name="events">/jsp/ajax/plannedEvents.jsp</result>
 		</action>
 		
-		<action name="MultiExport!*" method="{1}" class="com.mrprez.gencross.web.action.MultiExportAction">
+		<action name="MultiExport!*" method="{1}" class="multiExportAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/multiExport.jsp</result>
 			<result name="error">/jsp/error.jsp</result>
@@ -195,7 +195,7 @@
 			</result>
 		</action>
 		
-		<action name="TablePointsPools!*" method="{1}" class="com.mrprez.gencross.web.action.TablePointsPoolsAction">
+		<action name="TablePointsPools!*" method="{1}" class="tablePointsPoolsAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="input">/jsp/tablePointsPools.jsp</result>
 			<result name="error">/jsp/tablePointsPools.jsp</result>
@@ -205,7 +205,7 @@
         	</result>
 		</action>
 		
-		<action name="List!*" method="{1}" class="com.mrprez.gencross.web.action.PersonnageListAction">
+		<action name="List!*" method="{1}" class="personnageListAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/listPersonnage.jsp</result>
         	<result name="success" type="redirectAction">List</result>
@@ -221,14 +221,14 @@
 			</result>
 		</action>
 		
-		<action name="TableList!*" method="{1}" class="com.mrprez.gencross.web.action.TableListAction">
+		<action name="TableList!*" method="{1}" class="tableListAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/listTable.jsp</result>
         	<result name="error">/jsp/listTable.jsp</result>
         	<result name="success" type="redirectAction">TableList</result>
 		</action>
 		
-		<action name="Upload!*" method="{1}" class="com.mrprez.gencross.web.action.UploadAction">
+		<action name="Upload!*" method="{1}" class="uploadAction">
 			<interceptor-ref name="fileUpload"/>
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/upload.jsp</result>
@@ -239,21 +239,21 @@
         	</result>
 		</action>
 		
-		<action name="AttributeGameMaster!*" method="{1}" class="com.mrprez.gencross.web.action.AttributeGameMasterAction">
+		<action name="AttributeGameMaster!*" method="{1}" class="attributeGameMasterAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="error">/jsp/listPersonnage.jsp</result>
 			<result name="input">/jsp/attributeGameMaster.jsp</result>
 			<result name="success">/jsp/success.jsp</result>
 		</action>
 		
-		<action name="AttributePlayer!*" method="{1}" class="com.mrprez.gencross.web.action.AttributePlayerAction">
+		<action name="AttributePlayer!*" method="{1}" class="attributePlayerAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="error">/jsp/listPersonnage.jsp</result>
 			<result name="input">/jsp/attributePlayer.jsp</result>
 			<result name="success">/jsp/success.jsp</result>
 		</action>
 		
-		<action name="AttributePlayerInTable!*" method="{1}" class="com.mrprez.gencross.web.action.AttributePlayerAction">
+		<action name="AttributePlayerInTable!*" method="{1}" class="attributePlayerAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="error">/jsp/listPersonnage.jsp</result>
 			<result name="input">/jsp/attributePlayerInTable.jsp</result>
@@ -263,7 +263,7 @@
         	</result>
 		</action>
 		
-		<action name="Export!*" method="{1}" class="com.mrprez.gencross.web.action.ExportAction">
+		<action name="Export!*" method="{1}" class="exportAction">
 			<interceptor-ref name="fileUpload"/>
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="input">/jsp/export.jsp</result>
@@ -276,7 +276,7 @@
 			</result>
 		</action>
 		
-		<action name="Download!*" method="{1}" class="com.mrprez.gencross.web.action.DownloadAction">
+		<action name="Download!*" method="{1}" class="downloadAction">
 			<interceptor-ref name="fileUpload"/>
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="input">/jsp/downloads.jsp</result>
@@ -288,24 +288,24 @@
 			</result>
 		</action>
 		
-		<action name="ListUser!*" method="{1}" class="com.mrprez.gencross.web.action.ListUserAction">
+		<action name="ListUser!*" method="{1}" class="listUserAction">
 			<interceptor-ref name="adminSecurityStack"/>
 			<result name="input">/jsp/listUser.jsp</result>
 		</action>
 		
-		<action name="Params!*" method="{1}" class="com.mrprez.gencross.web.action.ParamsAction">
+		<action name="Params!*" method="{1}" class="paramsAction">
 			<interceptor-ref name="adminSecurityStack"/>
 			<result name="input">/jsp/params.jsp</result>
 			<result name="success" type="redirectAction">Params</result>
 		</action>
 		
-		<action name="JobProcessing!*" method="{1}" class="com.mrprez.gencross.web.action.JobProcessingAction">
+		<action name="JobProcessing!*" method="{1}" class="jobProcessingAction">
 			<interceptor-ref name="adminSecurityStack"/>
 			<result name="input">/jsp/scheduler.jsp</result>
 			<result name="success" type="redirectAction">JobProcessing</result>
 		</action>
 		
-		<action name="Logger!*" method="{1}" class="com.mrprez.gencross.web.action.LoggerAction">
+		<action name="Logger!*" method="{1}" class="loggerAction">
 			<interceptor-ref name="adminSecurityStack"/>
 			<result name="input">/jsp/loggers.jsp</result>
 			<result name="success" type="redirectAction">Logger</result>

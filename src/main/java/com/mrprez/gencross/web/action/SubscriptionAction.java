@@ -1,7 +1,5 @@
 package com.mrprez.gencross.web.action;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 import com.opensymphony.xwork2.ActionContext;
@@ -14,6 +12,8 @@ public class SubscriptionAction extends ActionSupport {
 	private String password;
 	private String confirmPassword;
 	private String mail;
+	
+	private IAuthentificationBS authentificationBS;
 
 	
 	@Override
@@ -22,7 +22,6 @@ public class SubscriptionAction extends ActionSupport {
 	}
 	
 	public String authentification() throws Exception {
-		IAuthentificationBS authentificationBS = (IAuthentificationBS)ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 		UserBO user = authentificationBS.createUser(username, confirmPassword, mail);
 		if(user==null){
 			this.addActionError("Ce login existe déjà");
@@ -58,5 +57,14 @@ public class SubscriptionAction extends ActionSupport {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
+
+	public IAuthentificationBS getAuthentificationBS() {
+		return authentificationBS;
+	}
+
+	public void setAuthentificationBS(IAuthentificationBS authentificationBS) {
+		this.authentificationBS = authentificationBS;
+	}
+	
 	
 }

@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.ITableBS;
@@ -31,6 +29,8 @@ public class PlanGameAction extends ActionSupport {
 	private Integer dayDelta;
 	private Integer minuteDelta;
 	
+	private ITableBS tableBS;
+	
 	
 	public String execute() throws Exception {
 		return INPUT;
@@ -38,7 +38,6 @@ public class PlanGameAction extends ActionSupport {
 	
 	public String createNewGame() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		
 		PlannedGameBO plannedGame = new PlannedGameBO();
 		plannedGame.setTitle(title);
@@ -64,15 +63,12 @@ public class PlanGameAction extends ActionSupport {
 	}
 	
 	public String loadEvents() throws Exception {
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		plannedGamesList = tableBS.getPlannedGames(tableId, new Date(startTime*1000),  new Date(endTime*1000));
-		
 		return "events";
 	}
 	
 	public String updateGame() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		tableBS.replanGame(tableId, dayDelta, minuteDelta, new Date(startTime),  new Date(endTime), user);
 		
 		return null;
@@ -133,6 +129,14 @@ public class PlanGameAction extends ActionSupport {
 
 	public void setMinuteDelta(Integer minuteDelta) {
 		this.minuteDelta = minuteDelta;
+	}
+
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
 	}
 
 	

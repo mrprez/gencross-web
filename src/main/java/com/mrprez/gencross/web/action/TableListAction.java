@@ -2,8 +2,6 @@ package com.mrprez.gencross.web.action;
 
 import java.util.Collection;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -19,6 +17,9 @@ public class TableListAction extends ActionSupport {
 	private Collection<PluginDescriptor> tableTypeList;
 	private Collection<TableBO> tableList;
 	
+	private ITableBS tableBS;
+	private IPersonnageBS personnageBS;
+	
 	
 	public String addTable() throws Exception {
 		if(tableName==null || tableName.isEmpty()){
@@ -27,7 +28,6 @@ public class TableListAction extends ActionSupport {
 			return ERROR;
 		}
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		tableBS.createTable(tableName, user, tableType);
 		
 		return SUCCESS;
@@ -35,11 +35,8 @@ public class TableListAction extends ActionSupport {
 	
 	public String execute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		tableTypeList = personnageBS.getAvailablePersonnageTypes();
 		tableList = tableBS.getTableListForUser(user);
-		
 		
 		return INPUT;
 	}
@@ -76,9 +73,21 @@ public class TableListAction extends ActionSupport {
 		this.tableList = tableList;
 	}
 
-	
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
 
 	
-	
-
 }

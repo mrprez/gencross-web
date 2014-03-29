@@ -1,7 +1,5 @@
 package com.mrprez.gencross.web.action;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -12,6 +10,10 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class BackgroundAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
+	
+	private IPersonnageBS personnageBS;
+	private ITableBS tableBS;
+	
 	private Integer personnageId;
 	private PersonnageWorkBO personnageWork;
 	private String background;
@@ -20,10 +22,8 @@ public class BackgroundAction extends ActionSupport {
 	public String execute() throws Exception {
 		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
 		if(personnageWork==null){
-			IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 			UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 			personnageWork = personnageBS.loadPersonnage(personnageId, user);
-			ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 			tableBS.getPersonnageTable(personnageWork);
 			SessionUtil.putPersonnageWorkInSession(personnageWork);
 		}
@@ -32,7 +32,6 @@ public class BackgroundAction extends ActionSupport {
 	}
 	
 	public String save() throws Exception {
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
 		personnageBS.savePersonnageBackground(personnageWork, background);
 		
@@ -69,6 +68,22 @@ public class BackgroundAction extends ActionSupport {
 
 	public void setBackground(String background) {
 		this.background = background;
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
 	}
 	
 	

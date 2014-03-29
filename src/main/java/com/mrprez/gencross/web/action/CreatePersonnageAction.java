@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
@@ -21,6 +19,10 @@ public class CreatePersonnageAction extends ActionSupport {
 	private static final String PLAYER = "Joueur";
 	private static final String BOTH = "Les deux";
 	private static final String NO_ONE_KEY = "_no_one_";
+	
+	private IPersonnageBS personnageBS;
+	private IAuthentificationBS authentificationBS;
+	
 	private String selectedPersonnageTypeName;
 	private Collection<PluginDescriptor> personnageTypeList;
 	private String personnageName;
@@ -37,10 +39,8 @@ public class CreatePersonnageAction extends ActionSupport {
 	}
 	
 	public String execute() throws Exception {
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageTypeList = personnageBS.getAvailablePersonnageTypes();
 		
-		IAuthentificationBS authentificationBS = (IAuthentificationBS)ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		userList = authentificationBS.getUserList();
 		userList.remove(user);
@@ -54,7 +54,6 @@ public class CreatePersonnageAction extends ActionSupport {
 			execute();
 			return ERROR;
 		}
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		
 		PersonnageWorkBO personnageWork;
@@ -127,5 +126,18 @@ public class CreatePersonnageAction extends ActionSupport {
 	public String getNoGmKey(){
 		return NO_ONE_KEY;
 	}
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+	public IAuthentificationBS getAuthentificationBS() {
+		return authentificationBS;
+	}
+	public void setAuthentificationBS(IAuthentificationBS authentificationBS) {
+		this.authentificationBS = authentificationBS;
+	}
+	
 
 }

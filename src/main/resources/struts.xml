@@ -8,6 +8,8 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="false" />
     <constant name="struts.action.excludePattern" value="/axis/.*,/axisAdmin/.*,.*[.]jws"/>
+    <!-- intégration Spring --> 
+    <constant name="struts.objectFactory.spring.autoWire" value="name" /> 
 
     <include file="gencross.xml"/>
 

@@ -8,7 +8,6 @@ import java.util.Set;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.lf5.LogLevel;
-import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.web.bs.face.ILoggerBS;
 import com.opensymphony.xwork2.ActionSupport;
@@ -24,12 +23,13 @@ public class LoggerAction extends ActionSupport {
 	private String loggerName;
 	private String levelName;
 	
+	private ILoggerBS loggerBS;
+	
 	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public String execute() throws Exception {
-		ILoggerBS loggerBS = (ILoggerBS)ContextLoader.getCurrentWebApplicationContext().getBean("loggerBS");
 		loggers = loggerBS.getLoggers();
 		appenders = loggerBS.getAppenders();
 		levels = LogLevel.getLog4JLevels();
@@ -39,14 +39,12 @@ public class LoggerAction extends ActionSupport {
 	
 	
 	public String download() throws Exception {
-		ILoggerBS loggerBS = (ILoggerBS)ContextLoader.getCurrentWebApplicationContext().getBean("loggerBS");
 		inputStream = loggerBS.getFileInputStream(appenderName);
 		return "download";
 	}
 	
 	
 	public String changeLevel() throws Exception {
-		ILoggerBS loggerBS = (ILoggerBS)ContextLoader.getCurrentWebApplicationContext().getBean("loggerBS");
 		loggerBS.changeLogLevel(loggerName, levelName);
 		return SUCCESS;
 	}
@@ -90,6 +88,12 @@ public class LoggerAction extends ActionSupport {
 	}
 	public void setLevelName(String levelName) {
 		this.levelName = levelName;
+	}
+	public ILoggerBS getLoggerBS() {
+		return loggerBS;
+	}
+	public void setLoggerBS(ILoggerBS loggerBS) {
+		this.loggerBS = loggerBS;
 	}
 	
 

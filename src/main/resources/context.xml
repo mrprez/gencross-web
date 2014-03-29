@@ -52,20 +52,119 @@
 	
 	
 	
+	<!-- ********** -->
+	<!-- Couche Web -->
+	<!-- ********** -->
+	<bean id="personnageListAction" class="com.mrprez.gencross.web.action.PersonnageListAction">
+		<property name="personnageBS" ref="personnageBS"/>
+	</bean>
+	
+	<bean id="attributeGameMasterAction" class="com.mrprez.gencross.web.action.AttributeGameMasterAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="attributePlayerAction" class="com.mrprez.gencross.web.action.AttributePlayerAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="backgroundAction" class="com.mrprez.gencross.web.action.BackgroundAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="tableBS" ref="tableBS"/>
+	</bean>
+	
+	<bean id="changeMailAction" class="com.mrprez.gencross.web.action.ChangeMailAction">
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="changePasswordAction" class="com.mrprez.gencross.web.action.ChangePasswordAction">
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="createPersonnageAction" class="com.mrprez.gencross.web.action.CreatePersonnageAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="downloadAction" class="com.mrprez.gencross.web.action.DownloadAction"></bean>
+	
+	<bean id="editPersonnageAction" class="com.mrprez.gencross.web.action.EditPersonnageAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="tableBS" ref="tableBS"/>
+	</bean>
+	
+	<bean id="editPersonnageAjaxAction" class="com.mrprez.gencross.web.action.EditPersonnageAjaxAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="personnageComparatorBS" ref="personnageComparatorBS"/>
+	</bean>
+	
+	<bean id="editTableAction" class="com.mrprez.gencross.web.action.EditTableAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="tableBS" ref="tableBS"/>
+	</bean>
+	
+	<bean id="exceptionAction" class="com.mrprez.gencross.web.action.ExceptionAction"></bean>
+	
+	<bean id="exportAction" class="com.mrprez.gencross.web.action.ExportAction">
+		<property name="exportBS" ref="exportBS"/>
+	</bean>
+	
+	<bean id="forgottenPasswordAction" class="com.mrprez.gencross.web.action.ForgottenPasswordAction"></bean>
+	
+	<bean id="helpFileAction" class="com.mrprez.gencross.web.action.HelpFileAction"></bean>
+	
+	<bean id="jobProcessingAction" class="com.mrprez.gencross.web.action.JobProcessingAction">
+		<property name="jobBS" ref="jobBS"/>
+	</bean>
+	
+	<bean id="listUserAction" class="com.mrprez.gencross.web.action.ListUserAction">
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="loggerAction" class="com.mrprez.gencross.web.action.loggeraction">
+		<property name="loggerBS" ref="loggerBS"/>
+	</bean>
+	
+	<bean id="loginAction" class="com.mrprez.gencross.web.action.LoginAction">
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="multiExportAction" class="com.mrprez.gencross.web.action.MultiExportAction">
+		<property name="tableBS" ref="tableBS"/>
+		<property name="exportBS" ref="exportBS"/>
+	</bean>
+	
+	<bean id="paramsAction" class="com.mrprez.gencross.web.action.ParamsAction">
+		<property name="paramsBS" ref="paramsBS"/>
+	</bean>
+	
+	<bean id="planGameAction" class="com.mrprez.gencross.web.action.PlanGameAction">
+		<property name="tableBS" ref="tableBS"/>
+	</bean>
+	
+	<bean id="subscriptionAction" class="com.mrprez.gencross.web.action.SubscriptionAction">
+		<property name="authentificationBS" ref="authentificationBS"/>
+	</bean>
+	
+	<bean id="tableListAction" class="com.mrprez.gencross.web.action.TableListAction">
+		<property name="tableBS" ref="tableBS"/>
+		<property name="personnageBS" ref="personnageBS"/>
+	</bean>
+	
+	<bean id="tablePointsPoolsAction" class="com.mrprez.gencross.web.action.TablePointsPoolsAction">
+		<property name="tableBS" ref="tableBS"/>
+	</bean>
+	
+	<bean id="uploadAction" class="com.mrprez.gencross.web.action.UploadAction">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="gcrFileBS" ref="gcrFileBS"/>
+	</bean>
+	
+	
 	<!-- ********* -->
 	<!-- Couche BS -->
 	<!-- ********* -->
-	
-	<aop:config>
-		<aop:pointcut id="bsPointcut" expression="execution(* com.mrprez.gencross.web.bs.*.*(..))"/>
-		<aop:aspect id="bsAspect" ref="bsExceptionManager">
-			<aop:around method="catchException" pointcut-ref="bsPointcut"/>
-		</aop:aspect>
-	</aop:config>
-	
-	<bean id="bsExceptionManager" class="com.mrprez.gencross.web.bs.util.ExceptionManagerBS"/>
-	
-	
 	<bean id="authentificationBS" class="com.mrprez.gencross.web.bs.AuthentificationBS" scope="singleton"/>
 	
 	<bean id="personnageFactory" class="com.mrprez.gencross.disk.PersonnageFactory" scope="singleton"/>
@@ -98,17 +197,6 @@
 	<!-- ********** -->
 	<!-- Couche DAO -->
 	<!-- ********** -->
-	
-	<aop:config>
-		<aop:pointcut id="daoPointcut" expression="execution(* com.mrprez.gencross.web.dao.*.*(..))"/>
-		<aop:aspect id="daoAspect" ref="daoExceptionManager">
-			<aop:around method="catchException" pointcut-ref="daoPointcut"/>
-		</aop:aspect>
-	</aop:config>
-
-	
-	<bean id="daoExceptionManager" class="com.mrprez.gencross.web.dao.util.ExceptionManagerDAO" scope="singleton"/>
-	
 	
 	<bean id="UserDAO" class="com.mrprez.gencross.web.dao.UserDAO" scope="singleton">
 		<property name="transactionManager" ref="txManager"/>
@@ -144,7 +232,6 @@
 		<constructor-arg><value>tables.gencross</value></constructor-arg>
 		<constructor-arg><value>19081983</value></constructor-arg>
 	</bean>
-<!-- 	<bean id="GoogleCalendarResource" class="com.mrprez.gencross.web.dao.GoogleCalendarResourceMock" scope="singleton"/> -->
 	
 	<bean id="TemplateFileResource" class="com.mrprez.gencross.web.dao.TemplateFileResource" scope="singleton"/>
 	

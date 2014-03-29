@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.PoolPoint;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
@@ -26,11 +24,12 @@ public class TablePointsPoolsAction extends ActionSupport {
 	private String pointPoolName;
 	private String pointPoolModification;
 	
+	private ITableBS tableBS;
+	
 	
 	@Override
 	public String execute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		table = tableBS.getTableForGM(id, user);
 		if(table==null){
 			addActionError("Impossible de charger cette table");
@@ -64,7 +63,6 @@ public class TablePointsPoolsAction extends ActionSupport {
 	
 	public String addPoints() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		try{
 			int addedPoints = Integer.parseInt(pointPoolModification.trim());
 			String error = tableBS.addPointsToPj(id, user, pointPoolName, addedPoints);
@@ -116,6 +114,15 @@ public class TablePointsPoolsAction extends ActionSupport {
 		this.pointPoolList = pointPoolList;
 	}
 	
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
+	}
+
+
 	private class PersonnageWorkComparator implements Comparator<PersonnageWorkBO> {
 		@Override
 		public int compare(PersonnageWorkBO arg0, PersonnageWorkBO arg1) {

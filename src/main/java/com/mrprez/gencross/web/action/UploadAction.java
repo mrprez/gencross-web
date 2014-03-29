@@ -2,8 +2,6 @@ package com.mrprez.gencross.web.action;
 
 import java.io.File;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -21,12 +19,14 @@ public class UploadAction extends ActionSupport {
 	private String password;
 	private Integer personnageId;
 	
+	private IPersonnageBS personnageBS;
+	private IGcrFileBS gcrFileBS;
+	
 	
 	@Override
 	public String execute() throws Exception {
 		if(personnageId!=null){
 			UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-			IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 			PersonnageWorkBO personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageId, user);
 			gm = (personnageWork!=null);
 			if(!gm){
@@ -40,7 +40,6 @@ public class UploadAction extends ActionSupport {
 	public String upload() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		
-		IGcrFileBS gcrFileBS = (IGcrFileBS)ContextLoader.getCurrentWebApplicationContext().getBean("gcrFileBS");
 		if(personnageId==null){
 			if(gm){
 				PersonnageWorkBO personnageWork = gcrFileBS.createPersonnageAsGameMaster(gcrFile, personnageName, user, password);
@@ -97,6 +96,22 @@ public class UploadAction extends ActionSupport {
 
 	public void setPersonnageId(Integer personnageId) {
 		this.personnageId = personnageId;
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+
+	public IGcrFileBS getGcrFileBS() {
+		return gcrFileBS;
+	}
+
+	public void setGcrFileBS(IGcrFileBS gcrFileBS) {
+		this.gcrFileBS = gcrFileBS;
 	}
 	
 	

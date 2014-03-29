@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -32,11 +30,13 @@ public class MultiExportAction extends ActionSupport {
 	private InputStream inputStream;
 	private List<String[]> export;
 	
+	private ITableBS tableBS;
+	private IExportBS exportBS;
+	
 	
 	@Override
 	public String execute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		table = tableBS.getTableForGM(tableId, user);
 		if(table==null){
 			addActionError("Impossible de charger cette table");
@@ -83,8 +83,6 @@ public class MultiExportAction extends ActionSupport {
 	
 	public String export() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IExportBS exportBS = (IExportBS)ContextLoader.getCurrentWebApplicationContext().getBean("exportBS");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		table = tableBS.getTableForGM(tableId, user);
 		if(table==null){
 			addActionError("Impossible de charger cette table");
@@ -191,6 +189,22 @@ public class MultiExportAction extends ActionSupport {
 
 	public List<String[]> getExport() {
 		return export;
+	}
+
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
+	}
+
+	public IExportBS getExportBS() {
+		return exportBS;
+	}
+
+	public void setExportBS(IExportBS exportBS) {
+		this.exportBS = exportBS;
 	}
 	
 	

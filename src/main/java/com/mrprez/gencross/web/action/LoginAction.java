@@ -3,7 +3,6 @@ package com.mrprez.gencross.web.action;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
@@ -16,14 +15,13 @@ public class LoginAction extends ActionSupport {
 	private String password;
 	private String username;
 
-
+	private IAuthentificationBS authentificationBS;
 	
 	
 	public String execute() throws Exception {
 		if(username==null && password==null){
 			return INPUT;
 		}
-		IAuthentificationBS authentificationBS = (IAuthentificationBS)ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 		UserBO user = authentificationBS.authentificateUser(username, password);
 		if(user==null){
 			this.addActionError("Login ou mot de passe incorrect");
@@ -53,6 +51,12 @@ public class LoginAction extends ActionSupport {
     public void setPassword(String password) {
         this.password = password;
     }
+	public IAuthentificationBS getAuthentificationBS() {
+		return authentificationBS;
+	}
+	public void setAuthentificationBS(IAuthentificationBS authentificationBS) {
+		this.authentificationBS = authentificationBS;
+	}
 	
 
 }

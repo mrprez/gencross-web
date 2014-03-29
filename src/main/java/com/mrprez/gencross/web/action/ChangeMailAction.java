@@ -1,7 +1,5 @@
 package com.mrprez.gencross.web.action;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 import com.opensymphony.xwork2.ActionContext;
@@ -9,6 +7,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ChangeMailAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
+	
+	private IAuthentificationBS authentificationBS;
 	
 	private String mail;
 	
@@ -19,7 +19,6 @@ public class ChangeMailAction extends ActionSupport {
 	
 	public String changeMail() throws Exception{
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IAuthentificationBS authentificationBS = (IAuthentificationBS)ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 		authentificationBS.changeMail(user, mail);
 		return SUCCESS;
 	}

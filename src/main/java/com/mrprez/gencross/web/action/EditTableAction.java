@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.web.action.util.PersonnageWorkComparator;
 import com.mrprez.gencross.web.action.util.SessionUtil;
@@ -40,11 +39,13 @@ public class EditTableAction extends ActionSupport {
 	private String sendMessage;
 	private String addMessage;
 	
+	private ITableBS tableBS;
+	private IPersonnageBS personnageBS;
+	
 	
 	@Override
 	public String execute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		table = tableBS.getTableForGM(id, user);
 		if(table==null){
 			addActionError("Impossible de charger cette table");
@@ -68,7 +69,6 @@ public class EditTableAction extends ActionSupport {
 	
 	public String addPersonnage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		if(StringUtils.isBlank(personnageName)){
 			addActionError("Veuillez renseigner un nom pour ce personnage.");
 			return execute();
@@ -85,7 +85,6 @@ public class EditTableAction extends ActionSupport {
 	
 	public String addPoints() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		String error = tableBS.addPointsToPj(id, user, pointPoolName, pointPoolModification);
 		if(error!=null){
 			addActionError(error);
@@ -96,7 +95,6 @@ public class EditTableAction extends ActionSupport {
 	
 	public String transformInPNJ() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		PersonnageWorkBO personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageId, user);
 		if(personnageWork==null){
 			addActionError("Vous n'êtes pas MJ de ce personnage.");
@@ -109,7 +107,6 @@ public class EditTableAction extends ActionSupport {
 	
 	public String bindPersonnage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		if(personnageId == null){
 			addActionError("Veillez selectionner un personnage à ajouter à la table.");
 			return execute();
@@ -128,7 +125,6 @@ public class EditTableAction extends ActionSupport {
 
 	public String unbindPersonnage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		PersonnageWorkBO personnageWork = tableBS.removePersonnageFromTable(id, personnageId, user);
 		if(personnageWork==null){
 			addActionError("Vous n'êtes pas MJ de ce personnage ou de cette table.");
@@ -140,7 +136,6 @@ public class EditTableAction extends ActionSupport {
 	
 	public String newMessage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		message = message.replaceAll("<.[^>]*>", "").trim();
 		if(addMessage!=null){
 			tableBS.addMessageToTable(message, id, user);
@@ -153,16 +148,13 @@ public class EditTableAction extends ActionSupport {
 	
 	public String removeMessage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		tableBS.removeMessageFromTable(messageId, id, user);
 		
 		return SUCCESS;
 	}
 	
 	public String refreshMessages() throws Exception{
-		ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 		tableBS.connectTableMailBox();
-		
 		return SUCCESS;
 	}
 	
@@ -271,6 +263,22 @@ public class EditTableAction extends ActionSupport {
 	}
 	public void setAddMessage(String addMessage) {
 		this.addMessage = addMessage;
+	}
+
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
 	}
 
 

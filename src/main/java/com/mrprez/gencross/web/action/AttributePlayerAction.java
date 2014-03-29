@@ -2,8 +2,6 @@ package com.mrprez.gencross.web.action;
 
 import java.util.List;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
@@ -13,6 +11,11 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class AttributePlayerAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
+	private static final String NO_PLAYER_KEY = "_no_player_";
+	
+	private IPersonnageBS personnageBS;
+	private IAuthentificationBS authentificationBS;
+	
 	private Integer personnageId;
 	private Integer tableId;
 	private PersonnageWorkBO personnageWork;
@@ -20,12 +23,11 @@ public class AttributePlayerAction extends ActionSupport {
 	private String successMessage;
 	private String successLink = "List";
 	private String successLinkLabel = "Retourner à la liste des Personnages.";
-	private static final String NO_PLAYER_KEY = "_no_player_";
+	
 	
 	
 	public String execute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageId, user);
 		if(personnageWork==null){
 			return ERROR;
@@ -36,7 +38,6 @@ public class AttributePlayerAction extends ActionSupport {
 	
 	public String attribute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageId, user);
 		if(personnageWork==null){
 			return ERROR;
@@ -46,7 +47,6 @@ public class AttributePlayerAction extends ActionSupport {
 			personnageBS.attribute(personnageWork, null, personnageWork.getGameMaster());
 			successMessage = "Le personnage n'est plus associé à aucun joueur.";
 		}else{
-			IAuthentificationBS authentificationBS = (IAuthentificationBS)ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 			UserBO newPlayer = authentificationBS.getUser(newPlayerName);
 			if(newPlayer==null){
 				return ERROR;
@@ -61,7 +61,6 @@ public class AttributePlayerAction extends ActionSupport {
 	
 	
 	public List<UserBO> getUserList() throws Exception{
-		IAuthentificationBS authentificationBS = (IAuthentificationBS)ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 		return authentificationBS.getUserList();
 	}
 	
@@ -109,6 +108,18 @@ public class AttributePlayerAction extends ActionSupport {
 	}
 	public static String getNoPlayerKey() {
 		return NO_PLAYER_KEY;
+	}
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+	public IAuthentificationBS getAuthentificationBS() {
+		return authentificationBS;
+	}
+	public void setAuthentificationBS(IAuthentificationBS authentificationBS) {
+		this.authentificationBS = authentificationBS;
 	}
 	
 

@@ -2,8 +2,6 @@ package com.mrprez.gencross.web.action;
 
 import java.io.InputStream;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -18,14 +16,15 @@ public class EditPersonnageAction extends ActionSupport {
 	private Integer personnageId;
 	private PersonnageWorkBO personnageWork;
 	
+	private IPersonnageBS personnageBS;
+	private ITableBS tableBS;
+	
 	
 	public String execute() throws Exception {
 		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
 		if(personnageWork==null){
-			IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 			UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 			personnageWork = personnageBS.loadPersonnage(personnageId, user);
-			ITableBS tableBS = (ITableBS)ContextLoader.getCurrentWebApplicationContext().getBean("tableBS");
 			tableBS.getPersonnageTable(personnageWork);
 			SessionUtil.putPersonnageWorkInSession(personnageWork);
 		}
@@ -40,8 +39,6 @@ public class EditPersonnageAction extends ActionSupport {
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
 		}
-		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.nextPhase(personnageWork);
 		
 		return INPUT;
@@ -53,7 +50,6 @@ public class EditPersonnageAction extends ActionSupport {
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
 		}
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.savePersonnage(personnageWork);
 		return INPUT;
 	}
@@ -64,7 +60,6 @@ public class EditPersonnageAction extends ActionSupport {
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
 		}
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.validatePersonnage(personnageWork);
 		return INPUT;
 	}
@@ -75,7 +70,6 @@ public class EditPersonnageAction extends ActionSupport {
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
 		}
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.unvalidatePersonnage(personnageWork);
 		return INPUT;
 	}
@@ -106,8 +100,19 @@ public class EditPersonnageAction extends ActionSupport {
 		}
 		return user.getUsername().equals(personnageWork.getGameMaster().getUsername());
 	}
-	
-	
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+	public ITableBS getTableBS() {
+		return tableBS;
+	}
+	public void setTableBS(ITableBS tableBS) {
+		this.tableBS = tableBS;
+	}
 	
 	
 }

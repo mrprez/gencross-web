@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.action.util.InversableComparator;
 import com.mrprez.gencross.web.action.util.PersonnageGMComparator;
 import com.mrprez.gencross.web.action.util.PersonnageNameComparator;
@@ -30,6 +28,9 @@ public class PersonnageListAction extends ActionSupport {
 	private static Map<String, InversableComparator<PersonnageWorkBO>> ascComparators;
 	private static Map<String, InversableComparator<PersonnageWorkBO>> decComparators;
 	
+	private IPersonnageBS personnageBS;
+	private IGcrFileBS gcrFileBS;
+	
 	private List<PersonnageWorkBO> playerPersonnageList;
 	private List<PersonnageWorkBO> gameMasterPersonnageList;
 	
@@ -44,8 +45,6 @@ public class PersonnageListAction extends ActionSupport {
 	
 	public String execute() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		
 		playerPersonnageList = personnageBS.getPlayerPersonnageList(user);
 		Collections.sort(playerPersonnageList, getPlayerPersonnageComparator());
@@ -77,7 +76,6 @@ public class PersonnageListAction extends ActionSupport {
 	
 	public String deletePersonnage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		personnageBS.deletePersonnageFromUser(personnageId, user);
 		return SUCCESS;
 	}
@@ -85,7 +83,6 @@ public class PersonnageListAction extends ActionSupport {
 	public String downloadAsPlayer() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		
-		IGcrFileBS gcrFileBS = (IGcrFileBS)ContextLoader.getCurrentWebApplicationContext().getBean("gcrFileBS");
 		byte download[] = gcrFileBS.createPersonnageGcrAsPlayer(personnageId, user);
 		if(download==null){
 			addActionError("Impossible de trouver ce personnage");
@@ -94,7 +91,6 @@ public class PersonnageListAction extends ActionSupport {
 		fileSize = download.length;
 		inputStream = new ByteArrayInputStream(download);
 		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		fileName = personnageWork.getName().replace(" ", "_")+".gcr";
 		
@@ -104,7 +100,6 @@ public class PersonnageListAction extends ActionSupport {
 	public String downloadAsGameMaster() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		
-		IGcrFileBS gcrFileBS = (IGcrFileBS)ContextLoader.getCurrentWebApplicationContext().getBean("gcrFileBS");
 		byte download[] = gcrFileBS.createPersonnageGcrAsGameMaster(personnageId, user, password);
 		if(download==null){
 			addActionError("Impossible de trouver ce personnage");
@@ -113,7 +108,6 @@ public class PersonnageListAction extends ActionSupport {
 		fileSize = download.length;
 		inputStream = new ByteArrayInputStream(download);
 		
-		IPersonnageBS personnageBS = (IPersonnageBS)ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		fileName = personnageWork.getName().replace(" ", "_")+".gcr";
 		
@@ -194,12 +188,14 @@ public class PersonnageListAction extends ActionSupport {
 		}
 		return ascComparators.get(name);
 	}
+	
 	private static InversableComparator<PersonnageWorkBO> getDecComparator(String name){
 		if(decComparators == null){
 			initComparators();
 		}
 		return decComparators.get(name);
 	}
+	
 	private static synchronized void initComparators(){
 		if(ascComparators == null || decComparators == null){
 			ascComparators = new HashMap<String, InversableComparator<PersonnageWorkBO>>();
@@ -218,6 +214,7 @@ public class PersonnageListAction extends ActionSupport {
 			addComparator(new PersonnageGMComparator(-1));
 		}
 	}
+	
 	private static void addComparator(InversableComparator<PersonnageWorkBO> comparator){
 		if(comparator.getDirection() == 1){
 			ascComparators.put(comparator.getName(), comparator);
@@ -225,6 +222,22 @@ public class PersonnageListAction extends ActionSupport {
 		if(comparator.getDirection() == -1){
 			decComparators.put(comparator.getName(), comparator);
 		}
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
+	}
+	
+	public IGcrFileBS getGcrFileBS() {
+		return gcrFileBS;
+	}
+
+	public void setGcrFileBS(IGcrFileBS gcrFileBS) {
+		this.gcrFileBS = gcrFileBS;
 	}
 	
 	
