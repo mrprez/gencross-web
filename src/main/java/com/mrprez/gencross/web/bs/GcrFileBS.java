@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Iterator;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.disk.PersonnageSaver;
@@ -18,11 +16,11 @@ import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 public class GcrFileBS implements IGcrFileBS {
 	private static final String DEFAULT_PASSWORD = "Sa2gle2m.";
 	private PersonnageFactory personnageFactory;
+	private IPersonnageDAO personnageDAO;
 	
 	
 	@Override
 	public byte[] createPersonnageGcrAsPlayer(Integer personnageWorkId, UserBO user) throws Exception{
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageWorkId);
 		if(personnageWork==null){
 			return null;
@@ -45,7 +43,6 @@ public class GcrFileBS implements IGcrFileBS {
 
 	@Override
 	public byte[] createPersonnageGcrAsGameMaster(Integer personnageWorkId, UserBO user, String password) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageWorkId);
 		if(personnageWork==null){
 			return null;
@@ -76,7 +73,6 @@ public class GcrFileBS implements IGcrFileBS {
 		personnageWork.getValidPersonnageData().setPersonnage(personnage.clone());
 		personnageWork.setPluginName(personnage.getPluginDescriptor().getName());
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
@@ -96,7 +92,6 @@ public class GcrFileBS implements IGcrFileBS {
 		personnageWork.getValidPersonnageData().setPersonnage(personnage.clone());
 		personnageWork.setPluginName(personnage.getPluginDescriptor().getName());
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
@@ -105,7 +100,6 @@ public class GcrFileBS implements IGcrFileBS {
 	}
 	
 	public String uploadGcrPersonnage(File gcrFile, int personnageId, UserBO user, String password) throws Exception{
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
 		
 		if(personnageWork.getGameMaster()!=null && personnageWork.getGameMaster().equals(user)){
@@ -129,7 +123,6 @@ public class GcrFileBS implements IGcrFileBS {
 		
 		personnageWork.getPersonnageData().setPersonnage(personnage);
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		
 		return null;
@@ -173,6 +166,13 @@ public class GcrFileBS implements IGcrFileBS {
 	public void setPersonnageFactory(PersonnageFactory personnageFactory) {
 		this.personnageFactory = personnageFactory;
 	}
-	
 
+	public IPersonnageDAO getPersonnageDAO() {
+		return personnageDAO;
+	}
+
+	public void setPersonnageDAO(IPersonnageDAO personnageDAO) {
+		this.personnageDAO = personnageDAO;
+	}
+	
 }

@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.web.bo.ParamBO;
@@ -31,10 +29,16 @@ import com.mrprez.gencross.web.dao.face.IUserDAO;
 
 public class TableBS implements ITableBS {
 	private PersonnageFactory personnageFactory;
+	private ITableDAO tableDAO;
+	private IPersonnageDAO personnageDAO;
+	private IMailResource mailResource;
+	private IUserDAO userDAO;
+	private IParamDAO paramDAO;
+	private IGoogleCalendarResource calendarResource;
+	
 
 	@Override
 	public TableBO createTable(String name, UserBO gm, String type) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = new TableBO();
 		table.setName(name);
 		table.setGameMaster(gm);
@@ -47,7 +51,6 @@ public class TableBS implements ITableBS {
 	@Override
 	public Set<TableBO> getTableListForUser(UserBO user) throws Exception {
 		Set<TableBO> result = new TreeSet<TableBO>();
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		result.addAll(tableDAO.getTableFromGM(user));
 		
 		return result;
@@ -55,7 +58,6 @@ public class TableBS implements ITableBS {
 
 	@Override
 	public TableBO getTableForGM(Integer id, UserBO gameMaster) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(id);
 		if(!gameMaster.equals(table.getGameMaster())){
 			return null;
@@ -68,7 +70,6 @@ public class TableBS implements ITableBS {
 	@Override
 	public Collection<PersonnageWorkBO> getPjList(Integer tableId) throws Exception {
 		Collection<PersonnageWorkBO> result = new HashSet<PersonnageWorkBO>();
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
 			if(personnageWork.getPlayer() != null){
@@ -81,7 +82,6 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public Collection<String> getPointPoolList(Integer tableId) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		Personnage personnage = personnageFactory.buildNewPersonnage(table.getType());
 		
@@ -90,7 +90,6 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public TableBO addNewPersonnageToTable(Integer tableId, String personnageName, UserBO gameMaster) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(table==null || !gameMaster.equals(table.getGameMaster())){
 			return null;
@@ -104,7 +103,6 @@ public class TableBS implements ITableBS {
 		personnageWork.getPersonnageData().setPersonnage(personnage);
 		personnageWork.getValidPersonnageData().setPersonnage(personnage.clone());
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
@@ -116,12 +114,10 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public PersonnageWorkBO addPersonnageToTable(Integer tableId, Integer personnageId, UserBO gameMaster) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(table==null || !gameMaster.equals(table.getGameMaster())){
 			return null;
 		}
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId.intValue());
 		if(personnageWork==null || !gameMaster.equals(personnageWork.getGameMaster())){
 			return null;
@@ -134,12 +130,10 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public PersonnageWorkBO removePersonnageFromTable(Integer tableId, Integer personnageId, UserBO gameMaster) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(table==null || !gameMaster.equals(table.getGameMaster())){
 			return null;
 		}
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
 		if(personnageWork==null || !table.getId().equals(personnageWork.getTable().getId())){
 			return null;
@@ -152,7 +146,6 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public TableBO getPersonnageTable(PersonnageWorkBO personnageWork) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO result = tableDAO.getPersonnageTable(personnageWork);
 		if(result==null){
 			return null;
@@ -163,7 +156,6 @@ public class TableBS implements ITableBS {
 
 	@Override
 	public String addPointsToPj(Integer tableId, UserBO gamaMaster, String pointPoolName, Integer points) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(gamaMaster)){
 			return "Vous n'ête pas propriétaire de cette table";
@@ -179,13 +171,11 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public Collection<PersonnageWorkBO> getAddablePersonnages(TableBO table) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		return personnageDAO.getAddablePersonnages(table);
 	}
 
 	@Override
 	public void addMessageToTable(String message, Integer tableId, UserBO author) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(author)){
 			throw new Exception("The author is not the table game master");
@@ -200,8 +190,6 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public void addSendMessage(String message, Integer tableId, UserBO author) throws Exception {
-		IMailResource mailResource = (IMailResource)ContextLoader.getCurrentWebApplicationContext().getBean("MailResource");
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(author)){
 			throw new Exception("The author is not the table game master");
@@ -225,7 +213,6 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public void removeMessageFromTable(Integer messageId, Integer tableId, UserBO user) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(user)){
 			throw new Exception("User is not the table game master");
@@ -240,9 +227,6 @@ public class TableBS implements ITableBS {
 	
 	@Override
 	public void connectTableMailBox() throws Exception {
-		IMailResource mailResource = (IMailResource)ContextLoader.getCurrentWebApplicationContext().getBean("MailResource");
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
-		IUserDAO userDao = (IUserDAO) ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		for(TableMessageBO message : mailResource.getMails()){
 			TableBO table = null;
 			if(message.getTableName() != null){
@@ -250,7 +234,7 @@ public class TableBS implements ITableBS {
 				if(table != null){
 					UserBO author = null;
 					if(message.getSenderMail() != null){
-						author = userDao.getUserFromMail(message.getSenderMail());
+						author = userDAO.getUserFromMail(message.getSenderMail());
 					}
 					message.setAuthor(author);
 					if(message.getData().getBytes("UTF-8").length >= Math.pow(2, 16)){
@@ -262,8 +246,7 @@ public class TableBS implements ITableBS {
 				}
 			}
 			if(table == null){
-				IParamDAO paramDao = (IParamDAO) ContextLoader.getCurrentWebApplicationContext().getBean("ParamDAO");
-				String tableAddress = (String) paramDao.getParam(ParamBO.TABLE_ADRESS).getValue();
+				String tableAddress = (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue();
 				mailResource.send(message.getSenderMail(), tableAddress, "Invalid subject: " + message.getSubject(), 
 						"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le nom de la table entre crochet ('[<nom_table>]')." + "\n\n\n\n" + message.getData());
 			}
@@ -282,20 +265,16 @@ public class TableBS implements ITableBS {
 
 	@Override
 	public Collection<PlannedGameBO> getPlannedGames(Integer tableId, Date startDate, Date endDate) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
-		IGoogleCalendarResource calendarResource = (IGoogleCalendarResource)ContextLoader.getCurrentWebApplicationContext().getBean("GoogleCalendarResource");
 		return calendarResource.getEntries(table.getName(), startDate, endDate);
 	}
 
 	@Override
 	public void planGame(Integer tableId, PlannedGameBO plannedGame, UserBO user) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(! table.getGameMaster().equals(user)){
 			throw new BusinessException("User "+user+" not GM on table "+table.getName());
 		}
-		IGoogleCalendarResource calendarResource = (IGoogleCalendarResource)ContextLoader.getCurrentWebApplicationContext().getBean("GoogleCalendarResource");
 		Collection<String> participantsMail = new HashSet<String>();
 		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
 			if(personnageWork.getPlayer() != null){
@@ -313,12 +292,10 @@ public class TableBS implements ITableBS {
 
 	@Override
 	public void replanGame(Integer tableId, Integer dayDelta, Integer minuteDelta, Date startDate, Date endDate, UserBO user) throws Exception {
-		ITableDAO tableDAO = (ITableDAO) ContextLoader.getCurrentWebApplicationContext().getBean("TableDAO");
 		TableBO table = tableDAO.loadTable(tableId);
 		if(! table.getGameMaster().equals(user)){
 			throw new BusinessException("User "+user+" not GM on table "+table.getName());
 		}
-		IGoogleCalendarResource calendarResource = (IGoogleCalendarResource)ContextLoader.getCurrentWebApplicationContext().getBean("GoogleCalendarResource");
 		Calendar oldStart = Calendar.getInstance();
 		oldStart.setTime(startDate);
 		if(dayDelta!=null){
@@ -330,8 +307,55 @@ public class TableBS implements ITableBS {
 		
 		calendarResource.updateEvent(table.getName(), oldStart.getTime(), startDate, endDate);
 	}
-	
-		
+
+	public ITableDAO getTableDAO() {
+		return tableDAO;
+	}
+
+	public void setTableDAO(ITableDAO tableDAO) {
+		this.tableDAO = tableDAO;
+	}
+
+	public IPersonnageDAO getPersonnageDAO() {
+		return personnageDAO;
+	}
+
+	public void setPersonnageDAO(IPersonnageDAO personnageDAO) {
+		this.personnageDAO = personnageDAO;
+	}
+
+	public IMailResource getMailResource() {
+		return mailResource;
+	}
+
+	public void setMailResource(IMailResource mailResource) {
+		this.mailResource = mailResource;
+	}
+
+	public IUserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public void setUserDAO(IUserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
+	public IParamDAO getParamDAO() {
+		return paramDAO;
+	}
+
+	public void setParamDAO(IParamDAO paramDAO) {
+		this.paramDAO = paramDAO;
+	}
+
+	public IGoogleCalendarResource getCalendarResource() {
+		return calendarResource;
+	}
+
+	public void setCalendarResource(IGoogleCalendarResource calendarResource) {
+		this.calendarResource = calendarResource;
+	}
+
 	
 	
 }

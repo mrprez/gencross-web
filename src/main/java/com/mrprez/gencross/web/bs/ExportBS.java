@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
@@ -29,9 +28,12 @@ public class ExportBS implements IExportBS {
 	private Set<Class<? extends TemplatedFileGenerator>> templatedFileGeneratorList = new HashSet<Class<? extends TemplatedFileGenerator>>();
 	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
 	
+	private ITemplateFileResource templateFileResource;
+	private IPersonnageDAO personnageDAO;
+	
 	
 	public ExportBS(ITemplateFileResource templateFileResource) throws Exception{
-		super();
+		this.templateFileResource = templateFileResource;
 		
 		for(Class<? extends FileGenerator> fileGeneratorClass : FileGenerator.getGeneratorList().values()){
 			if(TemplatedFileGenerator.class.isAssignableFrom(fileGeneratorClass)){
@@ -59,7 +61,6 @@ public class ExportBS implements IExportBS {
 	
 	@Override
 	public byte[] export(PersonnageWorkBO personnageWork, TemplatedFileGenerator fileGenerator, String templateName) throws Exception{
-		ITemplateFileResource templateFileResource = (ITemplateFileResource) ContextLoader.getCurrentWebApplicationContext().getBean("TemplateFileResource");
 		File templateFile = templateFileResource.getTemplateFile(fileGenerator.getClass(), templateName);
 		fileGenerator.setTemplate(templateFile);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -94,7 +95,6 @@ public class ExportBS implements IExportBS {
 	
 	@Override
 	public List<String[]> multiExport(Collection<Integer> personnageIdList, UserBO user) throws Exception{
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		List<Personnage> personnageList = new ArrayList<Personnage>(personnageIdList.size());
 		for(Integer personnageId : personnageIdList){
 			PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
@@ -226,8 +226,6 @@ public class ExportBS implements IExportBS {
 	}
 	
 	
-	
-	
 	@Override
 	public Set<Class<? extends TemplatedFileGenerator>> getTemplatedFileGeneratorList() {
 		return templatedFileGeneratorList;
@@ -237,6 +235,16 @@ public class ExportBS implements IExportBS {
 	public Map<Class<? extends TemplatedFileGenerator>, List<String>> getTemplateFiles() {
 		return templateFiles;
 	}
+
+	public IPersonnageDAO getPersonnageDAO() {
+		return personnageDAO;
+	}
+
+	public void setPersonnageDAO(IPersonnageDAO personnageDAO) {
+		this.personnageDAO = personnageDAO;
+	}
+	
+	
 	
 	
 

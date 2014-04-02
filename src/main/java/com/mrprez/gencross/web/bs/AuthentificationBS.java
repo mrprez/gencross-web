@@ -5,8 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.List;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.RoleBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -18,7 +16,10 @@ import com.mrprez.gencross.web.dao.face.IUserDAO;
 
 public class AuthentificationBS implements IAuthentificationBS{
 	private static final String PASSWORD_CARACTERES = "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN,;:!?.-1234567890";
-	
+	private IUserDAO userDAO;
+	private IPersonnageDAO personnageDAO;
+	private IRoleDAO roleDAO;
+	private IMailResource mailResource;
 	
 	
 	@Override
@@ -26,8 +27,6 @@ public class AuthentificationBS implements IAuthentificationBS{
 		if(password==null || username==null){
 			return null;
 		}
-		
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		
 		// Récupération du MD5 du password
 		String digest = buildMD5Digest(password);
@@ -37,7 +36,6 @@ public class AuthentificationBS implements IAuthentificationBS{
 			return null;
 		}
 		user.getRoles().iterator().next();
-		
 		
 		return user;
 	}
@@ -60,7 +58,6 @@ public class AuthentificationBS implements IAuthentificationBS{
 	
 	@Override
 	public UserBO createUser(String username, String password, String mail) throws Exception{
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		if(userDAO.getUser(username)!=null){
 			return null;
 		}
@@ -84,7 +81,6 @@ public class AuthentificationBS implements IAuthentificationBS{
 		user.setDigest(digestStringBuffer.toString());
 		
 		// Role user
-		IRoleDAO roleDAO = (IRoleDAO)ContextLoader.getCurrentWebApplicationContext().getBean("RoleDAO");
 		user.setRoles(new HashSet<RoleBO>());
 		user.getRoles().add(roleDAO.getRole(RoleBO.USER));
 		
@@ -94,30 +90,25 @@ public class AuthentificationBS implements IAuthentificationBS{
 	
 	@Override
 	public List<UserBO> getUserList() throws Exception{
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		return userDAO.getUserList();
 	}
 	
 	@Override
 	public UserBO getUser(String username) throws Exception{
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		return userDAO.getUser(username);
 	}
 	
 	@Override
 	public RoleBO getRole(String roleName) throws Exception{
-		IRoleDAO roleDAO = (IRoleDAO)ContextLoader.getCurrentWebApplicationContext().getBean("RoleDAO");
 		return roleDAO.getRole(roleName);
 	}
 
 	@Override
 	public boolean removeUser(String username) throws Exception {
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		UserBO user = userDAO.getUser(username);
 		if(user==null){
 			return false;
 		}
-		IPersonnageDAO personnageDAO = (IPersonnageDAO)ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		for(PersonnageWorkBO personnageWork : personnageDAO.getGameMasterPersonnageList(user)){
 			if(personnageWork.getPlayer()==null || personnageWork.getPlayer().equals(user)){
 				personnageDAO.deletePersonnage(personnageWork);
@@ -142,8 +133,6 @@ public class AuthentificationBS implements IAuthentificationBS{
 	
 	@Override
 	public UserBO sendPassword(String username) throws Exception{
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
-		
 		UserBO user = userDAO.getUser(username);
 		if(user==null){
 			return null;
@@ -156,7 +145,6 @@ public class AuthentificationBS implements IAuthentificationBS{
 		}
 		user.setDigest(buildMD5Digest(newPassword.toString()));
 		
-		IMailResource mailResource = (IMailResource)ContextLoader.getCurrentWebApplicationContext().getBean("MailResource");
 		mailResource.send(user.getMail(), "GenCrossWeb: Mot de passe oublié", "Votre nouveau mot de passe: "+newPassword);
 		
 		return user;
@@ -164,15 +152,46 @@ public class AuthentificationBS implements IAuthentificationBS{
 	
 	@Override
 	public void changePassword(UserBO user, String newPassword) throws Exception{
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		user = userDAO.getUser(user.getUsername());
 		user.setDigest(buildMD5Digest(newPassword));
 	}
 	
 	public void changeMail(UserBO user, String mail) throws Exception {
-		IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 		user.setMail(mail);
 		userDAO.saveUser(user);
 	}
+
+	public IUserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public void setUserDAO(IUserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
+	public IPersonnageDAO getPersonnageDAO() {
+		return personnageDAO;
+	}
+
+	public void setPersonnageDAO(IPersonnageDAO personnageDAO) {
+		this.personnageDAO = personnageDAO;
+	}
+
+	public IRoleDAO getRoleDAO() {
+		return roleDAO;
+	}
+
+	public void setRoleDAO(IRoleDAO roleDAO) {
+		this.roleDAO = roleDAO;
+	}
+
+	public IMailResource getMailResource() {
+		return mailResource;
+	}
+
+	public void setMailResource(IMailResource mailResource) {
+		this.mailResource = mailResource;
+	}
+	
 
 }

@@ -169,28 +169,46 @@
 	<!-- ********* -->
 	<!-- Couche BS -->
 	<!-- ********* -->
-	<bean id="authentificationBS" class="com.mrprez.gencross.web.bs.AuthentificationBS" scope="singleton"/>
+	<bean id="authentificationBS" class="com.mrprez.gencross.web.bs.AuthentificationBS" scope="singleton">
+		<property name="userDAO" ref="UserDAO"/>
+		<property name="personnageDAO" ref="PersonnageDAO"/>
+		<property name="roleDAO" ref="RoleDAO"/>
+		<property name="mailResource" ref="MailResource"/>
+	</bean>
 	
 	<bean id="personnageFactory" class="com.mrprez.gencross.disk.PersonnageFactory" scope="singleton"/>
     
 	<bean id="personnageBS" class="com.mrprez.gencross.web.bs.PersonnageBS" scope="singleton">
 		<property name="personnageFactory" ref="personnageFactory"/>
+		<property name="personnageDAO" ref="PersonnageDAO"/>
+		<property name="mailResource" ref="MailResource"/>
+		<property name="userDAO" ref="UserDAO"/>
 	</bean>
 	
 	<bean id="tableBS" class="com.mrprez.gencross.web.bs.TableBS" scope="singleton">
 		<property name="personnageFactory" ref="personnageFactory"/>
+		<property name="tableDAO" ref="TableDAO"/>
+		<property name="personnageDAO" ref="PersonnageDAO"/>
+		<property name="mailResource" ref="MailResource"/>
+		<property name="userDAO" ref="UserDAO"/>
+		<property name="paramDAO" ref="ParamDAO"/>
+		<property name="calendarResource" ref="CalendarResource"/>
 	</bean>
 	
-	<bean id="paramsBS" class="com.mrprez.gencross.web.bs.ParamsBS" scope="singleton"/>
+	<bean id="paramsBS" class="com.mrprez.gencross.web.bs.ParamsBS" scope="singleton">
+		<property name="paramDAO" ref="paramDAO"/>
+	</bean>
 	
 	<bean id="personnageComparatorBS" class="com.mrprez.gencross.web.bs.PersonnageComparatorBS" scope="singleton"/>
 	
 	<bean id="exportBS" class="com.mrprez.gencross.web.bs.ExportBS" scope="singleton">
 		<constructor-arg><ref bean="TemplateFileResource"/></constructor-arg>
+		<property name="personnageDAO" ref="PersonnageDAO"/>
 	</bean>
 	
 	<bean id="gcrFileBS" class="com.mrprez.gencross.web.bs.GcrFileBS" scope="singleton">
 		<property name="personnageFactory" ref="personnageFactory"/>
+		<property name="personnageDAO" ref="PersonnageDAO"/>
 	</bean>
 	
 	<bean id="jobBS" class="com.mrprez.gencross.web.bs.JobBS" scope="singleton"/>
@@ -230,6 +248,7 @@
 		<constructor-arg><ref bean="mailSenderSession"/></constructor-arg>
 		<constructor-arg><ref bean="mailReceiverSession"/></constructor-arg>
 		<property name="defaultFromAdress" value="genCrossBackup@mrprez.com"/>
+		<property name="paramDAO" value="ParamDAO"/>
 	</bean>
 	
 	<bean id="GoogleCalendarResource" class="com.mrprez.gencross.web.dao.GoogleCalendarResource" scope="singleton" lazy-init="true">

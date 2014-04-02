@@ -26,8 +26,6 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FlagTerm;
 import javax.mail.util.ByteArrayDataSource;
 
-import org.springframework.web.context.ContextLoader;
-
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
@@ -35,6 +33,8 @@ import com.mrprez.gencross.web.dao.face.IParamDAO;
 
 public class MailResource implements IMailResource {
 	private static final String INBOX = "INBOX"; 
+	
+	private IParamDAO paramDAO;
 	
 	private Session senderSession;
 	private Session receiverSession;
@@ -137,7 +137,6 @@ public class MailResource implements IMailResource {
 	
 	@Override
 	public void sendError(Exception exception) throws Exception {
-		IParamDAO paramDAO = (IParamDAO) ContextLoader.getCurrentWebApplicationContext().getBean("ParamDAO");
 		ParamBO paramAdress = paramDAO.getParam(ParamBO.ADMIN_ADRESS);
 		if(paramAdress==null){
 			return;
@@ -210,5 +209,15 @@ public class MailResource implements IMailResource {
 		}
 		return content.toString();
 	}
+
+	public IParamDAO getParamDAO() {
+		return paramDAO;
+	}
+
+	public void setParamDAO(IParamDAO paramDAO) {
+		this.paramDAO = paramDAO;
+	}
+	
+	
 
 }

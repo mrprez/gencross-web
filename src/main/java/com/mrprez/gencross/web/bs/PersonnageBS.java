@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
-import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.PoolPoint;
@@ -38,6 +37,9 @@ import com.mrprez.gencross.web.dao.face.IUserDAO;
 public class PersonnageBS implements IPersonnageBS {
 	private Map<Integer, Double> lastMigrationResult;
 	private PersonnageFactory personnageFactory;
+	private IPersonnageDAO personnageDAO;
+	private IMailResource mailResource;
+	private IUserDAO userDAO;
 	
 	
 	@Override
@@ -52,13 +54,11 @@ public class PersonnageBS implements IPersonnageBS {
 		personnageWork.getValidPersonnageData().setPersonnage(personnage.clone());
 		personnageWork.setPluginName(personnage.getPluginDescriptor().getName());
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
 		
 		if(gmName!=null){
-			IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 			UserBO gm = userDAO.getUser(gmName);
 			attribute(personnageWork, user, gm);
 		}
@@ -78,13 +78,11 @@ public class PersonnageBS implements IPersonnageBS {
 		personnageWork.getValidPersonnageData().setPersonnage(personnage.clone());
 		personnageWork.setPluginName(personnage.getPluginDescriptor().getName());
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
 		
 		if(playerName!=null){
-			IUserDAO userDAO = (IUserDAO)ContextLoader.getCurrentWebApplicationContext().getBean("UserDAO");
 			UserBO player = userDAO.getUser(playerName);
 			attribute(personnageWork, player, user);
 		}
@@ -105,7 +103,6 @@ public class PersonnageBS implements IPersonnageBS {
 		personnageWork.getValidPersonnageData().setPersonnage(personnage.clone());
 		personnageWork.setPluginName(personnage.getPluginDescriptor().getName());
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
@@ -115,7 +112,6 @@ public class PersonnageBS implements IPersonnageBS {
 	
 	@Override
 	public void deletePersonnageFromUser(int personnageWorkId, UserBO user) throws Exception{
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageWorkId);
 		
 		if(personnageWork.getGameMaster()!=null && personnageWork.getGameMaster().getUsername().equals(user.getUsername())){
@@ -171,7 +167,6 @@ public class PersonnageBS implements IPersonnageBS {
 		}
 		boolean success = personnage.setNewValue(property, newValue);
 		if(success){
-			IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 			personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		}
 		return success;
@@ -179,19 +174,16 @@ public class PersonnageBS implements IPersonnageBS {
 
 	@Override
 	public void savePersonnage(PersonnageWorkBO personnageWork)throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 	}
 	
 	@Override
 	public void savePersonnageWork(PersonnageWorkBO personnageWork)throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnageWork(personnageWork);
 	}
 	
 	@Override
 	public void validatePersonnage(PersonnageWorkBO personnageWork)throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnageWork(personnageWork);
 		personnageWork.getValidPersonnageData().setPersonnage(personnageWork.getPersonnage().clone());
 		personnageWork.setValidationDate(new Date(System.currentTimeMillis()));
@@ -199,7 +191,6 @@ public class PersonnageBS implements IPersonnageBS {
 	
 	@Override
 	public void unvalidatePersonnage(PersonnageWorkBO personnageWork)throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		personnageDAO.savePersonnage(personnageWork.getValidPersonnageData());
 		personnageDAO.savePersonnageWork(personnageWork);
@@ -208,19 +199,16 @@ public class PersonnageBS implements IPersonnageBS {
 
 	@Override
 	public List<PersonnageWorkBO> getPlayerPersonnageList(UserBO player) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		return personnageDAO.getPlayerPersonnageList(player);
 	}
 	
 	@Override
 	public List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO gameMaster) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		return personnageDAO.getGameMasterPersonnageList(gameMaster);
 	}
 	
 	@Override
 	public List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO gameMaster, String type) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		List<PersonnageWorkBO> personnageList = personnageDAO.getGameMasterPersonnageList(gameMaster);
 		Iterator<PersonnageWorkBO> it = personnageList.iterator();
 		while(it.hasNext()){
@@ -234,7 +222,6 @@ public class PersonnageBS implements IPersonnageBS {
 	
 	@Override
 	public PersonnageWorkBO loadPersonnage(Integer personnageId) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		return personnageDAO.loadPersonnageWork(personnageId);
 	}
 
@@ -243,7 +230,6 @@ public class PersonnageBS implements IPersonnageBS {
 		if(personnageId==null){
 			return null;
 		}
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
 		if(personnageWork.getPlayer()!=null && personnageWork.getPlayer().equals(user)){
 			return personnageWork;
@@ -259,7 +245,6 @@ public class PersonnageBS implements IPersonnageBS {
 		if(personnageId==null){
 			return null;
 		}
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
 		if(personnageWork.getPlayer()==null || personnageWork.getPlayer().getUsername()==null){
 			return null;
@@ -275,7 +260,6 @@ public class PersonnageBS implements IPersonnageBS {
 		if(personnageId==null){
 			return null;
 		}
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
 		if(personnageWork.getGameMaster()==null || personnageWork.getGameMaster().getUsername()==null){
 			return null;
@@ -310,7 +294,6 @@ public class PersonnageBS implements IPersonnageBS {
 		}
 		boolean success = personnage.addPropertyToMotherProperty(newProperty);
 		if(success){
-			IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 			personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		}
 		return success;
@@ -333,7 +316,6 @@ public class PersonnageBS implements IPersonnageBS {
 		newProperty.setName(newPropertyName);
 		boolean success = personnage.addPropertyToMotherProperty(newProperty);
 		if(success){
-			IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 			personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		}
 		return success;
@@ -342,7 +324,6 @@ public class PersonnageBS implements IPersonnageBS {
 	@Override
 	public void nextPhase(PersonnageWorkBO personnageWork) throws Exception {
 		personnageWork.getPersonnage().passToNextPhase();
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 	}
 
@@ -352,7 +333,6 @@ public class PersonnageBS implements IPersonnageBS {
 		Property property = personnage.getProperty(propertyAbsoluteName);
 		boolean success = personnageWork.getPersonnage().removePropertyFromMotherProperty(property);
 		if(success){
-			IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 			personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		}
 		return success;
@@ -362,13 +342,11 @@ public class PersonnageBS implements IPersonnageBS {
 	public void changeComment(PersonnageWorkBO personnageWork, String propertyAbsoluteName, String newComment) throws Exception {
 		Property property = personnageWork.getPersonnage().getProperty(propertyAbsoluteName);
 		property.setComment(newComment);
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 	}
 
 	@Override
 	public void modifyPointPool(PersonnageWorkBO personnageWork, String pointPoolName, Integer modification) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		
 		PoolPoint pointPool = personnageWork.getPersonnage().getPointPools().get(pointPoolName);
@@ -399,14 +377,11 @@ public class PersonnageBS implements IPersonnageBS {
 		historyItem.setPointPool(pointPoolName);
 		historyItem.setCost(cost);
 		
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 	}
 	
 	@Override
 	public void attribute(PersonnageWorkBO personnageWork, UserBO player, UserBO gameMaster) throws Exception{
-		IMailResource mailResource = (IMailResource)ContextLoader.getCurrentWebApplicationContext().getBean("MailResource");
-		IPersonnageDAO personnageDAO = (IPersonnageDAO) ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnageWork(personnageWork);
 		if(personnageWork.getGameMaster()!=null && !personnageWork.getGameMaster().equals(gameMaster)){
 			mailResource.send(personnageWork.getGameMaster().getMail(), "GenCrossWeb - "+personnageWork.getName(), "Le joueur "+player.getUsername()+" vous a retiré les droits de Maître de Jeu pour le personnage "+personnageWork.getName()+".");
@@ -429,7 +404,6 @@ public class PersonnageBS implements IPersonnageBS {
 	@Override
 	public void migrate() throws Exception{
 		PersonnageFactory migrationPersonnageFactory = new PersonnageFactory(true);
-		IPersonnageDAO personnageDAO = (IPersonnageDAO)ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		for(PersonnageXmlBO personnageXml : personnageDAO.getAllXml()){
 			InputStream is = new ByteArrayInputStream(personnageXml.getXml());
 			try{
@@ -448,7 +422,6 @@ public class PersonnageBS implements IPersonnageBS {
 	
 	@Override
 	public Collection<PersonnageWorkBO> getPersonnageListFromClass(Class<? extends Personnage> clazz) throws Exception{
-		IPersonnageDAO personnageDAO = (IPersonnageDAO)ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		Set<PersonnageWorkBO> result = new HashSet<PersonnageWorkBO>();
 		for(PersonnageWorkBO personnageWork : personnageDAO.getAllPersonnages()){
 			if(personnageWork.getPersonnage().getClass().getName().equals(clazz.getName())){
@@ -461,7 +434,6 @@ public class PersonnageBS implements IPersonnageBS {
 	
 	@Override
 	public Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO)ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		return personnageDAO.getPersonnageListFromType(type);
 	}
 
@@ -479,16 +451,34 @@ public class PersonnageBS implements IPersonnageBS {
 
 	@Override
 	public void savePersonnageBackground(PersonnageWorkBO personnageWork, String background) throws Exception {
-		IPersonnageDAO personnageDAO = (IPersonnageDAO)ContextLoader.getCurrentWebApplicationContext().getBean("PersonnageDAO");
 		personnageDAO.savePersonnageWork(personnageWork);
 		personnageWork.setBackground(background);
 	}
 
-	
+	public IPersonnageDAO getPersonnageDAO() {
+		return personnageDAO;
+	}
 
+	public void setPersonnageDAO(IPersonnageDAO personnageDAO) {
+		this.personnageDAO = personnageDAO;
+	}
 
-	
-	
+	public IMailResource getMailResource() {
+		return mailResource;
+	}
+
+	public void setMailResource(IMailResource mailResource) {
+		this.mailResource = mailResource;
+	}
+
+	public IUserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public void setUserDAO(IUserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
 	
 
 }
