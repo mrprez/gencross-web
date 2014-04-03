@@ -248,7 +248,7 @@
 		<constructor-arg><ref bean="mailSenderSession"/></constructor-arg>
 		<constructor-arg><ref bean="mailReceiverSession"/></constructor-arg>
 		<property name="defaultFromAdress" value="genCrossBackup@mrprez.com"/>
-		<property name="paramDAO" value="ParamDAO"/>
+		<property name="paramDAO" ref="ParamDAO"/>
 	</bean>
 	
 	<bean id="GoogleCalendarResource" class="com.mrprez.gencross.web.dao.GoogleCalendarResource" scope="singleton" lazy-init="true">
