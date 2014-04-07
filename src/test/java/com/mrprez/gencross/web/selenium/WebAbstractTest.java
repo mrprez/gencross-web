@@ -169,6 +169,7 @@ public abstract class WebAbstractTest {
 		File warFile = new File(targetDir, context + ".war");
 
 		File deployedWar = new File(webappsDir, context + ".war");
+		FileUtils.deleteDirectory(new File(webappsDir,context));
 		deployedWar.delete();
 		FileUtils.copyFile(warFile, deployedWar);
 
