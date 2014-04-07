@@ -20,10 +20,6 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:pointcut id="actionTxPointcut" expression="execution(* com.mrprez.gencross.web.action.*.*(..))"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="actionTxPointcut"/>
-	</aop:config>
-	<aop:config>
 		<aop:pointcut id="bsTxPointcut" expression="execution(* com.mrprez.gencross.web.bs.*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="bsTxPointcut"/>
 	</aop:config>
@@ -126,7 +122,7 @@
 		<property name="authentificationBS" ref="authentificationBS"/>
 	</bean>
 	
-	<bean id="loggerAction" class="com.mrprez.gencross.web.action.loggeraction">
+	<bean id="loggerAction" class="com.mrprez.gencross.web.action.LoggerAction">
 		<property name="loggerBS" ref="loggerBS"/>
 	</bean>
 	
@@ -192,11 +188,11 @@
 		<property name="mailResource" ref="MailResource"/>
 		<property name="userDAO" ref="UserDAO"/>
 		<property name="paramDAO" ref="ParamDAO"/>
-		<property name="calendarResource" ref="CalendarResource"/>
+		<property name="calendarResource" ref="GoogleCalendarResource"/>
 	</bean>
 	
 	<bean id="paramsBS" class="com.mrprez.gencross.web.bs.ParamsBS" scope="singleton">
-		<property name="paramDAO" ref="paramDAO"/>
+		<property name="paramDAO" ref="ParamDAO"/>
 	</bean>
 	
 	<bean id="personnageComparatorBS" class="com.mrprez.gencross.web.bs.PersonnageComparatorBS" scope="singleton"/>
