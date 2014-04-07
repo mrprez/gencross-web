@@ -30,6 +30,16 @@ public class ChangeMailAction extends ActionSupport {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
+	public IAuthentificationBS getAuthentificationBS() {
+		return authentificationBS;
+	}
+
+	public void setAuthentificationBS(IAuthentificationBS authentificationBS) {
+		this.authentificationBS = authentificationBS;
+	}
+	
+	
 	
 	
 	
