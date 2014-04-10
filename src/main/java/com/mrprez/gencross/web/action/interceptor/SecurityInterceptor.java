@@ -8,6 +8,7 @@ import org.springframework.web.context.ContextLoader;
 import com.mrprez.gencross.web.bo.RoleBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 
@@ -31,7 +32,7 @@ public class SecurityInterceptor implements Interceptor {
 
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
-		UserBO user = (UserBO)actionInvocation.getInvocationContext().getSession().get("user");
+		UserBO user = (UserBO)ActionContext.getContext().getSession().get("user");
 		if(user==null){
 			return LOGIN_ACTION;
 		}
@@ -59,7 +60,7 @@ public class SecurityInterceptor implements Interceptor {
 		}
 		
 	}
-	
+
 	
 
 }

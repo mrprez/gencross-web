@@ -14,7 +14,7 @@ public class LoginAction extends ActionSupport {
 	
 	private String password;
 	private String username;
-
+	
 	private IAuthentificationBS authentificationBS;
 	
 	
@@ -57,6 +57,6 @@ public class LoginAction extends ActionSupport {
 	public void setAuthentificationBS(IAuthentificationBS authentificationBS) {
 		this.authentificationBS = authentificationBS;
 	}
-	
 
+	
 }

@@ -17,7 +17,7 @@
 		<link href="<s:url value="/css/fullcalendar.css"/>" rel="stylesheet" type="text/css"/>
 		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" />
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);" class="<s:property value="#request.action.class.simpleName"/>">
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">
 			<div id="headerLeft">
 				<s:a action="List">
