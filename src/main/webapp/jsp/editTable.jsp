@@ -139,14 +139,16 @@
 		</div>
 	</div>
 	
-	<div id="editTableActionsDiv">	
-		<s:form theme="simple" action="EditTable!bindPersonnage" id="bindPersonnageForm">
-			<s:hidden name="id"/>
-			Rattacher un personnage:
-			<s:select name="personnageId" list="addablePersonnage" listKey="id" listValue="name"/>
-			<s:set name="imageUrl"><s:url value="/img/link.png"/></s:set>
-			<s:submit type="button"><img src="${imageUrl}"/> Rattacher</s:submit>
-		</s:form>
+	<div id="editTableActionsDiv">
+		<s:if test="!addablePersonnage.isEmpty()">
+			<s:form theme="simple" action="EditTable!bindPersonnage" id="bindPersonnageForm">
+				<s:hidden name="id"/>
+				Rattacher un personnage:
+				<s:select name="personnageId" list="addablePersonnage" listKey="id" listValue="name"/>
+				<s:set name="imageUrl"><s:url value="/img/link.png"/></s:set>
+				<s:submit type="button"><img src="${imageUrl}"/> Rattacher</s:submit>
+			</s:form>
+		</s:if>
 		<s:form theme="simple" action="MultiExport" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Export Multiple"/></s:form>
 		<s:form theme="simple" action="EditTable!refreshMessages">
 			<s:hidden name="id" value="%{id}"/>
