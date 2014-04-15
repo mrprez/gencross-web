@@ -141,7 +141,7 @@
 	
 	<div id="editTableActionsDiv">
 		<s:if test="!addablePersonnage.isEmpty()">
-			<s:form theme="simple" action="EditTable!bindPersonnage" id="bindPersonnageForm">
+			<s:form cssClass="tableButton" theme="simple" action="EditTable!bindPersonnage" id="bindPersonnageForm">
 				<s:hidden name="id"/>
 				Rattacher un personnage:
 				<s:select name="personnageId" list="addablePersonnage" listKey="id" listValue="name"/>
@@ -149,12 +149,12 @@
 				<s:submit type="button"><img src="${imageUrl}"/> Rattacher</s:submit>
 			</s:form>
 		</s:if>
-		<s:form theme="simple" action="MultiExport" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Export Multiple"/></s:form>
-		<s:form theme="simple" action="EditTable!refreshMessages">
+		<s:form cssClass="tableButton" theme="simple" action="MultiExport" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Export Multiple"/></s:form>
+		<s:form cssClass="tableButton" theme="simple" action="EditTable!refreshMessages">
 			<s:hidden name="id" value="%{id}"/>
 			<s:submit value="Récupérer les messages récemment envoyés"/>
 		</s:form>
-		<s:form theme="simple" action="PlanGame" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Planning"/></s:form>
+		<s:form cssClass="tableButton" theme="simple" action="PlanGame" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Planning"/></s:form>
 	</div>
 
 	<div id="messageListDiv">
