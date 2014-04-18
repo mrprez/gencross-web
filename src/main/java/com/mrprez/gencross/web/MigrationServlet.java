@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.web.bo.ParamBO;
@@ -40,6 +41,7 @@ public class MigrationServlet implements Servlet {
 				personnageBS.migrate();
 			}
 		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error("Personnage migration failed", e);
 			throw new ServletException(e);
 		}
 	}
