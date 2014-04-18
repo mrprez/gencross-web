@@ -370,7 +370,6 @@ li.addProperty{
 	list-style-image: none;
 	list-style-type: none;
 	font-style: italic;
-	display: inline-block;
 }
 
 span.addProperty{
@@ -655,20 +654,17 @@ table.pointPool{
 	margin-left: 100px;
 }
 
-.currentOwner{
-	font-weight: bold;
-}
-
-.currentOwnerUsername{
-	font-family:sans-serif;
-}
-
-table.attributionForm{
-	margin-top: 10px;
-}
-
 .attributionButton{
 	margin-top: 10px;
+}
+
+#attributedPersonnageName{
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#currentValue{
+	font-weight: bold;
 }
 
 
@@ -771,6 +767,10 @@ table.attributionForm{
 
 #addMessageForm table {
 	width: 100%;
+}
+
+.tableButton{
+	display: inline;
 }
 
 /* Table Pool Points */
