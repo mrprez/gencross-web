@@ -415,6 +415,7 @@ public class PersonnageBS implements IPersonnageBS {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				PersonnageSaver.savePersonnage(personnage, baos);
 				personnageXml.setXml(baos.toByteArray());
+				personnageDAO.savePersonnageXml(personnageXml);
 			}
 			
 		}
