@@ -40,6 +40,11 @@ public class UploadAction extends ActionSupport {
 	public String upload() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		
+		if(gcrFile==null){
+			super.addActionError("Vous devez charger un fichier Gencross");
+			return ERROR;
+		}
+		
 		if(personnageId==null){
 			if(gm){
 				PersonnageWorkBO personnageWork = gcrFileBS.createPersonnageAsGameMaster(gcrFile, personnageName, user, password);
