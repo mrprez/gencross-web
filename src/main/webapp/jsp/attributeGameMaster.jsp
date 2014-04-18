@@ -6,13 +6,16 @@
 <s:include value="include/header.jsp"/>
 
 <div class="attributionFormContainer">
-	<s:form action="AttributeGameMaster!attribute" cssClass="attributionForm">
-		<h2>Attribuer "<s:property value="personnageWork.name"/>" à un Maître de Jeu</h2>
-		
+	<s:form action="AttributeGameMaster!attribute">
+		<p>
+			Attribuer le personnage <span id="attributedPersonnageName"><s:property value="personnageWork.name"/></span> au Maître de Jeu: 
+			<s:select name="newGameMasterName" list="userList" listKey="username" theme="simple" listValue="username" headerKey="_no_gm_" headerValue="Aucun"/>
+		</p>
 		<s:if test="personnageWork.gameMaster!=null">
-			<span class="currentOwner">MJ actuel: <span class="currentOwnerUsername"><s:property value="personnageWork.gameMaster.username"/></span></span>
+			<p>
+				Le Maître de Jeu actuel est <span id="currentValue"><s:property value="personnageWork.gameMaster.username"/></span>.
+			</p>
 		</s:if>
-		<s:select name="newGameMasterName" label="Nouveau MJ" list="userList" listKey="username" listValue="username" headerKey="_no_gm_" headerValue="Aucun"/>
 		<s:hidden name="personnageId" value="%{personnageWork.id}"/>
 		<s:submit cssClass="attributionButton" value="Valider"/>
 	</s:form>

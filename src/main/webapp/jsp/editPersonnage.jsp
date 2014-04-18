@@ -107,7 +107,7 @@
 			<td class="historyColumn">
 				<span id="lastValidationDateText">
 					<s:if test="personnageWork.validationDate!=null">
-						Dernière validation du MJ: <span id="lastValidationDate"><s:date name="personnageWork.validationDate" format="HH:mm:ss,SSS dd/MM/yyyy"/></span>
+						Dernière validation du MJ le <span id="lastValidationDate" title="<s:date name="personnageWork.validationDate" format="HH:mm:ss,SSS dd/MM/yyyy"/>"><s:date name="personnageWork.validationDate" format="dd/MM/yyyy à HH:mm:ss"/></span>
 						<button id="seeNotValidateButton" onclick="javascript:manageHightlightHistory()">Voir le non-validé</button>
 					</s:if>
 					<s:else>
