@@ -57,6 +57,7 @@
 	<!-- ********** -->
 	<bean id="personnageListAction" class="com.mrprez.gencross.web.action.PersonnageListAction" scope="prototype">
 		<property name="personnageBS" ref="personnageBS"/>
+		<property name="gcrFileBS" ref="gcrFileBS"/>
 	</bean>
 	
 	<bean id="attributeGameMasterAction" class="com.mrprez.gencross.web.action.AttributeGameMasterAction" scope="prototype">
