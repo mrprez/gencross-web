@@ -50,7 +50,8 @@ public class PersonnageDAO extends AbstractDAO implements IPersonnageDAO {
 	@Override
 	public List<PersonnageWorkBO> getPlayerPersonnageList(UserBO player) throws Exception {
 		Criteria criteria = getSession().createCriteria(PersonnageWorkBO.class);
-		criteria.add(Restrictions.eq("player", player));
+		criteria.add(Restrictions.eq("player", player))
+				.setFetchMode("table", FetchMode.JOIN);
 		List<PersonnageWorkBO> result = criteria.list();
 		return result;
 	}
@@ -59,7 +60,8 @@ public class PersonnageDAO extends AbstractDAO implements IPersonnageDAO {
 	@Override
 	public List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO gameMaster) throws Exception {
 		Criteria criteria = getSession().createCriteria(PersonnageWorkBO.class);
-		criteria.add(Restrictions.eq("gameMaster", gameMaster));
+		criteria.add(Restrictions.eq("gameMaster", gameMaster))
+				.setFetchMode("table", FetchMode.JOIN);
 		List<PersonnageWorkBO> result = criteria.list();
 		return result;
 	}
