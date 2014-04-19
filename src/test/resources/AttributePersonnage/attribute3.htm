@@ -74,14 +74,10 @@
 		
 
 <div class="attributionFormContainer">
-	<form id="AttributeGameMaster!attribute" name="AttributeGameMaster!attribute" action="/gencross-web/AttributeGameMaster!attribute.action" method="post" class="attributionForm">
-<h2>Attribuer "Test attibution" à un Maître de Jeu</h2><table class="attributionForm">
-		
-		
-		
-		<tbody><tr>
-    <td class="tdLabel"><label for="AttributeGameMaster!attribute_newGameMasterName" class="label">Nouveau MJ:</label></td>
-    <td><select name="newGameMasterName" id="AttributeGameMaster!attribute_newGameMasterName">
+	<form id="AttributeGameMaster!attribute" name="AttributeGameMaster!attribute" action="/gencross-web/AttributeGameMaster!attribute.action" method="post">
+<p>
+			Attribuer le personnage <span id="attributedPersonnageName">Test attibution</span> au Maître de Jeu: 
+			<select name="newGameMasterName" id="AttributeGameMaster!attribute_newGameMasterName">
     <option value="_no_gm_">Aucun</option>
     <option value="azerty">azerty</option>
     <option value="mrprez">mrprez</option>
@@ -89,11 +85,12 @@
 
 
 </select>
-</td>
-</tr>
 
+		</p><table class="wwFormTable">
+		
+		
 		<input type="hidden" name="personnageId" value="1" id="AttributeGameMaster!attribute_personnageId">
-		<tr>
+		<tbody><tr>
     <td colspan="2"><div align="right"><input type="submit" id="AttributeGameMaster!attribute_0" value="Valider" class="attributionButton">
 </div></td>
 </tr>

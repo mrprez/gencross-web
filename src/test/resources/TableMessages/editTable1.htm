@@ -142,31 +142,14 @@
 	</div>
 	
 	<div id="editTableActionsDiv">	
-		<form id="bindPersonnageForm" name="bindPersonnageForm" action="/gencross-web/EditTable!bindPersonnage.action" method="post">
-			<input type="hidden" name="id" value="1" id="bindPersonnageForm_id">
-			Rattacher un personnage:
-			<select name="personnageId" id="bindPersonnageForm_personnageId">
 
-
-</select>
-
-			
-			<button type="submit" id="bindPersonnageForm_0" value="Submit">
-<img src="/gencross-web/img/link.png"> Rattacher
-</button>
-
+		<form id="MultiExport" name="MultiExport" action="/gencross-web/MultiExport.action" method="get" class="tableButton"><input type="hidden" name="tableId" value="1" id="MultiExport_tableId"><input type="submit" id="MultiExport_0" value="Export Multiple">
 		</form>
 
 
 
 
-		<form id="MultiExport" name="MultiExport" action="/gencross-web/MultiExport.action" method="get"><input type="hidden" name="tableId" value="1" id="MultiExport_tableId"><input type="submit" id="MultiExport_0" value="Export Multiple">
-</form>
-
-
-
-
-		<form id="EditTable!refreshMessages" name="EditTable!refreshMessages" action="/gencross-web/EditTable!refreshMessages.action" method="post">
+		<form id="EditTable!refreshMessages" name="EditTable!refreshMessages" action="/gencross-web/EditTable!refreshMessages.action" method="post" class="tableButton">
 			<input type="hidden" name="id" value="1" id="EditTable!refreshMessages_id">
 			<input type="submit" id="EditTable!refreshMessages_0" value="Récupérer les messages récemment envoyés">
 
@@ -175,7 +158,7 @@
 
 
 
-		<form id="PlanGame" name="PlanGame" action="/gencross-web/PlanGame.action" method="get"><input type="hidden" name="tableId" value="1" id="PlanGame_tableId"><input type="submit" id="PlanGame_0" value="Planning">
+		<form id="PlanGame" name="PlanGame" action="/gencross-web/PlanGame.action" method="get" class="tableButton"><input type="hidden" name="tableId" value="1" id="PlanGame_tableId"><input type="submit" id="PlanGame_0" value="Planning">
 </form>
 
 
