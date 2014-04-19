@@ -88,15 +88,9 @@
 
 <div class="attributionFormContainer">
 	<form id="AttributePlayer!attribute" name="AttributePlayer!attribute" action="/gencross-web/AttributePlayer!attribute.action" method="post" class="attributionForm">
-<h2>Attribuer "Test attibution" à un Joueur</h2><span class="currentOwner">Joueur actuel: <span class="currentOwnerUsername">azerty</span></span><table class="attributionForm">
-		
-		
-		
-			
-		
-		<tbody><tr>
-    <td class="tdLabel"><label for="AttributePlayer!attribute_newPlayerName" class="label">Nouveau Joueur:</label></td>
-    <td><select name="newPlayerName" id="AttributePlayer!attribute_newPlayerName">
+<p>
+			Attribuer le personnage <span id="attributedPersonnageName">Test attibution</span> au Joueur:
+			<select name="newPlayerName" id="AttributePlayer!attribute_newPlayerName">
     <option value="_no_player_">Aucun</option>
     <option value="azerty">azerty</option>
     <option value="mrprez">mrprez</option>
@@ -104,11 +98,16 @@
 
 
 </select>
-</td>
-</tr>
 
+		</p><p>
+				Le Joueur actuel est <span id="currentValue">azerty</span>.
+			</p><table class="attributionForm">
+		
+		
+			
+		
 		<input type="hidden" name="personnageId" value="1" id="AttributePlayer!attribute_personnageId">
-		<tr>
+		<tbody><tr>
     <td colspan="2"><div align="right"><input type="submit" id="AttributePlayer!attribute_0" value="Valider" class="attributionButton">
 </div></td>
 </tr>
