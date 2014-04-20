@@ -16,4 +16,6 @@ public interface ILoggerBS {
 
 	void changeLogLevel(String loggerName, String levelName) throws Exception;
 
+	Appender getAppender(String appenderName) throws Exception;
+
 }

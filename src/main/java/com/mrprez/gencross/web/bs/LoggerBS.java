@@ -52,10 +52,9 @@ public class LoggerBS implements ILoggerBS {
 	
 	@Override
 	public FileInputStream getFileInputStream(String appenderName) throws Exception {
-		for(Appender appender : getAppenders()){
-			if(appender.getName().equals(appenderName) && appender instanceof FileAppender){
-				return new FileInputStream(((FileAppender)appender).getFile());
-			}
+		Appender appender = getAppender(appenderName);
+		if(appender instanceof FileAppender){
+			return new FileInputStream(((FileAppender)appender).getFile());
 		}
 		return null;
 	}
@@ -64,6 +63,16 @@ public class LoggerBS implements ILoggerBS {
 	public void changeLogLevel(String loggerName, String levelName) throws Exception {
 		Logger logger = Logger.getLogger(loggerName);
 		logger.setLevel(Level.toLevel(levelName));
+	}
+	
+	@Override
+	public Appender getAppender(String appenderName) throws Exception {
+		for(Appender appender : getAppenders()){
+			if(appender.getName().equals(appenderName)){
+				return appender;
+			}
+		}
+		return null;
 	}
 	
 }

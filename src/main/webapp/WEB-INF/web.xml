@@ -40,7 +40,7 @@
 			<param-name>config-file</param-name>
 			<param-value>quartz.properties</param-value>
 		</init-param>
-		<load-on-startup>2</load-on-startup>
+		<load-on-startup>3</load-on-startup>
 	</servlet>
 	
 	<servlet> 
@@ -50,6 +50,12 @@
 			<param-name>migration</param-name>
 			<param-value>false</param-value>
 		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>Log4jInitServlet</servlet-name> 
+		<servlet-class>com.mrprez.gencross.web.Log4jInitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
     
