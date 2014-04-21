@@ -773,6 +773,16 @@ table.pointPool{
 	display: inline;
 }
 
+.buttonGroup{
+	padding: 4px;
+	border: 1px solid #2B73A8;
+	margin: 3px;
+}
+
+.imgButton{
+	height: 12px;
+}
+
 /* Table Pool Points */
 td.unvalidated {
 	font-weight: bold;

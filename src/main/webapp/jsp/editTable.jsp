@@ -141,20 +141,16 @@
 	
 	<div id="editTableActionsDiv">
 		<s:if test="!addablePersonnage.isEmpty()">
-			<s:form cssClass="tableButton" theme="simple" action="EditTable!bindPersonnage" id="bindPersonnageForm">
+			<s:form cssClass="tableButton buttonGroup" theme="simple" action="EditTable!bindPersonnage" id="bindPersonnageForm">
 				<s:hidden name="id"/>
 				Rattacher un personnage:
 				<s:select name="personnageId" list="addablePersonnage" listKey="id" listValue="name"/>
 				<s:set name="imageUrl"><s:url value="/img/link.png"/></s:set>
-				<s:submit type="button"><img src="${imageUrl}"/> Rattacher</s:submit>
+				<s:submit type="button"><img class="imgButton" src="${imageUrl}"/> Rattacher</s:submit>
 			</s:form>
 		</s:if>
-		<s:form cssClass="tableButton" theme="simple" action="MultiExport" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Export Multiple"/></s:form>
-		<s:form cssClass="tableButton" theme="simple" action="EditTable!refreshMessages">
-			<s:hidden name="id" value="%{id}"/>
-			<s:submit value="Récupérer les messages récemment envoyés"/>
-		</s:form>
-		<s:form cssClass="tableButton" theme="simple" action="PlanGame" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Planning"/></s:form>
+		<s:form cssClass="tableButton buttonGroup" theme="simple" action="MultiExport" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Export Multiple"/></s:form>
+		<s:form cssClass="tableButton buttonGroup" theme="simple" action="PlanGame" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Planning"/></s:form>
 	</div>
 
 	<div id="messageListDiv">
@@ -187,7 +183,7 @@
 			</s:iterator>
 			<tr>
 				<td>
-					<s:form theme="simple" id="addMessageForm" action="EditTable!newMessage">
+					<s:form theme="simple" id="addMessageForm" action="EditTable!newMessage" cssClass="tableButton">
 						<s:hidden name="id" value="%{id}"/>
 						<s:textarea id="message" name="message" cols="60" rows="8"/>
 						<script type="text/javascript">
@@ -198,6 +194,11 @@
 						<s:submit name="addMessage" value="Ajouter"/>
 						<s:submit name="sendMessage" value="Envoyer au Joueurs"/>
 					</s:form>
+					<s:form theme="simple" action="EditTable!refreshMessages" cssClass="tableButton">
+						<s:hidden name="id" value="%{id}"/>
+						<s:submit value="Récupérer les messages récemment envoyés"/>
+					</s:form>
+		
 				</td>
 			</tr>
 		</table>
