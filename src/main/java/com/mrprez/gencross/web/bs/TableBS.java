@@ -208,7 +208,8 @@ public class TableBS implements ITableBS {
 			}
 		}
 		toAdresses.add(table.getGameMaster().getMail());
-		mailResource.send(toAdresses, table.getGameMaster().getMail(), "["+table.getName()+"]", message);
+		String tableMailAddress = (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue();
+		mailResource.send(toAdresses, tableMailAddress, "["+table.getName()+"]", message);
 	}
 	
 	@Override
@@ -355,7 +356,5 @@ public class TableBS implements ITableBS {
 	public void setCalendarResource(IGoogleCalendarResource calendarResource) {
 		this.calendarResource = calendarResource;
 	}
-
-	
 	
 }
