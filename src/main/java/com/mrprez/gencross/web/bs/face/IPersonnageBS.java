@@ -2,9 +2,7 @@ package com.mrprez.gencross.web.bs.face;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -58,12 +56,6 @@ public interface IPersonnageBS {
 	void attribute(PersonnageWorkBO personnageWork, UserBO player, UserBO gameMaster) throws Exception;
 
 	void deletePersonnageFromUser(int personnageWorkId, UserBO user) throws Exception;
-
-	Map<Integer, Double> getLastMigrationResult() throws Exception;
-
-	Collection<PersonnageWorkBO> getPersonnageListFromClass(Class<? extends Personnage> clazz) throws Exception;
-
-	List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO gameMaster, String type) throws Exception;
 
 	Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception;
 

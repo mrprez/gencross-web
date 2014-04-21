@@ -5,11 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
@@ -35,7 +31,6 @@ import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IUserDAO;
 
 public class PersonnageBS implements IPersonnageBS {
-	private Map<Integer, Double> lastMigrationResult;
 	private PersonnageFactory personnageFactory;
 	private IPersonnageDAO personnageDAO;
 	private IMailResource mailResource;
@@ -205,19 +200,6 @@ public class PersonnageBS implements IPersonnageBS {
 	@Override
 	public List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO gameMaster) throws Exception {
 		return personnageDAO.getGameMasterPersonnageList(gameMaster);
-	}
-	
-	@Override
-	public List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO gameMaster, String type) throws Exception {
-		List<PersonnageWorkBO> personnageList = personnageDAO.getGameMasterPersonnageList(gameMaster);
-		Iterator<PersonnageWorkBO> it = personnageList.iterator();
-		while(it.hasNext()){
-			PersonnageWorkBO personnageWork = it.next();
-			if(!personnageWork.getPersonnage().getClass().getSimpleName().equals(type)){
-				it.remove();
-			}
-		}
-		return personnageList;
 	}
 	
 	@Override
@@ -422,25 +404,8 @@ public class PersonnageBS implements IPersonnageBS {
 	}
 	
 	@Override
-	public Collection<PersonnageWorkBO> getPersonnageListFromClass(Class<? extends Personnage> clazz) throws Exception{
-		Set<PersonnageWorkBO> result = new HashSet<PersonnageWorkBO>();
-		for(PersonnageWorkBO personnageWork : personnageDAO.getAllPersonnages()){
-			if(personnageWork.getPersonnage().getClass().getName().equals(clazz.getName())){
-				personnageWork.getValidPersonnage();
-				result.add(personnageWork);
-			}
-		}
-		return result;
-	}
-	
-	@Override
 	public Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception {
 		return personnageDAO.getPersonnageListFromType(type);
-	}
-
-	@Override
-	public Map<Integer, Double> getLastMigrationResult() {
-		return lastMigrationResult;
 	}
 
 	public PersonnageFactory getPersonnageFactory() {
