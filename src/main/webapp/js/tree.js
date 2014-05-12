@@ -7,6 +7,7 @@ var waitMaskTimeout;
 function displayEditForm(imgElement){
 	$(imgElement).parent().children('.editForm').css('display', 'inline-block');
 	$(imgElement).hide();
+	$(imgElement).parent().children('.editForm').children('input[type=text]').focus();
 }
 
 function hideEditFormFromImg(imgElement){
