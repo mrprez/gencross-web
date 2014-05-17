@@ -6,6 +6,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
+
 import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.Personnage;
@@ -16,11 +21,13 @@ import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 
 
+@WebService(endpointInterface = "com.mrprez.gencross.web.service")
+@SOAPBinding(style = Style.RPC)
 public class PersonnageService {
 	private static String VALID_VERSION = "validVersion";
 	
 	
-	
+	@WebMethod
 	public Collection<PluginDescriptor> getPluginList() throws Exception{
 		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		return personnageBS.getAvailablePersonnageTypes();

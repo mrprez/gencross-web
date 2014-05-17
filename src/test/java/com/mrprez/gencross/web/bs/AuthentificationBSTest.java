@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web;
+package com.mrprez.gencross.web.bs;
 
 import com.mrprez.gencross.web.bo.UserBO;
 
