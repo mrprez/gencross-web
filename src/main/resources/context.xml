@@ -143,7 +143,7 @@
 	</bean>
 	
 	<bean id="planGameAction" class="com.mrprez.gencross.web.action.PlanGameAction" scope="prototype">
-		<property name="tableBS" ref="tableBS"/>
+		<property name="planGameBS" ref="planGameBS"/>
 	</bean>
 	
 	<bean id="subscriptionAction" class="com.mrprez.gencross.web.action.SubscriptionAction" scope="prototype">
