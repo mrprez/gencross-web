@@ -5,6 +5,7 @@
 	<projects>
 		<project>changelin</project>
 		<project>ins</project>
+		<project>pavillonNoir</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
