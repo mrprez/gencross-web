@@ -3,6 +3,7 @@ package com.mrprez.gencross.web.bo;
 import java.util.Date;
 
 public class PlannedGameBO {
+	private TableBO table;
 	private String title;
 	private Date startTime;
 	private Date endTime;
@@ -25,6 +26,12 @@ public class PlannedGameBO {
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	public TableBO getTable() {
+		return table;
+	}
+	public void setTable(TableBO table) {
+		this.table = table;
 	}
 	
 

@@ -43,8 +43,6 @@ public interface ITableBS {
 	
 	Collection<PlannedGameBO> getPlannedGames(Integer tableId, Date startDate, Date endDate) throws Exception;
 
-	void planGame(Integer tableId, PlannedGameBO plannedGame, UserBO user) throws Exception;
-
 	void replanGame(Integer tableId, Integer dayDelta, Integer minuteDelta, Date startDate, Date endDate, UserBO user) throws Exception;
 
 	

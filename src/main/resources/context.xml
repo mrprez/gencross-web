@@ -191,7 +191,6 @@
 		<property name="mailResource" ref="MailResource"/>
 		<property name="userDAO" ref="UserDAO"/>
 		<property name="paramDAO" ref="ParamDAO"/>
-		<property name="calendarResource" ref="GoogleCalendarResource"/>
 	</bean>
 	
 	<bean id="paramsBS" class="com.mrprez.gencross.web.bs.ParamsBS" scope="singleton">
@@ -213,6 +212,11 @@
 	<bean id="jobBS" class="com.mrprez.gencross.web.bs.JobBS" scope="singleton"/>
 	
 	<bean id="loggerBS" class="com.mrprez.gencross.web.bs.LoggerBS" scope="singleton"/>
+	
+	<bean id="planGameBS" class="com.mrprez.gencross.web.bs.PlanGameBS" scope="singleton">
+		<property name="mailResource" ref="MailResource"/>
+		<property name="tableDao" ref="TableDAO"/>
+	</bean>
 	
 	
 	<!-- ********** -->
@@ -248,11 +252,6 @@
 		<constructor-arg><ref bean="mailReceiverSession"/></constructor-arg>
 		<property name="defaultFromAdress" value="genCrossBackup@mrprez.com"/>
 		<property name="paramDAO" ref="ParamDAO"/>
-	</bean>
-	
-	<bean id="GoogleCalendarResource" class="com.mrprez.gencross.web.dao.GoogleCalendarResource" scope="singleton" lazy-init="true">
-		<constructor-arg><value>tables.gencross</value></constructor-arg>
-		<constructor-arg><value>19081983</value></constructor-arg>
 	</bean>
 	
 	<bean id="TemplateFileResource" class="com.mrprez.gencross.web.dao.TemplateFileResource" scope="singleton"/>

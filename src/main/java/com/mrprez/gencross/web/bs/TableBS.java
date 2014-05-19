@@ -271,27 +271,6 @@ public class TableBS implements ITableBS {
 	}
 
 	@Override
-	public void planGame(Integer tableId, PlannedGameBO plannedGame, UserBO user) throws Exception {
-		TableBO table = tableDAO.loadTable(tableId);
-		if(! table.getGameMaster().equals(user)){
-			throw new BusinessException("User "+user+" not GM on table "+table.getName());
-		}
-		Collection<String> participantsMail = new HashSet<String>();
-		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
-			if(personnageWork.getPlayer() != null){
-				participantsMail.add(personnageWork.getPlayer().getMail());
-			}
-		}
-		participantsMail.add(user.getMail());
-		
-		if( ! calendarResource.isCalendarExist(table.getName()) ){
-			calendarResource.createCalendar(table.getName(), table.getGameMaster().getMail(), participantsMail);
-		}
-		calendarResource.planGame(table.getName(), plannedGame.getTitle(), plannedGame.getStartTime(), plannedGame.getEndTime(), participantsMail);
-		
-	}
-
-	@Override
 	public void replanGame(Integer tableId, Integer dayDelta, Integer minuteDelta, Date startDate, Date endDate, UserBO user) throws Exception {
 		TableBO table = tableDAO.loadTable(tableId);
 		if(! table.getGameMaster().equals(user)){

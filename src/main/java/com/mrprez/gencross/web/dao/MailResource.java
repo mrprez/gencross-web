@@ -136,6 +136,16 @@ public class MailResource implements IMailResource {
 	}
 	
 	@Override
+	public void send(Collection<String> toAdresses, String fromAddress, String subject, String text, String attachmentName, byte[] attachment) throws Exception{
+		InternetAddress internetAddresses[] = new InternetAddress[toAdresses.size()];
+		int index = 0;
+		for(String toAdress : toAdresses){
+			internetAddresses[index++] = new InternetAddress(toAdress);
+		}
+		send(internetAddresses, new InternetAddress(fromAddress), subject, text, attachmentName, attachment);
+	}
+	
+	@Override
 	public void sendError(Exception exception) throws Exception {
 		ParamBO paramAdress = paramDAO.getParam(ParamBO.ADMIN_ADRESS);
 		if(paramAdress==null){
