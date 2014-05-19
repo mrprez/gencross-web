@@ -8,7 +8,7 @@ import java.util.Date;
 
 import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.UserBO;
-import com.mrprez.gencross.web.bs.face.ITableBS;
+import com.mrprez.gencross.web.bs.face.IPlanGameBS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -29,7 +29,7 @@ public class PlanGameAction extends ActionSupport {
 	private Integer dayDelta;
 	private Integer minuteDelta;
 	
-	private ITableBS tableBS;
+	private IPlanGameBS planGameBS;
 	
 	
 	public String execute() throws Exception {
@@ -57,19 +57,19 @@ public class PlanGameAction extends ActionSupport {
 		startCalendar.set(Calendar.MILLISECOND, 0);
 		plannedGame.setEndTime(endCalendar.getTime());
 		
-		tableBS.planGame(tableId, plannedGame, user );
+		planGameBS.planGame(tableId, plannedGame, user );
 		
 		return SUCCESS;
 	}
 	
 	public String loadEvents() throws Exception {
-		plannedGamesList = tableBS.getPlannedGames(tableId, new Date(startTime*1000),  new Date(endTime*1000));
+		plannedGamesList = planGameBS.getPlannedGames(tableId, new Date(startTime*1000),  new Date(endTime*1000));
 		return "events";
 	}
 	
 	public String updateGame() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		tableBS.replanGame(tableId, dayDelta, minuteDelta, new Date(startTime),  new Date(endTime), user);
+		planGameBS.replanGame(tableId, dayDelta, minuteDelta, new Date(startTime),  new Date(endTime), user);
 		
 		return null;
 	}
@@ -131,12 +131,12 @@ public class PlanGameAction extends ActionSupport {
 		this.minuteDelta = minuteDelta;
 	}
 
-	public ITableBS getTableBS() {
-		return tableBS;
+	public IPlanGameBS getPlanGameBS() {
+		return planGameBS;
 	}
 
-	public void setTableBS(ITableBS tableBS) {
-		this.tableBS = tableBS;
+	public void setPlanGameBS(IPlanGameBS planGameBS) {
+		this.planGameBS = planGameBS;
 	}
 
 	

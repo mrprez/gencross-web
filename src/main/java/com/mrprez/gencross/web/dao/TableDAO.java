@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
+import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -53,6 +54,11 @@ public class TableDAO extends AbstractDAO implements ITableDAO {
 	@Override
 	public void deleteMessage(TableMessageBO message) throws Exception {
 		getSession().delete(message);
+	}
+
+	@Override
+	public void savePlannedGame(PlannedGameBO plannedGame) throws Exception {
+		getSession().save(plannedGame);
 	}
 	
 	

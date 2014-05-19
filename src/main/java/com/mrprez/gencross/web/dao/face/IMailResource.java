@@ -32,5 +32,7 @@ public interface IMailResource {
 	void send(Collection<String> toAdresses, String subject, String text) throws Exception;
 	
 	void send(Collection<String> toAdresses, String fromAddress, String subject, String text) throws Exception;
+	
+	void send(Collection<String> toAdresses, String fromAddress, String subject, String text, String attachmentName, byte[] attachment) throws Exception;
 
 }
