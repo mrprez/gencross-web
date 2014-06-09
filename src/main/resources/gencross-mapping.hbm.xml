@@ -88,6 +88,16 @@
 		<property name="stringValue" column="PARAM_VALUE"/>
 		<property name="type" column="TYPE"/>
 	</class>
+	
+	<class name="PlannedGameBO" table="PLANNED_GAME">
+		<id name="id" column="ID">
+			<generator class="identity"/>
+		</id>
+		<many-to-one name="table" column="RPG_TABLE" class="TableBO"/>
+		<property name="title" column="TITLE"/>
+		<property name="startTime" column="GAME_START"/>
+		<property name="endTime" column="GAME_END"/>
+	</class>
 
 
 </hibernate-mapping>

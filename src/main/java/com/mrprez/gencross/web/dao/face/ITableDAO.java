@@ -1,6 +1,8 @@
 package com.mrprez.gencross.web.dao.face;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.PlannedGameBO;
@@ -22,6 +24,14 @@ public interface ITableDAO extends IAbstractDAO {
 	void deleteMessage(TableMessageBO message) throws Exception;
 	
 	void savePlannedGame(PlannedGameBO plannedGame) throws Exception;
+	
+	void deletePlannedGame(PlannedGameBO plannedGame) throws Exception;
+
+	PlannedGameBO loadPlannedGame(Integer plannedGameId) throws Exception;
+
+	List<PlannedGameBO> loadTablePlannedGames(Integer tableId) throws Exception;
+
+	PlannedGameBO findPlannedGame(Integer tableId, Date startDate) throws Exception;
 
 
 }

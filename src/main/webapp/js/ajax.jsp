@@ -279,3 +279,21 @@ function uploadPersonnage(imageButton){
 	$(imageButton).parent().children(".uploadFile")[0].click();
 }
 
+function displayWaitMask(){
+	$('#waitMask').show();
+	$('#waitImage').show();
+	waitMaskTimeout = setTimeout("displayReload()",60000);
+}
+
+function hideWaitMask(){
+	clearTimeout(waitMaskTimeout);
+	$('#waitMask').hide();
+	$('#waitImage').hide();
+	$('#tooLongWaitMsg').hide();
+}
+
+function displayReload(){
+	$('#tooLongWaitMsg').show();
+}
+
+

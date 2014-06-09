@@ -48,7 +48,7 @@
 		<servlet-class>com.mrprez.gencross.web.MigrationServlet</servlet-class> 
 		<init-param>
 			<param-name>migration</param-name>
-			<param-value>false</param-value>
+			<param-value>true</param-value>
 		</init-param>
 		<load-on-startup>2</load-on-startup>
 	</servlet>

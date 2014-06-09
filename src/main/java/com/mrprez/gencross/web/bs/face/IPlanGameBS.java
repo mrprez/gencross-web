@@ -9,10 +9,12 @@ import com.mrprez.gencross.web.bo.UserBO;
 public interface IPlanGameBS {
 	
 	
-	void planGame(Integer tableId, PlannedGameBO plannedGame, UserBO user) throws Exception;
+	Collection<PlannedGameBO> getPlannedGames(Integer tableId) throws Exception;
 
-	Collection<PlannedGameBO> getPlannedGames(Integer tableId, Date date, Date date2);
+	void updateGame(Integer plannedGameId, String title, Date startDate, Date endDate, UserBO user) throws Exception;
 
-	void replanGame(Integer tableId, Integer dayDelta, Integer minuteDelta, Date date, Date date2, UserBO user);
+	void createGame(Integer tableId, String title, Date startDate, Date endDate, UserBO user) throws Exception;
+	
+	void deleteGame(Integer plannedGameId, UserBO user) throws Exception;
 
 }

@@ -5,16 +5,14 @@
 	<head>
 		<title>Gen-Cross</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=8"/>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery-1.10.1.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery-ui.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery.ui.datepicker-fr.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/fullcalendar.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/ajax.jsp"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/tree.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery-1.10.1.js"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.js"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/locale/locale_fr.js"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/ajax.jsp"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/tree.js"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
 		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"/>
-		<link href="<s:url value="/css/jquery-ui-1.10.3.custom.css"/>" rel="stylesheet" type="text/css"/>
-		<link href="<s:url value="/css/fullcalendar.css"/>" rel="stylesheet" type="text/css"/>
+		<link href="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.css"/>" rel="stylesheet" type="text/css"/>
 		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" />
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">

@@ -211,23 +211,6 @@ function getForm(element){
 	return currentElement;
 }
 
-function displayWaitMask(){
-	$('#waitMask').show();
-	$('#waitImage').show();
-	waitMaskTimeout = setTimeout("displayReload()",60000);
-}
-
-function hideWaitMask(){
-	clearTimeout(waitMaskTimeout);
-	$('#waitMask').hide();
-	$('#waitImage').hide();
-	$('#tooLongWaitMsg').hide();
-}
-
-function displayReload(){
-	$('#tooLongWaitMsg').show();
-}
-
 function displayHistory(button){
 	$('#displayButtons').hide();
 	$('.historyColumn').show();

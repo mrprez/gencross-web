@@ -1,6 +1,7 @@
 package com.mrprez.gencross.web.dao;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -61,6 +62,32 @@ public class TableDAO extends AbstractDAO implements ITableDAO {
 		getSession().save(plannedGame);
 	}
 	
-	
+	@Override
+	public PlannedGameBO findPlannedGame(Integer tableId, Date startDate) throws Exception {
+		Criteria criteria = getSession().createCriteria(PlannedGameBO.class);
+		criteria.add(Restrictions.eq("table.id", tableId));
+		criteria.add(Restrictions.eq("startTime", startDate));
+		return (PlannedGameBO) criteria.uniqueResult();
+	}
 
+	@Override
+	public PlannedGameBO loadPlannedGame(Integer id) throws Exception {
+		return (PlannedGameBO) getSession().get(PlannedGameBO.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PlannedGameBO> loadTablePlannedGames(Integer tableId) throws Exception {
+		Criteria criteria = getSession().createCriteria(PlannedGameBO.class);
+		criteria.add(Restrictions.eq("table.id", tableId));
+		return criteria.list();
+	}
+
+	@Override
+	public void deletePlannedGame(PlannedGameBO plannedGame) throws Exception {
+		getSession().delete(plannedGame);
+	}
+	
+	
+	
 }
