@@ -238,9 +238,6 @@ public class TableBS implements ITableBS {
 						author = userDAO.getUserFromMail(message.getSenderMail());
 					}
 					message.setAuthor(author);
-					if(message.getData().getBytes("UTF-8").length >= Math.pow(2, 16)){
-						
-					}
 			
 					table.getMessages().add(message);
 					tableDAO.saveTable(table);
