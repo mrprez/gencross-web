@@ -3,6 +3,7 @@
 <%@ taglib uri="/gencross-taglib-URI" prefix="gcr"%>
 
 <gcr:security-redirection target="/jsp/login.jsp"/>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 	<head>
 		<title>Gen-Cross</title>
@@ -112,26 +113,30 @@
 			}
 			
 			function sendPlanModification(url, data){
-				displayWaitMask();
-				$.ajax({
-					url: url,
-					data: data
-				}).success(function( data ) {
-					var result=jQuery.parseJSON(data);
-					if(typeof result.exception == 'undefined'){
-						reload();
-						hideWaitMask();
-					} else {
-						clearTimeout(waitMaskTimeout);
-						var htmlString="<div class=\"ajaxErrorTitle\">Une erreur s'est produite:</div>";
-						htmlString=htmlString+"<p>"+result.exception+"</p>";
-						$('#errors').html(htmlString);
-						$('#planGameError').show();
-					}
-    			});
+				if( ! eventCancelled ){
+					displayWaitMask();
+					$.ajax({
+						url: url,
+						data: data
+					}).success(function( data ) {
+						var result=jQuery.parseJSON(data);
+						if(typeof result.exception == 'undefined'){
+							reload();
+							hideWaitMask();
+						} else {
+							clearTimeout(waitMaskTimeout);
+							var htmlString="<div class=\"ajaxErrorTitle\">Une erreur s'est produite:</div>";
+							htmlString=htmlString+"<p>"+result.exception+"</p>";
+							$('#errors').html(htmlString);
+							$('#planGameError').show();
+						}
+	    			});
+	    			eventCancelled=false;
+				}
 				return true;
 			}
 		
+			var eventCancelled;
 			scheduler.init("scheduler",new Date(),"month");
 			reload();
 			scheduler.attachEvent("onEventChanged",function(id,ev){
@@ -144,10 +149,13 @@
 				var url = "<s:url value="/AjaxPlanGame!createPlannedGame" includeParams="get"/>";
 				sendPlanModification(url, data);
 			});
-			scheduler.attachEvent("onEventDeleted",function(id,ev){
+			scheduler.attachEvent("onEventDeleted",function(id){
 				var data = { plannedGameId: id };
 				var url = "<s:url value="/AjaxPlanGame!deletePlannedGame" includeParams="get"/>";
 				sendPlanModification(url, data);
+			});
+			scheduler.attachEvent("onEventCancel", function(id, flag) {
+				eventCancelled=true;
 			});
 		</script>
 	<div>
