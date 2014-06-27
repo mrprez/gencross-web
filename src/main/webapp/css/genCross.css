@@ -900,6 +900,10 @@ table.exportTable {
 	float: right;
 }
 
+#scheduler{
+	border-bottom: 1px solid #CECECE;
+}
+
 
 /* User List */
 

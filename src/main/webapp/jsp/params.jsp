@@ -5,6 +5,7 @@
 <gcr:security-redirection target="/jsp/login.jsp"/>
 <s:include value="include/header.jsp"/>
 
+
 <table class="genCrossTable">
 	<tr class="genCrossTable">
 		<th class="genCrossTable">Clé</th>
