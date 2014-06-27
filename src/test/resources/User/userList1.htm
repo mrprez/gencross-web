@@ -1,22 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
 		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8">
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
-		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg" />
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">
 			<div id="headerLeft">
-				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg" /></a>
 				
 
 
@@ -77,7 +78,7 @@
 			<div id="headerRight">
 				
 					<span id="username">mrprez</span>
-					<br>
+					<br />
 					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
 				
 			</div>
@@ -86,7 +87,7 @@
 		<div id="content">
 		
 
-<link rel="stylesheet" type="text/css" href="/gencross-web/struts/domTT.css"><link rel="stylesheet" type="text/css" href="/gencross-web/struts/domTT.css"><table class="genCrossTable">
+<link rel="stylesheet" type="text/css" href="/gencross-web/struts/domTT.css" /><link rel="stylesheet" type="text/css" href="/gencross-web/struts/domTT.css" /><table class="genCrossTable">
 	<thead>
 		<tr>
 			<th class="genCrossTable">Login</th>
@@ -98,12 +99,12 @@
 		
 			<tr class="genCrossTable">
 				<form id="ListUser" name="ListUser" action="/gencross-web/ListUser.action" method="post"></form>
-					<input type="hidden" name="username" value="batman" id="ListUser_username">
+					<input type="hidden" name="username" value="batman" id="ListUser_username" />
 					<td class="genCrossTable userName">batman</td>
 					<td class="genCrossTable userName">batman@got.us</td>
 					<td class="genCrossTable">
 						
-						<input type="image" alt="Submit" src="/gencross-web/img/remove.png" id="ListUser_ListUser!remove" name="action:ListUser!remove" value="Submit">
+						<input type="image" alt="Submit" src="/gencross-web/img/remove.png" id="ListUser_ListUser!remove" name="action:ListUser!remove" value="Submit" />
 
 					</td>
 				
@@ -119,12 +120,12 @@
 		
 			<tr class="genCrossTable">
 				<form id="ListUser" name="ListUser" action="/gencross-web/ListUser.action" method="post"></form>
-					<input type="hidden" name="username" value="mrprez" id="ListUser_username">
+					<input type="hidden" name="username" value="mrprez" id="ListUser_username" />
 					<td class="genCrossTable userName">mrprez</td>
 					<td class="genCrossTable userName">guillaume.gagneret@gmail.com</td>
 					<td class="genCrossTable">
 						
-						<input type="image" alt="Submit" src="/gencross-web/img/remove.png" id="ListUser_ListUser!remove" name="action:ListUser!remove" value="Submit">
+						<input type="image" alt="Submit" src="/gencross-web/img/remove.png" id="ListUser_ListUser!remove" name="action:ListUser!remove" value="Submit" />
 
 					</td>
 				

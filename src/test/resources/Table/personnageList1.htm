@@ -1,22 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
 		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8">
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
-		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg" />
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">
 			<div id="headerLeft">
-				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg" /></a>
 				
 
 
@@ -77,7 +78,7 @@
 			<div id="headerRight">
 				
 					<span id="username">mrprez</span>
-					<br>
+					<br />
 					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
 				
 			</div>
@@ -101,7 +102,7 @@
 						<th class="genCrossTable">
 							<a href="/gencross-web/List!sort.action?playerPersonnageSort=name">Nom
 								
-									<img src="/gencross-web/img/ascSorted.png" alt="asc"></a>
+									<img src="/gencross-web/img/ascSorted.png" alt="asc" /></a>
 						</th>
 						<th class="genCrossTable">
 							<a href="/gencross-web/List!sort.action?playerPersonnageSort=type">Type</a>
@@ -131,15 +132,15 @@
 								
 							</td>
 							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=1" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer"></a>
-								<a href="/gencross-web/AttributeGameMaster.action?personnageId=1" title="Attribuer un MJ"><img src="/gencross-web/img/attributeGM.png"></a>
-								<a href="/gencross-web/List!downloadAsPlayer.action?personnageId=1" title="Télécharger au format gcr"><img src="/gencross-web/img/download.png" alt="Télécharger"></a>
-								<a href="/gencross-web/Upload.action?personnageId=1" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)"></a>
+								<a href="/gencross-web/Edit.action?personnageId=1" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer" /></a>
+								<a href="/gencross-web/AttributeGameMaster.action?personnageId=1" title="Attribuer un MJ"><img src="/gencross-web/img/attributeGM.png" /></a>
+								<a href="/gencross-web/List!downloadAsPlayer.action?personnageId=1" title="Télécharger au format gcr"><img src="/gencross-web/img/download.png" alt="Télécharger" /></a>
+								<a href="/gencross-web/Upload.action?personnageId=1" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)" /></a>
 								        
 <form id="List!deletePersonnage" name="List!deletePersonnage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" action="/gencross-web/List!deletePersonnage.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="1" id="List!deletePersonnage_personnageId">
+									<input type="hidden" name="personnageId" value="1" id="List!deletePersonnage_personnageId" />
 									
-									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer">
+									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer" />
 
 								</form>
 
@@ -163,15 +164,15 @@
 								Table INS
 							</td>
 							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=3" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer"></a>
-								<a href="/gencross-web/AttributeGameMaster.action?personnageId=3" title="Attribuer un MJ"><img src="/gencross-web/img/attributeGM.png"></a>
-								<a href="/gencross-web/List!downloadAsPlayer.action?personnageId=3" title="Télécharger au format gcr"><img src="/gencross-web/img/download.png" alt="Télécharger"></a>
-								<a href="/gencross-web/Upload.action?personnageId=3" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)"></a>
+								<a href="/gencross-web/Edit.action?personnageId=3" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer" /></a>
+								<a href="/gencross-web/AttributeGameMaster.action?personnageId=3" title="Attribuer un MJ"><img src="/gencross-web/img/attributeGM.png" /></a>
+								<a href="/gencross-web/List!downloadAsPlayer.action?personnageId=3" title="Télécharger au format gcr"><img src="/gencross-web/img/download.png" alt="Télécharger" /></a>
+								<a href="/gencross-web/Upload.action?personnageId=3" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)" /></a>
 								        
 <form id="List!deletePersonnage" name="List!deletePersonnage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" action="/gencross-web/List!deletePersonnage.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="3" id="List!deletePersonnage_personnageId">
+									<input type="hidden" name="personnageId" value="3" id="List!deletePersonnage_personnageId" />
 									
-									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer">
+									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer" />
 
 								</form>
 
@@ -195,7 +196,7 @@
 						<th class="genCrossTable">
 							<a href="/gencross-web/List!sort.action?gameMasterPersonnageSort=name">Nom
 								
-									<img src="/gencross-web/img/ascSorted.png" alt="asc"></a>
+									<img src="/gencross-web/img/ascSorted.png" alt="asc" /></a>
 						</th>
 						<th class="genCrossTable">
 							<a href="/gencross-web/List!sort.action?gameMasterPersonnageSort=type">Type</a>
@@ -227,26 +228,26 @@
 								
 							</td>
 							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=2" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer"></a>
-								<a href="/gencross-web/AttributePlayer.action?personnageId=2" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Fermer"></a>
+								<a href="/gencross-web/Edit.action?personnageId=2" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer" /></a>
+								<a href="/gencross-web/AttributePlayer.action?personnageId=2" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Fermer" /></a>
 								        
 <form id="List!downloadAsGameMaster" name="List!downloadAsGameMaster" onsubmit="Javascript:askMJPassword(this)" action="/gencross-web/List!downloadAsGameMaster.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="2" id="List!downloadAsGameMaster_personnageId">
-									<input type="hidden" name="password" value="" id="List!downloadAsGameMaster_password">
+									<input type="hidden" name="personnageId" value="2" id="List!downloadAsGameMaster_personnageId" />
+									<input type="hidden" name="password" value="" id="List!downloadAsGameMaster_password" />
 									
-									<input type="image" alt="Télécharger" src="/gencross-web/img/download.png" id="List!downloadAsGameMaster_0" value="Télécharger" title="Télécharger au format gcr">
+									<input type="image" alt="Télécharger" src="/gencross-web/img/download.png" id="List!downloadAsGameMaster_0" value="Télécharger" title="Télécharger au format gcr" />
 
 								</form>
 
 
 
 
-								<a href="/gencross-web/Upload.action?personnageId=2" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)"></a>
+								<a href="/gencross-web/Upload.action?personnageId=2" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)" /></a>
 								        
 <form id="List!deletePersonnage" name="List!deletePersonnage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" action="/gencross-web/List!deletePersonnage.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="2" id="List!deletePersonnage_personnageId">
+									<input type="hidden" name="personnageId" value="2" id="List!deletePersonnage_personnageId" />
 									
-									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer">
+									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer" />
 
 								</form>
 
@@ -272,26 +273,26 @@
 								
 							</td>
 							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=3" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer"></a>
-								<a href="/gencross-web/AttributePlayer.action?personnageId=3" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Fermer"></a>
+								<a href="/gencross-web/Edit.action?personnageId=3" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer" /></a>
+								<a href="/gencross-web/AttributePlayer.action?personnageId=3" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Fermer" /></a>
 								        
 <form id="List!downloadAsGameMaster" name="List!downloadAsGameMaster" onsubmit="Javascript:askMJPassword(this)" action="/gencross-web/List!downloadAsGameMaster.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="3" id="List!downloadAsGameMaster_personnageId">
-									<input type="hidden" name="password" value="" id="List!downloadAsGameMaster_password">
+									<input type="hidden" name="personnageId" value="3" id="List!downloadAsGameMaster_personnageId" />
+									<input type="hidden" name="password" value="" id="List!downloadAsGameMaster_password" />
 									
-									<input type="image" alt="Télécharger" src="/gencross-web/img/download.png" id="List!downloadAsGameMaster_0" value="Télécharger" title="Télécharger au format gcr">
+									<input type="image" alt="Télécharger" src="/gencross-web/img/download.png" id="List!downloadAsGameMaster_0" value="Télécharger" title="Télécharger au format gcr" />
 
 								</form>
 
 
 
 
-								<a href="/gencross-web/Upload.action?personnageId=3" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)"></a>
+								<a href="/gencross-web/Upload.action?personnageId=3" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)" /></a>
 								        
 <form id="List!deletePersonnage" name="List!deletePersonnage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" action="/gencross-web/List!deletePersonnage.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="3" id="List!deletePersonnage_personnageId">
+									<input type="hidden" name="personnageId" value="3" id="List!deletePersonnage_personnageId" />
 									
-									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer">
+									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer" />
 
 								</form>
 
@@ -317,26 +318,26 @@
 								
 							</td>
 							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=4" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer"></a>
-								<a href="/gencross-web/AttributePlayer.action?personnageId=4" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Fermer"></a>
+								<a href="/gencross-web/Edit.action?personnageId=4" title="Editer"><img src="/gencross-web/img/edit.png" alt="Fermer" /></a>
+								<a href="/gencross-web/AttributePlayer.action?personnageId=4" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Fermer" /></a>
 								        
 <form id="List!downloadAsGameMaster" name="List!downloadAsGameMaster" onsubmit="Javascript:askMJPassword(this)" action="/gencross-web/List!downloadAsGameMaster.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="4" id="List!downloadAsGameMaster_personnageId">
-									<input type="hidden" name="password" value="" id="List!downloadAsGameMaster_password">
+									<input type="hidden" name="personnageId" value="4" id="List!downloadAsGameMaster_personnageId" />
+									<input type="hidden" name="password" value="" id="List!downloadAsGameMaster_password" />
 									
-									<input type="image" alt="Télécharger" src="/gencross-web/img/download.png" id="List!downloadAsGameMaster_0" value="Télécharger" title="Télécharger au format gcr">
+									<input type="image" alt="Télécharger" src="/gencross-web/img/download.png" id="List!downloadAsGameMaster_0" value="Télécharger" title="Télécharger au format gcr" />
 
 								</form>
 
 
 
 
-								<a href="/gencross-web/Upload.action?personnageId=4" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)"></a>
+								<a href="/gencross-web/Upload.action?personnageId=4" title="Charger au format gcr"><img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)" /></a>
 								        
 <form id="List!deletePersonnage" name="List!deletePersonnage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" action="/gencross-web/List!deletePersonnage.action" method="post" class="imgForm">
-									<input type="hidden" name="personnageId" value="4" id="List!deletePersonnage_personnageId">
+									<input type="hidden" name="personnageId" value="4" id="List!deletePersonnage_personnageId" />
 									
-									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer">
+									<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer" />
 
 								</form>
 

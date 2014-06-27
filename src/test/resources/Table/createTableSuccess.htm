@@ -1,22 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
 		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8">
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
-		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg" />
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">
 			<div id="headerLeft">
-				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg" /></a>
 				
 
 
@@ -77,7 +78,7 @@
 			<div id="headerRight">
 				
 					<span id="username">mrprez</span>
-					<br>
+					<br />
 					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
 				
 			</div>
@@ -110,7 +111,7 @@
 		<form id="TableList!addTable" name="TableList!addTable" action="/gencross-web/TableList!addTable.action" method="post"></form>
 			<tr class="genCrossTable">
 				<td class="genCrossTable">
-					<input type="text" name="tableName" value="" id="TableList!addTable_tableName">
+					<input type="text" name="tableName" value="" id="TableList!addTable_tableName" />
 				</td>
 				<td class="genCrossTable"><select name="tableType" id="TableList!addTable_tableType">
     <option value="BSG">BSG</option>
@@ -127,7 +128,7 @@
 </select>
 </td>
 				<td class="genCrossTable">mrprez</td>
-				<td class="genCrossTable"><input type="submit" id="TableList!addTable_0" value="Créer">
+				<td class="genCrossTable"><input type="submit" id="TableList!addTable_0" value="Créer" />
 </td>
 			</tr>
 		

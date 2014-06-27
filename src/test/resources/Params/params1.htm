@@ -1,22 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
 		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8">
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/fullcalendar.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js"></script>
-		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
-		<link href="/gencross-web/css/fullcalendar.css" rel="stylesheet" type="text/css">
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg">
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"></script>
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
+		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg" />
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">
 			<div id="headerLeft">
-				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a>
+				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg" /></a>
 				
 
 
@@ -77,7 +78,7 @@
 			<div id="headerRight">
 				
 					<span id="username">mrprez</span>
-					<br>
+					<br />
 					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
 				
 			</div>
@@ -85,6 +86,7 @@
 		</div>
 		<div id="content">
 		
+
 
 <table class="genCrossTable">
 	<tbody><tr class="genCrossTable">
@@ -102,16 +104,16 @@
 				
 			</td>
 			<td class="genCrossTable">
-				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'admin.adress');">
+				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'admin.adress');" />
 				<form id="paramForm_admin_adress" name="paramForm_admin_adress" action="/gencross-web/Params!edit.action" method="post" class="paramForm">
-					<input type="hidden" name="key" value="admin.adress" id="paramForm_admin_adress_key">
+					<input type="hidden" name="key" value="admin.adress" id="paramForm_admin_adress_key" />
 					
 					
 					
-						<input type="text" name="newValue" value="guillaume.gagneret@gmail.com" id="paramForm_admin_adress_newValue">
+						<input type="text" name="newValue" value="guillaume.gagneret@gmail.com" id="paramForm_admin_adress_newValue" />
 					
 					
-					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_admin_adress_0" value="Submit">
+					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_admin_adress_0" value="Submit" />
 
 				</form>
 
@@ -131,13 +133,13 @@
 				
 			</td>
 			<td class="genCrossTable">
-				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'last.send.date');">
+				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'last.send.date');" />
 				<form id="paramForm_last_send_date" name="paramForm_last_send_date" action="/gencross-web/Params!edit.action" method="post" class="paramForm">
-					<input type="hidden" name="key" value="last.send.date" id="paramForm_last_send_date_key">
+					<input type="hidden" name="key" value="last.send.date" id="paramForm_last_send_date_key" />
 					
 						
 							
-						<input type="text" name="day" size="10" value="30/07/2011" id="dateField_last_send_date" class="hasDatepicker">
+						<input type="text" name="day" size="10" value="30/07/2011" id="dateField_last_send_date" class="hasDatepicker" />
 						<script type="text/javascript">
 							$("#dateField_last.send.date".replace(/\./g,"_")).datepicker();
 						</script>
@@ -311,12 +313,12 @@
 						,
 						
 							
-						<input type="text" name="milliSeconds" size="3" value="453" id="paramForm_last_send_date_milliSeconds">
+						<input type="text" name="milliSeconds" size="3" value="453" id="paramForm_last_send_date_milliSeconds" />
 					
 					
 					
 					
-					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_last_send_date_0" value="Submit">
+					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_last_send_date_0" value="Submit" />
 
 				</form>
 
@@ -336,18 +338,18 @@
 				
 			</td>
 			<td class="genCrossTable">
-				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'migration.active');">
+				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'migration.active');" />
 				<form id="paramForm_migration_active" name="paramForm_migration_active" action="/gencross-web/Params!edit.action" method="post" class="paramForm">
-					<input type="hidden" name="key" value="migration.active" id="paramForm_migration_active_key">
+					<input type="hidden" name="key" value="migration.active" id="paramForm_migration_active_key" />
 					
 					
-						<input type="radio" name="newValue" id="paramForm_migration_active_newValuetrue" value="true"><label for="paramForm_migration_active_newValuetrue">true</label>
-<input type="radio" name="newValue" id="paramForm_migration_active_newValuefalse" checked="checked" value="false"><label for="paramForm_migration_active_newValuefalse">false</label>
+						<input type="radio" name="newValue" id="paramForm_migration_active_newValuetrue" value="true" /><label for="paramForm_migration_active_newValuetrue">true</label>
+<input type="radio" name="newValue" id="paramForm_migration_active_newValuefalse" checked="checked" value="false" /><label for="paramForm_migration_active_newValuefalse">false</label>
 
 					
 					
 					
-					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_migration_active_0" value="Submit">
+					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_migration_active_0" value="Submit" />
 
 				</form>
 
@@ -367,16 +369,16 @@
 				
 			</td>
 			<td class="genCrossTable">
-				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'save.adress');">
+				<img class="editImg" src="/gencross-web/img/edit.png" alt="Edit" onclick="javascript:displayEditParam(this, 'save.adress');" />
 				<form id="paramForm_save_adress" name="paramForm_save_adress" action="/gencross-web/Params!edit.action" method="post" class="paramForm">
-					<input type="hidden" name="key" value="save.adress" id="paramForm_save_adress_key">
+					<input type="hidden" name="key" value="save.adress" id="paramForm_save_adress_key" />
 					
 					
 					
-						<input type="text" name="newValue" value="save.gencross@gmail.com" id="paramForm_save_adress_newValue">
+						<input type="text" name="newValue" value="save.gencross@gmail.com" id="paramForm_save_adress_newValue" />
 					
 					
-					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_save_adress_0" value="Submit">
+					<input type="image" alt="Submit" src="/gencross-web/img/validate.png" id="paramForm_save_adress_0" value="Submit" />
 
 				</form>
 
