@@ -179,7 +179,7 @@
 									<groupId>com.mrprez.gencross</groupId>
 									<artifactId>gencross-ui</artifactId>
 									<version>1.7</version>
-									<classifier>setup</classifier>
+									<classifier>build-zip</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/classes</outputDirectory>
