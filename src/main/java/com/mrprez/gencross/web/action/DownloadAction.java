@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class DownloadAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	private static final String GENCROSS_UI_SETUP = "GenCrossUI-setup.exe";
+	private static final String GENCROSS_UI_SETUP = "GencroUI-zip.zip";
 	
 	private String fileName;
 	private InputStream inputStream;
