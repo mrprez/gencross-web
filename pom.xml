@@ -255,6 +255,7 @@
 										<goals>
 											<goal>unpack</goal>
 											<goal>copy-dependencies</goal>
+											<goal>copy</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
