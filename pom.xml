@@ -30,7 +30,7 @@
 		<dependency>
 			<artifactId>gencross</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.14</version>
+			<version>1.15-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<artifactId>xml-apis</artifactId>
