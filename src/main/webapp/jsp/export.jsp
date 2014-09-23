@@ -11,7 +11,7 @@
 	<s:hidden name="personnageId"/>
 	<s:select label="Type d'export" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
 	<s:iterator value="templateFiles">
-		<tr id="${key.simpleName}_templatesTr" class="templateFileList">
+		<tr id="${key.simpleName}_templatesEl" class="templateFileList">
 			<td><label for="${key.simpleName}_templates">Fichier template: </label></td>
 			<td><s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/></td>
 		</tr>

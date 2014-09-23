@@ -1,12 +1,16 @@
 package com.mrprez.gencross.web.action;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.mrprez.gencross.export.FileGenerator;
+import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -17,7 +21,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class MultiExportAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	private static String OUTPUT_FILE_NAME = "multiExport.csv";
+	private static String CSV_OUTPUT_FILE_NAME = "multiExport.csv";
+	private static String ZIP_OUTPUT_FILE_NAME = "multiExport.zip";
 	
 	private Integer tableId;
 	private TableBO table;
@@ -25,6 +30,11 @@ public class MultiExportAction extends ActionSupport {
 	private Map<Integer, String> pnjList;
 	private String exportedPjList;
 	private String exportedPnjList;
+	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles;
+	private String fileGeneratorName;
+	private String selectedTemplate;
+	private File templateFile;
+	
 	private String fileName;
 	private Integer fileSize;
 	private InputStream inputStream;
@@ -53,6 +63,13 @@ public class MultiExportAction extends ActionSupport {
 			}
 		}
 		
+		templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
+		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles();
+		for(Class<? extends TemplatedFileGenerator> clazz : originTemplateFiles.keySet()){
+			templateFiles.put(clazz, new ArrayList<String>(originTemplateFiles.get(clazz)));
+			templateFiles.get(clazz).add("Uploader un fichier");
+		}
+		
 		return INPUT;
 	}
 	
@@ -75,20 +92,19 @@ public class MultiExportAction extends ActionSupport {
 		byte csvContent[] = resultBuilder.toString().getBytes("ISO-8859-1");
 		fileSize = csvContent.length;
 		inputStream = new ByteArrayInputStream(csvContent);
-		fileName = OUTPUT_FILE_NAME;
+		fileName = CSV_OUTPUT_FILE_NAME;
 		
 		return "file";
 	}
 	
 	
-	public String export() throws Exception {
+	public String exportZip() throws Exception{
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		table = tableBS.getTableForGM(tableId, user);
 		if(table==null){
 			addActionError("Impossible de charger cette table");
 			return ERROR;
 		}
-		
 		
 		if((exportedPjList==null || exportedPjList.isEmpty()) && (exportedPnjList==null || exportedPnjList.isEmpty())){
 			addActionError("Vous devez selectionner au moins un personnage.");
@@ -109,12 +125,66 @@ public class MultiExportAction extends ActionSupport {
 			}
 		}
 		
-		export = exportBS.multiExport(personnageIdList, user);
+		FileGenerator fileGenerator = exportBS.getGenerator(fileGeneratorName);
+		if(fileGenerator==null){
+			super.addActionError("Type d'export introuvable.");
+			return ERROR;
+		}
+		
+		byte export[];
+		if(selectedTemplate!=null){
+			if(selectedTemplate.equals("Uploader un fichier")){
+				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, templateFile);
+			}else{
+				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, selectedTemplate);
+			}
+		}else{
+			export = exportBS.multiExport(personnageIdList, user, fileGenerator);
+		}
+		
+		fileSize = export.length;
+		inputStream = new ByteArrayInputStream(export);
+		fileName = ZIP_OUTPUT_FILE_NAME;
+		
+		return "file";
+	}
+	
+	
+	public String export() throws Exception {
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		table = tableBS.getTableForGM(tableId, user);
+		if(table==null){
+			addActionError("Impossible de charger cette table");
+			return ERROR;
+		}
+		
+		if((exportedPjList==null || exportedPjList.isEmpty()) && (exportedPnjList==null || exportedPnjList.isEmpty())){
+			addActionError("Vous devez selectionner au moins un personnage.");
+			return execute();
+		}
+		
+		List<Integer> personnageIdList = new ArrayList<Integer>();
+		if(exportedPjList!=null && exportedPjList.length()>0){
+			String exportedPjIdTab[] = exportedPjList.split(",");
+			for(int i=0; i<exportedPjIdTab.length; i++){
+				personnageIdList.add(Integer.valueOf(exportedPjIdTab[i].trim()));
+			}
+		}
+		if(exportedPnjList!=null && exportedPnjList.length()>0){
+			String exportedPnjIdTab[] = exportedPnjList.split(",");
+			for(int i=0; i<exportedPnjIdTab.length; i++){
+				personnageIdList.add(Integer.valueOf(exportedPnjIdTab[i].trim()));
+			}
+		}
+		
+		export = exportBS.multiExportInGrid(personnageIdList, user);
 		
 		return SUCCESS;
 	}
 
-
+	public Map<String, Class<? extends FileGenerator>> getGeneratorList() {
+		return FileGenerator.getGeneratorList();
+	}
 	public Integer getTableId() {
 		return tableId;
 	}
@@ -206,7 +276,34 @@ public class MultiExportAction extends ActionSupport {
 	public void setExportBS(IExportBS exportBS) {
 		this.exportBS = exportBS;
 	}
+
+	public String getFileGeneratorName() {
+		return fileGeneratorName;
+	}
+
+	public void setFileGeneratorName(String fileGeneratorName) {
+		this.fileGeneratorName = fileGeneratorName;
+	}
+
+	public File getTemplateFile() {
+		return templateFile;
+	}
+
+	public void setTemplateFile(File templateFile) {
+		this.templateFile = templateFile;
+	}
 	
+	public Map<Class<? extends TemplatedFileGenerator>, List<String>> getTemplateFiles(){
+		return templateFiles;
+	}
+
+	public String getSelectedTemplate() {
+		return selectedTemplate;
+	}
+
+	public void setSelectedTemplate(String selectedTemplate) {
+		this.selectedTemplate = selectedTemplate;
+	}
 	
 
 }

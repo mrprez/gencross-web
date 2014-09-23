@@ -7,7 +7,7 @@ function selectGenerator(selectList){
 	$('.selectTemplate').attr("name", "");
 	var index = selectList.selectedIndex;
 	var generator = selectList.options[index].value;
-	$('#'+generator+'_templatesTr').show();
+	$('#'+generator+'_templatesEl').show();
 	$('#'+generator+'_templates').attr("name", "selectedTemplate");
 	selectTemplateFile($('#'+generator+'_templates')[0]);
 }

@@ -11,7 +11,7 @@
 	
 	<s:actionerror/>
 	
-	<s:form method="get">
+	<s:form enctype="multipart/form-data" method="post">
 		<s:hidden name="tableId"/>
 		<s:if test="pnjList.isEmpty()">
 			<ul class="exportedList">
@@ -38,8 +38,22 @@
 		<s:else>
 			<s:checkboxlist theme="GcrTheme" label="PJ" list="pjList" name="exportedPjList" cssClass="exportedList"/>
 		</s:else>
-		<s:submit action="MultiExport!export" value="Export"/>
-		<s:submit action="MultiExport!exportCsv" value="Export CSV"/>
+		<div>
+			<s:submit theme="simple" action="MultiExport!export" value="Export"/>
+		</div>
+		<div>
+			<s:submit theme="simple" action="MultiExport!exportCsv" value="Export CSV"/>
+		</div>
+		<div>
+			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip"/>
+			<s:select theme="simple" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
+			<s:iterator value="templateFiles">
+				<span id="${key.simpleName}_templatesEl" class="templateFileList">
+					<label for="${key.simpleName}_templates">Fichier template: </label>
+					<s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
+				</span>
+			</s:iterator>
+		</div>
 	</s:form>
 	
 	<div id="backToEditTableDiv">

@@ -179,7 +179,7 @@ public class MailResource implements IMailResource {
 	@Override
 	public Collection<TableMessageBO> getMails() throws Exception {
 		Collection<TableMessageBO> result = new ArrayList<TableMessageBO>();
-		Store store = receiverSession.getStore("imap");
+		Store store = receiverSession.getStore("imaps");
 		store.connect();
 		Folder folder = store.getFolder(INBOX);
 		try{

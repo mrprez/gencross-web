@@ -2,6 +2,7 @@ package com.mrprez.gencross.web.bs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,6 +19,7 @@ import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
+import com.mrprez.gencross.util.HtmlToText;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IExportBS;
@@ -93,8 +97,49 @@ public class ExportBS implements IExportBS {
 		}
 	}
 	
+	
 	@Override
-	public List<String[]> multiExport(Collection<Integer> personnageIdList, UserBO user) throws Exception{
+	public byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String templateName) throws Exception {
+		File templateFile = templateFileResource.getTemplateFile(fileGenerator.getClass(), templateName);
+		return multiExport(personnageIdList, user, fileGenerator, templateFile);
+	}
+	
+	
+	@Override
+	public byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator,  File templateFile) throws Exception {
+		fileGenerator.setTemplate(templateFile);
+		return multiExport(personnageIdList, user, fileGenerator);
+	}
+
+	
+	@Override
+	public byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, FileGenerator fileGenerator) throws Exception {
+		List<PersonnageWorkBO> personnageList = new ArrayList<PersonnageWorkBO>(personnageIdList.size());
+		for(Integer personnageId : personnageIdList){
+			PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
+			if( user.equals(personnageWork.getPlayer()) || user.equals(personnageWork.getGameMaster())){
+				personnageList.add(personnageWork);
+			}
+		}
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ZipOutputStream zos = new ZipOutputStream(baos);
+		
+		try{
+			for(PersonnageWorkBO personnageWork : personnageList){
+				zos.putNextEntry(new ZipEntry(personnageWork.getName()+"_"+personnageWork.getId()+"."+fileGenerator.getOutputExtension()));
+				fileGenerator.write(personnageWork.getPersonnage(), zos);
+				zos.closeEntry();
+			}
+		}finally{
+			zos.close();
+		}
+		
+		return baos.toByteArray();
+	}
+	
+	@Override
+	public List<String[]> multiExportInGrid(Collection<Integer> personnageIdList, UserBO user) throws Exception{
 		List<Personnage> personnageList = new ArrayList<Personnage>(personnageIdList.size());
 		for(Integer personnageId : personnageIdList){
 			PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
@@ -115,7 +160,7 @@ public class ExportBS implements IExportBS {
 		return result;
 	}
 	
-	private List<String[]> treatFixProperty(List<Property> propertyList, int depth){
+	private List<String[]> treatFixProperty(List<Property> propertyList, int depth) throws IOException{
 		List<String[]> result = new ArrayList<String[]>();
 		String line[] = new String[propertyList.size() + 1];
 		
@@ -125,6 +170,11 @@ public class ExportBS implements IExportBS {
 		for(Property property : propertyList){
 			index++;
 			line[index] = property.getRenderer().displayValue(property);
+			if(line[index].startsWith("<html>")){
+				HtmlToText htmlToText = new HtmlToText();
+				htmlToText.parse(line[index]);
+				line[index] = htmlToText.getString();
+			}
 		}
 		result.add(line);
 		
@@ -243,9 +293,8 @@ public class ExportBS implements IExportBS {
 	public void setPersonnageDAO(IPersonnageDAO personnageDAO) {
 		this.personnageDAO = personnageDAO;
 	}
-	
-	
-	
+
+
 	
 
 }

@@ -26,8 +26,13 @@ public interface IExportBS {
 
 	FileGenerator getGenerator(String className) throws Exception;
 
-	List<String[]> multiExport(Collection<Integer> personnageIdList, UserBO user)throws Exception;
+	List<String[]> multiExportInGrid(Collection<Integer> personnageIdList, UserBO user)throws Exception;
+	
+	byte[]  multiExport(Collection<Integer> personnageIdList, UserBO user, FileGenerator fileGenerator)throws Exception;
 
+	byte[]  multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String templateName)throws Exception;
+	
+	byte[]  multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, File templateFile)throws Exception;
 	
 
 }
