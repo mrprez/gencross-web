@@ -21,12 +21,4 @@
 	<s:submit value="Valider"/>
 </s:form>
 
-<script type="text/javascript">
-	var tab;
-	var templateFiles = new Array();
-	<s:iterator value="templateFiles">
-		templateFiles['<s:property value="key.name"/>'] = tab;
-	</s:iterator>
-</script>
-
 <s:include value="include/footer.jsp"/>
