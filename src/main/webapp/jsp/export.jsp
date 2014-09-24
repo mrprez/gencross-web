@@ -9,7 +9,7 @@
 
 <s:form action="Export!export" enctype="multipart/form-data" method="post">
 	<s:hidden name="personnageId"/>
-	<s:select label="Type d'export" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
+	<s:select id="fileGeneratorName" label="Type d'export" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
 	<s:iterator value="templateFiles">
 		<tr id="${key.simpleName}_templatesEl" class="templateFileList">
 			<td><label for="${key.simpleName}_templates">Fichier template: </label></td>
@@ -20,5 +20,9 @@
 	<s:file id="uploadTemplateFile" name="templateFile"/>
 	<s:submit value="Valider"/>
 </s:form>
+
+<script type="text/javascript">
+	selectGenerator();
+</script>
 
 <s:include value="include/footer.jsp"/>
