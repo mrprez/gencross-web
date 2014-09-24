@@ -2,7 +2,8 @@
 var host = window.location.href;
 host = host.substring(0, host.lastIndexOf("/"));
 
-function selectGenerator(selectList){
+function selectGenerator(){
+	var selectList = $('#fileGeneratorName')[0];
 	$('.templateFileList').hide();
 	$('.selectTemplate').attr("name", "");
 	var index = selectList.selectedIndex;
