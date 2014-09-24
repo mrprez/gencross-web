@@ -46,7 +46,7 @@
 		</div>
 		<div>
 			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip"/>
-			<s:select theme="simple" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
+			<s:select id="fileGeneratorName" theme="simple" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
 			<s:iterator value="templateFiles">
 				<span id="${key.simpleName}_templatesEl" class="templateFileList">
 					<label for="${key.simpleName}_templates">Fichier template: </label>
@@ -55,6 +55,10 @@
 			</s:iterator>
 		</div>
 	</s:form>
+	
+	<script type="text/javascript">
+		selectGenerator();
+	</script>
 	
 	<div id="backToEditTableDiv">
 		<s:a action="EditTable">
