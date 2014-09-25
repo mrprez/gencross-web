@@ -45,7 +45,6 @@
 			<s:submit theme="simple" action="MultiExport!exportCsv" value="Export CSV"/>
 		</div>
 		<div>
-			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip"/>
 			<s:select id="fileGeneratorName" theme="simple" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
 			<s:iterator value="templateFiles">
 				<span id="${key.simpleName}_templatesEl" class="templateFileList">
@@ -53,14 +52,16 @@
 					<s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
 				</span>
 			</s:iterator>
+			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip"/>
 		</div>
 	</s:form>
 	
 	<script type="text/javascript">
 		selectGenerator();
+		$("[name='selectedTemplate']").children("[value='<s:property value="selectedTemplate"/>']").attr("selected", "true");
 	</script>
 	
-	<div id="backToEditTableDiv">
+	<div id="backToEditDiv">
 		<s:a action="EditTable">
 			<s:param name="id">
 				<s:property value="table.id"/>

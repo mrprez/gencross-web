@@ -90,7 +90,7 @@
 	</tbody>
 </table>
 
-<div id="backToEditTableDiv">
+<div id="backToEditDiv">
 	<s:a action="EditTable">
 		<s:param name="id">
 			<s:property value="table.id"/>

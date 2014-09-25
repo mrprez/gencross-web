@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bs.face.IExportBS;
+import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ExportAction extends ActionSupport {
@@ -20,7 +22,7 @@ public class ExportAction extends ActionSupport {
 	private static String OUTPUT_FILE_NAME = "export";
 	
 	private File templateFile;
-	private String fileGeneratorName;
+	private String fileGeneratorName = DrawerGenerator.class.getSimpleName();
 	private String selectedTemplate;
 	private Integer personnageId;
 	private String fileName;
@@ -29,11 +31,13 @@ public class ExportAction extends ActionSupport {
 	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles;
 	
 	private IExportBS exportBS;
+	private IPersonnageBS personnageBS;
 	
 	
 	public String execute() throws Exception {
+		PersonnageWorkBO personnageWorkBO = personnageBS.loadPersonnage(personnageId);
 		templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
-		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles();
+		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles(personnageWorkBO.getPluginName());
 		for(Class<? extends TemplatedFileGenerator> clazz : originTemplateFiles.keySet()){
 			templateFiles.put(clazz, new ArrayList<String>(originTemplateFiles.get(clazz)));
 			templateFiles.get(clazz).add("Uploader un fichier");
@@ -127,6 +131,14 @@ public class ExportAction extends ActionSupport {
 
 	public void setExportBS(IExportBS exportBS) {
 		this.exportBS = exportBS;
+	}
+
+	public IPersonnageBS getPersonnageBS() {
+		return personnageBS;
+	}
+
+	public void setPersonnageBS(IPersonnageBS personnageBS) {
+		this.personnageBS = personnageBS;
 	}
 	
 	

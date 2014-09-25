@@ -109,6 +109,7 @@
 	
 	<bean id="exportAction" class="com.mrprez.gencross.web.action.ExportAction" scope="prototype">
 		<property name="exportBS" ref="exportBS"/>
+		<property name="personnageBS" ref="personnageBS"/>
 	</bean>
 	
 	<bean id="forgottenPasswordAction" class="com.mrprez.gencross.web.action.ForgottenPasswordAction" scope="prototype">
@@ -201,7 +202,7 @@
 	<bean id="personnageComparatorBS" class="com.mrprez.gencross.web.bs.PersonnageComparatorBS" scope="singleton"/>
 	
 	<bean id="exportBS" class="com.mrprez.gencross.web.bs.ExportBS" scope="singleton">
-		<constructor-arg><ref bean="TemplateFileResource"/></constructor-arg>
+		<property name="templateFileResource" ref="TemplateFileResource"/>
 		<property name="personnageDAO" ref="PersonnageDAO"/>
 	</bean>
 	

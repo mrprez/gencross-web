@@ -25,4 +25,13 @@
 	selectGenerator();
 </script>
 
+<div id="backToEditDiv">
+	<s:a action="Edit">
+		<s:param name="personnageId">
+			<s:property value="personnageId"/>
+		</s:param>
+		<img alt="<==" class="activeImg" src="<s:url value="/img/left_arrow.png"/>" onClick="javascript:editComment()"/> Retour
+	</s:a>
+</div>
+
 <s:include value="include/footer.jsp"/>

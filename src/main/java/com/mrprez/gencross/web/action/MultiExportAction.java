@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
@@ -31,7 +32,7 @@ public class MultiExportAction extends ActionSupport {
 	private String exportedPjList;
 	private String exportedPnjList;
 	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles;
-	private String fileGeneratorName;
+	private String fileGeneratorName = DrawerGenerator.class.getSimpleName();
 	private String selectedTemplate;
 	private File templateFile;
 	
@@ -64,7 +65,7 @@ public class MultiExportAction extends ActionSupport {
 		}
 		
 		templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
-		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles();
+		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles(table.getType());
 		for(Class<? extends TemplatedFileGenerator> clazz : originTemplateFiles.keySet()){
 			templateFiles.put(clazz, new ArrayList<String>(originTemplateFiles.get(clazz)));
 			templateFiles.get(clazz).add("Uploader un fichier");

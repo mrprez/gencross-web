@@ -203,6 +203,10 @@ td.summaryTableLine{
 	margin-top: 25px;
 }
 
+#backToEditDiv{
+	margin-top: 10px;
+}
+
 
 /* Login */
 #loginContent{
@@ -787,10 +791,6 @@ table.pointPool{
 td.unvalidated {
 	font-weight: bold;
 	border-width: 2px;
-}
-
-#backToEditTableDiv{
-	margin-top: 10px;
 }
 
 /* Multi Export */

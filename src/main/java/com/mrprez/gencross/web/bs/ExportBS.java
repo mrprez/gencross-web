@@ -5,11 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -29,31 +26,9 @@ import com.mrprez.gencross.web.dao.face.ITemplateFileResource;
 public class ExportBS implements IExportBS {
 	private static String GENERATOR_PACKAGE = "com.mrprez.gencross.export";
 	
-	private Set<Class<? extends TemplatedFileGenerator>> templatedFileGeneratorList = new HashSet<Class<? extends TemplatedFileGenerator>>();
-	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
-	
 	private ITemplateFileResource templateFileResource;
 	private IPersonnageDAO personnageDAO;
 	
-	
-	public ExportBS(ITemplateFileResource templateFileResource) throws Exception{
-		this.templateFileResource = templateFileResource;
-		
-		for(Class<? extends FileGenerator> fileGeneratorClass : FileGenerator.getGeneratorList().values()){
-			if(TemplatedFileGenerator.class.isAssignableFrom(fileGeneratorClass)){
-				templatedFileGeneratorList.add(fileGeneratorClass.asSubclass(TemplatedFileGenerator.class));
-				
-				List<String> templateFileList = new ArrayList<String>();
-				File fileTab[] = templateFileResource.getTemplateFiles(fileGeneratorClass.asSubclass(TemplatedFileGenerator.class));
-				if(fileTab!=null){
-					for(int i=0; i<fileTab.length; i++){
-						templateFileList.add(fileTab[i].getName());
-					}
-				}
-				templateFiles.put(fileGeneratorClass.asSubclass(TemplatedFileGenerator.class), templateFileList);
-			}
-		}
-	}
 	
 	
 	@Override
@@ -64,12 +39,9 @@ public class ExportBS implements IExportBS {
 	}
 	
 	@Override
-	public byte[] export(PersonnageWorkBO personnageWork, TemplatedFileGenerator fileGenerator, String templateName) throws Exception{
-		File templateFile = templateFileResource.getTemplateFile(fileGenerator.getClass(), templateName);
-		fileGenerator.setTemplate(templateFile);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		fileGenerator.write(personnageWork.getPersonnage(), baos);
-		return baos.toByteArray();
+	public byte[] export(PersonnageWorkBO personnageWork, TemplatedFileGenerator fileGenerator, String templateName) throws Exception {
+		File templateFile = templateFileResource.getTemplate(fileGenerator.getClass(), personnageWork.getPluginName(), templateName);
+		return export(personnageWork, fileGenerator, templateFile);
 	}
 	
 	@Override
@@ -99,9 +71,9 @@ public class ExportBS implements IExportBS {
 	
 	
 	@Override
-	public byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String templateName) throws Exception {
-		File templateFile = templateFileResource.getTemplateFile(fileGenerator.getClass(), templateName);
-		return multiExport(personnageIdList, user, fileGenerator, templateFile);
+	public byte[] multiExport(List<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String selectedTemplate) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
@@ -277,13 +249,8 @@ public class ExportBS implements IExportBS {
 	
 	
 	@Override
-	public Set<Class<? extends TemplatedFileGenerator>> getTemplatedFileGeneratorList() {
-		return templatedFileGeneratorList;
-	}
-
-	@Override
-	public Map<Class<? extends TemplatedFileGenerator>, List<String>> getTemplateFiles() {
-		return templateFiles;
+	public Map<Class<? extends TemplatedFileGenerator>, List<String>> getTemplateFiles(String pluginName) throws Exception {
+		return templateFileResource.getTemplates(pluginName);
 	}
 
 	public IPersonnageDAO getPersonnageDAO() {
@@ -294,7 +261,14 @@ public class ExportBS implements IExportBS {
 		this.personnageDAO = personnageDAO;
 	}
 
+	public ITemplateFileResource getTemplateFileResource() {
+		return templateFileResource;
+	}
 
-	
+	public void setTemplateFileResource(ITemplateFileResource templateFileResource) {
+		this.templateFileResource = templateFileResource;
+	}
+
+		
 
 }
