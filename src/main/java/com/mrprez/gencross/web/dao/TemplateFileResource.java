@@ -9,6 +9,7 @@ import org.springframework.web.context.ServletContextAware;
 
 import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.dao.face.ITemplateFileResource;
+import com.mrprez.gencross.disk.PluginDescriptor;
 
 public class TemplateFileResource implements ITemplateFileResource, ServletContextAware {
 	private File templatesRepository;
@@ -18,19 +19,21 @@ public class TemplateFileResource implements ITemplateFileResource, ServletConte
 	}
 	
 	@Override
-	public File[] getTemplateFiles(Class<? extends TemplatedFileGenerator> clazz) throws Exception{
-		File repository = new File(templatesRepository, clazz.getSimpleName());
-		return repository.listFiles();
+	public File[] getTemplateFiles(Class<? extends TemplatedFileGenerator> generatorClazz, PluginDescriptor pluginDescriptor) throws Exception{
+		File generatorRepository = new File(templatesRepository, generatorClazz.getSimpleName());
+		File templateRepository = new File(generatorRepository, pluginDescriptor.getName());
+		return templateRepository.listFiles();
 	}
 	
 	@Override
-	public File getTemplateFile(Class<? extends TemplatedFileGenerator> clazz, String fileName) throws Exception {
-		File repository = new File(templatesRepository, clazz.getSimpleName());
-		return new File(repository, fileName);
+	public File getTemplateFile(Class<? extends TemplatedFileGenerator> generatorClazz, PluginDescriptor pluginDescriptor, String fileName) throws Exception {
+		File generatorRepository = new File(templatesRepository, generatorClazz.getSimpleName());
+		File templateRepository = new File(generatorRepository, pluginDescriptor.getName());
+		return new File(templateRepository, fileName);
 	}
 	
 	@Override
-    public void setServletContext(ServletContext servletContext) {
+	public void setServletContext(ServletContext servletContext) {
 		templatesRepository = new File(servletContext.getInitParameter("templateRepository"));
 		Logger.getLogger(getClass()).info("Templates repository "+templatesRepository.getAbsolutePath()+" loaded" );
 	}
