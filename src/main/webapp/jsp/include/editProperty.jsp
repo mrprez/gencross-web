@@ -72,10 +72,10 @@
 				<button class="plusButton" type="button" onClick="javascript:plusValue(this, ${value.offset}, ${min}, ${max});" ${plusDisabled}><img src="<s:url value="/img/plus%{plusDisabled}.png"/>" alt="+"/></button>
 			</s:elseif>
 			<s:else>
-				<s:textfield name="newValue" key="value" value="%{value}"/>
+				<s:textfield name="newValue" key="value" value="%{value}" onkeydown="javascript:propertyKeyDown(event)" />
 			</s:else>
 			<button onclick="javascript:setNewValue('${param.propertyNum}')" type="button">Valider</button>
-			<img class="foldImg" src="<s:url value="/img/fold.png"/>" alt="Replier" onClick="javascript:hideEditFormFromImg(this);"/>
+			<img class="foldImg" src="<s:url value="/img/fold.png"/>" alt="Replier" onClick="javascript:hideEditFormFromChild(this);"/>
 		</s:form>
 	</s:if>
 	
