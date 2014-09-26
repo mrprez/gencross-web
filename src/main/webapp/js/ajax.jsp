@@ -296,4 +296,12 @@ function displayReload(){
 	$('#tooLongWaitMsg').show();
 }
 
+function propertyKeyDown(event){
+	if(event.keyCode==27){
+		hideEditFormFromChild(event.currentTarget);
+	}
+	if(event.keyCode==13){
+		$(event.currentTarget).parent().children('button').click();
+	}
+}
 
