@@ -21,7 +21,7 @@
 	<s:if test="subProperties!=null">
 		<a class="motherPropertyName" onClick="javascript:expandCollapse('<s:property value="absoluteName" escapeJavaScript="true"/>','${param.propertyNum}');" href="javascript:;">
 			<img class="expandImg" src="<s:url value="/img/%{expandStyle}.jpg" includeParams="none"/>" alt="Déplier/Replier" width="10" height="10"/>
-			<span id="span_${param.propertyNum}" onmouseover="javascript:displayDelayComment(this, event,'<s:property value="absoluteName" escape="false" escapeJavaScript="true"/>')" onMouseOut="javascript:stopDelayComment()">
+			<span id="span_${param.propertyNum}" >
 				<s:property value="fullName"/>
 				<s:if test="value!=null">
 					: <s:property value="value"/>
@@ -31,7 +31,7 @@
 	</s:if>
 	<s:else>
 		<img class="expandImg" src="<s:url value="/img/%{expandStyle}.jpg" includeParams="none"/>" alt="Déplier/Replier" width="10" height="10"/>
-		<span id="span_${param.propertyNum}" onmouseover="javascript:displayDelayComment(this, event,'<s:property value="absoluteName" escape="false" escapeJavaScript="true"/>')" onMouseOut="javascript:stopDelayComment()">
+		<span id="span_${param.propertyNum}" >
 			<s:property value="fullName"/>
 			<s:if test="value!=null">
 				: <s:property value="value"/>
@@ -45,7 +45,7 @@
 		<s:form id="%{formId}" cssClass="editForm" theme="simple" onsubmit="return false;">
 			<s:hidden name="propertyAbsoluteName" value="%{absoluteName}"/>
 			<s:if test="options!=null">
-				<s:select name="newValue" list="options" value="value"/>
+				<s:select name="newValue" list="options" value="value" onkeydown="javascript:editFormKeyDown(event)"/>
 			</s:if>
 			<s:elseif test="value.offset!=null">
 				<s:hidden cssClass="hiddenNewValue" name="newValue" value="%{value}"/>
@@ -67,12 +67,12 @@
 				<s:if test="max==null">
 					<s:set name="max" value="%{'NaN'}"/>
 				</s:if>
-				<button class="minusButton" type="button" onClick="javascript:minusValue(this, ${value.offset}, ${min}, ${max});" ${minusDisabled}><img src="<s:url value="/img/minus%{minusDisabled}.png"/>" alt="-"/></button>
+				<button class="minusButton" type="button" onClick="javascript:minusValue(this, ${value.offset}, ${min}, ${max});" ${minusDisabled} onkeydown="javascript:editFormKeyDown(event)"><img src="<s:url value="/img/minus%{minusDisabled}.png"/>" alt="-"/></button>
 				<span class="displayedNewValue"><s:property value="value"/></span>
-				<button class="plusButton" type="button" onClick="javascript:plusValue(this, ${value.offset}, ${min}, ${max});" ${plusDisabled}><img src="<s:url value="/img/plus%{plusDisabled}.png"/>" alt="+"/></button>
+				<button class="plusButton" type="button" onClick="javascript:plusValue(this, ${value.offset}, ${min}, ${max});" ${plusDisabled} onkeydown="editFormKeyDown(event)"><img src="<s:url value="/img/plus%{plusDisabled}.png"/>" alt="+"/></button>
 			</s:elseif>
 			<s:else>
-				<s:textfield name="newValue" key="value" value="%{value}" onkeydown="javascript:propertyKeyDown(event)" />
+				<s:textfield name="newValue" key="value" value="%{value}" onkeydown="javascript:editFormKeyDown(event)" />
 			</s:else>
 			<button onclick="javascript:setNewValue('${param.propertyNum}')" type="button">Valider</button>
 			<img class="foldImg" src="<s:url value="/img/fold.png"/>" alt="Replier" onClick="javascript:hideEditFormFromChild(this);"/>
@@ -86,15 +86,6 @@
 			<img class="removeImg" src="<s:url value="/img/remove.png"/>" alt="Supprimer" onClick="javascript:removeProperty('${param.propertyNum}');"/>
 		</s:form>
 	</s:if>
-	
-	<div class="comment" id="comment_${param.propertyNum}">
-		<s:if test="comment!=null">
-			<s:property value="comment.replaceAll(\"\\n\",\"<br/>\")"/>
-		</s:if>
-		<s:else>
-			Aucun commentaire
-		</s:else>
-	</div>
 	
 	<s:if test="subProperties!=null">
 		<ul id="subProperties_${param.propertyNum}" class="${expandStyle}">
@@ -113,7 +104,7 @@
 						<s:set name="formId">addPropertyFromOptionForm_${param.propertyNum}</s:set>
 						<s:form id="%{formId}" cssClass="addPropertyForm" theme="simple" onsubmit="return false;">
 							<s:hidden name="motherProperty" value="%{absoluteName}"/>
-							<s:select name="optionProperty" list="subProperties.getOptions().values()" listValue="fullName" listKey="fullName"/>
+							<s:select name="optionProperty" list="subProperties.getOptions().values()" listValue="fullName" listKey="fullName" onkeydown="javascript:editFormKeyDown(event)"/>
 							<button onclick="javascript:addPropertyFromOption('${param.propertyNum}')" type="button">Valider</button>
 							<img class="foldImg" src="<s:url value="/img/fold.png"/>" alt="Replier" onClick="javascript:hideAddPropertyForm(this);"/>
 						</s:form>
@@ -133,7 +124,7 @@
 						<s:set name="formId">addFreePropertyForm_${param.propertyNum}</s:set>
 						<s:form id="%{formId}" cssClass="addPropertyForm" theme="simple" onsubmit="return false;">
 							<s:hidden name="motherProperty" value="%{absoluteName}"/>
-							<s:textfield name="newProperty"/>
+							<s:textfield name="newProperty" onkeydown="javascript:editFormKeyDown(event)"/>
 							<button onclick="javascript:addFreeProperty('${param.propertyNum}')" type="button">Valider</button>
 							<img class="foldImg" src="<s:url value="/img/fold.png"/>" alt="Replier" onClick="javascript:hideAddPropertyForm(this);"/>
 						</s:form>

@@ -1,6 +1,4 @@
 
-var commentDisplayer;
-var commentPropertyAbsoluteName = null;
 var waitMaskTimeout;
 
 
@@ -8,6 +6,8 @@ function displayEditForm(imgElement){
 	$(imgElement).parent().children('.editForm').css('display', 'inline-block');
 	$(imgElement).hide();
 	$(imgElement).parent().children('.editForm').children('input[type=text]').focus();
+	$(imgElement).parent().children('.editForm').children('select').focus();
+	$(imgElement).parent().children('.editForm').children('.plusButton').focus();
 }
 
 function hideEditFormFromChild(imgElement){
@@ -52,6 +52,7 @@ function plusMinusButtonsEnability(formEl, min, max){
 			minusButton.disabled=true;
 			var index = minusImg.src.lastIndexOf('/');
 			minusImg.src = minusImg.src.substring(0,index)+'/minusdisabled.png';
+			plusButton.focus();
 		}
 	}else{
 		if(minusButton.disabled){
@@ -65,6 +66,7 @@ function plusMinusButtonsEnability(formEl, min, max){
 			plusButton.disabled=true;
 			var index = plusImg.src.lastIndexOf('/');
 			plusImg.src = plusImg.src.substring(0,index)+'/plusdisabled.png';
+			minusButton.focus();
 		}
 	}else{
 		if(plusButton.disabled){
@@ -77,32 +79,12 @@ function plusMinusButtonsEnability(formEl, min, max){
 
 function displayAddPropertyForm(addpropertySpan){
 	$(addpropertySpan).parent().children('.addPropertyForm').css('display', 'inline-block');
+	$(addpropertySpan).parent().children('.addPropertyForm').children('select').focus();
+	$(addpropertySpan).parent().children('.addPropertyForm').children('input[type=text]').focus();
 }
 
 function hideAddPropertyForm(foldImage){
 	$(foldImage).parent().hide();
-}
-
-function displayDelayComment(spanEl, event, absoluteName){
-	if(commentPropertyAbsoluteName==null){
-		var cursorPosition = getCursorPosition(event);
-		commentDisplayer = setTimeout('displayComment(\''+spanEl.id+'\', '+cursorPosition.x+', '+cursorPosition.y+', \''+absoluteName+'\')', 3000);
-	}
-}
-
-function stopDelayComment(){
-	clearTimeout(commentDisplayer);
-}
-
-function displayComment(spanId, x, y, absoluteName){
-	commentPropertyAbsoluteName = absoluteName;
-	var commentId = spanId.replace('span_','comment_');
-	var commentDisplayer = $('#commentDisplayer');
-	var commentDisplayerContent = $('#commentContent > span');
-	commentDisplayerContent.empty();
-	commentDisplayerContent.append($('#'+commentId).text());
-	commentDisplayer.show();
-	commentDisplayer.offset({top: y, left: x });
 }
 
 function getCursorPosition(event) {
@@ -129,25 +111,9 @@ function getCursorPosition(event) {
     return cursorPosition;
 }
 
-function closeComment(){
-	$('#commentDisplayer').hide();
-	$('#commentEditor').hide();
-	commentPropertyAbsoluteName = null;
-}
-
-function editComment(){
-	var commentEditor = $('#commentEditor');
-	var commentEditorContent =  $('#commentEditor > textarea');
-	var commentDisplayerContent = $('#commentContent > span');
-	commentEditorContent.empty();
-	commentEditorContent.val(commentDisplayerContent.text().trim());
-	commentEditor.show();
-	commentEditor.offset($('#commentDisplayer').offset());
-	$('#commentDisplayer').hide();
-}
-
 function displayPointPoolForm(editImg){
 	$(editImg).parent().children().css('display', 'inline');
+	$(editImg).parent().find('input[type=text]').focus();
 }
 
 function hidePointPoolForm(hideButton){

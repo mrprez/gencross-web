@@ -12,7 +12,7 @@
 				<s:hidden name="pointPoolName" value="%{name}"/>
 				<table>
 					<tr>
-						<td colspan="2"><s:textfield label="Nb de pts à ajouter:" class="pointPoolModification" name="pointPoolModification" key="value" value="%{value}" size="5"/></td>
+						<td colspan="2"><s:textfield label="Nb de pts à ajouter:" class="pointPoolModification" name="pointPoolModification" key="value" value="%{value}" size="5" onkeydown="javascript:poolPointFormKeyDown(event)"/></td>
 					</tr>
 					<tr>
 						<td><img class="foldImg" onclick="javascript:modifyPointPool(this)" src="<s:url value="/img/validate.png"/>"/></td>

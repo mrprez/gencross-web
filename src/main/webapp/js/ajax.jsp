@@ -225,16 +225,6 @@ function collapse(propertyAbsoluteName, propertyNum){
 	$.post('<s:url action="../jsp/EditAjax" method="collapse" includeParams="none"/>', data);
 }
 
-function validateComment(){
-	displayWaitMask();
-	var data = new Object();
-	data.personnageWorkId = personnageWorkId;
-	data.propertyAbsoluteName = commentPropertyAbsoluteName;
-	data.comment = $('#commentEditorContent').val();
-	$.post('<s:url action="../jsp/EditAjax" method="changeComment" includeParams="none"/>', data, reloadProperties, 'xml');
-	closeComment();
-}
-
 function modifyPointPool(validateButton){
 	displayWaitMask();
 	var form = getForm($(validateButton));
@@ -296,12 +286,33 @@ function displayReload(){
 	$('#tooLongWaitMsg').show();
 }
 
-function propertyKeyDown(event){
+function editFormKeyDown(event){
 	if(event.keyCode==27){
 		hideEditFormFromChild(event.currentTarget);
 	}
 	if(event.keyCode==13){
 		$(event.currentTarget).parent().children('button').click();
+	}
+	if(event.keyCode==37){
+		var minusButton = $(event.currentTarget).parent().children('.minusButton');
+		if( ! minusButton.get(0).disabled ){
+			minusButton.click();
+		}
+	}
+	if(event.keyCode==39){
+		var plusButton = $(event.currentTarget).parent().children('.plusButton');
+		if( ! plusButton.get(0).disabled ){
+			plusButton.click();
+		}
+	}
+}
+
+function poolPointFormKeyDown(event){
+	if(event.keyCode==27){
+		hidePointPoolForm(event.currentTarget);
+	}
+	if(event.keyCode==13){
+		modifyPointPool(event.currentTarget);
 	}
 }
 

@@ -24,27 +24,6 @@
 	personnageWorkId = <s:property value="personnageWork.id" escape="false" escapeJavaScript="true"/>;
 </script>
 
-<div id="commentDisplayer">
-	<div id="commentCommand">
-		<img class="activeImg" src="<s:url value="/img/edit.png"/>" alt="Editer" onClick="javascript:editComment()"/>
-		<img class="activeImg" src="<s:url value="/img/close.jpg"/>" alt="Fermer" onClick="javascript:closeComment()" id="closeCommentDisplayer"/>
-	</div>
-	<div id="commentContent" rows="5" cols="40">
-		<span></span>
-	</div>
-</div>
-
-<div id="commentEditor">
-	<div id="commentEditorCommand">
-		<img class="activeImg" src="<s:url value="/img/close.jpg"/>" alt="Fermer" onClick="javascript:closeComment()"/>
-	</div>
-	<textarea id="commentEditorContent" rows="5" cols="40">
-	</textarea>
-	<div id="validationCommentDiv">
-		<img class="activeImg" src="<s:url value="/img/validate.png"/>" alt="Valider" onClick="javascript:validateComment()"/>
-	</div>
-</div>
-
 
 <div id="personnageName">
 	<span><s:property value="personnageWork.name"/></span>
