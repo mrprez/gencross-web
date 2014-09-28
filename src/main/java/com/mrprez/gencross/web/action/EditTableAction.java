@@ -1,5 +1,6 @@
 package com.mrprez.gencross.web.action;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -11,6 +12,7 @@ import com.mrprez.gencross.web.action.util.PersonnageWorkComparator;
 import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
+import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
@@ -38,6 +40,7 @@ public class EditTableAction extends ActionSupport {
 	private Integer messageId;
 	private String sendMessage;
 	private String addMessage;
+	private Integer loadedMessageNumber;
 	
 	private ITableBS tableBS;
 	private IPersonnageBS personnageBS;
@@ -154,7 +157,14 @@ public class EditTableAction extends ActionSupport {
 	}
 	
 	public String refreshMessages() throws Exception{
-		tableBS.connectTableMailBox();
+		Collection<TableMessageBO> loadedMessageList = new ArrayList<TableMessageBO>(); //.connectTableMailBox();
+		loadedMessageNumber = 0;
+		for(TableMessageBO message : loadedMessageList){
+			if(message.getTableId().equals(id)){
+				loadedMessageNumber++;
+			}
+		}
+		
 		return SUCCESS;
 	}
 	
@@ -279,6 +289,14 @@ public class EditTableAction extends ActionSupport {
 
 	public void setPersonnageBS(IPersonnageBS personnageBS) {
 		this.personnageBS = personnageBS;
+	}
+
+	public Integer getLoadedMessageNumber() {
+		return loadedMessageNumber;
+	}
+
+	public void setLoadedMessageNumber(Integer loadedMessageNumber) {
+		this.loadedMessageNumber = loadedMessageNumber;
 	}
 
 

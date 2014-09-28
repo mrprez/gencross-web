@@ -209,7 +209,7 @@ public class TableBS implements ITableBS {
 		}
 		toAdresses.add(table.getGameMaster().getMail());
 		String tableMailAddress = (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue();
-		mailResource.send(toAdresses, tableMailAddress, "["+table.getName()+"]", message);
+		mailResource.send(toAdresses, tableMailAddress, "["+table.getId()+"]", message);
 	}
 	
 	@Override
@@ -227,11 +227,12 @@ public class TableBS implements ITableBS {
 	}
 	
 	@Override
-	public void connectTableMailBox() throws Exception {
-		for(TableMessageBO message : mailResource.getMails()){
+	public Collection<TableMessageBO> connectTableMailBox() throws Exception {
+		Collection<TableMessageBO> messageList = mailResource.getMails();
+		for(TableMessageBO message : messageList){
 			TableBO table = null;
-			if(message.getTableName() != null){
-				table = tableDAO.findTableByName(message.getTableName());
+			if(message.getTableId() != null){
+				table = tableDAO.findTableByName(message.getTableId());
 				if(table != null){
 					UserBO author = null;
 					if(message.getSenderMail() != null){
@@ -249,6 +250,8 @@ public class TableBS implements ITableBS {
 						"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le nom de la table entre crochet ('[<nom_table>]')." + "\n\n\n\n" + message.getData());
 			}
 		}
+		
+		return messageList;
 	}
 	
 	

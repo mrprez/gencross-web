@@ -169,6 +169,7 @@
 			<result name="success" type="redirectAction">
 				<param name="actionName">EditTable</param>
         		<param name="id">${id}</param>
+        		<param name="loadedMessageNumber">${loadedMessageNumber}</param>
         	</result>
 		</action>
 		

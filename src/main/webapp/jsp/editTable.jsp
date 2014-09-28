@@ -153,6 +153,20 @@
 		<s:form cssClass="tableButton buttonGroup" theme="simple" action="PlanGame" method="get"><s:hidden name="tableId" value="%{id}"/><s:submit value="Planning"/></s:form>
 	</div>
 
+	<s:if test="loadedMessageNumber!=null">
+		<ul id="loadedMessagesMessage">
+			<s:if test="loadedMessageNumber==0">
+				<li>Aucun message chargé pour cette table.</li>
+			</s:if>
+			<s:elseif test="loadedMessageNumber==1">
+				<li><s:property value="loadedMessageNumber" /> message chargé pour cette table.</li>
+			</s:elseif>
+			<s:else>
+				<li><s:property value="loadedMessageNumber" /> messages chargés pour cette table.</li>
+			</s:else>
+		</ul>
+	</s:if>
+	
 	<div id="messageListDiv">
 		<table id="messageList" class="genCrossTable">
 			<tr>
@@ -204,6 +218,7 @@
 		</table>
 	</div>
 
+	<div class="tableFooterElement">Identifiant de la table = <s:property value="table.id"/></div>
 </s:push>
 
 

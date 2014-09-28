@@ -787,6 +787,21 @@ table.pointPool{
 	height: 12px;
 }
 
+.tableFooterElement{
+	padding-top: 20px;
+	font-weight: normal;
+	font-size: small;
+	color: gray;
+}
+
+#loadedMessagesMessage{
+	padding-top: 20px;
+	padding-left: 20px;
+	color: #215F88;
+	display: block;
+}
+
+
 /* Table Pool Points */
 td.unvalidated {
 	font-weight: bold;

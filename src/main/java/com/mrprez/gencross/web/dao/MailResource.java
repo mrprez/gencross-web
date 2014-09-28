@@ -26,6 +26,8 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FlagTerm;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.apache.log4j.Logger;
+
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
@@ -179,8 +181,9 @@ public class MailResource implements IMailResource {
 	@Override
 	public Collection<TableMessageBO> getMails() throws Exception {
 		Collection<TableMessageBO> result = new ArrayList<TableMessageBO>();
-		Store store = receiverSession.getStore("imaps");
-		store.connect();
+		
+		Store store = receiverSession.getStore();
+		store.connect(receiverSession.getProperty("mail.user"), receiverSession.getProperty("mail.password"));
 		Folder folder = store.getFolder(INBOX);
 		try{
 			folder.open(Folder.READ_WRITE);
@@ -198,6 +201,8 @@ public class MailResource implements IMailResource {
 				mail.setFlag(Flags.Flag.SEEN, true);
 				result.add(tableMessage);
 			}
+			Logger.getLogger(getClass()).info(result.size()+" messages loaded from "+receiverSession.getProperty("mail.user"));
+			
 			return result;
 		}finally{
 			if(folder.isOpen()){

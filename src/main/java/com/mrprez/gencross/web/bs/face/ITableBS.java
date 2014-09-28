@@ -7,6 +7,7 @@ import java.util.Set;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.TableBO;
+import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
 
 public interface ITableBS {
@@ -35,7 +36,7 @@ public interface ITableBS {
 	
 	void addSendMessage(String message, Integer tableId, UserBO author) throws Exception;
 
-	void connectTableMailBox() throws Exception;
+	Collection<TableMessageBO> connectTableMailBox() throws Exception;
 
 	void removeMessageFromTable(Integer messageId, Integer id, UserBO user) throws Exception;
 
