@@ -1,6 +1,5 @@
 package com.mrprez.gencross.web.action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -157,7 +156,7 @@ public class EditTableAction extends ActionSupport {
 	}
 	
 	public String refreshMessages() throws Exception{
-		Collection<TableMessageBO> loadedMessageList = new ArrayList<TableMessageBO>(); //.connectTableMailBox();
+		Collection<TableMessageBO> loadedMessageList = tableBS.connectTableMailBox();
 		loadedMessageNumber = 0;
 		for(TableMessageBO message : loadedMessageList){
 			if(message.getTableId().equals(id)){
