@@ -209,7 +209,7 @@ public class TableBS implements ITableBS {
 		}
 		toAdresses.add(table.getGameMaster().getMail());
 		String tableMailAddress = (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue();
-		mailResource.send(toAdresses, tableMailAddress, "["+table.getId()+"]", message);
+		mailResource.send(toAdresses, tableMailAddress, "["+table.getId()+"] "+table.getName(), message);
 	}
 	
 	@Override
