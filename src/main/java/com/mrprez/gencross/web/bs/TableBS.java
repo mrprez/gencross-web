@@ -231,7 +231,7 @@ public class TableBS implements ITableBS {
 		Collection<TableMessageBO> messageList = mailResource.getMails();
 		for(TableMessageBO message : messageList){
 			TableBO table = null;
-			if(message.getTableId() != null && message.getTableId().matches("[0-9]+")){
+			if(message.getTableId()!=null && message.getTableId().matches("[0-9]+")){
 				table = tableDAO.loadTable(Integer.parseInt(message.getTableId()));
 				if(table != null){
 					UserBO author = null;
