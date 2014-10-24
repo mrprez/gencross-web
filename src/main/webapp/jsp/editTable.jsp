@@ -191,7 +191,9 @@
 							</s:form>
 						</div>
 						<div class="messageDate"><s:date name="date" format="dd/MM/yyyy HH:mm:ss"/></div>
-						<div class="messageContent"><pre><s:property value="data" escape="false"/></pre></div>
+						<div class="messageContent">
+							<span class="tableMessageContent"><s:property value="data" escape="false"/></span>
+						</div>
 					</td>
 				</tr>
 			</s:iterator>

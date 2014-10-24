@@ -141,7 +141,7 @@
 				<s:form action="Edit!nextPhase">
 					<s:hidden name="personnageId" value="%{personnageWork.id}"/>
 					<s:if test="personnageWork.personnage.phaseFinished()">
-						<s:submit value="Phase suivante"/>
+						<s:submit id="nextPhaseButton" value="Phase suivante"/>
 					</s:if>
 					<s:else>
 						<s:submit id="nextPhaseButton" value="Phase suivante" disabled="true"/>

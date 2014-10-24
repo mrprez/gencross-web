@@ -138,14 +138,25 @@ public class EditTableAction extends ActionSupport {
 	
 	public String newMessage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		message = message.replaceAll("<.[^>]*>", "").trim();
 		if(addMessage!=null){
-			tableBS.addMessageToTable(message, id, user);
+			tableBS.addMessageToTable(removeLastEmptyLines(message), id, user);
 		}else if(sendMessage!=null){
-			tableBS.addSendMessage(message, id, user);
+			tableBS.addSendMessage(removeLastEmptyLines(message), id, user);
 		}
 		
 		return SUCCESS;
+	}
+	
+	private String removeLastEmptyLines(String htmlText){
+		String result = htmlText;
+		
+		result = StringUtils.reverse(result);
+		while(result.matches("\\p{Space}*[>]p[/][<];psbn&\\p{Space}*[>]p[<](.|\\p{Space})*")){
+			result = result.replaceFirst("\\p{Space}*[>]p[/][<];psbn&\\p{Space}*[>]p[<]", "");
+		}
+		result = StringUtils.reverse(result);
+		
+		return result;
 	}
 	
 	public String removeMessage() throws Exception {

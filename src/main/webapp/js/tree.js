@@ -130,7 +130,7 @@ function hideHistoryEditForm(index){
 
 function manageHightlightHistory(){
 	if($('#seeNotValidateButton').text().indexOf("Voir")>=0){
-		var lastValidationDateString = $('#lastValidationDate').text();
+		var lastValidationDateString = $('#lastValidationDate').attr("title");
 		var lastValidationDate = convertStringToDate(lastValidationDateString);
 		var historyTab = $('#historyTable > tbody > tr.historyItemLine');
 		for(var i=0; i<historyTab.length; i++){
@@ -146,7 +146,7 @@ function manageHightlightHistory(){
 	}else{
 		var historyTab = $('#historyTable > tbody > tr.historyItemLine');
 		for(var i=0; i<historyTab.length; i++){
-			$(historyTab[i]).css('background-color', null);
+			$(historyTab[i]).css('background-color', '#FFFFFF');
 		}
 		$('#seeNotValidateButton').empty();
 		$('#seeNotValidateButton').append("Voir le non-validé");
