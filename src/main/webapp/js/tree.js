@@ -146,7 +146,7 @@ function manageHightlightHistory(){
 	}else{
 		var historyTab = $('#historyTable > tbody > tr.historyItemLine');
 		for(var i=0; i<historyTab.length; i++){
-			$(historyTab[i]).css('background-color', '#FFFFFF');
+			$(historyTab[i]).css('background-color', $(historyTab[i]).parent().css('background-color'));
 		}
 		$('#seeNotValidateButton').empty();
 		$('#seeNotValidateButton').append("Voir le non-validé");
