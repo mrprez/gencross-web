@@ -55,7 +55,8 @@ public class TemplateFileResource implements ITemplateFileResource, ServletConte
 		File pluginRep = new File(generatorRep, pluginName);
 		return new File(pluginRep, templateName);
 	}
-
+	
+	
 
 	
 	

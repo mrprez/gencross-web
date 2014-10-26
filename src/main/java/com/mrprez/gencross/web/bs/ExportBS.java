@@ -71,9 +71,9 @@ public class ExportBS implements IExportBS {
 	
 	
 	@Override
-	public byte[] multiExport(List<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String selectedTemplate) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String pluginName, String selectedTemplate) throws Exception {
+		File template = templateFileResource.getTemplate(fileGenerator.getClass(), pluginName, selectedTemplate);
+		return multiExport(personnageIdList, user, fileGenerator, template);
 	}
 	
 	

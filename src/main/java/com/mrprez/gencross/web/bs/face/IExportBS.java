@@ -25,11 +25,11 @@ public interface IExportBS {
 
 	List<String[]> multiExportInGrid(Collection<Integer> personnageIdList, UserBO user)throws Exception;
 	
-	byte[]  multiExport(Collection<Integer> personnageIdList, UserBO user, FileGenerator fileGenerator)throws Exception;
+	byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, FileGenerator fileGenerator)throws Exception;
 
-	byte[]  multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, File templateFile)throws Exception;
+	byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, File templateFile)throws Exception;
 
-	byte[] multiExport(List<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String selectedTemplate)throws Exception;
+	byte[] multiExport(Collection<Integer> personnageIdList, UserBO user, TemplatedFileGenerator fileGenerator, String pluginName, String selectedTemplate)throws Exception;
 	
 
 }

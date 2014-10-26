@@ -137,7 +137,7 @@ public class MultiExportAction extends ActionSupport {
 			if(selectedTemplate.equals("Uploader un fichier")){
 				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, templateFile);
 			}else{
-				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, selectedTemplate);
+				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, table.getType(), selectedTemplate);
 			}
 		}else{
 			export = exportBS.multiExport(personnageIdList, user, fileGenerator);
