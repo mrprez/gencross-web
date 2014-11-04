@@ -1,5 +1,13 @@
 package com.mrprez.gencross.web.bs.face;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+
 
 
 
@@ -11,9 +19,15 @@ public interface IJobBS {
 	
 	
 	
-	void scheduleSender() throws Exception;
+	void scheduleSender(String jobName) throws Exception;
 
-	boolean isSenderRunning() throws Exception;
+	boolean isSenderRunning(String jobName) throws Exception;
+
+	Collection<JobDetail> getJobList() throws Exception;
+
+	Map<JobKey, Date> getLastExecutionDates() throws Exception;
+
+	Set<JobKey> getRunningJobs() throws Exception;
 
 
 }

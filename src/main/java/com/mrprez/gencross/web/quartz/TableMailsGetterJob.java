@@ -1,6 +1,7 @@
 package com.mrprez.gencross.web.quartz;
 
 import org.apache.log4j.Logger;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -9,6 +10,7 @@ import org.springframework.web.context.ContextLoader;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 
+@DisallowConcurrentExecution
 public class TableMailsGetterJob implements Job {
 	
 	

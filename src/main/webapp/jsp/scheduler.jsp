@@ -12,26 +12,26 @@
 		<th class="genCrossTable">Dernière exécution</th>
 		<th class="genCrossTable">Action</th>
 	</tr>
-	<tr class="genCrossTable">
-		<td class="genCrossTable">Envoie des personnages</td>
-		<td class="genCrossTable">
-			<s:if test="senderRunning">
-				Running...
-			</s:if>
-			<s:else>
-				<s:date name="senderLastExecutionDate" format="yyyy-MM-dd HH:mm:ss"/>
-			</s:else>
-		</td>
-		<td class="genCrossTable">
-			<s:if test="senderRunning">
-				<s:url id="reloadUrl" action="JobProcessing"/>
-				<s:a href="%{reloadUrl}"><img src="<s:url value="/img/refresh.png"/>" alt="Recharger la page" width="20" height="20" title="Recharger la page"/></s:a>
-			</s:if>
-			<s:else>
-				<s:a action="JobProcessing" method="scheduleSender">Exécuter</s:a>
-			</s:else>
-		</td>
-	</tr>
+	<s:iterator value="jobList">
+		<tr class="genCrossTable">
+			<td class="genCrossTable"><s:property value="description"/></td>
+			<td class="genCrossTable">
+				<s:date name="jobLastDates.get(key)" format="MM/dd/yyyy HH:mm"/>
+			</td>
+			<td class="genCrossTable">
+				<s:if test="jobRunningMap.get(key)">
+					<s:url id="reloadUrl" action="JobProcessing"/>
+					<s:a href="%{reloadUrl}"><img src="<s:url value="/img/refresh.png"/>" alt="Recharger la page" width="20" height="20" title="Recharger la page"/></s:a>
+				</s:if>
+				<s:else>
+					<s:url var="scheduleSenderUrl" action="JobProcessing" method="scheduleSender">
+						<s:param name="jobName" value="key.name"/>
+					</s:url>
+					<s:a href="%{scheduleSenderUrl}" method="scheduleSender">Exécuter</s:a>
+				</s:else>
+			</td>
+		</tr>
+	</s:iterator>
 </table>
 		
 

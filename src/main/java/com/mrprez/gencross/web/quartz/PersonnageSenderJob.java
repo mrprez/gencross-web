@@ -7,6 +7,7 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -19,6 +20,7 @@ import com.mrprez.gencross.web.dao.ParamDAO;
 import com.mrprez.gencross.web.dao.PersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 
+@DisallowConcurrentExecution
 public class PersonnageSenderJob implements Job {
 	private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	private static Date lastExecutionDate;
