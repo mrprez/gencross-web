@@ -9,7 +9,6 @@ import org.quartz.JobDetail;
 import org.quartz.JobKey;
 
 import com.mrprez.gencross.web.bs.face.IJobBS;
-import com.mrprez.gencross.web.quartz.PersonnageSenderJob;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class JobProcessingAction extends ActionSupport {
@@ -20,6 +19,7 @@ public class JobProcessingAction extends ActionSupport {
 	private String jobName;
 	private Collection<JobDetail> jobList;
 	private Map<JobKey, Date> jobLastDates;
+	private Map<JobKey, Throwable> exceptions;
 	private Set<JobKey> runningJobs;
 	
 	
@@ -28,23 +28,16 @@ public class JobProcessingAction extends ActionSupport {
 		setJobList(jobBS.getJobList());
 		setJobLastDates(jobBS.getLastExecutionDates());
 		setRunnningJobs(jobBS.getRunningJobs());
+		setExceptions(jobBS.getExceptions());
 		return INPUT;
 	}
-
-
-	public String scheduleSender() throws Exception {
-		jobBS.scheduleSender(jobName);
+	
+	
+	public String schedule() throws Exception{
+		jobBS.schedule(jobName);
 		return SUCCESS;
 	}
-	
-	
-	public boolean getSenderRunning() throws Exception{
-		return jobBS.isSenderRunning(jobName);
-	}
 
-	public Date getSenderLastExecutionDate() {
-		return PersonnageSenderJob.getLastExecutionDate();
-	}
 
 	public IJobBS getJobBS() {
 		return jobBS;
@@ -92,6 +85,16 @@ public class JobProcessingAction extends ActionSupport {
 
 	public void setRunnningJobs(Set<JobKey> runningJobs) {
 		this.runningJobs = runningJobs;
+	}
+
+
+	public Map<JobKey, Throwable> getExceptions() {
+		return exceptions;
+	}
+
+
+	public void setExceptions(Map<JobKey, Throwable> exceptions) {
+		this.exceptions = exceptions;
 	}
 	
 	

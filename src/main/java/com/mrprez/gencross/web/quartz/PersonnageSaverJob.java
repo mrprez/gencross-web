@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.quartz.DisallowConcurrentExecution;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.web.context.ContextLoader;
@@ -15,11 +14,11 @@ import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.ISaveRepositoryResource;
 
 @DisallowConcurrentExecution
-public class PersonnageSaverJob implements Job {
+public class PersonnageSaverJob extends GencrossJob {
 	
 	
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
+	public void process(JobExecutionContext context) throws JobExecutionException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		try{
 			ISaveRepositoryResource saveRepositoryResource = (ISaveRepositoryResource)ContextLoader.getCurrentWebApplicationContext().getBean("SaveRepositoryResource");

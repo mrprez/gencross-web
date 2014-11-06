@@ -19,15 +19,15 @@ public interface IJobBS {
 	
 	
 	
-	void scheduleSender(String jobName) throws Exception;
-
-	boolean isSenderRunning(String jobName) throws Exception;
-
 	Collection<JobDetail> getJobList() throws Exception;
 
 	Map<JobKey, Date> getLastExecutionDates() throws Exception;
 
 	Set<JobKey> getRunningJobs() throws Exception;
+	
+	void schedule(String jobName) throws Exception;
+
+	Map<JobKey, Throwable> getExceptions() throws Exception;
 
 
 }

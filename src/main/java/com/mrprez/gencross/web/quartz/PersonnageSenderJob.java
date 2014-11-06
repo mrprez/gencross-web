@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.quartz.DisallowConcurrentExecution;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.web.context.ContextLoader;
@@ -21,13 +20,12 @@ import com.mrprez.gencross.web.dao.PersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 
 @DisallowConcurrentExecution
-public class PersonnageSenderJob implements Job {
+public class PersonnageSenderJob extends GencrossJob {
 	private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-	private static Date lastExecutionDate;
 	
 
 	@Override
-	public synchronized void execute(JobExecutionContext context) throws JobExecutionException {
+	public void process(JobExecutionContext context) throws JobExecutionException {
 		Logger.getLogger("senderJob").info("START PersonnageSenderJob");
 		IMailResource mailResource = (IMailResource) ContextLoader.getCurrentWebApplicationContext().getBean("MailResource");
 		String toAdresse = context.getJobDetail().getJobDataMap().getString("toAdress");
@@ -81,7 +79,6 @@ public class PersonnageSenderJob implements Job {
 			
 			paramDAO.getTransaction().commit();
 			
-			lastExecutionDate = new Date();
 			Logger.getLogger("senderJob").info("END PersonnageSenderJob");
 			
 		}catch (Exception e) {
@@ -96,12 +93,6 @@ public class PersonnageSenderJob implements Job {
 		}
 	}
 
-
-	public static Date getLastExecutionDate() {
-		return lastExecutionDate;
-	}
-	
-	
 	
 
 }
