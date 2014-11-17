@@ -1,9 +1,9 @@
 package com.mrprez.gencross.web.action.util;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.opensymphony.xwork2.ActionContext;
 
 public class SessionUtil {
@@ -11,26 +11,24 @@ public class SessionUtil {
 	
 
 	@SuppressWarnings("unchecked")
-	public static void putPersonnageWorkInSession(PersonnageWorkBO personnageWorkBO){
-		if(!ActionContext.getContext().getSession().containsKey(PERSONNAGES_WORKS_KEY)){
-			ActionContext.getContext().getSession().put(PERSONNAGES_WORKS_KEY, new HashMap<Integer, PersonnageWorkBO>());
+	public static void addExpandingInSession(int personnageWorkId, String expandedProperty){
+		if( ! ActionContext.getContext().getSession().containsKey(PERSONNAGES_WORKS_KEY+personnageWorkId)){
+			ActionContext.getContext().getSession().put(PERSONNAGES_WORKS_KEY+personnageWorkId, new HashSet<String>());
 		}
-		((Map<Integer, PersonnageWorkBO>)ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY)).put(personnageWorkBO.getId(), personnageWorkBO);
+		Set<String> expandedProperties = (Set<String>) ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY+personnageWorkId);
+		expandedProperties.add(expandedProperty);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static PersonnageWorkBO getPersonnageInSession(Integer personnageWorkId){
-		if(!ActionContext.getContext().getSession().containsKey(PERSONNAGES_WORKS_KEY)){
-			return null;
-		}
-		return ((Map<Integer, PersonnageWorkBO>)ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY)).get(personnageWorkId);
-	}
 	
 	@SuppressWarnings("unchecked")
-	public static void removePersonnageWorkFromSession(int personnageWorkId){
-		if(ActionContext.getContext().getSession().containsKey(PERSONNAGES_WORKS_KEY)){
-			((Map<Integer, PersonnageWorkBO>)ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY)).remove(Integer.valueOf(personnageWorkId));
+	public static void removeExpandingFromSession(int personnageWorkId, String expandedProperty){
+		if(ActionContext.getContext().getSession().containsKey(PERSONNAGES_WORKS_KEY+personnageWorkId)){
+			Map<String,String> expandedProperties = (Map<String, String>) ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY+personnageWorkId);
+			expandedProperties.remove(expandedProperty);
 		}
 	}
+	
+	
+	
 	
 }

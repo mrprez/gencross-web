@@ -8,7 +8,6 @@ import java.util.TreeSet;
 import org.apache.commons.lang3.StringUtils;
 
 import com.mrprez.gencross.web.action.util.PersonnageWorkComparator;
-import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
@@ -118,10 +117,6 @@ public class EditTableAction extends ActionSupport {
 			addActionError("Vous n'êtes pas MJ de ce personnage ou de cette table.");
 			return ERROR;
 		}
-		if(SessionUtil.getPersonnageInSession(personnageId) != null){
-			personnageWork.setPropertiesExpanding(SessionUtil.getPersonnageInSession(personnageId).getPropertiesExpanding());
-		}
-		SessionUtil.putPersonnageWorkInSession(personnageWork);
 		return SUCCESS;
 	}
 
@@ -139,24 +134,12 @@ public class EditTableAction extends ActionSupport {
 	public String newMessage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		if(addMessage!=null){
-			tableBS.addMessageToTable(removeLastEmptyLines(message), id, user);
+			tableBS.addMessageToTable(message, id, user);
 		}else if(sendMessage!=null){
-			tableBS.addSendMessage(removeLastEmptyLines(message), id, user);
+			tableBS.addSendMessage(message, id, user);
 		}
 		
 		return SUCCESS;
-	}
-	
-	private String removeLastEmptyLines(String htmlText){
-		String result = htmlText;
-		
-		result = StringUtils.reverse(result);
-		while(result.matches("\\p{Space}*[>]p[/][<];psbn&\\p{Space}*[>]p[<](.|\\p{Space})*")){
-			result = result.replaceFirst("\\p{Space}*[>]p[/][<];psbn&\\p{Space}*[>]p[<]", "");
-		}
-		result = StringUtils.reverse(result);
-		
-		return result;
 	}
 	
 	public String removeMessage() throws Exception {

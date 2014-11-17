@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.mrprez.gencross.disk.PluginDescriptor;
-import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
@@ -72,7 +71,6 @@ public class CreatePersonnageAction extends ActionSupport {
 		}
 		personnageWork.setName(personnageName);
 		personnageId = personnageWork.getId();
-		SessionUtil.putPersonnageWorkInSession(personnageWork);
 		return SUCCESS;
 	}
 	

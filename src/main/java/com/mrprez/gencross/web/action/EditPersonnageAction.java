@@ -2,7 +2,6 @@ package com.mrprez.gencross.web.action;
 
 import java.io.InputStream;
 
-import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
@@ -21,31 +20,28 @@ public class EditPersonnageAction extends ActionSupport {
 	
 	
 	public String execute() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
-		if(personnageWork==null){
-			UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-			personnageWork = personnageBS.loadPersonnage(personnageId, user);
-			tableBS.getPersonnageTable(personnageWork);
-			SessionUtil.putPersonnageWorkInSession(personnageWork);
-		}
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		return INPUT;
 	}
 	
 	
 	
 	public String nextPhase() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
 		}
 		personnageBS.nextPhase(personnageWork);
 		
-		return INPUT;
+		return SUCCESS;
 	}
 	
 	public String save() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
@@ -55,7 +51,8 @@ public class EditPersonnageAction extends ActionSupport {
 	}
 	
 	public String validatePersonnage() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;
@@ -65,7 +62,8 @@ public class EditPersonnageAction extends ActionSupport {
 	}
 	
 	public String unvalidatePersonnage() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
 			addActionError("Vous devez sélectionner un personnage avant de le modifier.");
 			return ERROR;

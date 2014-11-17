@@ -3,8 +3,8 @@
 <%@ taglib uri="/gencross-taglib-URI" prefix="gcr"%>
 
 <s:if test="subProperties!=null">
-	<s:if test="personnageWork.propertiesExpanding.containsKey(absoluteName)">
-		<s:set name="expandStyle" value="personnageWork.propertiesExpanding.get(absoluteName)"/>
+	<s:if test="#session['personnagesWorks'+personnageWork.id].contains(absoluteName)">
+		<s:set name="expandStyle" value="%{'expanded'}" />
 	</s:if>
 	<s:else>
 		<s:set name="expandStyle" value="%{'expandable'}"/>

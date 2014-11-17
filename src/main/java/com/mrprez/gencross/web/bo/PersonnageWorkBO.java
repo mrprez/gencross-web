@@ -1,8 +1,6 @@
 package com.mrprez.gencross.web.bo;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.mrprez.gencross.Personnage;
 
@@ -13,7 +11,6 @@ public class PersonnageWorkBO {
 	private String name;
 	private PersonnageDataBO personnageData = new PersonnageDataBO();
 	private PersonnageDataBO validPersonnageData = new PersonnageDataBO();
-	private Map<String, String> propertiesExpanding = new HashMap<String, String>();
 	private Date validationDate;
 	private Date lastUpdateDate;
 	private TableBO table;
@@ -44,12 +41,6 @@ public class PersonnageWorkBO {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Map<String, String> getPropertiesExpanding() {
-		return propertiesExpanding;
-	}
-	public void setPropertiesExpanding(Map<String, String> propertiesExpanding) {
-		this.propertiesExpanding = propertiesExpanding;
 	}
 	public PersonnageDataBO getPersonnageData() {
 		return personnageData;

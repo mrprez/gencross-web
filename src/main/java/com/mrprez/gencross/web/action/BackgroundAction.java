@@ -1,6 +1,5 @@
 package com.mrprez.gencross.web.action;
 
-import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
@@ -20,19 +19,15 @@ public class BackgroundAction extends ActionSupport {
 	
 	
 	public String execute() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
-		if(personnageWork==null){
-			UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-			personnageWork = personnageBS.loadPersonnage(personnageId, user);
-			tableBS.getPersonnageTable(personnageWork);
-			SessionUtil.putPersonnageWorkInSession(personnageWork);
-		}
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		background = personnageWork.getBackground();
 		return INPUT;
 	}
 	
 	public String save() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		personnageBS.savePersonnageBackground(personnageWork, background);
 		
 		return SUCCESS;

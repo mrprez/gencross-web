@@ -54,25 +54,28 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	
 	
 	public String expand() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return null;
 		}
-		personnageWork.getPropertiesExpanding().put(propertyAbsoluteName, "expanded");
+		SessionUtil.addExpandingInSession(personnageWorkId, propertyAbsoluteName);
 		return null;
 	}
 	
 	public String collapse() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return null;
 		}
-		personnageWork.getPropertiesExpanding().put(propertyAbsoluteName, "expandable");
+		SessionUtil.removeExpandingFromSession(personnageWorkId, propertyAbsoluteName);
 		return null;
 	}
 
 	public String updateValue() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
 			return ERROR;
@@ -85,7 +88,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String addPropertyFromOption() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
 			return ERROR;
@@ -98,7 +102,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String addFreeProperty() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
 			return ERROR;
@@ -111,7 +116,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String removeProperty() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
 			return ERROR;
@@ -137,7 +143,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	
 	
 	public String getProperty() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
@@ -174,7 +181,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String getErrorList() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
@@ -184,7 +192,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String getPointPool() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
@@ -194,7 +203,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 
 	public String getLastHistory() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
@@ -203,7 +213,8 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String changeComment() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
@@ -215,13 +226,9 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String modifyPointPool() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		// Vérification des droits du MJ
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		if(!isUserPersonnageGameMaster(user, personnageWork)){
+		personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageWorkId, user);
+		if(personnageWork==null){
 			return ERROR;
 		}
 		personnageBS.modifyPointPool(personnageWork, pointPoolName, pointPoolModification);
@@ -232,13 +239,9 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	
 	public String modifyHistory() throws Exception {
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		// Vérification des droits du MJ
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		if(!isUserPersonnageGameMaster(user, personnageWork)){
+		personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageWorkId, user);
+		if(personnageWork==null){
 			return ERROR;
 		}
 		updatedPointPoolIndexes = new HashSet<Integer>(2);
@@ -251,8 +254,9 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 		return INPUT;
 	}
 	
-	public String getHistoryItem(){
-		personnageWork = SessionUtil.getPersonnageInSession(personnageWorkId);
+	public String getHistoryItem() throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}

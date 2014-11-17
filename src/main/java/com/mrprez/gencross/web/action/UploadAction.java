@@ -2,7 +2,6 @@ package com.mrprez.gencross.web.action;
 
 import java.io.File;
 
-import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IGcrFileBS;
@@ -55,11 +54,9 @@ public class UploadAction extends ActionSupport {
 				personnageId = personnageWork.getId();
 			}else{
 				PersonnageWorkBO personnageWork = gcrFileBS.createPersonnageAsPlayer(gcrFile, personnageName, user);
-				SessionUtil.putPersonnageWorkInSession(personnageWork);
 				personnageId = personnageWork.getId();
 			}
 		}else{
-			SessionUtil.removePersonnageWorkFromSession(personnageId);
 			String error = gcrFileBS.uploadGcrPersonnage(gcrFile, personnageId, user, password);
 			if(error!=null){
 				this.addActionError(error);

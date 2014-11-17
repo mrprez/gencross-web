@@ -11,10 +11,11 @@ import java.util.Map;
 import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
-import com.mrprez.gencross.web.action.util.SessionUtil;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
+import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IExportBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ExportAction extends ActionSupport {
@@ -47,7 +48,8 @@ public class ExportAction extends ActionSupport {
 	}
 	
 	public String export() throws Exception {
-		PersonnageWorkBO personnageWork = SessionUtil.getPersonnageInSession(personnageId);
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
@@ -60,6 +62,11 @@ public class ExportAction extends ActionSupport {
 		byte export[];
 		if(selectedTemplate!=null){
 			if(selectedTemplate.equals("Uploader un fichier")){
+				if(templateFile==null){
+					super.addActionError("Vous devez uploader un fichier template");
+					execute();
+					return ERROR;
+				}
 				export = exportBS.export(personnageWork, (TemplatedFileGenerator)fileGenerator, templateFile);
 			}else{
 				export = exportBS.export(personnageWork, (TemplatedFileGenerator)fileGenerator, selectedTemplate);
