@@ -8,7 +8,6 @@
 	<package name="genCross" namespace="/" extends="struts-default">
 		<interceptors>
 			<interceptor name="userSecurity" class="com.mrprez.gencross.web.action.interceptor.SecurityInterceptor"/>
-			<interceptor name="actionMessage" class="com.mrprez.gencross.web.action.interceptor.ActionMessageInterceptor"/>
 			<interceptor name="fileUpload" class="org.apache.struts2.interceptor.FileUploadInterceptor"/>
 			<interceptor name="maintenance" class="com.mrprez.gencross.web.action.interceptor.MaintenanceInterceptor"/>
 			<interceptor name="trace" class="com.mrprez.gencross.web.action.interceptor.TraceInterceptor"/>
@@ -127,14 +126,16 @@
         
         <action name="Edit!*" method="{1}" class="editPersonnageAction">
 			<interceptor-ref name="userSecurityStack"/>
-			<interceptor-ref name="actionMessage"/>
         	<result name="input">/jsp/editPersonnage.jsp</result>
 			<result name="error">/jsp/error.jsp</result>
+			<result name="success" type="redirectAction">
+        		<param name="actionName">Edit</param>
+        		<param name="personnageId">${personnageId}</param>
+        	</result>
 		</action>
 		
 		<action name="Background!*" method="{1}" class="backgroundAction">
 			<interceptor-ref name="userSecurityStack"/>
-			<interceptor-ref name="actionMessage"/>
         	<result name="input">/jsp/background.jsp</result>
         	<result name="success" type="redirectAction">
         		<param name="actionName">Background</param>
@@ -271,6 +272,7 @@
 			<interceptor-ref name="fileUpload"/>
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="input">/jsp/export.jsp</result>
+			<result name="error">/jsp/export.jsp</result>
 			<result name="success" type="stream">
 				<param name="contentType">application/download</param> 
 				<param name="inputName">inputStream</param> 

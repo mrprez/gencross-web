@@ -5,6 +5,8 @@
 <gcr:security-redirection target="/jsp/login.jsp"/>
 <s:include value="include/header.jsp"/>
 
+<s:actionerror />
+
 <s:property value="#session.personnageWork.name"/>
 
 <s:form action="Export!export" enctype="multipart/form-data" method="post">
@@ -13,7 +15,7 @@
 	<s:iterator value="templateFiles">
 		<tr id="${key.simpleName}_templatesEl" class="templateFileList">
 			<td><label for="${key.simpleName}_templates">Fichier template: </label></td>
-			<td><s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/></td>
+			<td><s:select id="%{key.simpleName}_templates" value="selectedTemplate" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/></td>
 		</tr>
 	</s:iterator>
 	
