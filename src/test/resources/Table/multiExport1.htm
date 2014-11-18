@@ -93,7 +93,7 @@
 	
 	
 	
-	<form id="MultiExport" name="MultiExport" action="/gencross-web/MultiExport.action" method="get">
+	<form id="MultiExport" name="MultiExport" action="/gencross-web/MultiExport.action" method="post" enctype="multipart/form-data">
 <ul class="exportedList">
 		<span class="checkboxlistLabel">
 			<input type="checkbox" onchange="javascript:allSelection(this);" />
@@ -130,7 +130,81 @@
 		<label for="exportedPjList-3" class="checkboxLabel">Table INS 5 (azerty)</label>
 		</li>
 <input type="hidden" id="__multiselect_MultiExport_exportedPjList" name="__multiselect_exportedPjList" value="" />
-</ul><table class="wwFormTable">
+</ul><div>
+			<input type="submit" id="MultiExport_MultiExport!export" name="action:MultiExport!export" value="Export" />
+
+		</div><div>
+			<input type="submit" id="MultiExport_MultiExport!exportCsv" name="action:MultiExport!exportCsv" value="Export CSV" />
+
+		</div><div>
+			<select name="fileGeneratorName" id="fileGeneratorName" onchange="javascript:selectGenerator(this)">
+    <option value="XlsGenerator">Fichier Excel(.xls)</option>
+    <option value="DrawerGenerator" selected="selected">Fichier GenCross-Drawer</option>
+    <option value="PptxGenerator">Fichier PowerPoint .pptx</option>
+    <option value="XmlGenerator">Fichier XML</option>
+    <option value="EncodedXmlGenerator">Fichier avec template XML</option>
+    <option value="TextGenerator">Fichier avec template texte</option>
+    <option value="SimpleTxtGenerator">Fichier texte</option>
+    <option value="SimpleTextWithCommentsGenerator">Fichier texte avec commentaires</option>
+    <option value="CompactFileGenerator">Fichier texte compact</option>
+
+
+</select>
+
+			
+				<span id="EncodedXmlGenerator_templatesEl" class="templateFileList" style="display: none;">
+					<label for="EncodedXmlGenerator_templates">Fichier template: </label>
+					<select name="" id="EncodedXmlGenerator_templates" class="selectTemplate" onchange="javascript:selectTemplateFile(this)">
+    <option value="Uploader un fichier">Uploader un fichier</option>
+
+
+</select>
+
+				</span>
+			
+				<span id="XlsGenerator_templatesEl" class="templateFileList" style="display: none;">
+					<label for="XlsGenerator_templates">Fichier template: </label>
+					<select name="" id="XlsGenerator_templates" class="selectTemplate" onchange="javascript:selectTemplateFile(this)">
+    <option value="Uploader un fichier">Uploader un fichier</option>
+
+
+</select>
+
+				</span>
+			
+				<span id="TextGenerator_templatesEl" class="templateFileList" style="display: none;">
+					<label for="TextGenerator_templates">Fichier template: </label>
+					<select name="" id="TextGenerator_templates" class="selectTemplate" onchange="javascript:selectTemplateFile(this)">
+    <option value="Uploader un fichier">Uploader un fichier</option>
+
+
+</select>
+
+				</span>
+			
+				<span id="DrawerGenerator_templatesEl" class="templateFileList" style="display: inline;">
+					<label for="DrawerGenerator_templates">Fichier template: </label>
+					<select name="selectedTemplate" id="DrawerGenerator_templates" class="selectTemplate" onchange="javascript:selectTemplateFile(this)">
+    <option value="Uploader un fichier">Uploader un fichier</option>
+
+
+</select>
+
+				</span>
+			
+				<span id="PptxGenerator_templatesEl" class="templateFileList" style="display: none;">
+					<label for="PptxGenerator_templates">Fichier template: </label>
+					<select name="" id="PptxGenerator_templates" class="selectTemplate" onchange="javascript:selectTemplateFile(this)">
+    <option value="Uploader un fichier">Uploader un fichier</option>
+
+
+</select>
+
+				</span>
+			
+			<input type="submit" id="MultiExport_MultiExport!exportZip" name="action:MultiExport!exportZip" value="Export Zip" />
+
+		</div><table class="wwFormTable">
 		<input type="hidden" name="tableId" value="1" id="MultiExport_tableId" />
 		
 		
@@ -141,24 +215,22 @@
 		
 					
 		
-		<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="MultiExport_MultiExport!export" name="action:MultiExport!export" value="Export" />
-</div></td>
-</tr>
-
-		<tr>
-    <td colspan="2"><div align="right"><input type="submit" id="MultiExport_MultiExport!exportCsv" name="action:MultiExport!exportCsv" value="Export CSV" />
-</div></td>
-</tr>
-
-	</tbody></table></form>
+		
+		
+		
+	</table></form>
 
 
 
 
 	
-	<div id="backToEditTableDiv">
-		<a href="/gencross-web/EditTable.action?id=1"><img alt="&lt;==" class="activeImg" src="/gencross-web/img/left_arrow.png" onclick="javascript:editComment()" /> Retour</a>
+	<script type="text/javascript">
+		selectGenerator();
+		$("[name='selectedTemplate']").children("[value='']").attr("selected", "true");
+	</script>
+	
+	<div id="backToEditDiv">
+		<a href="/gencross-web/EditTable.action?id=1"><img alt="&lt;==" class="activeImg" src="/gencross-web/img/left_arrow.png" /> Retour</a>
 	</div>
 
 
@@ -166,5 +238,6 @@
 		</div>
 		<div id="footer"><center></center></div>
 	
+
 
 </body></html>

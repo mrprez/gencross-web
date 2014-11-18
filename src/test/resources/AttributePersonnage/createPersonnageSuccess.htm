@@ -93,26 +93,6 @@
 	personnageWorkId = 1;
 </script>
 
-<div id="commentDisplayer">
-	<div id="commentCommand">
-		<img class="activeImg" src="/gencross-web/img/edit.png" alt="Editer" onclick="javascript:editComment()" />
-		<img class="activeImg" src="/gencross-web/img/close.jpg" alt="Fermer" onclick="javascript:closeComment()" id="closeCommentDisplayer" />
-	</div>
-	<div id="commentContent" rows="5" cols="40">
-		<span></span>
-	</div>
-</div>
-
-<div id="commentEditor">
-	<div id="commentEditorCommand">
-		<img class="activeImg" src="/gencross-web/img/close.jpg" alt="Fermer" onclick="javascript:closeComment()" />
-	</div>
-	<textarea id="commentEditorContent" rows="5" cols="40">	</textarea>
-	<div id="validationCommentDiv">
-		<img class="activeImg" src="/gencross-web/img/validate.png" alt="Valider" onclick="javascript:validateComment()" />
-	</div>
-</div>
-
 
 <div id="personnageName">
 	<span>Test attibution</span>
@@ -399,7 +379,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_0" onmouseover="javascript:displayDelayComment(this, event,'Nom')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_0">
 			Nom
 			
 				: 
@@ -416,10 +396,10 @@
 			
 			
 			
-				<input type="text" name="newValue" value="" id="form_0_newValue" />
+				<input type="text" name="newValue" value="" id="form_0_newValue" onkeydown="javascript:editFormKeyDown(event)" />
 			
 			<button onclick="javascript:setNewValue('0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -429,13 +409,6 @@
 	
 	
 	
-	<div class="comment" id="comment_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -443,6 +416,7 @@
 
 
 		
+
 						
 					
 						
@@ -463,7 +437,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_1" onmouseover="javascript:displayDelayComment(this, event,'Age')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_1">
 			Age
 			
 				: 20
@@ -480,10 +454,10 @@
 			
 			
 			
-				<input type="text" name="newValue" value="20" id="form_1_newValue" />
+				<input type="text" name="newValue" value="20" id="form_1_newValue" onkeydown="javascript:editFormKeyDown(event)" />
 			
 			<button onclick="javascript:setNewValue('1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -493,13 +467,6 @@
 	
 	
 	
-	<div class="comment" id="comment_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -507,6 +474,7 @@
 
 
 		
+
 						
 					
 						
@@ -527,7 +495,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_2" onmouseover="javascript:displayDelayComment(this, event,'Vertu')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_2">
 			Vertu
 			
 				: 
@@ -542,7 +510,7 @@
 <form id="form_2" name="form_2" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Vertu" id="form_2_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_2_newValue">
+				<select name="newValue" id="form_2_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Charité">Charité</option>
     <option value="Espérance">Espérance</option>
     <option value="Foi">Foi</option>
@@ -558,7 +526,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -568,13 +536,6 @@
 	
 	
 	
-	<div class="comment" id="comment_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -582,6 +543,7 @@
 
 
 		
+
 						
 					
 						
@@ -602,7 +564,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_3" onmouseover="javascript:displayDelayComment(this, event,'Vice')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_3">
 			Vice
 			
 				: 
@@ -617,7 +579,7 @@
 <form id="form_3" name="form_3" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Vice" id="form_3_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_3_newValue">
+				<select name="newValue" id="form_3_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Avarice">Avarice</option>
     <option value="Colère">Colère</option>
     <option value="Envie">Envie</option>
@@ -633,7 +595,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('3')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -643,13 +605,6 @@
 	
 	
 	
-	<div class="comment" id="comment_3">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -657,6 +612,7 @@
 
 
 		
+
 						
 					
 						
@@ -677,7 +633,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_4" onmouseover="javascript:displayDelayComment(this, event,'Seeming')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_4">
 			Seeming
 			
 				: 
@@ -692,7 +648,7 @@
 <form id="form_4" name="form_4" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Seeming" id="form_4_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_4_newValue">
+				<select name="newValue" id="form_4_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Beast">Beast</option>
     <option value="Darkling">Darkling</option>
     <option value="Elemental">Elemental</option>
@@ -707,7 +663,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('4')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -717,13 +673,6 @@
 	
 	
 	
-	<div class="comment" id="comment_4">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -731,6 +680,7 @@
 
 
 		
+
 						
 					
 						
@@ -751,7 +701,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_5" onmouseover="javascript:displayDelayComment(this, event,'Kith')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_5">
 			Kith
 			
 				: 
@@ -766,7 +716,7 @@
 <form id="form_5" name="form_5" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Kith" id="form_5_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_5_newValue">
+				<select name="newValue" id="form_5_newValue" onkeydown="javascript:editFormKeyDown(event)">
 
 
 </select>
@@ -775,7 +725,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('5')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -785,13 +735,6 @@
 	
 	
 	
-	<div class="comment" id="comment_5">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -799,6 +742,7 @@
 
 
 		
+
 						
 					
 						
@@ -822,7 +766,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Attributs','6');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_6" onmouseover="javascript:displayDelayComment(this, event,'Attributs')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_6">
 				Attributs
 				
 			</span>
@@ -833,13 +777,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_6">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_6" class="expandable">
@@ -866,7 +803,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Attributs#Mental','6_0');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_6_0" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Mental')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_6_0">
 				Mental
 				
 					: Intermediaire
@@ -883,7 +820,7 @@
 <form id="form_6_0" name="form_6_0" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Attributs#Mental" id="form_6_0_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_6_0_newValue">
+				<select name="newValue" id="form_6_0_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Mineur">Mineur</option>
     <option value="Intermediaire" selected="selected">Intermediaire</option>
     <option value="Majeur">Majeur</option>
@@ -895,7 +832,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('6_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -904,13 +841,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_6_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_6_0" class="expandable">
@@ -934,7 +864,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_0_0" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Mental#Intelligence')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_0_0">
 			Intelligence
 			
 				: 1
@@ -961,13 +891,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_0_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -977,13 +907,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_0_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -991,6 +914,7 @@
 
 
 		
+
 				
 			
 				
@@ -1011,7 +935,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_0_1" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Mental#Astuce')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_0_1">
 			Astuce
 			
 				: 1
@@ -1038,13 +962,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_0_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1054,13 +978,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_0_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1068,6 +985,7 @@
 
 
 		
+
 				
 			
 				
@@ -1088,7 +1006,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_0_2" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Mental#R\u00E9solution')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_0_2">
 			Résolution
 			
 				: 1
@@ -1115,13 +1033,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_0_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1131,13 +1049,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_0_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1145,6 +1056,7 @@
 
 
 		
+
 				
 			
 			
@@ -1157,6 +1069,7 @@
 
 
 		
+
 				
 			
 				
@@ -1180,7 +1093,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Attributs#Physique','6_1');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_6_1" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Physique')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_6_1">
 				Physique
 				
 					: Intermediaire
@@ -1197,7 +1110,7 @@
 <form id="form_6_1" name="form_6_1" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Attributs#Physique" id="form_6_1_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_6_1_newValue">
+				<select name="newValue" id="form_6_1_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Mineur">Mineur</option>
     <option value="Intermediaire" selected="selected">Intermediaire</option>
     <option value="Majeur">Majeur</option>
@@ -1209,7 +1122,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('6_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1218,13 +1131,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_6_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_6_1" class="expandable">
@@ -1248,7 +1154,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_1_0" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Physique#Force')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_1_0">
 			Force
 			
 				: 1
@@ -1275,13 +1181,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_1_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1291,13 +1197,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_1_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1305,6 +1204,7 @@
 
 
 		
+
 				
 			
 				
@@ -1325,7 +1225,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_1_1" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Physique#Agilit\u00E9')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_1_1">
 			Agilité
 			
 				: 1
@@ -1352,13 +1252,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_1_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1368,13 +1268,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_1_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1382,6 +1275,7 @@
 
 
 		
+
 				
 			
 				
@@ -1402,7 +1296,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_1_2" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Physique#Vigueur')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_1_2">
 			Vigueur
 			
 				: 1
@@ -1429,13 +1323,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_1_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1445,13 +1339,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_1_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1459,6 +1346,7 @@
 
 
 		
+
 				
 			
 			
@@ -1471,6 +1359,7 @@
 
 
 		
+
 				
 			
 				
@@ -1494,7 +1383,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Attributs#Social','6_2');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_6_2" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Social')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_6_2">
 				Social
 				
 					: Intermediaire
@@ -1511,7 +1400,7 @@
 <form id="form_6_2" name="form_6_2" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Attributs#Social" id="form_6_2_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_6_2_newValue">
+				<select name="newValue" id="form_6_2_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Mineur">Mineur</option>
     <option value="Intermediaire" selected="selected">Intermediaire</option>
     <option value="Majeur">Majeur</option>
@@ -1523,7 +1412,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('6_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1532,13 +1421,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_6_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_6_2" class="expandable">
@@ -1562,7 +1444,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_2_0" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Social#Pr\u00E9sence')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_2_0">
 			Présence
 			
 				: 1
@@ -1589,13 +1471,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_2_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1605,13 +1487,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_2_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1619,6 +1494,7 @@
 
 
 		
+
 				
 			
 				
@@ -1639,7 +1515,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_2_1" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Social#Manipulation')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_2_1">
 			Manipulation
 			
 				: 1
@@ -1666,13 +1542,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_2_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1682,13 +1558,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_2_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1696,6 +1565,7 @@
 
 
 		
+
 				
 			
 				
@@ -1716,7 +1586,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_6_2_2" onmouseover="javascript:displayDelayComment(this, event,'Attributs#Social#Calme')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_6_2_2">
 			Calme
 			
 				: 1
@@ -1743,13 +1613,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('6_2_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1759,13 +1629,6 @@
 	
 	
 	
-	<div class="comment" id="comment_6_2_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -1773,6 +1636,7 @@
 
 
 		
+
 				
 			
 			
@@ -1785,6 +1649,7 @@
 
 
 		
+
 				
 			
 			
@@ -1797,6 +1662,7 @@
 
 
 		
+
 						
 					
 						
@@ -1820,7 +1686,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents','7');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7" onmouseover="javascript:displayDelayComment(this, event,'Talents')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7">
 				Talents
 				
 			</span>
@@ -1831,13 +1697,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7" class="expandable">
@@ -1864,7 +1723,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental','7_0');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0">
 				Mental
 				
 					: Intermediaire
@@ -1881,7 +1740,7 @@
 <form id="form_7_0" name="form_7_0" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Talents#Mental" id="form_7_0_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_7_0_newValue">
+				<select name="newValue" id="form_7_0_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Mineur">Mineur</option>
     <option value="Intermediaire" selected="selected">Intermediaire</option>
     <option value="Majeur">Majeur</option>
@@ -1893,7 +1752,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('7_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1902,13 +1761,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0" class="expandable">
@@ -1935,7 +1787,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Artisanat','7_0_0');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_0" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Artisanat')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_0">
 				Artisanat
 				
 					: 0
@@ -1964,13 +1816,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -1979,13 +1831,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_0" class="expandable">
@@ -2001,7 +1846,7 @@
 						        
 <form id="addFreePropertyForm_7_0_0" name="addFreePropertyForm_7_0_0" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Artisanat" id="addFreePropertyForm_7_0_0_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_0_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_0_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_0')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2023,6 +1868,7 @@
 
 
 		
+
 				
 			
 				
@@ -2046,7 +1892,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Erudition','7_0_1');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_1" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Erudition')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_1">
 				Erudition
 				
 					: 0
@@ -2075,13 +1921,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2090,13 +1936,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_1" class="expandable">
@@ -2112,7 +1951,7 @@
 						        
 <form id="addFreePropertyForm_7_0_1" name="addFreePropertyForm_7_0_1" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Erudition" id="addFreePropertyForm_7_0_1_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_1_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_1_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_1')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2134,6 +1973,7 @@
 
 
 		
+
 				
 			
 				
@@ -2157,7 +1997,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Informatique','7_0_2');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_2" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Informatique')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_2">
 				Informatique
 				
 					: 0
@@ -2186,13 +2026,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2201,13 +2041,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_2" class="expandable">
@@ -2223,7 +2056,7 @@
 						        
 <form id="addFreePropertyForm_7_0_2" name="addFreePropertyForm_7_0_2" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Informatique" id="addFreePropertyForm_7_0_2_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_2_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_2_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_2')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2245,6 +2078,7 @@
 
 
 		
+
 				
 			
 				
@@ -2268,7 +2102,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Investigation','7_0_3');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_3" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Investigation')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_3">
 				Investigation
 				
 					: 0
@@ -2297,13 +2131,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_3')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2312,13 +2146,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_3">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_3" class="expandable">
@@ -2334,7 +2161,7 @@
 						        
 <form id="addFreePropertyForm_7_0_3" name="addFreePropertyForm_7_0_3" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Investigation" id="addFreePropertyForm_7_0_3_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_3_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_3_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_3')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2356,6 +2183,7 @@
 
 
 		
+
 				
 			
 				
@@ -2379,7 +2207,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Médecine','7_0_4');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_4" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#M\u00E9decine')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_4">
 				Médecine
 				
 					: 0
@@ -2408,13 +2236,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_4')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2423,13 +2251,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_4">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_4" class="expandable">
@@ -2445,7 +2266,7 @@
 						        
 <form id="addFreePropertyForm_7_0_4" name="addFreePropertyForm_7_0_4" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Médecine" id="addFreePropertyForm_7_0_4_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_4_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_4_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_4')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2467,6 +2288,7 @@
 
 
 		
+
 				
 			
 				
@@ -2490,7 +2312,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Occult','7_0_5');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_5" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Occult')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_5">
 				Occult
 				
 					: 0
@@ -2519,13 +2341,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_5')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2534,13 +2356,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_5">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_5" class="expandable">
@@ -2556,7 +2371,7 @@
 						        
 <form id="addFreePropertyForm_7_0_5" name="addFreePropertyForm_7_0_5" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Occult" id="addFreePropertyForm_7_0_5_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_5_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_5_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_5')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2578,6 +2393,7 @@
 
 
 		
+
 				
 			
 				
@@ -2601,7 +2417,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Politique','7_0_6');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_6" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Politique')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_6">
 				Politique
 				
 					: 0
@@ -2630,13 +2446,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_6')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2645,13 +2461,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_6">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_6" class="expandable">
@@ -2667,7 +2476,7 @@
 						        
 <form id="addFreePropertyForm_7_0_6" name="addFreePropertyForm_7_0_6" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Politique" id="addFreePropertyForm_7_0_6_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_6_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_6_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_6')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2689,6 +2498,7 @@
 
 
 		
+
 				
 			
 				
@@ -2712,7 +2522,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Mental#Science','7_0_7');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_0_7" onmouseover="javascript:displayDelayComment(this, event,'Talents#Mental#Science')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_0_7">
 				Science
 				
 					: 0
@@ -2741,13 +2551,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_0_7')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2756,13 +2566,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_0_7">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_0_7" class="expandable">
@@ -2778,7 +2581,7 @@
 						        
 <form id="addFreePropertyForm_7_0_7" name="addFreePropertyForm_7_0_7" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Mental#Science" id="addFreePropertyForm_7_0_7_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_7_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_0_7_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_0_7')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2800,6 +2603,7 @@
 
 
 		
+
 				
 			
 			
@@ -2812,6 +2616,7 @@
 
 
 		
+
 				
 			
 				
@@ -2835,7 +2640,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique','7_1');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1">
 				Physique
 				
 					: Intermediaire
@@ -2852,7 +2657,7 @@
 <form id="form_7_1" name="form_7_1" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Talents#Physique" id="form_7_1_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_7_1_newValue">
+				<select name="newValue" id="form_7_1_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Mineur">Mineur</option>
     <option value="Intermediaire" selected="selected">Intermediaire</option>
     <option value="Majeur">Majeur</option>
@@ -2864,7 +2669,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('7_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2873,13 +2678,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1" class="expandable">
@@ -2906,7 +2704,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Mélée','7_1_0');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_0" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#M\u00E9l\u00E9e')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_0">
 				Mélée
 				
 					: 0
@@ -2935,13 +2733,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -2950,13 +2748,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_0" class="expandable">
@@ -2972,7 +2763,7 @@
 						        
 <form id="addFreePropertyForm_7_1_0" name="addFreePropertyForm_7_1_0" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Mélée" id="addFreePropertyForm_7_1_0_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_0_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_0_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_0')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -2994,6 +2785,7 @@
 
 
 		
+
 				
 			
 				
@@ -3017,7 +2809,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Armes à feu','7_1_1');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_1" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Armes \u00E0 feu')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_1">
 				Armes à feu
 				
 					: 0
@@ -3046,13 +2838,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3061,13 +2853,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_1" class="expandable">
@@ -3083,7 +2868,7 @@
 						        
 <form id="addFreePropertyForm_7_1_1" name="addFreePropertyForm_7_1_1" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Armes à feu" id="addFreePropertyForm_7_1_1_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_1_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_1_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_1')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3105,6 +2890,7 @@
 
 
 		
+
 				
 			
 				
@@ -3128,7 +2914,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Athlétisme','7_1_2');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_2" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Athl\u00E9tisme')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_2">
 				Athlétisme
 				
 					: 0
@@ -3157,13 +2943,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3172,13 +2958,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_2" class="expandable">
@@ -3194,7 +2973,7 @@
 						        
 <form id="addFreePropertyForm_7_1_2" name="addFreePropertyForm_7_1_2" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Athlétisme" id="addFreePropertyForm_7_1_2_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_2_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_2_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_2')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3216,6 +2995,7 @@
 
 
 		
+
 				
 			
 				
@@ -3239,7 +3019,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Bagarre','7_1_3');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_3" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Bagarre')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_3">
 				Bagarre
 				
 					: 0
@@ -3268,13 +3048,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_3')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3283,13 +3063,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_3">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_3" class="expandable">
@@ -3305,7 +3078,7 @@
 						        
 <form id="addFreePropertyForm_7_1_3" name="addFreePropertyForm_7_1_3" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Bagarre" id="addFreePropertyForm_7_1_3_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_3_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_3_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_3')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3327,6 +3100,7 @@
 
 
 		
+
 				
 			
 				
@@ -3350,7 +3124,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Conduite','7_1_4');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_4" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Conduite')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_4">
 				Conduite
 				
 					: 0
@@ -3379,13 +3153,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_4')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3394,13 +3168,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_4">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_4" class="expandable">
@@ -3416,7 +3183,7 @@
 						        
 <form id="addFreePropertyForm_7_1_4" name="addFreePropertyForm_7_1_4" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Conduite" id="addFreePropertyForm_7_1_4_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_4_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_4_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_4')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3438,6 +3205,7 @@
 
 
 		
+
 				
 			
 				
@@ -3461,7 +3229,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Furtivité','7_1_5');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_5" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Furtivit\u00E9')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_5">
 				Furtivité
 				
 					: 0
@@ -3490,13 +3258,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_5')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3505,13 +3273,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_5">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_5" class="expandable">
@@ -3527,7 +3288,7 @@
 						        
 <form id="addFreePropertyForm_7_1_5" name="addFreePropertyForm_7_1_5" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Furtivité" id="addFreePropertyForm_7_1_5_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_5_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_5_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_5')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3549,6 +3310,7 @@
 
 
 		
+
 				
 			
 				
@@ -3572,7 +3334,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Larcin','7_1_6');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_6" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Larcin')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_6">
 				Larcin
 				
 					: 0
@@ -3601,13 +3363,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_6')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3616,13 +3378,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_6">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_6" class="expandable">
@@ -3638,7 +3393,7 @@
 						        
 <form id="addFreePropertyForm_7_1_6" name="addFreePropertyForm_7_1_6" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Larcin" id="addFreePropertyForm_7_1_6_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_6_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_6_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_6')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3660,6 +3415,7 @@
 
 
 		
+
 				
 			
 				
@@ -3683,7 +3439,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Physique#Survie','7_1_7');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_1_7" onmouseover="javascript:displayDelayComment(this, event,'Talents#Physique#Survie')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_1_7">
 				Survie
 				
 					: 0
@@ -3712,13 +3468,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_1_7')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3727,13 +3483,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_1_7">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_1_7" class="expandable">
@@ -3749,7 +3498,7 @@
 						        
 <form id="addFreePropertyForm_7_1_7" name="addFreePropertyForm_7_1_7" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Physique#Survie" id="addFreePropertyForm_7_1_7_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_7_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_1_7_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_1_7')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3771,6 +3520,7 @@
 
 
 		
+
 				
 			
 			
@@ -3783,6 +3533,7 @@
 
 
 		
+
 				
 			
 				
@@ -3806,7 +3557,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social','7_2');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2">
 				Social
 				
 					: Intermediaire
@@ -3823,7 +3574,7 @@
 <form id="form_7_2" name="form_7_2" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="editForm">
 			<input type="hidden" name="propertyAbsoluteName" value="Talents#Social" id="form_7_2_propertyAbsoluteName" />
 			
-				<select name="newValue" id="form_7_2_newValue">
+				<select name="newValue" id="form_7_2_newValue" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Mineur">Mineur</option>
     <option value="Intermediaire" selected="selected">Intermediaire</option>
     <option value="Majeur">Majeur</option>
@@ -3835,7 +3586,7 @@
 			
 			
 			<button onclick="javascript:setNewValue('7_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3844,13 +3595,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2" class="expandable">
@@ -3877,7 +3621,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Animaux','7_2_0');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_0" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Animaux')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_0">
 				Animaux
 				
 					: 0
@@ -3906,13 +3650,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_0')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -3921,13 +3665,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_0">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_0" class="expandable">
@@ -3943,7 +3680,7 @@
 						        
 <form id="addFreePropertyForm_7_2_0" name="addFreePropertyForm_7_2_0" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Animaux" id="addFreePropertyForm_7_2_0_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_0_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_0_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_0')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -3965,6 +3702,7 @@
 
 
 		
+
 				
 			
 				
@@ -3988,7 +3726,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Empathie','7_2_1');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_1" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Empathie')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_1">
 				Empathie
 				
 					: 0
@@ -4017,13 +3755,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_1')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4032,13 +3770,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_1">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_1" class="expandable">
@@ -4054,7 +3785,7 @@
 						        
 <form id="addFreePropertyForm_7_2_1" name="addFreePropertyForm_7_2_1" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Empathie" id="addFreePropertyForm_7_2_1_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_1_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_1_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_1')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4076,6 +3807,7 @@
 
 
 		
+
 				
 			
 				
@@ -4099,7 +3831,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Expression','7_2_2');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_2" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Expression')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_2">
 				Expression
 				
 					: 0
@@ -4128,13 +3860,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_2')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4143,13 +3875,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_2">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_2" class="expandable">
@@ -4165,7 +3890,7 @@
 						        
 <form id="addFreePropertyForm_7_2_2" name="addFreePropertyForm_7_2_2" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Expression" id="addFreePropertyForm_7_2_2_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_2_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_2_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_2')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4187,6 +3912,7 @@
 
 
 		
+
 				
 			
 				
@@ -4210,7 +3936,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Intimidation','7_2_3');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_3" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Intimidation')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_3">
 				Intimidation
 				
 					: 0
@@ -4239,13 +3965,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_3')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4254,13 +3980,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_3">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_3" class="expandable">
@@ -4276,7 +3995,7 @@
 						        
 <form id="addFreePropertyForm_7_2_3" name="addFreePropertyForm_7_2_3" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Intimidation" id="addFreePropertyForm_7_2_3_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_3_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_3_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_3')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4298,6 +4017,7 @@
 
 
 		
+
 				
 			
 				
@@ -4321,7 +4041,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Persuasion','7_2_4');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_4" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Persuasion')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_4">
 				Persuasion
 				
 					: 0
@@ -4350,13 +4070,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_4')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4365,13 +4085,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_4">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_4" class="expandable">
@@ -4387,7 +4100,7 @@
 						        
 <form id="addFreePropertyForm_7_2_4" name="addFreePropertyForm_7_2_4" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Persuasion" id="addFreePropertyForm_7_2_4_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_4_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_4_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_4')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4409,6 +4122,7 @@
 
 
 		
+
 				
 			
 				
@@ -4432,7 +4146,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Relationnel','7_2_5');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_5" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Relationnel')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_5">
 				Relationnel
 				
 					: 0
@@ -4461,13 +4175,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_5')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4476,13 +4190,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_5">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_5" class="expandable">
@@ -4498,7 +4205,7 @@
 						        
 <form id="addFreePropertyForm_7_2_5" name="addFreePropertyForm_7_2_5" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Relationnel" id="addFreePropertyForm_7_2_5_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_5_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_5_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_5')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4520,6 +4227,7 @@
 
 
 		
+
 				
 			
 				
@@ -4543,7 +4251,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Exp de la rue','7_2_6');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_6" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Exp de la rue')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_6">
 				Exp de la rue
 				
 					: 0
@@ -4572,13 +4280,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_6')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4587,13 +4295,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_6">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_6" class="expandable">
@@ -4609,7 +4310,7 @@
 						        
 <form id="addFreePropertyForm_7_2_6" name="addFreePropertyForm_7_2_6" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Exp de la rue" id="addFreePropertyForm_7_2_6_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_6_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_6_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_6')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4631,6 +4332,7 @@
 
 
 		
+
 				
 			
 				
@@ -4654,7 +4356,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Talents#Social#Subterfuge','7_2_7');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_7_2_7" onmouseover="javascript:displayDelayComment(this, event,'Talents#Social#Subterfuge')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_7_2_7">
 				Subterfuge
 				
 					: 0
@@ -4683,13 +4385,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 0, 5);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">0</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 0, 5);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('7_2_7')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -4698,13 +4400,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_7_2_7">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_7_2_7" class="expandable">
@@ -4720,7 +4415,7 @@
 						        
 <form id="addFreePropertyForm_7_2_7" name="addFreePropertyForm_7_2_7" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Talents#Social#Subterfuge" id="addFreePropertyForm_7_2_7_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_7_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_7_2_7_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('7_2_7')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -4742,6 +4437,7 @@
 
 
 		
+
 				
 			
 			
@@ -4754,6 +4450,7 @@
 
 
 		
+
 				
 			
 			
@@ -4766,6 +4463,7 @@
 
 
 		
+
 						
 					
 						
@@ -4789,7 +4487,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Avantages','8');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_8" onmouseover="javascript:displayDelayComment(this, event,'Avantages')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_8">
 				Avantages
 				
 			</span>
@@ -4800,13 +4498,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_8">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_8" class="expandable">
@@ -4821,7 +4512,7 @@
 						        
 <form id="addPropertyFromOptionForm_8" name="addPropertyFromOptionForm_8" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Avantages" id="addPropertyFromOptionForm_8_motherProperty" />
-							<select name="optionProperty" id="addPropertyFromOptionForm_8_optionProperty">
+							<select name="optionProperty" id="addPropertyFromOptionForm_8_optionProperty" onkeydown="javascript:editFormKeyDown(event)">
     <option value="Bon sens">Bon sens</option>
     <option value="Esprit méditatif">Esprit méditatif</option>
     <option value="Langue étrangère - ">Langue étrangère - </option>
@@ -5013,7 +4704,7 @@
 						        
 <form id="addFreePropertyForm_8" name="addFreePropertyForm_8" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Avantages" id="addFreePropertyForm_8_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_8_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_8_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('8')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -5035,6 +4726,7 @@
 
 
 		
+
 						
 					
 						
@@ -5058,7 +4750,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Desavantages','9');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_9" onmouseover="javascript:displayDelayComment(this, event,'Desavantages')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_9">
 				Desavantages
 				
 			</span>
@@ -5069,13 +4761,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_9">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_9" class="expandable">
@@ -5091,7 +4776,7 @@
 						        
 <form id="addFreePropertyForm_9" name="addFreePropertyForm_9" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Desavantages" id="addFreePropertyForm_9_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_9_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_9_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('9')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -5113,6 +4798,7 @@
 
 
 		
+
 						
 					
 						
@@ -5133,7 +4819,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_10" onmouseover="javascript:displayDelayComment(this, event,'Wyrd')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_10">
 			Wyrd
 			
 				: 1
@@ -5160,13 +4846,13 @@
 				
 				
 				
-				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 10);" disabled=""><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
+				<button class="minusButton" type="button" onclick="javascript:minusValue(this, 1, 1, 10);" disabled="" onkeydown="javascript:editFormKeyDown(event)"><img src="/gencross-web/img/minusdisabled.png" alt="-" /></button>
 				<span class="displayedNewValue">1</span>
-				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 10);"><img src="/gencross-web/img/plus.png" alt="+" /></button>
+				<button class="plusButton" type="button" onclick="javascript:plusValue(this, 1, 1, 10);" onkeydown="editFormKeyDown(event)"><img src="/gencross-web/img/plus.png" alt="+" /></button>
 			
 			
 			<button onclick="javascript:setNewValue('10')" type="button">Valider</button>
-			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromImg(this);" />
+			<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideEditFormFromChild(this);" />
 		</form>
 
 
@@ -5176,13 +4862,6 @@
 	
 	
 	
-	<div class="comment" id="comment_10">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5190,6 +4869,7 @@
 
 
 		
+
 						
 					
 						
@@ -5210,7 +4890,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_11" onmouseover="javascript:displayDelayComment(this, event,'Reserve de Glamour')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_11">
 			Reserve de Glamour
 			
 				: 10
@@ -5222,13 +4902,6 @@
 	
 	
 	
-	<div class="comment" id="comment_11">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5236,6 +4909,7 @@
 
 
 		
+
 						
 					
 						
@@ -5256,7 +4930,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_12" onmouseover="javascript:displayDelayComment(this, event,'Glamour par tour')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_12">
 			Glamour par tour
 			
 				: 1
@@ -5268,13 +4942,6 @@
 	
 	
 	
-	<div class="comment" id="comment_12">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5282,6 +4949,7 @@
 
 
 		
+
 						
 					
 						
@@ -5305,7 +4973,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Contrats','13');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_13" onmouseover="javascript:displayDelayComment(this, event,'Contrats')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_13">
 				Contrats
 				
 			</span>
@@ -5316,13 +4984,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_13">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_13" class="expandable">
@@ -5338,6 +4999,7 @@
 
 
 		
+
 						
 					
 						
@@ -5358,7 +5020,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_14" onmouseover="javascript:displayDelayComment(this, event,'Taille')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_14">
 			Taille
 			
 				: 5
@@ -5370,13 +5032,6 @@
 	
 	
 	
-	<div class="comment" id="comment_14">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5384,6 +5039,7 @@
 
 
 		
+
 						
 					
 						
@@ -5404,7 +5060,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_15" onmouseover="javascript:displayDelayComment(this, event,'Vitesse')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_15">
 			Vitesse
 			
 				: 7
@@ -5416,13 +5072,6 @@
 	
 	
 	
-	<div class="comment" id="comment_15">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5430,6 +5079,7 @@
 
 
 		
+
 						
 					
 						
@@ -5450,7 +5100,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_16" onmouseover="javascript:displayDelayComment(this, event,'Initiative')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_16">
 			Initiative
 			
 				: 2
@@ -5462,13 +5112,6 @@
 	
 	
 	
-	<div class="comment" id="comment_16">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5476,6 +5119,7 @@
 
 
 		
+
 						
 					
 						
@@ -5496,7 +5140,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_17" onmouseover="javascript:displayDelayComment(this, event,'D\u00E9fense')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_17">
 			Défense
 			
 				: 1
@@ -5508,13 +5152,6 @@
 	
 	
 	
-	<div class="comment" id="comment_17">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5522,6 +5159,7 @@
 
 
 		
+
 						
 					
 						
@@ -5542,7 +5180,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_18" onmouseover="javascript:displayDelayComment(this, event,'Sant\u00E9')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_18">
 			Santé
 			
 				: 6
@@ -5554,13 +5192,6 @@
 	
 	
 	
-	<div class="comment" id="comment_18">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5568,6 +5199,7 @@
 
 
 		
+
 						
 					
 						
@@ -5588,7 +5220,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_19" onmouseover="javascript:displayDelayComment(this, event,'Volont\u00E9')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_19">
 			Volonté
 			
 				: 2
@@ -5600,13 +5232,6 @@
 	
 	
 	
-	<div class="comment" id="comment_19">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5614,6 +5239,7 @@
 
 
 		
+
 						
 					
 						
@@ -5634,7 +5260,7 @@
 	
 	
 		<img class="expandImg" src="/gencross-web/img/unexpandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-		<span id="span_20" onmouseover="javascript:displayDelayComment(this, event,'Claret\u00E9')" onmouseout="javascript:stopDelayComment()">
+		<span id="span_20">
 			Clareté
 			
 				: 7
@@ -5646,13 +5272,6 @@
 	
 	
 	
-	<div class="comment" id="comment_20">
-		
-		
-			Aucun commentaire
-		
-	</div>
-	
 	
 	
 </li>
@@ -5660,6 +5279,7 @@
 
 
 		
+
 						
 					
 						
@@ -5683,7 +5303,7 @@
 	
 		<a class="motherPropertyName" onclick="javascript:expandCollapse('Serment','21');" href="javascript:;">
 			<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-			<span id="span_21" onmouseover="javascript:displayDelayComment(this, event,'Serment')" onmouseout="javascript:stopDelayComment()">
+			<span id="span_21">
 				Serment
 				
 			</span>
@@ -5694,13 +5314,6 @@
 	
 	
 	
-	
-	<div class="comment" id="comment_21">
-		
-		
-			Aucun commentaire
-		
-	</div>
 	
 	
 		<ul id="subProperties_21" class="expandable">
@@ -5716,7 +5329,7 @@
 						        
 <form id="addFreePropertyForm_21" name="addFreePropertyForm_21" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="addPropertyForm">
 							<input type="hidden" name="motherProperty" value="Serment" id="addFreePropertyForm_21_motherProperty" />
-							<input type="text" name="newProperty" value="" id="addFreePropertyForm_21_newProperty" />
+							<input type="text" name="newProperty" value="" id="addFreePropertyForm_21_newProperty" onkeydown="javascript:editFormKeyDown(event)" />
 							<button onclick="javascript:addFreeProperty('21')" type="button">Valider</button>
 							<img class="foldImg" src="/gencross-web/img/fold.png" alt="Replier" onclick="javascript:hideAddPropertyForm(this);" />
 						</form>
@@ -5738,6 +5351,7 @@
 
 
 		
+
 						
 					
 				</ul>
@@ -5786,7 +5400,7 @@
 	</tbody></table>
 	
 	<span class="personnageFooterElement">Identifiant du personnage = 1</span>
-	<span class="personnageFooterElement">Plugin = Changelin - 1.4</span>
+	<span class="personnageFooterElement">Plugin = Changelin - 1.5</span>
 	
 
 
