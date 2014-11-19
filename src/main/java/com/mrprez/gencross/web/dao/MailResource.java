@@ -196,10 +196,16 @@ public class MailResource implements IMailResource {
 				if(mail.getFrom().length > 0){
 					InternetAddress from = (InternetAddress) mail.getFrom()[0];
 					tableMessage.setSenderMail(from.getAddress());
+				}else{
+					sendError(new Exception("Mail sans auteur "+mail.getSubject()));
 				}
 				tableMessage.setSubject(mail.getSubject());
-				mail.setFlag(Flags.Flag.SEEN, true);
-				result.add(tableMessage);
+				if(tableMessage.getId()!=null){
+					mail.setFlag(Flags.Flag.SEEN, true);
+					result.add(tableMessage);
+				}else{
+					sendError(new Exception("Mail non conforme de "+tableMessage.getSenderMail()+": "+mail.getSubject()));
+				}
 			}
 			Logger.getLogger(getClass()).info(result.size()+" messages loaded from "+receiverSession.getProperty("mail.user"));
 			
