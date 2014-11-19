@@ -147,7 +147,7 @@ public abstract class WebAbstractTest {
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("setup");
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 		initDatabase();
 
 		deployWebapp();
@@ -169,7 +169,11 @@ public abstract class WebAbstractTest {
 		File warFile = new File(targetDir, context + ".war");
 
 		File deployedWar = new File(webappsDir, context + ".war");
-		FileUtils.deleteDirectory(new File(webappsDir,context));
+		for(int i=0; i<10; i++){
+			if(FileUtils.deleteQuietly(new File(webappsDir,context))){
+				break;
+			}
+		}
 		deployedWar.delete();
 		FileUtils.copyFile(warFile, deployedWar);
 

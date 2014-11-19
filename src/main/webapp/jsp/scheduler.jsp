@@ -29,7 +29,7 @@
 					</span>
 				</s:elseif>
 				<s:else>
-					<s:form action="JobProcessing!schedule" method="POST">
+					<s:form action="JobProcessing!schedule" method="post">
 						<s:hidden name="jobName" value="%{key.name}"/>
 						<s:submit action="JobProcessing" method="schedule" value="Exécuter"/>
 					</s:form>

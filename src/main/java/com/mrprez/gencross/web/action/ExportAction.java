@@ -4,13 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
+import com.mrprez.gencross.web.action.util.ClassNameComparator;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IExportBS;
@@ -36,8 +37,9 @@ public class ExportAction extends ActionSupport {
 	
 	
 	public String execute() throws Exception {
-		PersonnageWorkBO personnageWorkBO = personnageBS.loadPersonnage(personnageId);
-		templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWorkBO = personnageBS.loadPersonnage(personnageId, user);
+		templateFiles = new TreeMap<Class<? extends TemplatedFileGenerator>, List<String>>(new ClassNameComparator());
 		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles(personnageWorkBO.getPluginName());
 		for(Class<? extends TemplatedFileGenerator> clazz : originTemplateFiles.keySet()){
 			templateFiles.put(clazz, new ArrayList<String>(originTemplateFiles.get(clazz)));

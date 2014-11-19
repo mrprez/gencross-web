@@ -35,9 +35,9 @@
 				unique="true" not-null="true" cascade="delete" lazy="proxy"/>
 		<many-to-one name="player" column="USER_NAME" class="UserBO"/>
 		<many-to-one name="gameMaster" column="GM_NAME" class="UserBO"/>
-		<join table="TABLE_PERSONNAGE" inverse="true" optional="true">
+		<join table="TABLE_PERSONNAGE" inverse="true" optional="true" fetch="join">
 			<key column="PERSONNAGE"/>
-			<many-to-one name="table" column="RPG_TABLE"/>
+			<many-to-one name="table" column="RPG_TABLE" fetch="join"/>
 		</join>
 	</class>
 

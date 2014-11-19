@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,6 +11,7 @@ import java.util.TreeMap;
 import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
+import com.mrprez.gencross.web.action.util.ClassNameComparator;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -64,7 +64,7 @@ public class MultiExportAction extends ActionSupport {
 			}
 		}
 		
-		templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
+		templateFiles = new TreeMap<Class<? extends TemplatedFileGenerator>, List<String>>(new ClassNameComparator());
 		Map<Class<? extends TemplatedFileGenerator>, List<String>> originTemplateFiles = exportBS.getTemplateFiles(table.getType());
 		for(Class<? extends TemplatedFileGenerator> clazz : originTemplateFiles.keySet()){
 			templateFiles.put(clazz, new ArrayList<String>(originTemplateFiles.get(clazz)));
