@@ -2,7 +2,7 @@ Date:00:00:00 00/00/0000
 From: tables.gencross@gmail.com
 To: guillaume.gagneret@gmail.com;
 Subject: Invalid subject: Sujet non conforme
-Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le nom de la table entre crochet ('[<nom_table>]').
+Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
 
 
 
@@ -15,8 +15,8 @@ Message sans aucune importance.
 Date:00:00:00 00/00/0000
 From: tables.gencross@gmail.com
 To: guillaume.gagneret@gmail.com;
-Subject: Invalid subject: [Table inconnu] Message KO
-Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le nom de la table entre crochet ('[<nom_table>]').
+Subject: Invalid subject: [111] Message KO
+Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
 
 
 

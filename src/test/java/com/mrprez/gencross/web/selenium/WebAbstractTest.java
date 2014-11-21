@@ -6,16 +6,10 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.SocketException;
@@ -28,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
@@ -43,6 +36,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.mrprez.gencross.web.tester.MailTester;
 import com.mrprez.gencross.web.tester.PageTester;
+import com.mrprez.gencross.web.utils.StreamProcessManager;
 
 /**
  * Cette classe est la base de tous les tests JUnit web. Elle est responsable du
@@ -222,8 +216,8 @@ public abstract class WebAbstractTest {
 		System.out.println("Tomcat cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		tomcatProcess = processBuilder.start();
-		new InputStreamRedirector(tomcatProcess.getInputStream(), System.out, "[Tomcat]").start();
-		new InputStreamRedirector(tomcatProcess.getErrorStream(), System.err, "[Tomcat]").start();
+		new StreamProcessManager(tomcatProcess.getInputStream(), System.out, "[Tomcat]").start();
+		new StreamProcessManager(tomcatProcess.getErrorStream(), System.err, "[Tomcat]").start();
 
 	}
 
@@ -239,8 +233,8 @@ public abstract class WebAbstractTest {
 		System.out.println("Selenium hub cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		seleniumHubProcess = processBuilder.start();
-		new InputStreamRedirector(seleniumHubProcess.getInputStream(), System.out, "[SeleniumHub]").start();
-		new InputStreamRedirector(seleniumHubProcess.getErrorStream(), System.err, "[SeleniumHub]").start();
+		new StreamProcessManager(seleniumHubProcess.getInputStream(), System.out, "[SeleniumHub]").start();
+		new StreamProcessManager(seleniumHubProcess.getErrorStream(), System.err, "[SeleniumHub]").start();
 
 	}
 
@@ -264,8 +258,8 @@ public abstract class WebAbstractTest {
 		System.out.println("Selenium node cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		seleniumNodeProcess = processBuilder.start();
-		new InputStreamRedirector(seleniumNodeProcess.getInputStream(), System.out, "[SeleniumNode]").start();
-		new InputStreamRedirector(seleniumNodeProcess.getErrorStream(), System.err, "[SeleniumNode]").start();
+		new StreamProcessManager(seleniumNodeProcess.getInputStream(), System.out, "[SeleniumNode]").start();
+		new StreamProcessManager(seleniumNodeProcess.getErrorStream(), System.err, "[SeleniumNode]").start();
 	}
 
 	private void launchRemoteWebDriver() throws InterruptedException,
@@ -276,7 +270,7 @@ public abstract class WebAbstractTest {
 				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
 			} catch (WebDriverException e) {
 				startTryNb++;
-				if (startTryNb > 10) {
+				if (startTryNb > 60) {
 					throw e;
 				}
 				Thread.sleep(1000);
@@ -326,8 +320,7 @@ public abstract class WebAbstractTest {
 
 	}
 
-	protected void recordScreen(String name) throws InterruptedException,
-			AWTException, IOException {
+	protected void recordScreen(String name) throws InterruptedException, AWTException, IOException {
 		File imgFile = new File(pageTester.getWorkDir(), name + ".jpg");
 		if (imgFile.exists()) {
 			imgFile.delete();
@@ -342,60 +335,7 @@ public abstract class WebAbstractTest {
 		tool.beep();
 	}
 
-	private class InputStreamRedirector extends Thread {
-		private InputStream inputStream;
-		private PrintStream printStream;
-		private String header;
-
-		public InputStreamRedirector(InputStream inputStream,
-				PrintStream printStream, String header) {
-			super();
-			this.inputStream = inputStream;
-			this.printStream = printStream;
-			this.header = header;
-		}
-
-		public void run() {
-			try {
-				String line;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-				while ((line = reader.readLine()) != null) {
-					printStream.println(header + " " + line);
-				}
-				printStream.println(header + " ** termination **");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	private void replaceVariableInFile(File file) throws IOException {
-		File tempFile = new File(file.getAbsolutePath() + "_temp");
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				if (line.matches(".*[$][{].+[}].*")) {
-					int begin = line.indexOf("${");
-					int end = line.indexOf("}", begin);
-					String subPropertyKey = line.substring(begin + 2, end);
-					String subPropertyValue = getProperty(subPropertyKey);
-					line = line.substring(0, begin) + subPropertyValue
-							+ line.substring(end + 1);
-				}
-				writer.write(line);
-				writer.newLine();
-			}
-		} finally {
-			IOUtils.closeQuietly(reader);
-			IOUtils.closeQuietly(writer);
-		}
-		file.delete();
-		tempFile.renameTo(file);
-	}
-
+	
 	private boolean isPortAvailable(int port) throws IOException {
 		ServerSocket serverSocket = null;
 		try {

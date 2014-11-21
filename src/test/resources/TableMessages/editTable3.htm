@@ -158,6 +158,8 @@
 
 	</div>
 
+	
+	
 	<div id="messageListDiv">
 		<table id="messageList" class="genCrossTable">
 			<tbody><tr>
@@ -170,7 +172,7 @@
 						<div>
 							<span class="messageAuthor" onclick="javascript:showHideMessage(this)">
 								<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-								mrprez
+								test
 							</span>
 							        
 <form id="EditTable!removeMessage" name="EditTable!removeMessage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce message?')" action="/gencross-web/EditTable!removeMessage.action" method="post" class="removeMessageForm">
@@ -186,9 +188,11 @@
 
 						</div>
 REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}</div>
-						<div class="messageContent"><pre>Message d'un utilisateur qui n'est pas sur la table.
+						<div class="messageContent">
+							<span class="tableMessageContent">Message avec des espaces entre les crochets
 
-</pre></div>
+</span>
+						</div>
 					</td>
 				</tr>
 			
@@ -197,7 +201,7 @@ REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{
 						<div>
 							<span class="messageAuthor" onclick="javascript:showHideMessage(this)">
 								<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
-								
+								test
 							</span>
 							        
 <form id="EditTable!removeMessage" name="EditTable!removeMessage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce message?')" action="/gencross-web/EditTable!removeMessage.action" method="post" class="removeMessageForm">
@@ -213,9 +217,70 @@ REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{
 
 						</div>
 REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}</div>
-						<div class="messageContent"><pre>Message d'un utilisateur inconnu.
+						<div class="messageContent">
+							<span class="tableMessageContent">Message avec l'identifiant de la table au milieu du sujet
+Ainsi le "Re:" ajouté par certains navigateur n'est plus génant
 
-</pre></div>
+</span>
+						</div>
+					</td>
+				</tr>
+			
+				<tr>
+					<td class="genCrossTable">
+						<div>
+							<span class="messageAuthor" onclick="javascript:showHideMessage(this)">
+								<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
+								mrprez
+							</span>
+							        
+<form id="EditTable!removeMessage" name="EditTable!removeMessage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce message?')" action="/gencross-web/EditTable!removeMessage.action" method="post" class="removeMessageForm">
+								<input type="hidden" name="messageId" value="5" id="EditTable!removeMessage_messageId" />
+								<input type="hidden" name="id" value="1" id="EditTable!removeMessage_id" />
+								
+								<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="EditTable!removeMessage_0" value="Supprimer" title="Supprimer" />
+
+							</form>
+
+
+
+
+						</div>
+REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}</div>
+						<div class="messageContent">
+							<span class="tableMessageContent">Message d'un utilisateur qui n'est pas sur la table.
+
+</span>
+						</div>
+					</td>
+				</tr>
+			
+				<tr>
+					<td class="genCrossTable">
+						<div>
+							<span class="messageAuthor" onclick="javascript:showHideMessage(this)">
+								<img class="expandImg" src="/gencross-web/img/expandable.jpg" alt="Déplier/Replier" width="10" height="10" />
+								
+							</span>
+							        
+<form id="EditTable!removeMessage" name="EditTable!removeMessage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce message?')" action="/gencross-web/EditTable!removeMessage.action" method="post" class="removeMessageForm">
+								<input type="hidden" name="messageId" value="6" id="EditTable!removeMessage_messageId" />
+								<input type="hidden" name="id" value="1" id="EditTable!removeMessage_id" />
+								
+								<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="EditTable!removeMessage_0" value="Supprimer" title="Supprimer" />
+
+							</form>
+
+
+
+
+						</div>
+REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}</div>
+						<div class="messageContent">
+							<span class="tableMessageContent">Message d'un utilisateur inconnu.
+
+</span>
+						</div>
 					</td>
 				</tr>
 			
@@ -240,7 +305,9 @@ REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{
 
 						</div>
 REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}</div>
-						<div class="messageContent"><pre></pre></div>
+						<div class="messageContent">
+							<span class="tableMessageContent"></span>
+						</div>
 					</td>
 				</tr>
 			
@@ -278,6 +345,7 @@ REGEXP:						<div class="messageDate">[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{
 		</tbody></table>
 	</div>
 
+	<div class="tableFooterElement">Identifiant de la table = 1</div>
 
 
 

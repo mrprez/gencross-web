@@ -231,8 +231,8 @@ public class TableBS implements ITableBS {
 		Collection<TableMessageBO> messageList = mailResource.getMails();
 		for(TableMessageBO message : messageList){
 			TableBO table = null;
-			if(message.getTableId()!=null && message.getTableId().matches("[0-9]+")){
-				table = tableDAO.loadTable(Integer.parseInt(message.getTableId()));
+			if(message.getTableId()!=null){
+				table = tableDAO.loadTable(message.getTableId());
 				if(table != null){
 					UserBO author = null;
 					if(message.getSenderMail() != null){
@@ -247,7 +247,7 @@ public class TableBS implements ITableBS {
 			if(table == null){
 				String tableAddress = (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue();
 				mailResource.send(message.getSenderMail(), tableAddress, "Invalid subject: " + message.getSubject(), 
-						"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le nom de la table entre crochet ('[<nom_table>]')." + "\n\n\n\n" + message.getData());
+						"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]')." + "\n\n\n\n" + message.getData());
 			}
 		}
 		

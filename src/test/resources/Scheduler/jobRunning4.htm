@@ -94,21 +94,75 @@
 		<th class="genCrossTable">Dernière exécution</th>
 		<th class="genCrossTable">Action</th>
 	</tr>
-	<tr class="genCrossTable">
-		<td class="genCrossTable">Envoie des personnages</td>
-		<td class="genCrossTable">
-			
-			
-				0000-00-00 00:00:00
-			
-		</td>
-		<td class="genCrossTable">
-			
-			
-				<a href="/gencross-web/JobProcessing!scheduleSender.action">Exécuter</a>
-			
-		</td>
-	</tr>
+	
+		<tr class="genCrossTable">
+			<td class="genCrossTable">Envoi des personnages par mail</td>
+			<td class="genCrossTable">
+				00/00/0000 00:00:00
+			</td>
+			<td class="genCrossTable">
+				
+					Running...
+					
+					<a href="/gencross-web/JobProcessing.action"><img src="/gencross-web/img/refresh.png" alt="Recharger la page" width="20" height="20" title="Recharger la page" /></a>
+				
+				
+				
+			</td>
+		</tr>
+	
+		<tr class="genCrossTable">
+			<td class="genCrossTable">Sauvegarde des personnages en fichiers</td>
+			<td class="genCrossTable">
+				00/00/0000 00:00:00
+			</td>
+			<td class="genCrossTable">
+				
+				
+				
+					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
+<table class="wwFormTable">
+						<input type="hidden" name="jobName" value="save-personnage-job" id="JobProcessing!schedule_jobName" />
+						<tbody><tr>
+    <td colspan="2"><div align="right"><input type="submit" id="schedule-save-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
+</div></td>
+</tr>
+
+					</tbody></table></form>
+
+
+
+
+				
+			</td>
+		</tr>
+	
+		<tr class="genCrossTable">
+			<td class="genCrossTable">Recupération des mails envoyés sur la boite mail des tables</td>
+			<td class="genCrossTable">
+				00/00/0000 00:00:00
+			</td>
+			<td class="genCrossTable">
+				
+				
+				
+					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
+<table class="wwFormTable">
+						<input type="hidden" name="jobName" value="get-table-mails-job" id="JobProcessing!schedule_jobName" />
+						<tbody><tr>
+    <td colspan="2"><div align="right"><input type="submit" id="schedule-get-table-mails-job" name="action:JobProcessing!schedule" value="Exécuter" />
+</div></td>
+</tr>
+
+					</tbody></table></form>
+
+
+
+
+				
+			</td>
+		</tr>
+	
 </tbody></table>
 		
 

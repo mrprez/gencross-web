@@ -16,10 +16,11 @@
 		<tr class="genCrossTable">
 			<td class="genCrossTable"><s:property value="description"/></td>
 			<td class="genCrossTable">
-				<s:date name="jobLastDates.get(key)" format="MM/dd/yyyy HH:mm"/>
+				<s:date name="jobLastDates.get(key)" format="MM/dd/yyyy HH:mm:ss"/>
 			</td>
 			<td class="genCrossTable">
 				<s:if test="runningJobs.contains(key)">
+					Running...
 					<s:url id="reloadUrl" action="JobProcessing"/>
 					<s:a href="%{reloadUrl}"><img src="<s:url value="/img/refresh.png"/>" alt="Recharger la page" width="20" height="20" title="Recharger la page"/></s:a>
 				</s:if>
@@ -31,7 +32,7 @@
 				<s:else>
 					<s:form action="JobProcessing!schedule" method="post">
 						<s:hidden name="jobName" value="%{key.name}"/>
-						<s:submit action="JobProcessing" method="schedule" value="Exécuter"/>
+						<s:submit action="JobProcessing" method="schedule" value="Exécuter" id="%{'schedule-'+key.name}"/>
 					</s:form>
 				</s:else>
 			</td>
