@@ -9,7 +9,7 @@ import java.util.Date;
 public class TableMessageBO implements Comparable<TableMessageBO>{
 	private Integer id;
 	private String title;
-	private String tableId;
+	private Integer tableId;
 	private String senderMail;
 	private UserBO author;
 	private String data;
@@ -46,10 +46,10 @@ public class TableMessageBO implements Comparable<TableMessageBO>{
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getTableId() {
+	public Integer getTableId() {
 		return tableId;
 	}
-	public void setTableId(String tableId) {
+	public void setTableId(Integer tableId) {
 		this.tableId = tableId;
 	}
 	public String getSenderMail() {
@@ -63,7 +63,10 @@ public class TableMessageBO implements Comparable<TableMessageBO>{
 		if(subject.contains("[") && subject.indexOf("]", subject.indexOf("[")) >= 0){
 			int start = subject.indexOf("[")+1;
 			int end = subject.indexOf("]", start);
-			tableId = subject.substring(start, end).trim();
+			String tableIdString = subject.substring(start, end).trim();
+			if(tableIdString.matches("[0-9]+")){
+				tableId = Integer.parseInt(tableIdString);
+			}
 		}
 		title = subject;
 	}

@@ -153,7 +153,7 @@ public class EditTableAction extends ActionSupport {
 		Collection<TableMessageBO> loadedMessageList = tableBS.connectTableMailBox();
 		loadedMessageNumber = 0;
 		for(TableMessageBO message : loadedMessageList){
-			if(message.getTableId().equals(id)){
+			if( id.equals(message.getTableId()) ){
 				loadedMessageNumber++;
 			}
 		}
