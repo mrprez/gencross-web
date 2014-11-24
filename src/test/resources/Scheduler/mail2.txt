@@ -1,9 +1,17 @@
 Date:00:00:00 00/00/0000
 From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Person1
+Le Maître de Jeu mrprez vous a attribué le personnage Person1.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
 To: save.gencross@gmail.com;
 Subject: Person1
 Personnage: Person1
-Joueur: mrprez
+MJ: mrprez
+Joueur: azerty
 REGEXP:java.io.ByteArrayInputStream@[0-9a-f]+
 
 **************************************

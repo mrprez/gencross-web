@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.context.ServletContextAware;
 
 import com.mrprez.gencross.Personnage;
@@ -21,7 +22,9 @@ public class SaveRepositoryResource implements ServletContextAware, ISaveReposit
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		repository = new File(servletContext.getInitParameter("saveRepository"));
+		Logger.getLogger(getClass()).info("Save repository: "+repository.getAbsolutePath());
 		oldRepository = new File(repository, OLD_REPOSITORY_NAME);
+		Logger.getLogger(getClass()).info("Old save repository: "+oldRepository.getAbsolutePath());
 	}
 
 

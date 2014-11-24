@@ -8,7 +8,7 @@ Message sans aucune importance.
 
 **************************************
 Date:13:02:02 14/02/2013
-From: test@test.fr
+From: azerty@az.az
 To: tables.gencross@gmail.com;
 Subject:[1] Message OK
 Premier message pour la table
@@ -16,14 +16,14 @@ Tests messages
 
 **************************************
 Date:13:02:02 14/02/2013
-From: test@test.fr
+From: guillaume.gagneret@gmail.com
 To: tables.gencross@gmail.com;
 Subject:[  1 ] Message OK
 Message avec des espaces entre les crochets
 
 **************************************
 Date:13:02:02 14/02/2013
-From: test@test.fr
+From: guillaume.gagneret@gmail.com
 To: tables.gencross@gmail.com;
 Subject:Re [1] Message OK
 Message avec l'identifiant de la table au milieu du sujet
@@ -31,7 +31,7 @@ Ainsi le "Re:" ajouté par certains navigateur n'est plus génant
 
 **************************************
 Date:13:03:03 14/02/2013
-From: guillaume.gagneret@gmail.com
+From: qwerty@qw.qw
 To: tables.gencross@gmail.com;
 Subject:[1] Message OK
 Message d'un utilisateur qui n'est pas sur la table.

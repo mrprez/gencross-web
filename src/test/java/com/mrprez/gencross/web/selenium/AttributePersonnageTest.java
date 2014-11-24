@@ -84,7 +84,6 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		driver.findElement(By.id("Login_0")).click();
 		pageTester.testPage(driver, "login6");
 		driver.findElement(By.id("List!deletePersonnage_0")).click();
-		// ERROR: Caught exception [ERROR: Unsupported command [getConfirmation]]
 		driver.switchTo().alert().accept();
 		pageTester.testPage(driver, "deleteSuccess1");
 		driver.findElement(By.id("disconnect")).click();

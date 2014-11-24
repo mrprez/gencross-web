@@ -1,15 +1,19 @@
 package com.mrprez.gencross.web.action;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 
 import com.mrprez.gencross.web.bs.face.IJobBS;
 import com.opensymphony.xwork2.ActionSupport;
+
 
 public class JobProcessingAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +29,8 @@ public class JobProcessingAction extends ActionSupport {
 	
 	@Override
 	public String execute() throws Exception {
-		setJobList(jobBS.getJobList());
+		jobList = new TreeSet<JobDetail>(new JobKeyComparator());
+		jobList.addAll(jobBS.getJobList());
 		setJobLastDates(jobBS.getLastExecutionDates());
 		setRunnningJobs(jobBS.getRunningJobs());
 		setExceptions(jobBS.getExceptions());
@@ -97,7 +102,14 @@ public class JobProcessingAction extends ActionSupport {
 		this.exceptions = exceptions;
 	}
 	
-	
+	private class JobKeyComparator implements Comparator<JobDetail>{
+
+		@Override
+		public int compare(JobDetail jobDetail1, JobDetail jobDetail2) {
+			return jobDetail1.getKey().compareTo(jobDetail2.getKey());
+		}
+		
+	}
 	
 
 }

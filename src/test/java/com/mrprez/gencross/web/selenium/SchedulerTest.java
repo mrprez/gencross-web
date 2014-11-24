@@ -1,5 +1,6 @@
 package com.mrprez.gencross.web.selenium;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -13,6 +14,8 @@ public class SchedulerTest extends WebAbstractTest {
 	 * Max time (in second) to wait that a job is finished.
 	 */
 	private static final int MAX_JOB_TIME = 120;
+	
+	private File saveRepository;
 
 	public SchedulerTest() throws IOException {
 		super("Scheduler");
@@ -23,6 +26,11 @@ public class SchedulerTest extends WebAbstractTest {
 		super.setUp();
 		
 		pageTester.addReplacementRule("[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}", "00/00/0000 00:00:00");
+		
+		saveRepository = new File(getProperty("project.build.directory")+"/personnageSaves");
+		saveRepository.mkdir();
+		File oldRepository = new File(saveRepository, "old");
+		oldRepository.mkdir();
 		
 	}
 	
@@ -41,6 +49,8 @@ public class SchedulerTest extends WebAbstractTest {
 		new Select(driver.findElement(By.id("Create!create_selectedPersonnageTypeName"))).selectByVisibleText("INS");
 		driver.findElement(By.id("Create!create_personnageName")).clear();
 		driver.findElement(By.id("Create!create_personnageName")).sendKeys("Person1");
+		driver.findElement(By.id("Create!create_roleMaître de jeux")).click();
+		new Select(driver.findElement(By.id("playerList"))).selectByVisibleText("azerty");
 		driver.findElement(By.id("Create!create_0")).click();
 		pageTester.testPage(driver, "personnageCreated1");
 		driver.get(baseUrl + context + "/Create.action");
@@ -53,6 +63,15 @@ public class SchedulerTest extends WebAbstractTest {
 		driver.findElement(By.cssSelector("#li_4 > img.editImg.editPropertyImg")).click();
 		new Select(driver.findElement(By.id("form_4_newValue"))).selectByVisibleText("Elemental");
 		driver.findElement(By.cssSelector("#form_4 > button[type=\"button\"]")).click();
+		driver.get(baseUrl + context + "/TableList.action");
+		pageTester.testPage(driver, "tableList0");
+		driver.findElement(By.id("TableList!addTable_tableName")).clear();
+		driver.findElement(By.id("TableList!addTable_tableName")).sendKeys("Table INS");
+		new Select(driver.findElement(By.id("TableList!addTable_tableType"))).selectByVisibleText("INS");
+		driver.findElement(By.id("TableList!addTable_0")).click();
+		driver.findElement(By.linkText("Table INS")).click();
+		driver.findElement(By.id("bindPersonnageForm_0")).click();
+		
 		driver.get(baseUrl + context + "/JobProcessing.action");
 		pageTester.testPage(driver, "job0");
 		
@@ -116,6 +135,8 @@ public class SchedulerTest extends WebAbstractTest {
 	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
+		
+		saveRepository.delete();
 	}
 	
 	
