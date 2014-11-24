@@ -89,92 +89,48 @@
 
 
 <table class="genCrossTable">
-	<tbody><tr class="genCrossTable">
-		<th class="genCrossTable">Nom du Job</th>
-		<th class="genCrossTable">Dernière exécution</th>
-		<th class="genCrossTable">Action</th>
-	</tr>
-	
-		<tr class="genCrossTable">
-			<td class="genCrossTable">Recupération des mails envoyés sur la boite mail des tables</td>
-			<td class="genCrossTable">
-				
-			</td>
-			<td class="genCrossTable">
-				
-				
-				
-					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
-<table class="wwFormTable">
-						<input type="hidden" name="jobName" value="get-table-mails-job" id="JobProcessing!schedule_jobName" />
-						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-get-table-mails-job" name="action:JobProcessing!schedule" value="Exécuter" />
-</div></td>
-</tr>
-
-					</tbody></table></form>
-
-
-
-
-				
-			</td>
+	<thead>
+		<tr>
+			<th class="genCrossTable">Nom</th>
+			<th class="genCrossTable">Type</th>
+			<th class="genCrossTable">MJ</th>
+			<th class="genCrossTable">Actions</th>
 		</tr>
-	
-		<tr class="genCrossTable">
-			<td class="genCrossTable">Sauvegarde des personnages en fichiers</td>
-			<td class="genCrossTable">
-				00/00/0000 00:00:00
-			</td>
-			<td class="genCrossTable">
-				
-				
-				
-					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
-<table class="wwFormTable">
-						<input type="hidden" name="jobName" value="save-personnage-job" id="JobProcessing!schedule_jobName" />
-						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-save-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
-</div></td>
-</tr>
-
-					</tbody></table></form>
-
-
-
-
-				
-			</td>
-		</tr>
-	
-		<tr class="genCrossTable">
-			<td class="genCrossTable">Envoi des personnages par mail</td>
-			<td class="genCrossTable">
-				00/00/0000 00:00:00
-			</td>
-			<td class="genCrossTable">
-				
-				
-				
-					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
-<table class="wwFormTable">
-						<input type="hidden" name="jobName" value="send-personnage-job" id="JobProcessing!schedule_jobName" />
-						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-send-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
-</div></td>
-</tr>
-
-					</tbody></table></form>
-
-
-
-
-				
-			</td>
-		</tr>
-	
-</tbody></table>
+	</thead>
+	<tbody>
 		
+		<form id="TableList!addTable" name="TableList!addTable" action="/gencross-web/TableList!addTable.action" method="post"></form>
+			<tr class="genCrossTable">
+				<td class="genCrossTable">
+					<input type="text" name="tableName" value="" id="TableList!addTable_tableName" />
+				</td>
+				<td class="genCrossTable"><select name="tableType" id="TableList!addTable_tableType">
+    <option value="BSG">BSG</option>
+    <option value="Changelin">Changelin</option>
+    <option value="INS">INS</option>
+    <option value="INS Custom">INS Custom</option>
+    <option value="MV">MV</option>
+    <option value="MdT">MdT</option>
+    <option value="Pavillon Noir">Pavillon Noir</option>
+    <option value="PolarisPerso">PolarisPerso</option>
+    <option value="TiersAgePerso">TiersAgePerso</option>
+    <option value="Vampire">Vampire</option>
+
+
+</select>
+</td>
+				<td class="genCrossTable">mrprez</td>
+				<td class="genCrossTable"><input type="submit" id="TableList!addTable_0" value="Créer" />
+</td>
+			</tr>
+		
+
+
+
+
+	</tbody>
+</table>
+
 
 
 

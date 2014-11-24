@@ -96,7 +96,7 @@
 	</tr>
 	
 		<tr class="genCrossTable">
-			<td class="genCrossTable">Envoi des personnages par mail</td>
+			<td class="genCrossTable">Recupération des mails envoyés sur la boite mail des tables</td>
 			<td class="genCrossTable">
 				00/00/0000 00:00:00
 			</td>
@@ -106,9 +106,9 @@
 				
 					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
 <table class="wwFormTable">
-						<input type="hidden" name="jobName" value="send-personnage-job" id="JobProcessing!schedule_jobName" />
+						<input type="hidden" name="jobName" value="get-table-mails-job" id="JobProcessing!schedule_jobName" />
 						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-send-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
+    <td colspan="2"><div align="right"><input type="submit" id="schedule-get-table-mails-job" name="action:JobProcessing!schedule" value="Exécuter" />
 </div></td>
 </tr>
 
@@ -148,7 +148,7 @@
 		</tr>
 	
 		<tr class="genCrossTable">
-			<td class="genCrossTable">Recupération des mails envoyés sur la boite mail des tables</td>
+			<td class="genCrossTable">Envoi des personnages par mail</td>
 			<td class="genCrossTable">
 				00/00/0000 00:00:00
 			</td>
@@ -158,9 +158,9 @@
 				
 					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
 <table class="wwFormTable">
-						<input type="hidden" name="jobName" value="get-table-mails-job" id="JobProcessing!schedule_jobName" />
+						<input type="hidden" name="jobName" value="send-personnage-job" id="JobProcessing!schedule_jobName" />
 						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-get-table-mails-job" name="action:JobProcessing!schedule" value="Exécuter" />
+    <td colspan="2"><div align="right"><input type="submit" id="schedule-send-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
 </div></td>
 </tr>
 

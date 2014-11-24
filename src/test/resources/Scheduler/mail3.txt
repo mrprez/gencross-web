@@ -1,10 +1,18 @@
 Date:00:00:00 00/00/0000
 From: genCrossBackup@mrprez.com
+To: azerty@az.az;
+Subject: GenCrossWeb - Person1
+Le Maître de Jeu mrprez vous a attribué le personnage Person1.
+
+**************************************
+Date:00:00:00 00/00/0000
+From: genCrossBackup@mrprez.com
 To: save.gencross@gmail.com;
 Subject: Person1
 Personnage: Person1
-Joueur: mrprez
-REGEXP:java.io.ByteArrayInputStream@[0-9a-f]*
+MJ: mrprez
+Joueur: azerty
+REGEXP:java.io.ByteArrayInputStream@[0-9a-f]+
 
 **************************************
 Date:00:00:00 00/00/0000
@@ -13,7 +21,7 @@ To: save.gencross@gmail.com;
 Subject: Perso2
 Personnage: Perso2
 Joueur: mrprez
-REGEXP:java.io.ByteArrayInputStream@[0-9a-f]*
+REGEXP:java.io.ByteArrayInputStream@[0-9a-f]+
 
 **************************************
 Date:00:00:00 00/00/0000
@@ -32,48 +40,8 @@ Message sans aucune importance.
 **************************************
 Date:00:00:00 00/00/0000
 From: tables.gencross@gmail.com
-To: test@test.fr;
-Subject: Invalid subject: [Tests messages] Message OK
-Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
-
-
-
-Premier message pour la table
-Tests messages
-
-
-
-**************************************
-Date:00:00:00 00/00/0000
-From: tables.gencross@gmail.com
 To: guillaume.gagneret@gmail.com;
-Subject: Invalid subject: [Tests messages] Message OK
-Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
-
-
-
-Message d'un utilisateur qui n'est pas sur la table.
-
-
-
-**************************************
-Date:00:00:00 00/00/0000
-From: tables.gencross@gmail.com
-To: inconnu@gmail.com;
-Subject: Invalid subject: [Tests messages] Message OK
-Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
-
-
-
-Message d'un utilisateur inconnu.
-
-
-
-**************************************
-Date:00:00:00 00/00/0000
-From: tables.gencross@gmail.com
-To: guillaume.gagneret@gmail.com;
-Subject: Invalid subject: [Table inconnu] Message KO
+Subject: Invalid subject: [111] Message KO
 Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
 
 
@@ -87,7 +55,8 @@ From: genCrossBackup@mrprez.com
 To: save.gencross@gmail.com;
 Subject: Person1
 Personnage: Person1
-Joueur: mrprez
-REGEXP:java.io.ByteArrayInputStream@[0-9a-f]*
+MJ: mrprez
+Joueur: azerty
+REGEXP:java.io.ByteArrayInputStream@[0-9a-f]+
 
 **************************************

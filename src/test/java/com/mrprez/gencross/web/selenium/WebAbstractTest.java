@@ -72,6 +72,7 @@ public abstract class WebAbstractTest {
 
 	public WebAbstractTest(String name) throws IOException {
 		super();
+		System.out.println("\nSTART test "+name);
 		this.name = name;
 		properties = new Properties();
 
@@ -286,6 +287,8 @@ public abstract class WebAbstractTest {
 		try {
 			if (tomcatProcess != null) {
 				tomcatProcess.destroy();
+				tomcatProcess.waitFor();
+				System.out.println("tomcat process ended with exit value: "+tomcatProcess.exitValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -302,6 +305,8 @@ public abstract class WebAbstractTest {
 		try {
 			if (seleniumHubProcess != null) {
 				seleniumHubProcess.destroy();
+				seleniumHubProcess.waitFor();
+				System.out.println("selenium hub process ended with exit value: "+seleniumHubProcess.exitValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,11 +315,13 @@ public abstract class WebAbstractTest {
 		try {
 			if (seleniumNodeProcess != null) {
 				seleniumNodeProcess.destroy();
+				seleniumNodeProcess.waitFor();
+				System.out.println("selenium node process ended with exit value: "+seleniumNodeProcess.exitValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		Assert.assertTrue("Some templates are missing", pageTester.isAllTemplatePresent());
 		Assert.assertTrue("Mail template is missing", mailTester.isAllTemplatePresent());
 

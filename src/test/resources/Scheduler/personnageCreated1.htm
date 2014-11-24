@@ -110,8 +110,10 @@
 <div id="personnageName">
 	<span>Person1</span>
 	
-		<span id="playerName">Joueur: mrprez</span>
+		<span id="playerName">Joueur: azerty</span>
 	
+	
+		<span id="gamemasterName">MJ: mrprez</span>
 	
 	
 </div>
@@ -132,6 +134,15 @@
 				<span class="actionIcon">
 					<a href="/gencross-web/Edit.action?personnageId=1"><img src="/gencross-web/img/refresh.png" alt="Recharger la page" width="20" height="20" title="Recharger la page" /></a>
 				</span>
+				
+					<span class="actionIcon">
+						<form id="Edit!validatePersonnage" name="Edit!validatePersonnage" action="/gencross-web/Edit!validatePersonnage.action" method="get"><input type="hidden" name="personnageId" value="1" id="Edit!validatePersonnage_personnageId" /><input type="submit" id="Edit!validatePersonnage_0" value="Valider" />
+</form>
+
+
+
+
+					</span>
 				
 				<span class="actionIcon">
 					<form id="Edit!unvalidatePersonnage" name="Edit!unvalidatePersonnage" action="/gencross-web/Edit!unvalidatePersonnage.action" method="get"><input type="hidden" name="personnageId" value="1" id="Edit!unvalidatePersonnage_personnageId" /><input type="button" value="Annuler" onclick="javascript:unvalidate(this)" /></form>
@@ -189,6 +200,27 @@
 	<td class="pointPool_name">PA</td>
 	<td class="pointPool_remaining">80/80</td>
 	
+		<td class="pointPool_modify">
+			<img class="editImg" src="/gencross-web/img/edit.png" alt="Editer" onclick="javascript:displayPointPoolForm(this);" />
+			        
+<form id="Edit" name="Edit" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="pointPoolForm">
+				<input type="hidden" name="pointPoolName" value="PA" id="Edit_pointPoolName" />
+				<table>
+					<tbody><tr>
+						<td colspan="2"><input type="text" name="pointPoolModification" size="5" value="" id="Edit_pointPoolModification" onkeydown="javascript:poolPointFormKeyDown(event)" class="class java.util.HashMap" /></td>
+					</tr>
+					<tr>
+						<td><img class="foldImg" onclick="javascript:modifyPointPool(this)" src="/gencross-web/img/validate.png" /></td>
+						<td><img class="foldImg" onclick="javascript:hidePointPoolForm(this)" src="/gencross-web/img/fold.png" /></td>
+					</tr>
+				</tbody></table>
+			</form>
+
+
+
+
+		</td>
+	
 </tr>
 
 							
@@ -205,6 +237,27 @@
 <tr id="pointPool_2">
 	<td class="pointPool_name">Pouvoirs de grade</td>
 	<td class="pointPool_remaining">0/0</td>
+	
+		<td class="pointPool_modify">
+			<img class="editImg" src="/gencross-web/img/edit.png" alt="Editer" onclick="javascript:displayPointPoolForm(this);" />
+			        
+<form id="Edit" name="Edit" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="pointPoolForm">
+				<input type="hidden" name="pointPoolName" value="Pouvoirs de grade" id="Edit_pointPoolName" />
+				<table>
+					<tbody><tr>
+						<td colspan="2"><input type="text" name="pointPoolModification" size="5" value="" id="Edit_pointPoolModification" onkeydown="javascript:poolPointFormKeyDown(event)" class="class java.util.HashMap" /></td>
+					</tr>
+					<tr>
+						<td><img class="foldImg" onclick="javascript:modifyPointPool(this)" src="/gencross-web/img/validate.png" /></td>
+						<td><img class="foldImg" onclick="javascript:hidePointPoolForm(this)" src="/gencross-web/img/fold.png" /></td>
+					</tr>
+				</tbody></table>
+			</form>
+
+
+
+
+		</td>
 	
 </tr>
 
@@ -225,6 +278,27 @@
 <tbody><tr id="pointPool_1">
 	<td class="pointPool_name">Points de talents secondaires</td>
 	<td class="pointPool_remaining">0/0</td>
+	
+		<td class="pointPool_modify">
+			<img class="editImg" src="/gencross-web/img/edit.png" alt="Editer" onclick="javascript:displayPointPoolForm(this);" />
+			        
+<form id="Edit" name="Edit" onsubmit="return false;" action="/gencross-web/Edit.action" method="post" class="pointPoolForm">
+				<input type="hidden" name="pointPoolName" value="Points de talents secondaires" id="Edit_pointPoolName" />
+				<table>
+					<tbody><tr>
+						<td colspan="2"><input type="text" name="pointPoolModification" size="5" value="" id="Edit_pointPoolModification" onkeydown="javascript:poolPointFormKeyDown(event)" class="class java.util.HashMap" /></td>
+					</tr>
+					<tr>
+						<td><img class="foldImg" onclick="javascript:modifyPointPool(this)" src="/gencross-web/img/validate.png" /></td>
+						<td><img class="foldImg" onclick="javascript:hidePointPoolForm(this)" src="/gencross-web/img/fold.png" /></td>
+					</tr>
+				</tbody></table>
+			</form>
+
+
+
+
+		</td>
 	
 </tr>
 
