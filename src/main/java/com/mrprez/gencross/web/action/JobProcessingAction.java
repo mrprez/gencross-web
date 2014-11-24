@@ -14,7 +14,6 @@ import org.quartz.JobKey;
 import com.mrprez.gencross.web.bs.face.IJobBS;
 import com.opensymphony.xwork2.ActionSupport;
 
-
 public class JobProcessingAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
@@ -102,11 +101,12 @@ public class JobProcessingAction extends ActionSupport {
 		this.exceptions = exceptions;
 	}
 	
-	private class JobKeyComparator implements Comparator<JobDetail>{
+	
+	public class JobKeyComparator implements Comparator<JobDetail>{
 
 		@Override
-		public int compare(JobDetail jobDetail1, JobDetail jobDetail2) {
-			return jobDetail1.getKey().compareTo(jobDetail2.getKey());
+		public int compare(JobDetail o1, JobDetail o2) {
+			return o1.getKey().compareTo(o2.getKey());
 		}
 		
 	}
