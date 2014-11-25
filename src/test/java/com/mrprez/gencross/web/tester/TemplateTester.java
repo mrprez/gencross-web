@@ -1,6 +1,7 @@
 package com.mrprez.gencross.web.tester;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +40,18 @@ public abstract class TemplateTester {
 	
 	protected void test(String source, String testName, String extension) throws IOException, InterruptedException {
 		System.out.println("Template file="+maskRepository+"/"+testName+extension);
+		
 		File template = new File(maskRepository, testName+extension);
 		if (!template.exists()) {
 			allTemplatePresent = false;
 			writeTemplate(source, testName, extension);
 			return;
 		}
+		
+		deleteFailFile(testName, extension);
+		writeFailFile(source, testName, extension);
+		
+		source = formatSource(source);
 		
 		deleteFailFile(testName, extension);
 		writeFailFile(source, testName, extension);
@@ -55,12 +63,6 @@ public abstract class TemplateTester {
 			String templateLine;
 			while ((sourceLine = getNextLine(sourceReader)) != null
 					&& (templateLine = getNextLine(templateReader)) != null) {
-				for (String pattern : replacementRules.keySet()) {
-					sourceLine = sourceLine.replaceAll(pattern, replacementRules.get(pattern));
-				}
-				if(ignoreWhiteSpace){
-					sourceLine = sourceLine.trim();
-				}
 				if (templateLine.startsWith(REGEXP_PREFFIX)) {
 					templateLine = templateLine.substring(REGEXP_PREFFIX.length());
 					if(ignoreWhiteSpace){
@@ -69,9 +71,6 @@ public abstract class TemplateTester {
 					Assert.assertTrue("\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"",
 							sourceLine.matches(templateLine));
 				} else {
-					if(ignoreWhiteSpace){
-						templateLine = templateLine.trim();
-					}
 					Assert.assertEquals(templateLine, sourceLine);
 				}
 			}
@@ -86,6 +85,29 @@ public abstract class TemplateTester {
 			templateReader.close();
 			sourceReader.close();
 		}
+	}
+	
+	protected String formatSource(String source) throws IOException{
+		BufferedReader sourceReader = new BufferedReader(new StringReader(source));
+		StringWriter stringWriter = new StringWriter();
+		BufferedWriter writer = new BufferedWriter(stringWriter);
+		try{
+			String sourceLine;
+			while ((sourceLine = getNextLine(sourceReader)) != null){
+				for (String pattern : replacementRules.keySet()) {
+					sourceLine = sourceLine.replaceAll(pattern, replacementRules.get(pattern));
+				}
+				if(ignoreWhiteSpace){
+					sourceLine = sourceLine.trim();
+				}
+				writer.write(sourceLine);
+				writer.newLine();
+			}
+		}finally{
+			sourceReader.close();
+			writer.close();
+		}
+		return stringWriter.toString();
 	}
 	
 	private String getNextLine(BufferedReader reader) throws IOException{

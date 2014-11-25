@@ -13,10 +13,10 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/ajax.jsp"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/tree.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
-		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"/>
-		<link href="<s:url value="/css/jquery-ui-1.10.3.custom.css"/>" rel="stylesheet" type="text/css"/>
-		<link href="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.css"/>" rel="stylesheet" type="text/css"/>
-		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" />
+		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"></link>
+		<link href="<s:url value="/css/jquery-ui-1.10.3.custom.css"/>" rel="stylesheet" type="text/css"></link>
+		<link href="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.css"/>" rel="stylesheet" type="text/css"></link>
+		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" ></link>
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">

@@ -134,6 +134,13 @@
 			<version>1.5</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.jtidy</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>r938</version>
+			<scope>test</scope>
+		</dependency>
+		
 		
 		
 		<dependency>

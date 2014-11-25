@@ -255,7 +255,10 @@ public abstract class WebAbstractTest {
 		command.add("node");
 		command.add("-hub");
 		command.add("http://localhost:4444/grid/register");
-		command.add("-Dwebdriver.chrome.driver=" + getProperty("webdriver.chrome.driver"));
+//		command.add("-Dwebdriver.chrome.driver=" + getProperty("webdriver.chrome.driver"));
+		command.add("-browser");
+		command.add("browserName=htmlunit,platform=ANY,maxInstances=1");
+//		command.add("-Dphantomjs.binary.path=" + getProperty("phantomjs.binary.path"));
 		System.out.println("Selenium node cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		seleniumNodeProcess = processBuilder.start();
@@ -268,7 +271,7 @@ public abstract class WebAbstractTest {
 		int startTryNb = 0;
 		while (driver == null) {
 			try {
-				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.htmlUnitWithJs());
 			} catch (WebDriverException e) {
 				startTryNb++;
 				if (startTryNb > 60) {
