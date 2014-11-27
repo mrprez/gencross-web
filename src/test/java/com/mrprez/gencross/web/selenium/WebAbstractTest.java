@@ -124,7 +124,6 @@ public abstract class WebAbstractTest {
 
 		pageTester = new PageTester(name, root.getAbsolutePath(),
 				getProperty("project.build.directory") + "/seleniumTestResult");
-		pageTester.setIgnoreWhiteSpace(true);
 		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}", "jsessionid=00000000000000000000000000000000");
 		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
 		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
@@ -255,10 +254,18 @@ public abstract class WebAbstractTest {
 		command.add("node");
 		command.add("-hub");
 		command.add("http://localhost:4444/grid/register");
-//		command.add("-Dwebdriver.chrome.driver=" + getProperty("webdriver.chrome.driver"));
-		command.add("-browser");
-		command.add("browserName=htmlunit,platform=ANY,maxInstances=1");
-//		command.add("-Dphantomjs.binary.path=" + getProperty("phantomjs.binary.path"));
+		if(getProperty("webdriver.chrome.driver")!=null){
+			command.add("-Dwebdriver.chrome.driver=" + getProperty("webdriver.chrome.driver"));
+			command.add("-browser");
+			command.add("browserName=chrome,javascriptEnabled=true,platform=ANY");
+		}else if(getProperty("phantomjs.binary.path")!=null){
+			command.add("-Dphantomjs.binary.path=" + getProperty("phantomjs.binary.path"));
+			command.add("-browser");
+			command.add("browserName=phantomjs,javascriptEnabled=true,platform=ANY");
+		}else{
+			command.add("-browser");
+			command.add("browserName=htmlunit,javascriptEnabled=true,platform=ANY");
+		}
 		System.out.println("Selenium node cmd: " + StringUtils.join(command, " "));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		seleniumNodeProcess = processBuilder.start();
@@ -266,12 +273,21 @@ public abstract class WebAbstractTest {
 		new StreamProcessManager(seleniumNodeProcess.getErrorStream(), System.err, "[SeleniumNode]").start();
 	}
 
-	private void launchRemoteWebDriver() throws InterruptedException,
-			MalformedURLException {
+	private void launchRemoteWebDriver() throws InterruptedException, MalformedURLException {
+		
+		DesiredCapabilities desiredCapabilities;
+		if(getProperty("webdriver.chrome.driver")!=null){
+			desiredCapabilities = DesiredCapabilities.chrome();
+		}else if(getProperty("phantomjs.binary.path")!=null){
+			desiredCapabilities = DesiredCapabilities.phantomjs();
+		}else{
+			desiredCapabilities = DesiredCapabilities.htmlUnitWithJs();
+		}
+		
 		int startTryNb = 0;
 		while (driver == null) {
 			try {
-				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.htmlUnitWithJs());
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities);
 			} catch (WebDriverException e) {
 				startTryNb++;
 				if (startTryNb > 60) {
@@ -280,6 +296,7 @@ public abstract class WebAbstractTest {
 				Thread.sleep(1000);
 			}
 		}
+		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
