@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		
+		<title>Gen-Cross</title>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"/>
+		
+		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"/>
+		
+		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css"/>
+		
+		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+		
+		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css"/>
+		
+		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg"/>
+	
+	</head>
+	
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+		
+		<div id="header">
+			
+			<div id="headerLeft">
+				
+				<a href="/gencross-web/List.action">
+					<img src="/gencross-web/img/logo_GenCross.jpg"/>
+				</a>
+				
+
+
+
+				<table class="menu">
+	
+					<tbody>
+		
+						<tr>
+			
+				
+							<td id="personnageMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					
+								<span class="menu">Personnages</span>
+					
+								<ul class="subMenu">
+						
+									<li class="subMenu">
+										<a href="/gencross-web/List.action">Liste des personnages</a>
+									</li>
+						
+									<li class="subMenu">
+										<a href="/gencross-web/TableList.action">Liste des tables</a>
+									</li>
+						
+									<li class="subMenu">
+										<a href="/gencross-web/Create.action">Créer un personnage</a>
+									</li>
+					
+								</ul>
+				
+							</td>
+				
+							<script language="Javascript">
+					$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
+				</script>
+			
+				
+							<td id="accountManagementMenu" class="menu" onclick="javascript:showSubMenu(this)">
+					
+								<span class="menu">Gérer son compte</span>
+					
+								<ul class="subMenu">
+						
+									<li class="subMenu">
+										<a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+									</li>
+						
+									<li class="subMenu">
+										<a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+									</li>
+					
+								</ul>
+				
+							</td>
+				
+							<script language="Javascript">
+					$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
+				</script>
+				
+				
+							<td class="menu">
+					
+								<a href="/gencross-web/link!downloads.action" class="menu">Téléchargements</a>
+				
+							</td>
+				
+				
+				
+			
+		
+						</tr>
+	
+					</tbody>
+				</table>
+
+
+			
+			</div>
+			
+			<div id="headerRight">
+				
+					
+				<span id="username">qwerty</span>
+					
+				<br/>
+					
+				<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
+				
+			
+			</div>
+			
+			<div class="separator"/>
+		
+		</div>
+		
+		<div id="content">
+		
+
+
+
+			<table class="personnageListContainer">
+	
+				<tbody>
+					<tr class="listePersonnageTitre">
+		
+						<td class="listePersonnageTitre">Vos personnages en tant que joueur:</td>
+		
+						<td class="listePersonnageTitre">Vos personnages en tant que MJ:</td>
+	
+					</tr>
+	
+					<tr>
+		
+						<td class="personnageListContainer">
+			
+							<table class="genCrossTable">
+				
+								<thead>
+					
+									<tr>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?playerPersonnageSort=name">Nom
+								
+									
+												<img src="/gencross-web/img/ascSorted.png" alt="asc"/>
+											</a>
+						
+										</th>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?playerPersonnageSort=type">Type</a>
+						
+										</th>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?playerPersonnageSort=GM">MJ</a>
+						
+										</th>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?playerPersonnageSort=table">Table</a>
+						
+										</th>
+						
+										<th class="genCrossTable">Actions</th>
+					
+									</tr>
+				
+								</thead>
+				
+								<tbody>
+					
+						
+									<tr class="genCrossTable">
+							
+										<td class="genCrossTable" title="ID=1">
+								
+											<a href="/gencross-web/Edit.action?personnageId=1">Test attibution</a>
+							
+										</td>
+							
+										<td class="genCrossTable">
+								Changelin
+							</td>
+							
+										<td class="genCrossTable">
+								mrprez
+							</td>
+							
+										<td class="genCrossTable">
+								
+							</td>
+							
+										<td class="genCrossTable">
+								
+											<a href="/gencross-web/Edit.action?personnageId=1" title="Editer">
+												<img src="/gencross-web/img/edit.png" alt="Fermer"/>
+											</a>
+								
+											<a href="/gencross-web/AttributeGameMaster.action?personnageId=1" title="Attribuer un MJ">
+												<img src="/gencross-web/img/attributeGM.png"/>
+											</a>
+								
+											<a href="/gencross-web/List!downloadAsPlayer.action?personnageId=1" title="Télécharger au format gcr">
+												<img src="/gencross-web/img/download.png" alt="Télécharger"/>
+											</a>
+								
+											<a href="/gencross-web/Upload.action?personnageId=1" title="Charger au format gcr">
+												<img src="/gencross-web/img/upload.png" alt="Charger" onclick="Javascript:uploadPersonnage(this)"/>
+											</a>
+								        
+											<form id="List!deletePersonnage" name="List!deletePersonnage" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" action="/gencross-web/List!deletePersonnage.action" method="post" class="imgForm">
+									
+												<input type="hidden" name="personnageId" value="1" id="List!deletePersonnage_personnageId"/>
+									
+									
+												<input type="image" alt="Supprimer" src="/gencross-web/img/remove.png" id="List!deletePersonnage_0" value="Supprimer" title="Supprimer"/>
+
+								
+											</form>
+
+
+
+
+							
+										</td>
+						
+									</tr>
+					
+					
+				
+								</tbody>
+			
+							</table>
+		
+						</td>
+		
+		
+		
+		
+						<td class="personnageListContainer">
+			
+							<table class="genCrossTable">
+				
+								<thead>
+					
+									<tr>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?gameMasterPersonnageSort=name">Nom
+								
+									
+												<img src="/gencross-web/img/ascSorted.png" alt="asc"/>
+											</a>
+						
+										</th>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?gameMasterPersonnageSort=type">Type</a>
+						
+										</th>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?gameMasterPersonnageSort=player">Joueur</a>
+						
+										</th>
+						
+										<th class="genCrossTable">
+							
+											<a href="/gencross-web/List!sort.action?gameMasterPersonnageSort=table">Table</a>
+						
+										</th>
+						
+										<th class="genCrossTable">Actions</th>
+					
+									</tr>
+				
+								</thead>
+				
+								<tbody>
+					
+					
+						
+									<tr class="genCrossTable">
+							
+										<td class="genCrossTable" colspan="5">
+								Aucun personnage
+							</td>
+						
+									</tr>
+					
+				
+								</tbody>
+			
+							</table>
+
+		
+						</td>
+	
+					</tr>
+				</tbody>			</table>
+
+
+
+		
+		</div>
+		
+		<div id="footer">
+			<center/>
+		</div>
+	
+
+
+	</body></html>

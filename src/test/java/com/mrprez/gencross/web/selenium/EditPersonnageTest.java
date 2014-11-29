@@ -3,6 +3,7 @@ package com.mrprez.gencross.web.selenium;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import org.dom4j.DocumentException;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -130,7 +131,7 @@ public class EditPersonnageTest extends WebAbstractTest {
 		
 	}
 	
-	private void testEditPage() throws IOException, InterruptedException{
+	private void testEditPage() throws IOException, InterruptedException, DocumentException{
 		DecimalFormat format = new DecimalFormat("00");
 		pageTester.testPage(driver, "editPersonnage"+format.format(editTestNumber++));
 	}
