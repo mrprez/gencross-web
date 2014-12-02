@@ -71,7 +71,7 @@ public abstract class TemplateTester {
 					Assert.assertTrue("\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"",
 							sourceLine.matches(templateLine));
 				} else {
-					Assert.assertEquals(templateLine, sourceLine);
+					Assert.assertEquals(templateLine.trim(), sourceLine.trim());
 				}
 			}
 			if (sourceReader.readLine() != null) {

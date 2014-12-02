@@ -85,7 +85,7 @@ public class PageTester extends TemplateTester {
 			tidy.setXHTML(true);
 			tidy.setIndentContent(true);
 			Document document = tidy.parseDOM(sourceReader, tidyWriter);
-			filterXml(document);
+			//filterXml(document);
 			
 			StringWriter stringWriter = new StringWriter();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
