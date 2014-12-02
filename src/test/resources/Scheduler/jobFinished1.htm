@@ -1,185 +1,135 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
-		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8" />
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"></script>
-		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css" />
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
-		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg" />
-	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
-		<div id="header">
-			<div id="headerLeft">
-				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg" /></a>
-				
-
-
-
-<table class="menu">
-	<tbody>
-		<tr>
-			
-				<td id="personnageMenu" class="menu" onclick="javascript:showSubMenu(this)">
-					<span class="menu">Personnages</span>
-					<ul class="subMenu">
-						<li class="subMenu"><a href="/gencross-web/List.action">Liste des personnages</a></li>
-						<li class="subMenu"><a href="/gencross-web/TableList.action">Liste des tables</a></li>
-						<li class="subMenu"><a href="/gencross-web/Create.action">Créer un personnage</a></li>
-					</ul>
-				</td>
-				<script language="Javascript">
-					$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
-				</script>
-			
-				<td id="accountManagementMenu" class="menu" onclick="javascript:showSubMenu(this)">
-					<span class="menu">Gérer son compte</span>
-					<ul class="subMenu">
-						<li class="subMenu"><a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a></li>
-						<li class="subMenu"><a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a></li>
-					</ul>
-				</td>
-				<script language="Javascript">
-					$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
-				</script>
-				
-				<td class="menu">
-					<a href="/gencross-web/link!downloads.action" class="menu">Téléchargements</a>
-				</td>
-				
-				
-					<td id="administrationMenu" class="menu" onclick="javascript:showSubMenu(this)">
-						<span class="menu">Administration</span>
-						<ul class="subMenu">
-							<li class="subMenu"><a href="/gencross-web/ListUser.action">Liste des utilisateurs</a></li>
-							<li class="subMenu"><a href="/gencross-web/Params.action">Gestion des paramètres</a></li>
-							<li class="subMenu"><a href="/gencross-web/JobProcessing.action">Traitements programmés</a></li>
-							<li class="subMenu"><a href="/gencross-web/Logger.action">Gestion des logs</a></li>
-						</ul>
-					</td>
-					<script language="Javascript">
-						$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
-					</script>
-				
-				
-			
-		</tr>
-	</tbody>
-</table>
-
-
-			</div>
-			<div id="headerRight">
-				
-					<span id="username">mrprez</span>
-					<br />
-					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
-				
-			</div>
-			<div class="separator"></div>
-		</div>
-		<div id="content">
-		
-
-
-<table class="genCrossTable">
-	<tbody><tr class="genCrossTable">
-		<th class="genCrossTable">Nom du Job</th>
-		<th class="genCrossTable">Dernière exécution</th>
-		<th class="genCrossTable">Action</th>
-	</tr>
-	
-		<tr class="genCrossTable">
-			<td class="genCrossTable">Recupération des mails envoyés sur la boite mail des tables</td>
-			<td class="genCrossTable">
-				
-			</td>
-			<td class="genCrossTable">
-				
-				
-				
-					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
-<table class="wwFormTable">
-						<input type="hidden" name="jobName" value="get-table-mails-job" id="JobProcessing!schedule_jobName" />
-						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-get-table-mails-job" name="action:JobProcessing!schedule" value="Exécuter" />
-</div></td>
-</tr>
-
-					</tbody></table></form>
-
-
-
-
-				
-			</td>
-		</tr>
-	
-		<tr class="genCrossTable">
-			<td class="genCrossTable">Sauvegarde des personnages en fichiers</td>
-			<td class="genCrossTable">
-				
-			</td>
-			<td class="genCrossTable">
-				
-				
-				
-					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
-<table class="wwFormTable">
-						<input type="hidden" name="jobName" value="save-personnage-job" id="JobProcessing!schedule_jobName" />
-						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-save-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
-</div></td>
-</tr>
-
-					</tbody></table></form>
-
-
-
-
-				
-			</td>
-		</tr>
-	
-		<tr class="genCrossTable">
-			<td class="genCrossTable">Envoi des personnages par mail</td>
-			<td class="genCrossTable">
-				00/00/0000 00:00:00
-			</td>
-			<td class="genCrossTable">
-				
-				
-				
-					<form id="JobProcessing!schedule" name="JobProcessing!schedule" action="/gencross-web/JobProcessing!schedule.action" method="post">
-<table class="wwFormTable">
-						<input type="hidden" name="jobName" value="send-personnage-job" id="JobProcessing!schedule_jobName" />
-						<tbody><tr>
-    <td colspan="2"><div align="right"><input type="submit" id="schedule-send-personnage-job" name="action:JobProcessing!schedule" value="Exécuter" />
-</div></td>
-</tr>
-
-					</tbody></table></form>
-
-
-
-
-				
-			</td>
-		</tr>
-	
-</tbody></table>
-		
-
-
-
-		</div>
-		<div id="footer"><center></center></div>
-	
-
-</body></html>
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator">
+    <title>Gen-Cross</title>
+    <meta content="IE=8" http-equiv="X-UA-Compatible">
+    <script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"></script>
+    <link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css">
+    <link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css">
+    <link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css">
+    <link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon">
+  </head>
+  <body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+    <div id="header">
+      <div id="headerLeft">
+        <a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a> <script language="Javascript" type="text/javascript">                                        $('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
+                                </script><script language="Javascript" type="text/javascript">                                        $('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
+                                </script><script language="Javascript" type="text/javascript">                                                $('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
+                                        </script>
+        <table class="menu">
+          <tbody>
+            <tr>
+              <td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu"><span class="menu">Personnages</span> 
+                <ul class="subMenu">
+                  <li class="subMenu">
+                    <a href="/gencross-web/List.action">Liste des personnages</a>
+                  </li>
+                  <li class="subMenu">
+                    <a href="/gencross-web/TableList.action">Liste des tables</a>
+                  </li>
+                  <li class="subMenu">
+                    <a href="/gencross-web/Create.action">Cr&eacute;er un personnage</a>
+                  </li>
+                </ul>
+              </td><td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu"><span class="menu">G&eacute;rer son compte</span> 
+                <ul class="subMenu">
+                  <li class="subMenu">
+                    <a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+                  </li>
+                  <li class="subMenu">
+                    <a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+                  </li>
+                </ul>
+              </td><td class="menu"><a class="menu" href="/gencross-web/link!downloads.action">T&eacute;l&eacute;chargements</a></td><td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu"><span class="menu">Administration</span> 
+                <ul class="subMenu">
+                  <li class="subMenu">
+                    <a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
+                  </li>
+                  <li class="subMenu">
+                    <a href="/gencross-web/Params.action">Gestion des param&egrave;tres</a>
+                  </li>
+                  <li class="subMenu">
+                    <a href="/gencross-web/JobProcessing.action">Traitements programm&eacute;s</a>
+                  </li>
+                  <li class="subMenu">
+                    <a href="/gencross-web/Logger.action">Gestion des logs</a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="headerRight">
+        <span id="username">mrprez</span>
+        <br> 
+        <a href="/gencross-web/Disconnect.action" id="disconnect">D&eacute;connexion</a>
+      </div>
+    </div>
+    <div id="content">
+      <table class="genCrossTable">
+        <tbody>
+          <tr class="genCrossTable">
+            <th class="genCrossTable">Nom du Job</th><th class="genCrossTable">Derni&egrave;re ex&eacute;cution</th><th class="genCrossTable">Action</th>
+          </tr>
+          <tr class="genCrossTable">
+            <td class="genCrossTable">Recup&eacute;ration des mails envoy&eacute;s sur la boite mail des tables</td><td class="genCrossTable"></td><td class="genCrossTable">
+              <form method="post" action="/gencross-web/JobProcessing!schedule.action" name="JobProcessing!schedule" id="JobProcessing!schedule">
+                <input id="JobProcessing!schedule_jobName" value="get-table-mails-job" name="jobName" type="hidden">
+                <table class="wwFormTable">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <div align="right">
+                          <input value="Ex&eacute;cuter" name="action:JobProcessing!schedule" id="schedule-get-table-mails-job" type="submit">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </td>
+          </tr>
+          <tr class="genCrossTable">
+            <td class="genCrossTable">Sauvegarde des personnages en fichiers</td><td class="genCrossTable"></td><td class="genCrossTable">
+              <form method="post" action="/gencross-web/JobProcessing!schedule.action" name="JobProcessing!schedule" id="JobProcessing!schedule">
+                <input id="JobProcessing!schedule_jobName" value="save-personnage-job" name="jobName" type="hidden">
+                <table class="wwFormTable">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <div align="right">
+                          <input value="Ex&eacute;cuter" name="action:JobProcessing!schedule" id="schedule-save-personnage-job" type="submit">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </td>
+          </tr>
+          <tr class="genCrossTable">
+            <td class="genCrossTable">Envoi des personnages par mail</td><td class="genCrossTable">00/00/0000 00:00:00</td><td class="genCrossTable">
+              <form method="post" action="/gencross-web/JobProcessing!schedule.action" name="JobProcessing!schedule" id="JobProcessing!schedule">
+                <input id="JobProcessing!schedule_jobName" value="send-personnage-job" name="jobName" type="hidden">
+                <table class="wwFormTable">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <div align="right">
+                          <input value="Ex&eacute;cuter" name="action:JobProcessing!schedule" id="schedule-send-personnage-job" type="submit">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="footer"></div>
+  </body>
+</html>

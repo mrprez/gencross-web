@@ -24,6 +24,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.tidy.Tidy;
 
 public class PageTester extends TemplateTester {
@@ -82,7 +83,9 @@ public class PageTester extends TemplateTester {
 			StringWriter tidyWriter = new StringWriter();
 			Tidy tidy = new Tidy();
 			tidy.setXHTML(true);
+			tidy.setIndentContent(true);
 			Document document = tidy.parseDOM(sourceReader, tidyWriter);
+			filterXml(document);
 			
 			StringWriter stringWriter = new StringWriter();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -95,6 +98,21 @@ public class PageTester extends TemplateTester {
 			
 		} catch (TransformerException e) {
 			throw new IOException(e);
+		}
+	}
+	
+	
+	
+	private void filterXml(Node node){
+		for(int i=0; i<node.getAttributes().getLength(); i++){
+			Node attribute = node.getAttributes().item(i);
+			if(attribute.getNodeValue().isEmpty()){
+				node.getAttributes().removeNamedItem(attribute.getNodeName());
+			}
+		}
+		for(int i=0; i<node.getChildNodes().getLength(); i++){
+			Node child = node.getChildNodes().item(i);
+			filterXml(child);
 		}
 	}
 	

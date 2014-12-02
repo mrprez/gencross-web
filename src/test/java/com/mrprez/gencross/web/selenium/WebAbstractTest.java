@@ -290,7 +290,7 @@ public abstract class WebAbstractTest {
 				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities);
 			} catch (WebDriverException e) {
 				startTryNb++;
-				if (startTryNb > 60) {
+				if (startTryNb > 5*60) {
 					throw e;
 				}
 				Thread.sleep(1000);
