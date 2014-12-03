@@ -1,102 +1,175 @@
-<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator">
-    <title>Gen-Cross</title>
-    <meta content="IE=8" http-equiv="X-UA-Compatible">
-    <script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"></script>
-    <link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css">
-    <link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css">
-    <link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css">
-    <link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon">
-  </head>
-  <body onload="$('#ajaxError').ajaxError(displayAjaxError);">
-    <div id="header">
-      <div id="headerLeft">
-        <a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a> <script language="Javascript" type="text/javascript">                                        $('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
-                                </script><script language="Javascript" type="text/javascript">                                        $('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
-                                </script>
-        <table class="menu">
-          <tbody>
-            <tr>
-              <td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu"><span class="menu">Personnages</span> 
-                <ul class="subMenu">
-                  <li class="subMenu">
-                    <a href="/gencross-web/List.action">Liste des personnages</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/TableList.action">Liste des tables</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/Create.action">Cr&eacute;er un personnage</a>
-                  </li>
-                </ul>
-              </td><td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu"><span class="menu">G&eacute;rer son compte</span> 
-                <ul class="subMenu">
-                  <li class="subMenu">
-                    <a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
-                  </li>
-                </ul>
-              </td><td class="menu"><a class="menu" href="/gencross-web/link!downloads.action">T&eacute;l&eacute;chargements</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="headerRight">
-        <span id="username">azerty</span>
-        <br> 
-        <a href="/gencross-web/Disconnect.action" id="disconnect">D&eacute;connexion</a>
-      </div>
-    </div>
-    <div id="content">
-      <form method="post" action="/gencross-web/Create!create.action" name="Create!create" id="Create!create">
-        <table class="wwFormTable">
-          <tbody>
-            <tr>
-              <td class="tdLabel"><label class="label" for="Create!create_selectedPersonnageTypeName">Selectionner un type de personnage:</label></td><td><select id="Create!create_selectedPersonnageTypeName" name="selectedPersonnageTypeName"><option value="BSG">BSG</option><option value="Changelin">Changelin</option><option value="INS">INS</option><option value="INS Custom">INS Custom</option><option value="MV">MV</option><option value="MdT">MdT</option><option value="Pavillon Noir">Pavillon Noir</option><option value="PolarisPerso">PolarisPerso</option><option value="TiersAgePerso">TiersAgePerso</option><option value="Vampire">Vampire</option></select></td>
-            </tr>
-            <tr>
-              <td class="tdLabel"><label class="label" for="Create!create_personnageName">Nom:</label></td><td><input id="Create!create_personnageName" value="" name="personnageName" type="text"></td>
-            </tr>
-            <tr>
-              <td class="tdLabel"><label class="label" for="Create!create_role">Votre r&ocirc;le sur le personnage:</label></td><td><input onchange="javascript:showHidePlayerGmLists(this);" value="Ma&icirc;tre de jeux" id="Create!create_roleMa&icirc;tre de jeux" name="role" type="radio"><label for="Create!create_roleMa&icirc;tre de jeux">Ma&icirc;tre de jeux</label> <input onchange="javascript:showHidePlayerGmLists(this);" value="Joueur" checked id="Create!create_roleJoueur" name="role" type="radio"><label for="Create!create_roleJoueur">Joueur</label> <input onchange="javascript:showHidePlayerGmLists(this);" value="Les deux" id="Create!create_roleLes deux" name="role" type="radio"><label for="Create!create_roleLes deux">Les deux</label></td>
-            </tr>
-            <tr>
-              <td class="tdLabel"><label class="label" for="gameMasterList">MJ du personnage:</label></td><td><select id="gameMasterList" name="gameMasterName"><option value="">Aucun</option><option value="mrprez">mrprez</option><option value="qwerty">qwerty</option></select></td>
-            </tr>
-            <tr style="display: none;">
-              <td class="tdLabel"><label class="label" for="gameMasterLockedList">MJ du personnage:</label></td><td><select id="gameMasterLockedList" disabled name=""><option value="">azerty</option></select></td>
-            </tr>
-            <tr style="display: none;">
-              <td class="tdLabel"><label class="label" for="playerList">Joueur du personnage:</label></td><td><select id="playerList" name="playerName"><option value="">Aucun</option><option value="mrprez">mrprez</option><option value="qwerty">qwerty</option></select></td>
-            </tr>
-            <tr>
-              <td class="tdLabel"><label class="label" for="playerLockedList">Joueur du personnage:</label></td><td><select id="playerLockedList" disabled name=""><option value="">azerty</option></select></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <div align="right">
-                  <input value="Submit" id="Create!create_0" type="submit">
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-      <script language="Javascript" type="text/javascript">        var roleTab = document.getElementById('Create!create_roleJoueur').form.role;
-        for(var i=0; i&lt;roleTab.length; i++){
-                if(roleTab[i].checked){
-                        showHidePlayerGmLists(roleTab[i]);
-                }
-        }
-</script> 
-      <div id="createFromFileButton">
-        <a href="/gencross-web/Upload.action">==&gt; Cr&eacute;er &agrave; partir d'un fichier GenCross</a>
-      </div>
-    </div>
-    <div id="footer"></div>
-  </body>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
+		<title>Gen-Cross</title>
+		<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
+		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action">
+					<img src="/gencross-web/img/logo_GenCross.jpg"/>
+				</a>
+				<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
+				<table class="menu">
+					<tbody>
+						<tr>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu">
+								<span class="menu">Personnages</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/List.action">Liste des personnages</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/TableList.action">Liste des tables</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Create.action">Créer un personnage</a>
+									</li>
+								</ul>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu">
+								<span class="menu">Gérer son compte</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+									</li>
+								</ul>
+							</td>
+							<td class="menu">
+								<a class="menu" href="/gencross-web/link!downloads.action">Téléchargements</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="headerRight">
+				<span id="username">azerty</span>
+				<br/>
+				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
+			</div>
+		</div>
+		<div id="content">
+			<form method="post" action="/gencross-web/Create!create.action" name="Create!create" id="Create!create">
+				<table class="wwFormTable">
+					<tbody>
+						<tr>
+							<td class="tdLabel">
+								<label class="label" for="Create!create_selectedPersonnageTypeName">Selectionner un type de personnage:</label>
+							</td>
+							<td>
+								<select id="Create!create_selectedPersonnageTypeName" name="selectedPersonnageTypeName">
+									<option value="BSG">BSG</option>
+									<option value="Changelin">Changelin</option>
+									<option value="INS">INS</option>
+									<option value="INS Custom">INS Custom</option>
+									<option value="MV">MV</option>
+									<option value="MdT">MdT</option>
+									<option value="Pavillon Noir">Pavillon Noir</option>
+									<option value="PolarisPerso">PolarisPerso</option>
+									<option value="TiersAgePerso">TiersAgePerso</option>
+									<option value="Vampire">Vampire</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="tdLabel">
+								<label class="label" for="Create!create_personnageName">Nom:</label>
+							</td>
+							<td>
+								<input id="Create!create_personnageName" value="" name="personnageName" type="text"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tdLabel">
+								<label class="label" for="Create!create_role">Votre rôle sur le personnage:</label>
+							</td>
+							<td>
+								<input onchange="javascript:showHidePlayerGmLists(this);" value="Maître de jeux" id="Create!create_roleMaître de jeux" name="role" type="radio"/>
+								<label for="Create!create_roleMaître de jeux">Maître de jeux</label>
+								<input onchange="javascript:showHidePlayerGmLists(this);" value="Joueur" checked="checked" id="Create!create_roleJoueur" name="role" type="radio"/>
+								<label for="Create!create_roleJoueur">Joueur</label>
+								<input onchange="javascript:showHidePlayerGmLists(this);" value="Les deux" id="Create!create_roleLes deux" name="role" type="radio"/>
+								<label for="Create!create_roleLes deux">Les deux</label>
+							</td>
+						</tr>
+						<tr>
+							<td class="tdLabel">
+								<label class="label" for="gameMasterList">MJ du personnage:</label>
+							</td>
+							<td>
+								<select id="gameMasterList" name="gameMasterName">
+									<option value="">Aucun</option>
+									<option value="mrprez">mrprez</option>
+									<option value="qwerty">qwerty</option>
+								</select>
+							</td>
+						</tr>
+						<tr style="display: none;">
+							<td class="tdLabel">
+								<label class="label" for="gameMasterLockedList">MJ du personnage:</label>
+							</td>
+							<td>
+								<select id="gameMasterLockedList" disabled="disabled" name="">
+									<option value="">azerty</option>
+								</select>
+							</td>
+						</tr>
+						<tr style="display: none;">
+							<td class="tdLabel">
+								<label class="label" for="playerList">Joueur du personnage:</label>
+							</td>
+							<td>
+								<select id="playerList" name="playerName">
+									<option value="">Aucun</option>
+									<option value="mrprez">mrprez</option>
+									<option value="qwerty">qwerty</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="tdLabel">
+								<label class="label" for="playerLockedList">Joueur du personnage:</label>
+							</td>
+							<td>
+								<select id="playerLockedList" disabled="disabled" name="">
+									<option value="">azerty</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div align="right">
+									<input value="Submit" id="Create!create_0" type="submit"/>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			<script language="Javascript" type="text/javascript">var roleTab = document.getElementById('Create!create_roleJoueur').form.role; for(var i=0; i&amp;lt;roleTab.length; i++){ if(roleTab[i].checked){ showHidePlayerGmLists(roleTab[i]); } }</script>
+			<div id="createFromFileButton">
+				<a href="/gencross-web/Upload.action">==&gt; Créer à partir d'un fichier GenCross</a>
+			</div>
+		</div>
+		<div id="footer"/>
+	</body>
 </html>
