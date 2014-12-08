@@ -128,6 +128,7 @@ public abstract class WebAbstractTest {
 		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
 		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
 		pageTester.addReplacementRule("style=\"\" ", "");
+		pageTester.addReplacementRule("style=\"-webkit-user-select: none;\" ", "");
 		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver driver) {

@@ -1,71 +1,109 @@
-<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator">
-    <title>Gen-Cross</title>
-    <meta content="IE=8" http-equiv="X-UA-Compatible">
-    <script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"></script>
-    <link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css">
-    <link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css">
-    <link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css">
-    <link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon">
-  </head>
-  <body onload="$('#ajaxError').ajaxError(displayAjaxError);">
-    <div id="header">
-      <div id="headerLeft">
-        <a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a> 
-        <table class="menu">
-          <tbody>
-            <tr>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="headerRight"></div>
-    </div>
-    <div id="content">
-      <div id="subscriptionDiv">
-        <span id="subscriptionTitle">Inscription</span> 
-        <form method="post" action="/gencross-web/Subscription!authentification.action" name="subscriptionForm" id="subscriptionForm">
-          <table class="wwFormTable">
-            <tbody>
-              <tr errorfor="subscriptionForm_username">
-                <td colspan="2" valign="top" align="center"><span class="errorMessage">Veuillez renseigner votre login</span></td>
-              </tr>
-              <tr>
-                <td class="tdLabel"><label class="errorLabel" for="subscriptionForm_username">Login:</label></td><td><input id="subscriptionForm_username" value="" size="50" name="username" type="text"></td>
-              </tr>
-              <tr errorfor="subscriptionForm_password">
-                <td colspan="2" valign="top" align="center"><span class="errorMessage">Veuillez renseigner votre mot de passe</span></td>
-              </tr>
-              <tr>
-                <td class="tdLabel"><label class="errorLabel" for="subscriptionForm_password">Mot de passe:</label></td><td><input id="subscriptionForm_password" size="50" name="password" type="password"></td>
-              </tr>
-              <tr errorfor="subscriptionForm_confirmPassword">
-                <td colspan="2" valign="top" align="center"><span class="errorMessage">Veuillez confirmer votre mot de passe</span></td>
-              </tr>
-              <tr>
-                <td class="tdLabel"><label class="errorLabel" for="subscriptionForm_confirmPassword">Confirmation du mot de passe:</label></td><td><input id="subscriptionForm_confirmPassword" size="50" name="confirmPassword" type="password"></td>
-              </tr>
-              <tr errorfor="subscriptionForm_mail">
-                <td colspan="2" valign="top" align="center"><span class="errorMessage">Veuillez renseigner votre adresse mail</span></td>
-              </tr>
-              <tr>
-                <td class="tdLabel"><label class="errorLabel" for="subscriptionForm_mail">Adresse e-mail:</label></td><td><input id="subscriptionForm_mail" value="" size="50" name="mail" type="text"></td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <div align="center">
-                    <input value="Envoyer" id="subscriptionForm_0" type="submit">
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </div>
-    </div>
-    <div id="footer"></div>
-  </body>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
+		<title>Gen-Cross</title>
+		<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
+		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action">
+					<img src="/gencross-web/img/logo_GenCross.jpg"/>
+				</a>
+				<table class="menu">
+					<tbody>
+						<tr>
+							<td/>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="headerRight"/>
+		</div>
+		<div id="content">
+			<div id="subscriptionDiv">
+				<span id="subscriptionTitle">Inscription</span>
+				<form method="post" action="/gencross-web/Subscription!authentification.action" name="subscriptionForm" id="subscriptionForm">
+					<table class="wwFormTable">
+						<tbody>
+							<tr errorfor="subscriptionForm_username">
+								<td colspan="2" valign="top" align="center">
+									<span class="errorMessage">Veuillez renseigner votre login</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdLabel">
+									<label class="errorLabel" for="subscriptionForm_username">Login:</label>
+								</td>
+								<td>
+									<input id="subscriptionForm_username" value="" size="50" name="username" type="text"/>
+								</td>
+							</tr>
+							<tr errorfor="subscriptionForm_password">
+								<td colspan="2" valign="top" align="center">
+									<span class="errorMessage">Veuillez renseigner votre mot de passe</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdLabel">
+									<label class="errorLabel" for="subscriptionForm_password">Mot de passe:</label>
+								</td>
+								<td>
+									<input id="subscriptionForm_password" size="50" name="password" type="password"/>
+								</td>
+							</tr>
+							<tr errorfor="subscriptionForm_confirmPassword">
+								<td colspan="2" valign="top" align="center">
+									<span class="errorMessage">Veuillez confirmer votre mot de passe</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdLabel">
+									<label class="errorLabel" for="subscriptionForm_confirmPassword">Confirmation du mot de passe:</label>
+								</td>
+								<td>
+									<input id="subscriptionForm_confirmPassword" size="50" name="confirmPassword" type="password"/>
+								</td>
+							</tr>
+							<tr errorfor="subscriptionForm_mail">
+								<td colspan="2" valign="top" align="center">
+									<span class="errorMessage">Veuillez renseigner votre adresse mail</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdLabel">
+									<label class="errorLabel" for="subscriptionForm_mail">Adresse e-mail:</label>
+								</td>
+								<td>
+									<input id="subscriptionForm_mail" value="" size="50" name="mail" type="text"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div align="center">
+										<input value="Envoyer" id="subscriptionForm_0" type="submit"/>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+		<div id="footer"/>
+	</body>
 </html>

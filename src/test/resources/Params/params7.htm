@@ -1,138 +1,454 @@
-<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator">
-    <title>Gen-Cross</title>
-    <meta content="IE=8" http-equiv="X-UA-Compatible">
-    <script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"></script><script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"></script>
-    <link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css">
-    <link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css">
-    <link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css">
-    <link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon">
-  </head>
-  <body onload="$('#ajaxError').ajaxError(displayAjaxError);">
-    <div id="header">
-      <div id="headerLeft">
-        <a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg"></a> <script language="Javascript" type="text/javascript">                                        $('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
-                                </script><script language="Javascript" type="text/javascript">                                        $('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
-                                </script><script language="Javascript" type="text/javascript">                                                $('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
-                                        </script>
-        <table class="menu">
-          <tbody>
-            <tr>
-              <td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu"><span class="menu">Personnages</span> 
-                <ul class="subMenu">
-                  <li class="subMenu">
-                    <a href="/gencross-web/List.action">Liste des personnages</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/TableList.action">Liste des tables</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/Create.action">Cr&eacute;er un personnage</a>
-                  </li>
-                </ul>
-              </td><td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu"><span class="menu">G&eacute;rer son compte</span> 
-                <ul class="subMenu">
-                  <li class="subMenu">
-                    <a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
-                  </li>
-                </ul>
-              </td><td class="menu"><a class="menu" href="/gencross-web/link!downloads.action">T&eacute;l&eacute;chargements</a></td><td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu"><span class="menu">Administration</span> 
-                <ul class="subMenu">
-                  <li class="subMenu">
-                    <a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/Params.action">Gestion des param&egrave;tres</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/JobProcessing.action">Traitements programm&eacute;s</a>
-                  </li>
-                  <li class="subMenu">
-                    <a href="/gencross-web/Logger.action">Gestion des logs</a>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="headerRight">
-        <span id="username">mrprez</span>
-        <br> 
-        <a href="/gencross-web/Disconnect.action" id="disconnect">D&eacute;connexion</a>
-      </div>
-    </div>
-    <div id="content">
-      <table class="genCrossTable">
-        <tbody>
-          <tr class="genCrossTable">
-            <th class="genCrossTable">Cl&eacute;</th><th class="genCrossTable">Valeur</th><th class="genCrossTable">Action</th>
-          </tr>
-          <tr class="genCrossTable">
-            <td class="genCrossTable">admin.adress</td><td class="genCrossTable">guillaume.gagneret@gmail.com</td><td class="genCrossTable"><img onclick="javascript:displayEditParam(this, 'admin.adress');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"> <form class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_admin_adress" id="paramForm_admin_adress">
-                <input id="paramForm_admin_adress_key" value="admin.adress" name="key" type="hidden"> <input id="paramForm_admin_adress_newValue" value="guillaume.gagneret@gmail.com" name="newValue" type="text"> <input value="Submit" id="paramForm_admin_adress_0" src="/gencross-web/img/validate.png" alt="Submit" type="image">
-              </form>
-            </td>
-          </tr>
-          <tr class="genCrossTable">
-            <td class="genCrossTable">last.send.date</td><td class="genCrossTable">30/07/2011 02:43:40,453</td><td class="genCrossTable"><img style="display: none;" onclick="javascript:displayEditParam(this, 'last.send.date');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"> <form style="display: block;" class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_last_send_date" id="paramForm_last_send_date">
-                <input id="paramForm_last_send_date_key" value="last.send.date" name="key" type="hidden"> <input class="hasDatepicker" id="dateField_last_send_date" value="30/07/2011" size="10" name="day" type="text"> <script type="text/javascript">                                                        $("#dateField_last.send.date".replace(/\./g,"_")).datepicker();
-                                                </script> <select id="paramForm_last_send_date_hour" name="hour"><option value="00">00</option><option value="01">01</option><option selected value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option></select> : <select id="paramForm_last_send_date_minutes" name="minutes"><option value="00">00</option><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option selected value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option></select> : <select id="paramForm_last_send_date_seconds" name="seconds"><option value="00">00</option><option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option selected value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option></select> , <input id="paramForm_last_send_date_milliSeconds" value="453" size="3" name="milliSeconds" type="text"> <input value="Submit" id="paramForm_last_send_date_0" src="/gencross-web/img/validate.png" alt="Submit" type="image">
-              </form>
-            </td>
-          </tr>
-          <tr class="genCrossTable">
-            <td class="genCrossTable">migration.active</td><td class="genCrossTable">true</td><td class="genCrossTable"><img onclick="javascript:displayEditParam(this, 'migration.active');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"> <form class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_migration_active" id="paramForm_migration_active">
-                <input id="paramForm_migration_active_key" value="migration.active" name="key" type="hidden"> <input value="true" checked id="paramForm_migration_active_newValuetrue" name="newValue" type="radio"><label for="paramForm_migration_active_newValuetrue">true</label> <input value="false" id="paramForm_migration_active_newValuefalse" name="newValue" type="radio"><label for="paramForm_migration_active_newValuefalse">false</label> <input value="Submit" id="paramForm_migration_active_0" src="/gencross-web/img/validate.png" alt="Submit" type="image">
-              </form>
-            </td>
-          </tr>
-          <tr class="genCrossTable">
-            <td class="genCrossTable">save.adress</td><td class="genCrossTable">newSaveAdresse</td><td class="genCrossTable"><img onclick="javascript:displayEditParam(this, 'save.adress');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"> <form class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_save_adress" id="paramForm_save_adress">
-                <input id="paramForm_save_adress_key" value="save.adress" name="key" type="hidden"> <input id="paramForm_save_adress_newValue" value="newSaveAdresse" name="newValue" type="text"> <input value="Submit" id="paramForm_save_adress_0" src="/gencross-web/img/validate.png" alt="Submit" type="image">
-              </form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="position: absolute; top: 261px; left: 474.046875px; z-index: 1; display: none;" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" id="ui-datepicker-div">
-      <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-        <a title="Pr&eacute;c&eacute;dent" data-event="click" data-handler="prev" class="ui-datepicker-prev ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-w">Pr&eacute;c&eacute;dent</span></a><a title="Suivant" data-event="click" data-handler="next" class="ui-datepicker-next ui-corner-all"><span class="ui-icon ui-icon-circle-triangle-e">Suivant</span></a>
-        <div class="ui-datepicker-title">
-          <span class="ui-datepicker-month">Juillet</span>&nbsp;<span class="ui-datepicker-year">2011</span>
-        </div>
-      </div>
-      <table class="ui-datepicker-calendar">
-        <thead>
-          <tr>
-            <th><span title="Lundi">L</span></th><th><span title="Mardi">M</span></th><th><span title="Mercredi">M</span></th><th><span title="Jeudi">J</span></th><th><span title="Vendredi">V</span></th><th class="ui-datepicker-week-end"><span title="Samedi">S</span></th><th class="ui-datepicker-week-end"><span title="Dimanche">D</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">1</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">2</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">3</a></td>
-          </tr>
-          <tr>
-            <td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">4</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">5</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">6</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">7</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">8</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">9</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">10</a></td>
-          </tr>
-          <tr>
-            <td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">11</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">12</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">13</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">14</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">15</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">16</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">17</a></td>
-          </tr>
-          <tr>
-            <td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">18</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">19</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">20</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">21</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">22</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">23</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">24</a></td>
-          </tr>
-          <tr>
-            <td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">25</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">26</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">27</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">28</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=""><a href="#" class="ui-state-default">29</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end ui-datepicker-current-day"><a href="#" class="ui-state-default ui-state-active">30</a></td><td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end"><a href="#" class="ui-state-default">31</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="footer"></div>
-  </body>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
+		<title>Gen-Cross</title>
+		<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
+		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
+	</head>
+	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action">
+					<img src="/gencross-web/img/logo_GenCross.jpg"/>
+				</a>
+				<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});</script>
+				<table class="menu">
+					<tbody>
+						<tr>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu">
+								<span class="menu">Personnages</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/List.action">Liste des personnages</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/TableList.action">Liste des tables</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Create.action">Créer un personnage</a>
+									</li>
+								</ul>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu">
+								<span class="menu">Gérer son compte</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+									</li>
+								</ul>
+							</td>
+							<td class="menu">
+								<a class="menu" href="/gencross-web/link!downloads.action">Téléchargements</a>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu">
+								<span class="menu">Administration</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Params.action">Gestion des paramètres</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/JobProcessing.action">Traitements programmés</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Logger.action">Gestion des logs</a>
+									</li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="headerRight">
+				<span id="username">mrprez</span>
+				<br/>
+				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
+			</div>
+		</div>
+		<div id="content">
+			<table class="genCrossTable">
+				<tbody>
+					<tr class="genCrossTable">
+						<th class="genCrossTable">Clé</th>
+						<th class="genCrossTable">Valeur</th>
+						<th class="genCrossTable">Action</th>
+					</tr>
+					<tr class="genCrossTable">
+						<td class="genCrossTable">admin.adress</td>
+						<td class="genCrossTable">guillaume.gagneret@gmail.com</td>
+						<td class="genCrossTable">
+							<img onclick="javascript:displayEditParam(this, 'admin.adress');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"/>
+							<form class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_admin_adress" id="paramForm_admin_adress">
+								<input id="paramForm_admin_adress_key" value="admin.adress" name="key" type="hidden"/>
+								<input id="paramForm_admin_adress_newValue" value="guillaume.gagneret@gmail.com" name="newValue" type="text"/>
+								<input value="Submit" id="paramForm_admin_adress_0" src="/gencross-web/img/validate.png" alt="Submit" type="image"/>
+							</form>
+						</td>
+					</tr>
+					<tr class="genCrossTable">
+						<td class="genCrossTable">last.send.date</td>
+						<td class="genCrossTable">30/07/2011 02:43:40,453</td>
+						<td class="genCrossTable">
+							<img style="display: none;" onclick="javascript:displayEditParam(this, 'last.send.date');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"/>
+							<form style="display: block;" class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_last_send_date" id="paramForm_last_send_date">
+								<input id="paramForm_last_send_date_key" value="last.send.date" name="key" type="hidden"/>
+								<input class="hasDatepicker" id="dateField_last_send_date" value="30/07/2011" size="10" name="day" type="text"/>
+								<script type="text/javascript">$("#dateField_last.send.date".replace(/\./g,"_")).datepicker();</script>
+								<select id="paramForm_last_send_date_hour" name="hour">
+									<option value="00">00</option>
+									<option value="01">01</option>
+									<option selected="selected" value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+								</select>:
+								<select id="paramForm_last_send_date_minutes" name="minutes">
+									<option value="00">00</option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option selected="selected" value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
+									<option value="51">51</option>
+									<option value="52">52</option>
+									<option value="53">53</option>
+									<option value="54">54</option>
+									<option value="55">55</option>
+									<option value="56">56</option>
+									<option value="57">57</option>
+									<option value="58">58</option>
+									<option value="59">59</option>
+								</select>:
+								<select id="paramForm_last_send_date_seconds" name="seconds">
+									<option value="00">00</option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option selected="selected" value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
+									<option value="51">51</option>
+									<option value="52">52</option>
+									<option value="53">53</option>
+									<option value="54">54</option>
+									<option value="55">55</option>
+									<option value="56">56</option>
+									<option value="57">57</option>
+									<option value="58">58</option>
+									<option value="59">59</option>
+								</select>,
+								<input id="paramForm_last_send_date_milliSeconds" value="453" size="3" name="milliSeconds" type="text"/>
+								<input value="Submit" id="paramForm_last_send_date_0" src="/gencross-web/img/validate.png" alt="Submit" type="image"/>
+							</form>
+						</td>
+					</tr>
+					<tr class="genCrossTable">
+						<td class="genCrossTable">migration.active</td>
+						<td class="genCrossTable">true</td>
+						<td class="genCrossTable">
+							<img onclick="javascript:displayEditParam(this, 'migration.active');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"/>
+							<form class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_migration_active" id="paramForm_migration_active">
+								<input id="paramForm_migration_active_key" value="migration.active" name="key" type="hidden"/>
+								<input value="true" checked="checked" id="paramForm_migration_active_newValuetrue" name="newValue" type="radio"/>
+								<label for="paramForm_migration_active_newValuetrue">true</label>
+								<input value="false" id="paramForm_migration_active_newValuefalse" name="newValue" type="radio"/>
+								<label for="paramForm_migration_active_newValuefalse">false</label>
+								<input value="Submit" id="paramForm_migration_active_0" src="/gencross-web/img/validate.png" alt="Submit" type="image"/>
+							</form>
+						</td>
+					</tr>
+					<tr class="genCrossTable">
+						<td class="genCrossTable">save.adress</td>
+						<td class="genCrossTable">newSaveAdresse</td>
+						<td class="genCrossTable">
+							<img onclick="javascript:displayEditParam(this, 'save.adress');" alt="Edit" src="/gencross-web/img/edit.png" class="editImg"/>
+							<form class="paramForm" method="post" action="/gencross-web/Params!edit.action" name="paramForm_save_adress" id="paramForm_save_adress">
+								<input id="paramForm_save_adress_key" value="save.adress" name="key" type="hidden"/>
+								<input id="paramForm_save_adress_newValue" value="newSaveAdresse" name="newValue" type="text"/>
+								<input value="Submit" id="paramForm_save_adress_0" src="/gencross-web/img/validate.png" alt="Submit" type="image"/>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div style="position: absolute; top: 261px; left: 474.046875px; z-index: 1; display: none;" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" id="ui-datepicker-div">
+			<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+				<a title="Précédent" data-event="click" data-handler="prev" class="ui-datepicker-prev ui-corner-all">
+					<span class="ui-icon ui-icon-circle-triangle-w">Précédent</span>
+				</a>
+				<a title="Suivant" data-event="click" data-handler="next" class="ui-datepicker-next ui-corner-all">
+					<span class="ui-icon ui-icon-circle-triangle-e">Suivant</span>
+				</a>
+				<div class="ui-datepicker-title">
+					<span class="ui-datepicker-month">Juillet</span> 
+					<span class="ui-datepicker-year">2011</span>
+				</div>
+			</div>
+			<table class="ui-datepicker-calendar">
+				<thead>
+					<tr>
+						<th>
+							<span title="Lundi">L</span>
+						</th>
+						<th>
+							<span title="Mardi">M</span>
+						</th>
+						<th>
+							<span title="Mercredi">M</span>
+						</th>
+						<th>
+							<span title="Jeudi">J</span>
+						</th>
+						<th>
+							<span title="Vendredi">V</span>
+						</th>
+						<th class="ui-datepicker-week-end">
+							<span title="Samedi">S</span>
+						</th>
+						<th class="ui-datepicker-week-end">
+							<span title="Dimanche">D</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> </td>
+						<td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> </td>
+						<td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> </td>
+						<td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"> </td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">1</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">2</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">3</a>
+						</td>
+					</tr>
+					<tr>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">4</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">5</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">6</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">7</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">8</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">9</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">10</a>
+						</td>
+					</tr>
+					<tr>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">11</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">12</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">13</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">14</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">15</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">16</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">17</a>
+						</td>
+					</tr>
+					<tr>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">18</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">19</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">20</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">21</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">22</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">23</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">24</a>
+						</td>
+					</tr>
+					<tr>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">25</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">26</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">27</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">28</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class="">
+							<a href="#" class="ui-state-default">29</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end ui-datepicker-current-day">
+							<a href="#" class="ui-state-default ui-state-active">30</a>
+						</td>
+						<td data-year="2011" data-month="6" data-event="click" data-handler="selectDay" class=" ui-datepicker-week-end">
+							<a href="#" class="ui-state-default">31</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="footer"/>
+	</body>
 </html>

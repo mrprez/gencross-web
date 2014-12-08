@@ -27,7 +27,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.Node;
 import org.w3c.tidy.Tidy;
 
 public class PageTester extends TemplateTester {
@@ -51,7 +50,7 @@ public class PageTester extends TemplateTester {
 		Thread.sleep(sleepTime);
 		try {
 			for (ExpectedCondition<Boolean> condition : waitConditionList) {
-				(new WebDriverWait(driver, 30)).until(condition);
+				(new WebDriverWait(driver, 120)).until(condition);
 			}
 		} catch (TimeoutException te) {
 			writeTimeoutTest(driver.getPageSource(), testName);
@@ -82,9 +81,13 @@ public class PageTester extends TemplateTester {
 	@Override
 	protected String formatSource(String source) throws IOException {
 		try {
+			String text = source.replaceAll("[&]lt[;]", "<");
+			text = text.replaceAll("[&]gt[;]", ">");
+			
 			Tidy tidy = new Tidy();
 			tidy.setXHTML(true);
-			org.w3c.dom.Document untidyDocument = tidy.parseDOM(new StringReader(source), new StringWriter());
+			tidy.setQuoteAmpersand(false);
+			org.w3c.dom.Document untidyDocument = tidy.parseDOM(new StringReader(text), new StringWriter());
 			
 			StringWriter stringWriter = new StringWriter();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -114,19 +117,6 @@ public class PageTester extends TemplateTester {
 	}
 	
 	
-	
-	private void filterXml(Node node){
-		for(int i=0; i<node.getAttributes().getLength(); i++){
-			Node attribute = node.getAttributes().item(i);
-			if(attribute.getNodeValue().isEmpty()){
-				node.getAttributes().removeNamedItem(attribute.getNodeName());
-			}
-		}
-		for(int i=0; i<node.getChildNodes().getLength(); i++){
-			Node child = node.getChildNodes().item(i);
-			filterXml(child);
-		}
-	}
 	
 	
 	

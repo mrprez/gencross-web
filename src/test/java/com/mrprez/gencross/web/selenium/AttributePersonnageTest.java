@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.Select;
 
 import com.mrprez.gencross.web.selenium.WebAbstractTest;
@@ -82,9 +83,14 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		driver.findElement(By.id("Login_password")).sendKeys("azerty");
 		driver.findElement(By.id("Login_0")).click();
 		pageTester.testPage(driver, "login6");
-		driver.findElement(By.id("List!deletePersonnage_0")).click();
 		// ERROR: Caught exception [ERROR: Unsupported command [getConfirmation]]
-		driver.switchTo().alert().accept();
+		try{
+			driver.findElement(By.id("List!deletePersonnage_0")).click();
+			driver.switchTo().alert().accept();
+		}catch(WebDriverException wde){
+			driver.get(baseUrl+context+"/List!deletePersonnage.action?personnageId=1");
+		}
+		
 		pageTester.testPage(driver, "deleteSuccess1");
 		driver.findElement(By.id("disconnect")).click();
 		driver.findElement(By.id("usernameField")).clear();
@@ -97,11 +103,18 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		pageTester.testPage(driver, "attribute3");
 		driver.findElement(By.cssSelector("span.menu")).click();
 		driver.findElement(By.linkText("Liste des personnages")).click();
-		driver.findElement(By.id("List!deletePersonnage_0")).click();
-		driver.switchTo().alert().accept();
+		
+		// ERROR: Caught exception [ERROR: Unsupported command [getConfirmation]]
+		try{
+			driver.findElement(By.id("List!deletePersonnage_0")).click();
+			driver.switchTo().alert().accept();
+		}catch(WebDriverException wde){
+			driver.get(baseUrl+context+"/List!deletePersonnage.action?personnageId=1");
+		}
+		
 		pageTester.testPage(driver, "deleteSuccess2");
 		mailTester.test("mail");
-		// ERROR: Caught exception [ERROR: Unsupported command [getConfirmation]]
+		
 		
 	}
 
