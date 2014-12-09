@@ -107,43 +107,7 @@
 </thead>
 <tbody>
 <tr>
-<td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=2">Table INS 2</a>
-</td>
-<td class="genCrossTable">
-<a title="Attribuer un PJ" href="/gencross-web/AttributePlayerInTable.action?personnageId=2&amp;tableId=1">
-<img alt="Attribuer à un joueur" src="/gencross-web/img/attributePlayer.png"/>
-</a>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=2&amp;id=1">
-<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
-</a>
-</td>
-</tr>
-<tr>
-<td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=6">Table INS 6</a>
-</td>
-<td class="genCrossTable">
-<a title="Attribuer un PJ" href="/gencross-web/AttributePlayerInTable.action?personnageId=6&amp;tableId=1">
-<img alt="Attribuer à un joueur" src="/gencross-web/img/attributePlayer.png"/>
-</a>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=6&amp;id=1">
-<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
-</a>
-</td>
-</tr>
-<tr>
-<td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=7">Table INS 7</a>
-</td>
-<td class="genCrossTable">
-<a title="Attribuer un PJ" href="/gencross-web/AttributePlayerInTable.action?personnageId=7&amp;tableId=1">
-<img alt="Attribuer à un joueur" src="/gencross-web/img/attributePlayer.png"/>
-</a>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=7&amp;id=1">
-<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
-</a>
-</td>
+<td colspan="2" class="genCrossTable">Pas de PNJ à cette table.</td>
 </tr>
 <tr>
 <td class="genCrossTable">
@@ -168,48 +132,16 @@
 <tbody>
 <tr>
 <td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=3">Table INS 3</a>
-</td>
-<td class="genCrossTable">mrprez</td>
-<td class="genCrossTable">
-<form title="Transformer en PNJ" method="post" action="/gencross-web/EditTable!transformInPNJ.action" name="transformInPnjForm" id="transformInPnjForm">
-<input id="transformInPnjForm_personnageId" value="3" name="personnageId" type="hidden"/>
-<input id="transformInPnjForm_id" value="1" name="id" type="hidden"/>
-<input onclick="this.form.submit();" value="Submit" id="transformInPnjForm_0" src="/gencross-web/img/becomePNJ.png" alt="Submit" type="image"/>
-</form>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=3&amp;id=1">
-<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
-</a>
-</td>
-</tr>
-<tr>
-<td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=4">Table INS 4</a>
+<a href="/gencross-web/Edit.action?personnageId=2">Table INS 2</a>
 </td>
 <td class="genCrossTable">azerty</td>
 <td class="genCrossTable">
 <form title="Transformer en PNJ" method="post" action="/gencross-web/EditTable!transformInPNJ.action" name="transformInPnjForm" id="transformInPnjForm">
-<input id="transformInPnjForm_personnageId" value="4" name="personnageId" type="hidden"/>
+<input id="transformInPnjForm_personnageId" value="2" name="personnageId" type="hidden"/>
 <input id="transformInPnjForm_id" value="1" name="id" type="hidden"/>
 <input onclick="this.form.submit();" value="Submit" id="transformInPnjForm_0" src="/gencross-web/img/becomePNJ.png" alt="Submit" type="image"/>
 </form>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=4&amp;id=1">
-<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
-</a>
-</td>
-</tr>
-<tr>
-<td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=5">Table INS 5</a>
-</td>
-<td class="genCrossTable">azerty</td>
-<td class="genCrossTable">
-<form title="Transformer en PNJ" method="post" action="/gencross-web/EditTable!transformInPNJ.action" name="transformInPnjForm" id="transformInPnjForm">
-<input id="transformInPnjForm_personnageId" value="5" name="personnageId" type="hidden"/>
-<input id="transformInPnjForm_id" value="1" name="id" type="hidden"/>
-<input onclick="this.form.submit();" value="Submit" id="transformInPnjForm_0" src="/gencross-web/img/becomePNJ.png" alt="Submit" type="image"/>
-</form>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=5&amp;id=1">
+<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=2&amp;id=1">
 <img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
 </a>
 </td>
@@ -224,6 +156,15 @@
 </div>
 </div>
 <div id="editTableActionsDiv">
+<form class="tableButton buttonGroup" method="post" action="/gencross-web/EditTable!bindPersonnage.action" name="bindPersonnageForm" id="bindPersonnageForm">
+<input id="bindPersonnageForm_id" value="1" name="id" type="hidden"/>Rattacher un personnage:
+<select id="bindPersonnageForm_personnageId" name="personnageId">
+<option value="3">Table INS 3</option>
+</select>
+<button value="Submit" id="bindPersonnageForm_0" type="submit">
+<img src="/gencross-web/img/link.png" class="imgButton"/>Rattacher
+</button>
+</form>
 <form class="tableButton buttonGroup" method="get" action="/gencross-web/MultiExport.action" name="MultiExport" id="MultiExport">
 <input id="MultiExport_tableId" value="1" name="tableId" type="hidden"/>
 <input value="Export Multiple" id="MultiExport_0" type="submit"/>

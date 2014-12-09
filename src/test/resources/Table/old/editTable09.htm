@@ -121,6 +121,19 @@
 </tr>
 <tr>
 <td class="genCrossTable">
+<a href="/gencross-web/Edit.action?personnageId=5">Table INS 5</a>
+</td>
+<td class="genCrossTable">
+<a title="Attribuer un PJ" href="/gencross-web/AttributePlayerInTable.action?personnageId=5&amp;tableId=1">
+<img alt="Attribuer à un joueur" src="/gencross-web/img/attributePlayer.png"/>
+</a>
+<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=5&amp;id=1">
+<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="genCrossTable">
 <a href="/gencross-web/Edit.action?personnageId=6">Table INS 6</a>
 </td>
 <td class="genCrossTable">
@@ -199,22 +212,6 @@
 </td>
 </tr>
 <tr>
-<td class="genCrossTable">
-<a href="/gencross-web/Edit.action?personnageId=5">Table INS 5</a>
-</td>
-<td class="genCrossTable">azerty</td>
-<td class="genCrossTable">
-<form title="Transformer en PNJ" method="post" action="/gencross-web/EditTable!transformInPNJ.action" name="transformInPnjForm" id="transformInPnjForm">
-<input id="transformInPnjForm_personnageId" value="5" name="personnageId" type="hidden"/>
-<input id="transformInPnjForm_id" value="1" name="id" type="hidden"/>
-<input onclick="this.form.submit();" value="Submit" id="transformInPnjForm_0" src="/gencross-web/img/becomePNJ.png" alt="Submit" type="image"/>
-</form>
-<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=5&amp;id=1">
-<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
-</a>
-</td>
-</tr>
-<tr>
 <td colspan="3">
 <a href="/gencross-web/TablePointsPools.action?id=1">Gérer les pools de points</a>
 </td>
@@ -238,24 +235,6 @@
 <tbody>
 <tr>
 <th class="genCrossTable">Messages</th>
-</tr>
-<tr>
-<td class="genCrossTable">
-<div>
-<span onclick="javascript:showHideMessage(this)" class="messageAuthor">
-<img height="10" width="10" alt="Déplier/Replier" src="http://localhost:8181/gencross-web/img/expandable.jpg" class="expandImg"/>mrprez
-</span>
-<form class="removeMessageForm" method="post" action="/gencross-web/EditTable!removeMessage.action" onsubmit="javascript:return confirm('Voulez-vous supprimer ce message?')" name="EditTable!removeMessage" id="EditTable!removeMessage">
-<input id="EditTable!removeMessage_messageId" value="1" name="messageId" type="hidden"/>
-<input id="EditTable!removeMessage_id" value="1" name="id" type="hidden"/>
-<input title="Supprimer" value="Supprimer" id="EditTable!removeMessage_0" src="/gencross-web/img/remove.png" alt="Supprimer" type="image"/>
-</form>
-</div>
-<div class="messageDate">00/00/0000 00:00:00</div>
-<div style="display: none;" class="messageContent">
-<p>Message example</p>
-</div>
-</td>
 </tr>
 <tr>
 <td>
