@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
@@ -86,6 +87,16 @@ public class TableDAO extends AbstractDAO implements ITableDAO {
 	@Override
 	public void deletePlannedGame(PlannedGameBO plannedGame) throws Exception {
 		getSession().delete(plannedGame);
+	}
+
+	@Override
+	public void deleteTable(TableBO table) throws Exception {
+		String hql = "DELETE FROM PlannedGameBO WHERE table.id = :table_id";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("table_id", table.getId());
+		query.executeUpdate();
+		
+		getSession().delete(table);
 	}
 	
 	

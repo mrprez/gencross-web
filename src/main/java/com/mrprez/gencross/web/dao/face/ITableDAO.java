@@ -33,5 +33,7 @@ public interface ITableDAO extends IAbstractDAO {
 
 	PlannedGameBO findPlannedGame(Integer tableId, Date startDate) throws Exception;
 
+	void deleteTable(TableBO table) throws Exception;
+
 
 }

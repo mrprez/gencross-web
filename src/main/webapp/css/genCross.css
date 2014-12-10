@@ -602,7 +602,6 @@ table.pointPool{
 }
 
 /* Background */
-
 #backgroundDiv{
 	width: 100%;
 }
@@ -695,6 +694,44 @@ table.pointPool{
 }
 
 
+/* Table List */
+#deleteTableDiv{
+	display: none;
+	border: 3px solid #215F88;
+	background-color: white;
+	z-index: 20;
+	padding: 5px;
+	position: fixed;
+	left: 50%;
+	margin-left: -175px;
+	top: 50%;
+	margin-top: -200px;
+	width: 350px;
+	height: 100px;
+}
+
+#deleteTableConfirm{
+	font-weight: bold;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+#deleteTablePersonnage{
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
+#deleteTableButtons{
+	position: absolute;
+	bottom: 12px;
+	width: 100%;
+}
+
+.deleteTableFormButton{
+	display:inline;
+}
+
+
 /* Edit Table */
 
 #pnjAndPjDiv{
@@ -778,7 +815,7 @@ table.pointPool{
 }
 
 .buttonGroup{
-	padding: 4px;
+	padding: 4px 4px 5px 4px;
 	border: 1px solid #2B73A8;
 	margin: 3px;
 }

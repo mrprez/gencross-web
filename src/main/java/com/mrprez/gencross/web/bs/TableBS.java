@@ -49,6 +49,19 @@ public class TableBS implements ITableBS {
 	}
 	
 	@Override
+	public void removeTable(Integer tableId, boolean deletePj, boolean deletePnj, UserBO user) throws Exception {
+		TableBO table = tableDAO.loadTable(tableId);
+		if( ! table.getGameMaster().equals(user)){
+			throw new BusinessException("User is not table game master");
+		}
+		
+		// TODO delete PJ and PNJ if necessary
+		
+
+		tableDAO.deleteTable(table);
+	}
+	
+	@Override
 	public Set<TableBO> getTableListForUser(UserBO user) throws Exception {
 		Set<TableBO> result = new TreeSet<TableBO>();
 		result.addAll(tableDAO.getTableFromGM(user));
@@ -178,7 +191,7 @@ public class TableBS implements ITableBS {
 	public void addMessageToTable(String message, Integer tableId, UserBO author) throws Exception {
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(author)){
-			throw new Exception("The author is not the table game master");
+			throw new BusinessException("The author is not the table game master");
 		}
 		TableMessageBO tableMessage = new TableMessageBO();
 		tableMessage.setAuthor(author);
@@ -334,6 +347,6 @@ public class TableBS implements ITableBS {
 
 	public void setCalendarResource(IGoogleCalendarResource calendarResource) {
 		this.calendarResource = calendarResource;
-	}
+	}	
 	
 }

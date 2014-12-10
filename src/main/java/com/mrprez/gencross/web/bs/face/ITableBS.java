@@ -46,5 +46,7 @@ public interface ITableBS {
 
 	void replanGame(Integer tableId, Integer dayDelta, Integer minuteDelta, Date startDate, Date endDate, UserBO user) throws Exception;
 
+	void removeTable(Integer tableId, boolean deletePj, boolean deletePnj, UserBO user) throws Exception;
+
 	
 }

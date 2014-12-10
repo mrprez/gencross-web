@@ -12,10 +12,13 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class TableListAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
+	
 	private String tableName;
 	private String tableType;
 	private Collection<PluginDescriptor> tableTypeList;
 	private Collection<TableBO> tableList;
+	private Integer tableId;
+	private String personnageDeletion;
 	
 	private ITableBS tableBS;
 	private IPersonnageBS personnageBS;
@@ -39,6 +42,14 @@ public class TableListAction extends ActionSupport {
 		tableList = tableBS.getTableListForUser(user);
 		
 		return INPUT;
+	}
+	
+	public String removeTable() throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageDeleteOption personnageDelete = PersonnageDeleteOption.valueOf(personnageDeletion);
+		tableBS.removeTable(tableId, personnageDelete.deletePj, personnageDelete.deletePnj, user);
+		
+		return SUCCESS;
 	}
 
 	public String getTableName() {
@@ -89,5 +100,47 @@ public class TableListAction extends ActionSupport {
 		this.personnageBS = personnageBS;
 	}
 
+	public Integer getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(Integer tableId) {
+		this.tableId = tableId;
+	}
+
+	public String getPersonnageDeletion() {
+		return personnageDeletion;
+	}
+
+	public void setPersonnageDeletion(String personnageDeletion) {
+		this.personnageDeletion = personnageDeletion;
+	}
+
+	public static enum PersonnageDeleteOption{
+		NONE(false, false, "Aucun personnage"),
+		ONLY_PJ(true, false, "Seulement les PJ"),
+		ONLY_PNJ(false, true, "Seulement les PNJ"),
+		ALL(true, true, "Tous les personnages");
+		
+		private boolean deletePj;
+		private boolean deletePnj;
+		private String text;
+		
+		PersonnageDeleteOption(boolean deletePj, boolean deletePnj, String text){
+			this.deletePj = deletePj;
+			this.deletePnj = deletePnj;
+			this.text = text;
+		}
+
+		public boolean isDeletePj() {
+			return deletePj;
+		}
+		public boolean isDeletePnj() {
+			return deletePnj;
+		}
+		public String getText() {
+			return text;
+		}
+	}
 	
 }

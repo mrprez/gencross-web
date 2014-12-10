@@ -39,7 +39,7 @@
 			<s:checkboxlist theme="GcrTheme" label="PJ" list="pjList" name="exportedPjList" cssClass="exportedList"/>
 		</s:else>
 		<div>
-			<s:submit theme="simple" action="MultiExport!export" value="Export"/>
+			<s:submit theme="simple" action="MultiExport!export" value="Export Web"/>
 		</div>
 		<div>
 			<s:submit theme="simple" action="MultiExport!exportCsv" value="Export CSV"/>
