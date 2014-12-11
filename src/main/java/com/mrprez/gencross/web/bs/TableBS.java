@@ -55,8 +55,17 @@ public class TableBS implements ITableBS {
 			throw new BusinessException("User is not table game master");
 		}
 		
-		// TODO delete PJ and PNJ if necessary
-		
+		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
+			if(personnageWork.getPlayer()!=null){
+				if(deletePj){
+					personnageDAO.deletePersonnage(personnageWork);
+				}
+			}else{
+				if(deletePnj){
+					personnageDAO.deletePersonnage(personnageWork);
+				}
+			}
+		}
 
 		tableDAO.deleteTable(table);
 	}

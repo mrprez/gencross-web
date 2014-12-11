@@ -37,6 +37,7 @@ public class SchedulerTest extends WebAbstractTest {
 	@Test
 	public void testSchedulerScreen() throws Exception {
 		driver.get(baseUrl + context);
+		System.out.println("testSchedulerScreen: just before login");
 		pageTester.testPage(driver, "login");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");
@@ -135,6 +136,7 @@ public class SchedulerTest extends WebAbstractTest {
 	@Override
 	public void tearDown() throws Exception {
 		super.tearDown();
+		System.out.println("SchedulerTest tearDown");
 		
 		saveRepository.delete();
 	}
