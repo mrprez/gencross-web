@@ -152,10 +152,11 @@ public class AuthentificationBS implements IAuthentificationBS{
 	
 	@Override
 	public void changePassword(UserBO user, String newPassword) throws Exception{
-		user = userDAO.getUser(user.getUsername());
 		user.setDigest(buildMD5Digest(newPassword));
+		userDAO.saveUser(user);
 	}
 	
+	@Override
 	public void changeMail(UserBO user, String mail) throws Exception {
 		user.setMail(mail);
 		userDAO.saveUser(user);
