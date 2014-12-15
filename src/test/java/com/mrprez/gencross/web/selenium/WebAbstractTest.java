@@ -127,6 +127,9 @@ public abstract class WebAbstractTest {
 		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}", "jsessionid=00000000000000000000000000000000");
 		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
 		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
+		pageTester.addReplacementRule("style=\"\" ", "");
+		pageTester.addReplacementRule("style=\"-webkit-user-select: none;\" ", "");
+		pageTester.addReplacementRule("cd_frame_id_=\"[0-9a-f]+\" ", "");
 		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver driver) {
@@ -290,7 +293,7 @@ public abstract class WebAbstractTest {
 				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities);
 			} catch (WebDriverException e) {
 				startTryNb++;
-				if (startTryNb > 60) {
+				if (startTryNb > 5*60) {
 					throw e;
 				}
 				Thread.sleep(1000);

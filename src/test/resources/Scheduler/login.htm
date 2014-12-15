@@ -1,82 +1,78 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
 		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8" />
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js;jsessionid=00000000000000000000000000000000" charset="utf-8"></script>
-		<link href="/gencross-web/css/genCross.css;jsessionid=00000000000000000000000000000000" rel="stylesheet" type="text/css" />
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css;jsessionid=00000000000000000000000000000000" rel="stylesheet" type="text/css" />
-		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css;jsessionid=00000000000000000000000000000000" rel="stylesheet" type="text/css" />
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg;jsessionid=00000000000000000000000000000000" />
+		<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/ajax.jsp;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/tree.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/script.js;jsessionid=00000000000000000000000000000000" type="text/javascript" language="JavaScript"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css;jsessionid=00000000000000000000000000000000"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css;jsessionid=00000000000000000000000000000000"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css;jsessionid=00000000000000000000000000000000"/>
+		<link href="/gencross-web/img/icone_GenCross.jpg;jsessionid=00000000000000000000000000000000" type="image/jpeg" rel="icon"/>
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
 		<div id="header">
 			<div id="headerLeft">
-				<a href="/gencross-web/List.action;jsessionid=00000000000000000000000000000000"><img src="/gencross-web/img/logo_GenCross.jpg;jsessionid=00000000000000000000000000000000" /></a>
-				
-
-
-
-<table class="menu">
-	<tbody>
-		<tr>
-			
-		</tr>
-	</tbody>
-</table>
-
-
+				<a href="/gencross-web/List.action;jsessionid=00000000000000000000000000000000">
+					<img src="/gencross-web/img/logo_GenCross.jpg;jsessionid=00000000000000000000000000000000"/>
+				</a>
+				<table class="menu">
+					<tbody>
+						<tr>
+							<td/>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<div id="headerRight">
-				
-			</div>
-			<div class="separator"></div>
+			<div id="headerRight"/>
 		</div>
 		<div id="content">
-		
-
-	<div id="loginContent">
-		<h3>Authentification</h3>
-		
-			<form id="Login" name="Login" action="/gencross-web/Login.action;jsessionid=00000000000000000000000000000000" method="post">
-<table class="wwFormTable">
-				
-				<tbody><tr>
-    <td class="tdLabel"><label for="usernameField" class="label">Login:</label></td>
-    <td><input type="text" name="username" value="" id="usernameField" /></td>
-</tr>
-
-				<tr>
-    <td class="tdLabel"><label for="Login_password" class="label">Password:</label></td>
-    <td><input type="password" name="password" id="Login_password" /></td>
-</tr>
-
-				<tr>
-    <td colspan="2"><div align="center"><input type="submit" id="Login_0" value="Login" />
-</div></td>
-</tr>
-
-			</tbody></table></form>
-
-
-
-
-			<a href="/gencross-web/Subscription.action;jsessionid=00000000000000000000000000000000">S'inscrire</a><br />
-			<a href="/gencross-web/ForgottenPassword.action;jsessionid=00000000000000000000000000000000">Mot de passe oublié</a><br />
-		
-		
-	</div>
-	<script language="Javascript">
-		document.getElementById("usernameField").focus();
-	</script>
-
+			<div id="loginContent">
+				<h3>Authentification</h3>
+				<form method="post" action="/gencross-web/Login.action;jsessionid=00000000000000000000000000000000" name="Login" id="Login">
+					<table class="wwFormTable">
+						<tbody>
+							<tr>
+								<td class="tdLabel">
+									<label class="label" for="usernameField">Login:</label>
+								</td>
+								<td>
+									<input id="usernameField" value="" name="username" type="text"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdLabel">
+									<label class="label" for="Login_password">Password:</label>
+								</td>
+								<td>
+									<input id="Login_password" name="password" type="password"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div align="center">
+										<input value="Login" id="Login_0" type="submit"/>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				<a href="/gencross-web/Subscription.action;jsessionid=00000000000000000000000000000000">S'inscrire</a>
+				<br/>
+				<a href="/gencross-web/ForgottenPassword.action;jsessionid=00000000000000000000000000000000">Mot de passe oublié</a>
+				<br/>
+			</div>
+			<script language="Javascript" type="text/javascript">document.getElementById("usernameField").focus();</script>
 		</div>
-		<div id="footer"><center></center></div>
-	
-
-</body></html>
+		<div id="footer"/>
+	</body>
+</html>

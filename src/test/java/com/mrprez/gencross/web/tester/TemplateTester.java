@@ -40,22 +40,22 @@ public abstract class TemplateTester {
 	
 	protected void test(String source, String testName, String extension) throws IOException, InterruptedException {
 		System.out.println("Template file="+maskRepository+"/"+testName+extension);
-		
 		File template = new File(maskRepository, testName+extension);
+		
+		try{
+			source = formatSource(source);
+		}catch(IOException ioe){
+			writeFailFile(source, testName, extension);
+			throw ioe;
+		}
+		
 		if (!template.exists()) {
 			allTemplatePresent = false;
 			writeTemplate(source, testName, extension);
 			return;
 		}
 		
-		deleteFailFile(testName, extension);
 		writeFailFile(source, testName, extension);
-		
-		source = formatSource(source);
-		
-		deleteFailFile(testName, extension);
-		writeFailFile(source, testName, extension);
-		
 		BufferedReader templateReader = new BufferedReader(new InputStreamReader(new FileInputStream(template), "UTF-8"));
 		BufferedReader sourceReader = new BufferedReader(new StringReader(source));
 		try {
@@ -71,7 +71,7 @@ public abstract class TemplateTester {
 					Assert.assertTrue("\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"",
 							sourceLine.matches(templateLine));
 				} else {
-					Assert.assertEquals(templateLine, sourceLine);
+					Assert.assertEquals(templateLine.trim(), sourceLine.trim());
 				}
 			}
 			if (sourceReader.readLine() != null) {
@@ -128,6 +128,7 @@ public abstract class TemplateTester {
 	}
 	
 	protected void writeFailFile(String source, String testName, String extension) throws IOException, InterruptedException {
+		deleteFailFile(testName, extension);
 		File failFile = new File(workDir, testName + FAIL_SUFFIX + extension);
 		Writer writer = new OutputStreamWriter(new FileOutputStream(failFile),"UTF-8");
 		try {

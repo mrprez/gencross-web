@@ -5,11 +5,9 @@ import java.io.IOException;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 
-import com.mrprez.gencross.web.selenium.WebAbstractTest;
 import com.mrprez.gencross.web.tester.PageTester;
 
 public class TableTest extends WebAbstractTest{
@@ -52,7 +50,7 @@ public class TableTest extends WebAbstractTest{
 		editPersonnageTester.addReplacementRule("[0-9]{2}:[0-9]{2} [0-9]{2}/[0-9]{2}", "00:00 00/00");
 		editPersonnageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
 		editPersonnageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
-		
+		editPersonnageTester.addReplacementRule("style=\"\" ", "");
 	}
 
 	@Test
@@ -144,18 +142,6 @@ public class TableTest extends WebAbstractTest{
 		new Select(driver.findElement(By.id("AttributePlayerInTable!attribute_newPlayerName"))).selectByVisibleText("azerty");
 		driver.findElement(By.id("AttributePlayerInTable!attribute_0")).click();
 		pageTester.testPage(driver, "editTable10");
-		pageTester.addReplacementRule("cd_frame_id_=\"[0-9a-f]*\"", "cd_frame_id_=\"00000000000000000000000000000000\"");
-		driver.switchTo().frame(0);
-		WebElement editable = driver.switchTo().activeElement();
-		editable.sendKeys("Message example");
-		driver.switchTo().defaultContent();
-		pageTester.testPage(driver, "editTable11");
-		driver.findElement(By.id("addMessageForm_addMessage")).click();
-		pageTester.testPage(driver, "editTable12");
-		driver.findElement(By.cssSelector("img.expandImg")).click();
-		pageTester.testPage(driver, "editTable13");
-		driver.findElement(By.cssSelector("img.expandImg")).click();
-		pageTester.testPage(driver, "editTable14");
 		
 		mailTester.test("mail");
 		
@@ -188,7 +174,7 @@ public class TableTest extends WebAbstractTest{
 	    driver.findElement(By.cssSelector("#addFreePropertyForm_5_11 > button[type=\"button\"]")).click();
 	    editPersonnageTester.testPage(driver, "editPerso5");
 	    driver.findElement(By.linkText("Table INS")).click();
-	    pageTester.testPage(driver, "editTable15");
+	    pageTester.testPage(driver, "editTable11");
 		
 		driver.findElement(By.id("MultiExport_0")).click();
 		pageTester.testPage(driver, "multiExport1");

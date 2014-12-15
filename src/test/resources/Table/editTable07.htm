@@ -1,275 +1,298 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
-		<title>Gen-Cross</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=8" />
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-1.10.1.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery-ui.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/jquery.ui.datepicker-fr.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ajax.jsp" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/tree.js" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="/gencross-web/js/script.js" charset="utf-8"></script>
-		<link href="/gencross-web/css/genCross.css" rel="stylesheet" type="text/css" />
-		<link href="/gencross-web/css/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
-		<link href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
-		<link rel="icon" type="image/jpeg" href="/gencross-web/img/icone_GenCross.jpg" />
-	<script type="text/javascript" src="http://localhost:8181/gencross-web/js/ckeditor/config.js?t=B8DJ5M3"></script><link rel="stylesheet" type="text/css" href="http://localhost:8181/gencross-web/js/ckeditor/skins/kama/editor.css?t=B8DJ5M3" /><script type="text/javascript" src="http://localhost:8181/gencross-web/js/ckeditor/lang/fr.js?t=B8DJ5M3"></script><script type="text/javascript" src="http://localhost:8181/gencross-web/js/ckeditor/plugins/styles/styles/default.js?t=B8DJ5M3"></script></head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
-		<div id="header">
-			<div id="headerLeft">
-				<a href="/gencross-web/List.action"><img src="/gencross-web/img/logo_GenCross.jpg" /></a>
-				
-
-
-
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
+<title>Gen-Cross</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
+<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
+<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
+<script src="http://localhost:8181/gencross-web/js/ckeditor/config.js?t=B8DJ5M3" type="text/javascript"/>
+<link href="http://localhost:8181/gencross-web/js/ckeditor/skins/kama/editor.css?t=B8DJ5M3" type="text/css" rel="stylesheet"/>
+<script src="http://localhost:8181/gencross-web/js/ckeditor/lang/fr.js?t=B8DJ5M3" type="text/javascript"/>
+<script src="http://localhost:8181/gencross-web/js/ckeditor/plugins/styles/styles/default.js?t=B8DJ5M3" type="text/javascript"/>
+<style type="text/css">.cke_skin_kama{visibility:hidden;}</style>
+</head>
+<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+<div id="header">
+<div id="headerLeft">
+<a href="/gencross-web/List.action">
+<img src="/gencross-web/img/logo_GenCross.jpg"/>
+</a>
+<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
+<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
+<script language="Javascript" type="text/javascript">$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});</script>
 <table class="menu">
-	<tbody>
-		<tr>
-			
-				<td id="personnageMenu" class="menu" onclick="javascript:showSubMenu(this)">
-					<span class="menu">Personnages</span>
-					<ul class="subMenu">
-						<li class="subMenu"><a href="/gencross-web/List.action">Liste des personnages</a></li>
-						<li class="subMenu"><a href="/gencross-web/TableList.action">Liste des tables</a></li>
-						<li class="subMenu"><a href="/gencross-web/Create.action">Créer un personnage</a></li>
-					</ul>
-				</td>
-				<script language="Javascript">
-					$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});
-				</script>
-			
-				<td id="accountManagementMenu" class="menu" onclick="javascript:showSubMenu(this)">
-					<span class="menu">Gérer son compte</span>
-					<ul class="subMenu">
-						<li class="subMenu"><a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a></li>
-						<li class="subMenu"><a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a></li>
-					</ul>
-				</td>
-				<script language="Javascript">
-					$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});
-				</script>
-				
-				<td class="menu">
-					<a href="/gencross-web/link!downloads.action" class="menu">Téléchargements</a>
-				</td>
-				
-				
-					<td id="administrationMenu" class="menu" onclick="javascript:showSubMenu(this)">
-						<span class="menu">Administration</span>
-						<ul class="subMenu">
-							<li class="subMenu"><a href="/gencross-web/ListUser.action">Liste des utilisateurs</a></li>
-							<li class="subMenu"><a href="/gencross-web/Params.action">Gestion des paramètres</a></li>
-							<li class="subMenu"><a href="/gencross-web/JobProcessing.action">Traitements programmés</a></li>
-							<li class="subMenu"><a href="/gencross-web/Logger.action">Gestion des logs</a></li>
-						</ul>
-					</td>
-					<script language="Javascript">
-						$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});
-					</script>
-				
-				
-			
-		</tr>
-	</tbody>
-</table>
-
-
-			</div>
-			<div id="headerRight">
-				
-					<span id="username">mrprez</span>
-					<br />
-					<a id="disconnect" href="/gencross-web/Disconnect.action">Déconnexion</a>
-				
-			</div>
-			<div class="separator"></div>
-		</div>
-		<div id="content">
-		
-
-<script language="JavaScript" type="text/javascript" src="/gencross-web/js/ckeditor/ckeditor.js"></script>
-
-
-
-	<div id="tableTitle">
-		<span>Table INS</span>
-	</div>
-	
-	
-	
-	<div id="pnjAndPjDiv">
-		<div id="pnjDiv">
-			<table id="pnjList" class="genCrossTable">
-				<thead>
-					<tr>
-						<th class="genCrossTable">PNJ</th>
-						<th class="genCrossTable">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-					
-						<tr>
-							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=2">Table INS 2</a>
-							</td>
-							<td class="genCrossTable">
-								<a href="/gencross-web/AttributePlayerInTable.action?personnageId=2&amp;tableId=1" title="Attribuer un PJ"><img src="/gencross-web/img/attributePlayer.png" alt="Attribuer à un joueur" /></a>
-								<a href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=2&amp;id=1" title="Exclure de la table"><img src="/gencross-web/img/unlink.png" alt="Exclure de la table" /></a>
-							</td>
-						</tr>
-					
-					<form id="EditTable!addPersonnage" name="EditTable!addPersonnage" action="/gencross-web/EditTable!addPersonnage.action" method="post"></form>
-						<tr>
-							<input type="hidden" name="id" value="1" id="EditTable!addPersonnage_id" />
-							<td class="genCrossTable"><input type="text" name="personnageName" value="" id="EditTable!addPersonnage_personnageName" /></td>
-							<td class="genCrossTable"><input type="submit" id="EditTable!addPersonnage_0" value="Créer" />
+<tbody>
+<tr>
+<td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu">
+<span class="menu">Personnages</span>
+<ul class="subMenu">
+<li class="subMenu">
+<a href="/gencross-web/List.action">Liste des personnages</a>
+</li>
+<li class="subMenu">
+<a href="/gencross-web/TableList.action">Liste des tables</a>
+</li>
+<li class="subMenu">
+<a href="/gencross-web/Create.action">Créer un personnage</a>
+</li>
+</ul>
 </td>
-						</tr>
-					
-
-
-
-
-				</tbody>
-			</table>
-		</div>
-		
-		<div id="pjDiv">
-			<table id="pjList" class="genCrossTable">
-				<thead>
-					<tr>
-						<th class="genCrossTable">PJ</th>
-						<th class="genCrossTable">Joueur</th>
-						<th class="genCrossTable">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-					
-						<tr>
-							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=3">Table INS 3</a>
-							</td>
-							<td class="genCrossTable">mrprez</td>
-							<td class="genCrossTable">
-								<form id="transformInPnjForm" name="transformInPnjForm" action="/gencross-web/EditTable!transformInPNJ.action" method="post" title="Transformer en PNJ">
-									<input type="hidden" name="personnageId" value="3" id="transformInPnjForm_personnageId" />
-									<input type="hidden" name="id" value="1" id="transformInPnjForm_id" />
-									
-									<input type="image" alt="Submit" src="/gencross-web/img/becomePNJ.png" id="transformInPnjForm_0" value="Submit" onclick="this.form.submit();" />
-
-								</form>
-
-
-
-
-								<a href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=3&amp;id=1" title="Exclure de la table"><img src="/gencross-web/img/unlink.png" alt="Exclure de la table" /></a>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="genCrossTable">
-								<a href="/gencross-web/Edit.action?personnageId=4">Table INS 4</a>
-							</td>
-							<td class="genCrossTable">azerty</td>
-							<td class="genCrossTable">
-								<form id="transformInPnjForm" name="transformInPnjForm" action="/gencross-web/EditTable!transformInPNJ.action" method="post" title="Transformer en PNJ">
-									<input type="hidden" name="personnageId" value="4" id="transformInPnjForm_personnageId" />
-									<input type="hidden" name="id" value="1" id="transformInPnjForm_id" />
-									
-									<input type="image" alt="Submit" src="/gencross-web/img/becomePNJ.png" id="transformInPnjForm_0" value="Submit" onclick="this.form.submit();" />
-
-								</form>
-
-
-
-
-								<a href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=4&amp;id=1" title="Exclure de la table"><img src="/gencross-web/img/unlink.png" alt="Exclure de la table" /></a>
-							</td>
-						</tr>
-					
-					
-						<tr>
-							<td colspan="3">
-								<a href="/gencross-web/TablePointsPools.action?id=1">Gérer les pools de points</a>
-							</td>
-						</tr>
-					
-				</tbody>
-			</table>
-		</div>
-	</div>
-	
-	<div id="editTableActionsDiv">
-		
-		<form id="MultiExport" name="MultiExport" action="/gencross-web/MultiExport.action" method="get" class="tableButton buttonGroup"><input type="hidden" name="tableId" value="1" id="MultiExport_tableId" /><input type="submit" id="MultiExport_0" value="Export Multiple" />
+<td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu">
+<span class="menu">Gérer son compte</span>
+<ul class="subMenu">
+<li class="subMenu">
+<a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+</li>
+<li class="subMenu">
+<a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+</li>
+</ul>
+</td>
+<td class="menu">
+<a class="menu" href="/gencross-web/link!downloads.action">Téléchargements</a>
+</td>
+<td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu">
+<span class="menu">Administration</span>
+<ul class="subMenu">
+<li class="subMenu">
+<a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
+</li>
+<li class="subMenu">
+<a href="/gencross-web/Params.action">Gestion des paramètres</a>
+</li>
+<li class="subMenu">
+<a href="/gencross-web/JobProcessing.action">Traitements programmés</a>
+</li>
+<li class="subMenu">
+<a href="/gencross-web/Logger.action">Gestion des logs</a>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="headerRight">
+<span id="username">mrprez</span>
+<br/>
+<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
+</div>
+</div>
+<div id="content">
+<script src="/gencross-web/js/ckeditor/ckeditor.js" type="text/javascript" language="JavaScript"/>
+<div id="tableTitle">
+<span>Table INS</span>
+</div>
+<div id="pnjAndPjDiv">
+<div id="pnjDiv">
+<form method="post" action="/gencross-web/EditTable!addPersonnage.action" name="EditTable!addPersonnage" id="EditTable!addPersonnage"/>
+<input id="EditTable!addPersonnage_id" value="1" name="id" type="hidden"/>
+<table class="genCrossTable" id="pnjList">
+<thead>
+<tr>
+<th class="genCrossTable">PNJ</th>
+<th class="genCrossTable">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="genCrossTable">
+<a href="/gencross-web/Edit.action?personnageId=2">Table INS 2</a>
+</td>
+<td class="genCrossTable">
+<a title="Attribuer un PJ" href="/gencross-web/AttributePlayerInTable.action?personnageId=2&amp;tableId=1">
+<img alt="Attribuer à un joueur" src="/gencross-web/img/attributePlayer.png"/>
+</a>
+<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=2&amp;id=1">
+<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="genCrossTable">
+<input id="EditTable!addPersonnage_personnageName" value="" name="personnageName" type="text"/>
+</td>
+<td class="genCrossTable">
+<input value="Créer" id="EditTable!addPersonnage_0" type="submit"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="pjDiv">
+<table class="genCrossTable" id="pjList">
+<thead>
+<tr>
+<th class="genCrossTable">PJ</th>
+<th class="genCrossTable">Joueur</th>
+<th class="genCrossTable">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="genCrossTable">
+<a href="/gencross-web/Edit.action?personnageId=3">Table INS 3</a>
+</td>
+<td class="genCrossTable">mrprez</td>
+<td class="genCrossTable">
+<form title="Transformer en PNJ" method="post" action="/gencross-web/EditTable!transformInPNJ.action" name="transformInPnjForm" id="transformInPnjForm">
+<input id="transformInPnjForm_personnageId" value="3" name="personnageId" type="hidden"/>
+<input id="transformInPnjForm_id" value="1" name="id" type="hidden"/>
+<input onclick="this.form.submit();" value="Submit" id="transformInPnjForm_0" src="/gencross-web/img/becomePNJ.png" alt="Submit" type="image"/>
 </form>
-
-
-
-
-		<form id="PlanGame" name="PlanGame" action="/gencross-web/PlanGame.action" method="get" class="tableButton buttonGroup"><input type="hidden" name="tableId" value="1" id="PlanGame_tableId" /><input type="submit" id="PlanGame_0" value="Planning" />
+<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=3&amp;id=1">
+<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="genCrossTable">
+<a href="/gencross-web/Edit.action?personnageId=4">Table INS 4</a>
+</td>
+<td class="genCrossTable">azerty</td>
+<td class="genCrossTable">
+<form title="Transformer en PNJ" method="post" action="/gencross-web/EditTable!transformInPNJ.action" name="transformInPnjForm" id="transformInPnjForm">
+<input id="transformInPnjForm_personnageId" value="4" name="personnageId" type="hidden"/>
+<input id="transformInPnjForm_id" value="1" name="id" type="hidden"/>
+<input onclick="this.form.submit();" value="Submit" id="transformInPnjForm_0" src="/gencross-web/img/becomePNJ.png" alt="Submit" type="image"/>
 </form>
-
-
-
-
-	</div>
-
-	
-	
-	<div id="messageListDiv">
-		<table id="messageList" class="genCrossTable">
-			<tbody><tr>
-				<th class="genCrossTable">Messages</th>
-			</tr>
-			
-			
-			<tr>
-				<td>
-					<form id="addMessageForm" name="addMessageForm" action="/gencross-web/EditTable!newMessage.action" method="post" class="tableButton">
-						<input type="hidden" name="id" value="1" id="addMessageForm_id" />
-						<textarea name="message" cols="60" rows="8" id="message" style="visibility: hidden; display: none;"></textarea><span id="cke_message" class="cke_skin_kama cke_1 cke_editor_message" dir="ltr" title="" lang="fr" tabindex="0" role="application" aria-labelledby="cke_message_arialbl"><span id="cke_message_arialbl" class="cke_voice_label">Éditeur de Texte Enrichi</span><span class="cke_browser_webkit" role="presentation"><span class="cke_wrapper cke_ltr" role="presentation"><table class="cke_editor" border="0" cellspacing="0" cellpadding="0" role="presentation"><tbody><tr role="presentation"><td id="cke_top_message" class="cke_top" role="presentation"><div class="cke_toolbox" role="group" aria-labelledby="cke_6" onmousedown="return false;"><span id="cke_6" class="cke_voice_label">Editor toolbars</span><span id="cke_7" class="cke_toolbar" role="toolbar"><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><span class="cke_button"><a id="cke_8" class="cke_off cke_button_bold" "="" href="javascript:void('Gras')" title="Gras" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_8_label" onkeydown="return CKEDITOR.tools.callFunction(4, event);" onfocus="return CKEDITOR.tools.callFunction(5, event);" onclick="CKEDITOR.tools.callFunction(6, this); return false;"><span class="cke_icon"> </span><span id="cke_8_label" class="cke_label">Gras</span></a></span><span class="cke_button"><a id="cke_9" class="cke_off cke_button_italic" "="" href="javascript:void('Italique')" title="Italique" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_9_label" onkeydown="return CKEDITOR.tools.callFunction(7, event);" onfocus="return CKEDITOR.tools.callFunction(8, event);" onclick="CKEDITOR.tools.callFunction(9, this); return false;"><span class="cke_icon"> </span><span id="cke_9_label" class="cke_label">Italique</span></a></span><span class="cke_separator" role="separator"></span><span class="cke_button"><a id="cke_10" class="cke_off cke_button_numberedlist" "="" href="javascript:void('Insérer/Supprimer la liste numérotée')" title="Insérer/Supprimer la liste numérotée" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_10_label" onkeydown="return CKEDITOR.tools.callFunction(10, event);" onfocus="return CKEDITOR.tools.callFunction(11, event);" onclick="CKEDITOR.tools.callFunction(12, this); return false;"><span class="cke_icon"> </span><span id="cke_10_label" class="cke_label">Insérer/Supprimer la liste numérotée</span></a></span><span class="cke_button"><a id="cke_11" class="cke_off cke_button_bulletedlist" "="" href="javascript:void('Insérer/Supprimer la liste à puces')" title="Insérer/Supprimer la liste à puces" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_11_label" onkeydown="return CKEDITOR.tools.callFunction(13, event);" onfocus="return CKEDITOR.tools.callFunction(14, event);" onclick="CKEDITOR.tools.callFunction(15, this); return false;"><span class="cke_icon"> </span><span id="cke_11_label" class="cke_label">Insérer/Supprimer la liste à puces</span></a></span><span class="cke_separator" role="separator"></span><span class="cke_button"><a id="cke_12" class="cke_off cke_button_link" "="" href="javascript:void('Lien')" title="Lien" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_12_label" onkeydown="return CKEDITOR.tools.callFunction(16, event);" onfocus="return CKEDITOR.tools.callFunction(17, event);" onclick="CKEDITOR.tools.callFunction(18, this); return false;"><span class="cke_icon"> </span><span id="cke_12_label" class="cke_label">Lien</span></a></span><span class="cke_button"><a id="cke_13" class="cke_button_unlink cke_disabled" "="" href="javascript:void('Supprimer le lien')" title="Supprimer le lien" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_13_label" onkeydown="return CKEDITOR.tools.callFunction(19, event);" onfocus="return CKEDITOR.tools.callFunction(20, event);" onclick="CKEDITOR.tools.callFunction(21, this); return false;" aria-disabled="true"><span class="cke_icon"> </span><span id="cke_13_label" class="cke_label">Supprimer le lien</span></a></span><span class="cke_separator" role="separator"></span><span class="cke_button"><a id="cke_14" class="cke_off cke_button_about" "="" href="javascript:void('A propos de CKEditor')" title="A propos de CKEditor" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_14_label" onkeydown="return CKEDITOR.tools.callFunction(22, event);" onfocus="return CKEDITOR.tools.callFunction(23, event);" onclick="CKEDITOR.tools.callFunction(24, this); return false;"><span class="cke_icon"> </span><span id="cke_14_label" class="cke_label">A propos de CKEditor</span></a></span></span><span class="cke_toolbar_end"></span></span></div><a title="Enrouler la barre d'outils" id="cke_15" tabindex="-1" class="cke_toolbox_collapser" onclick="CKEDITOR.tools.callFunction(25)"><span>▲</span></a></td></tr><tr role="presentation"><td id="cke_contents_message" class="cke_contents" style="height:200px" role="presentation"><iframe style="width:100%;height:100%" frameborder="0" title="Éditeur de Texte Enrichi, message, appuyez sur ALT-0 pour l'aide." src="" tabindex="-1" allowtransparency="true"></iframe></td></tr><tr role="presentation"><td id="cke_bottom_message" class="cke_bottom" role="presentation"><div class="cke_resizer cke_resizer_ltr" title="Déplacer pour modifier la taille" onmousedown="CKEDITOR.tools.callFunction(3, event)"></div><span id="cke_path_message_label" class="cke_voice_label">Elements path</span><div id="cke_path_message" class="cke_path" role="group" aria-labelledby="cke_path_message_label"><span class="cke_empty"> </span></div></td></tr></tbody></table><style>.cke_skin_kama{visibility:hidden;}</style></span></span></span>
-						<script type="text/javascript">
-							var editor = CKEDITOR.replace('message', {
-								toolbar : 'Basic',
-							});
-						</script>
-						<input type="submit" id="addMessageForm_addMessage" name="addMessage" value="Ajouter" />
-
-						<input type="submit" id="addMessageForm_sendMessage" name="sendMessage" value="Envoyer au Joueurs" />
-
-					</form>
-
-
-
-
-					<form id="EditTable!refreshMessages" name="EditTable!refreshMessages" action="/gencross-web/EditTable!refreshMessages.action" method="post" class="tableButton">
-						<input type="hidden" name="id" value="1" id="EditTable!refreshMessages_id" />
-						<input type="submit" id="EditTable!refreshMessages_0" value="Récupérer les messages récemment envoyés" />
-
-					</form>
-
-
-
-
-		
-				</td>
-			</tr>
-		</tbody></table>
-	</div>
-
-	<div class="tableFooterElement">Identifiant de la table = 1</div>
-
-
-
-
-
-		</div>
-		<div id="footer"><center></center></div>
-	
-
-
-
-</body></html>
+<a title="Exclure de la table" href="/gencross-web/EditTable!unbindPersonnage.action?personnageId=4&amp;id=1">
+<img alt="Exclure de la table" src="/gencross-web/img/unlink.png"/>
+</a>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<a href="/gencross-web/TablePointsPools.action?id=1">Gérer les pools de points</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="editTableActionsDiv">
+<form class="tableButton buttonGroup" method="get" action="/gencross-web/MultiExport.action" name="MultiExport" id="MultiExport">
+<input id="MultiExport_tableId" value="1" name="tableId" type="hidden"/>
+<input value="Export Multiple" id="MultiExport_0" type="submit"/>
+</form>
+<form class="tableButton buttonGroup" method="get" action="/gencross-web/PlanGame.action" name="PlanGame" id="PlanGame">
+<input id="PlanGame_tableId" value="1" name="tableId" type="hidden"/>
+<input value="Planning" id="PlanGame_0" type="submit"/>
+</form>
+</div>
+<div id="messageListDiv">
+<table class="genCrossTable" id="messageList">
+<tbody>
+<tr>
+<th class="genCrossTable">Messages</th>
+</tr>
+<tr>
+<td>
+<form class="tableButton" method="post" action="/gencross-web/EditTable!newMessage.action" name="addMessageForm" id="addMessageForm">
+<input id="addMessageForm_id" value="1" name="id" type="hidden"/>
+<textarea style="visibility: hidden; display: none;" id="message" rows="8" cols="60" name="message"/>
+<span aria-labelledby="cke_message_arialbl" role="application" tabindex="0" lang="fr" title="" dir="ltr" class="cke_skin_kama cke_1 cke_editor_message" id="cke_message">
+<span class="cke_voice_label" id="cke_message_arialbl">Éditeur de Texte Enrichi</span>
+</span>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" class="cke_editor">
+<tbody>
+<tr role="presentation">
+<td role="presentation" class="cke_top" id="cke_top_message">
+<div onmousedown="return false;" aria-labelledby="cke_6" role="group" class="cke_toolbox">
+<span class="cke_voice_label" id="cke_6">Editor toolbars</span>
+<span role="toolbar" class="cke_toolbar" id="cke_7">
+<span role="presentation" class="cke_toolgroup">
+<span class="cke_button">
+<a onclick="CKEDITOR.tools.callFunction(6, this); return false;" onfocus="return CKEDITOR.tools.callFunction(5, event);" onkeydown="return CKEDITOR.tools.callFunction(4, event);" aria-labelledby="cke_8_label" role="button" hidefocus="true" tabindex="-1" title="Gras" href="javascript:void('Gras')" class="cke_off cke_button_bold" id="cke_8">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_8_label">Gras</span>
+</a>
+</span>
+<span class="cke_button">
+<a onclick="CKEDITOR.tools.callFunction(9, this); return false;" onfocus="return CKEDITOR.tools.callFunction(8, event);" onkeydown="return CKEDITOR.tools.callFunction(7, event);" aria-labelledby="cke_9_label" role="button" hidefocus="true" tabindex="-1" title="Italique" href="javascript:void('Italique')" class="cke_off cke_button_italic" id="cke_9">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_9_label">Italique</span>
+</a>
+</span>
+<span class="cke_button">
+<a onclick="CKEDITOR.tools.callFunction(12, this); return false;" onfocus="return CKEDITOR.tools.callFunction(11, event);" onkeydown="return CKEDITOR.tools.callFunction(10, event);" aria-labelledby="cke_10_label" role="button" hidefocus="true" tabindex="-1" title="Insérer/Supprimer la liste numérotée" href="javascript:void('Ins%E9rer/Supprimer%20la%20liste%20num%E9rot%E9e')" class="cke_off cke_button_numberedlist" id="cke_10">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_10_label">Insérer/Supprimer la liste numérotée</span>
+</a>
+</span>
+<span class="cke_button">
+<a onclick="CKEDITOR.tools.callFunction(15, this); return false;" onfocus="return CKEDITOR.tools.callFunction(14, event);" onkeydown="return CKEDITOR.tools.callFunction(13, event);" aria-labelledby="cke_11_label" role="button" hidefocus="true" tabindex="-1" title="Insérer/Supprimer la liste à puces" href="javascript:void('Ins%E9rer/Supprimer%20la%20liste%20%E0%20puces')" class="cke_off cke_button_bulletedlist" id="cke_11">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_11_label">Insérer/Supprimer la liste à puces</span>
+</a>
+</span>
+<span class="cke_button">
+<a onclick="CKEDITOR.tools.callFunction(18, this); return false;" onfocus="return CKEDITOR.tools.callFunction(17, event);" onkeydown="return CKEDITOR.tools.callFunction(16, event);" aria-labelledby="cke_12_label" role="button" hidefocus="true" tabindex="-1" title="Lien" href="javascript:void('Lien')" class="cke_off cke_button_link" id="cke_12">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_12_label">Lien</span>
+</a>
+</span>
+<span class="cke_button">
+<a aria-disabled="true" onclick="CKEDITOR.tools.callFunction(21, this); return false;" onfocus="return CKEDITOR.tools.callFunction(20, event);" onkeydown="return CKEDITOR.tools.callFunction(19, event);" aria-labelledby="cke_13_label" role="button" hidefocus="true" tabindex="-1" title="Supprimer le lien" href="javascript:void('Supprimer%20le%20lien')" class="cke_button_unlink cke_disabled" id="cke_13">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_13_label">Supprimer le lien</span>
+</a>
+</span>
+<span class="cke_button">
+<a onclick="CKEDITOR.tools.callFunction(24, this); return false;" onfocus="return CKEDITOR.tools.callFunction(23, event);" onkeydown="return CKEDITOR.tools.callFunction(22, event);" aria-labelledby="cke_14_label" role="button" hidefocus="true" tabindex="-1" title="A propos de CKEditor" href="javascript:void('A%20propos%20de%20CKEditor')" class="cke_off cke_button_about" id="cke_14">
+<span class="cke_icon"> </span>
+<span class="cke_label" id="cke_14_label">A propos de CKEditor</span>
+</a>
+</span>
+</span>
+</span>
+</div>
+<a onclick="CKEDITOR.tools.callFunction(25)" class="cke_toolbox_collapser" tabindex="-1" id="cke_15" title="Enrouler la barre d'outils">
+<span>▲</span>
+</a>
+</td>
+</tr>
+<tr role="presentation">
+<td role="presentation" style="height:200px" class="cke_contents" id="cke_contents_message">
+<iframe allowtransparency="true" tabindex="-1" src="" title="Éditeur de Texte Enrichi, message, appuyez sur ALT-0 pour l'aide." frameborder="0" style="width:100%;height:100%"/>
+</td>
+</tr>
+<tr role="presentation">
+<td role="presentation" class="cke_bottom" id="cke_bottom_message">
+<span class="cke_voice_label" id="cke_path_message_label">Elements path</span>
+<div aria-labelledby="cke_path_message_label" role="group" class="cke_path" id="cke_path_message">
+<span class="cke_empty"> </span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">var editor = CKEDITOR.replace('message', { toolbar : 'Basic', });</script>
+<input value="Ajouter" name="addMessage" id="addMessageForm_addMessage" type="submit"/>
+<input value="Envoyer au Joueurs" name="sendMessage" id="addMessageForm_sendMessage" type="submit"/>
+</form>
+<form class="tableButton" method="post" action="/gencross-web/EditTable!refreshMessages.action" name="EditTable!refreshMessages" id="EditTable!refreshMessages">
+<input id="EditTable!refreshMessages_id" value="1" name="id" type="hidden"/>
+<input value="Récupérer les messages récemment envoyés" id="EditTable!refreshMessages_0" type="submit"/>
+</form>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableFooterElement">Identifiant de la table = 1</div>
+</div>
+<div id="footer"/>
+</body>
+</html>

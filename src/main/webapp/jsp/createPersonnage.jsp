@@ -14,7 +14,7 @@
 	<s:select id="gameMasterLockedList" label="MJ du personnage" disabled="true" list="#{'':#session.user.username}"/>
 	<s:select id="playerList" label="Joueur du personnage" name="playerName" list="userList" listKey="username" listValue="username" headerValue="Aucun" headerKey="%{noOneKey}"/>
 	<s:select id="playerLockedList" label="Joueur du personnage" disabled="true" list="#{'':#session.user.username}"/>
-	<s:submit/>
+	<s:submit value="Valider"/>
 </s:form>
 
 <script language="Javascript">

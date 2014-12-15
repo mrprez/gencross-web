@@ -88,5 +88,14 @@ function displayEditParam(img, key){
 	$(img).hide();
 }
 
+function deleteTable(id){
+	$('#waitMask').show();
+	$('#deleteTableDiv').show();
+	$('#tableId').val(id);
+}
 
+function cancelDeleteTable(){
+	$('#waitMask').hide();
+	$('#deleteTableDiv').hide();
+}
 

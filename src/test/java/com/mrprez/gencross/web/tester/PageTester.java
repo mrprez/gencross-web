@@ -17,13 +17,16 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
 
 public class PageTester extends TemplateTester {
@@ -47,7 +50,7 @@ public class PageTester extends TemplateTester {
 		Thread.sleep(sleepTime);
 		try {
 			for (ExpectedCondition<Boolean> condition : waitConditionList) {
-				(new WebDriverWait(driver, 30)).until(condition);
+				(new WebDriverWait(driver, 120)).until(condition);
 			}
 		} catch (TimeoutException te) {
 			writeTimeoutTest(driver.getPageSource(), testName);
@@ -78,25 +81,42 @@ public class PageTester extends TemplateTester {
 	@Override
 	protected String formatSource(String source) throws IOException {
 		try {
-			StringReader sourceReader = new StringReader(source);
-			StringWriter tidyWriter = new StringWriter();
+			String text = source.replaceAll("[&]lt[;]", "<");
+			text = text.replaceAll("[&]gt[;]", ">");
+			
 			Tidy tidy = new Tidy();
 			tidy.setXHTML(true);
-			Document document = tidy.parseDOM(sourceReader, tidyWriter);
+			tidy.setQuoteAmpersand(false);
+			org.w3c.dom.Document untidyDocument = tidy.parseDOM(new StringReader(text), new StringWriter());
 			
 			StringWriter stringWriter = new StringWriter();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
+			transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+			transformer.transform(new DOMSource(untidyDocument), new StreamResult(stringWriter));
 			
-			return super.formatSource(stringWriter.toString());
+			Document document = DocumentHelper.parseText(stringWriter.toString().replaceAll("[>][ ]+", ">"));
+			StringWriter compactStringWriter = new StringWriter();
+			XMLWriter compactXmlWriter = new XMLWriter(compactStringWriter, OutputFormat.createCompactFormat());
+			compactXmlWriter.write(document);
+			
+			document = DocumentHelper.parseText(compactStringWriter.toString());
+			StringWriter prettyStringWriter = new StringWriter();
+			XMLWriter prettyXmlWriter = new XMLWriter(prettyStringWriter, new OutputFormat("\t", true, "UTF-8"));
+			prettyXmlWriter.write(document);
+			
+			return super.formatSource(prettyStringWriter.toString());
 			
 		} catch (TransformerException e) {
 			throw new IOException(e);
+		} catch (DocumentException e) {
+			throw new IOException(e);
 		}
 	}
+	
+	
 	
 	
 	

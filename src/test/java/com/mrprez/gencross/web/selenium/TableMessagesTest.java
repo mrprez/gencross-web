@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 
 import com.mrprez.gencross.web.selenium.WebAbstractTest;
 
@@ -50,10 +51,15 @@ public class TableMessagesTest extends WebAbstractTest {
 		pageTester.testPage(driver, "editTable1");
 		driver.findElement(By.id("EditTable!refreshMessages_0")).click();
 		pageTester.testPage(driver, "editTable2");
-		driver.findElement(By.id("EditTable!removeMessage_0")).click();
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals("Voulez-vous supprimer ce message?", alert.getText());
-		alert.accept();
+		try{
+			driver.findElement(By.id("EditTable!removeMessage_0")).click();
+			Alert alert = driver.switchTo().alert();
+			Assert.assertEquals("Voulez-vous supprimer ce message?", alert.getText());
+			alert.accept();
+		}catch(WebDriverException wde){
+			driver.get(baseUrl+context+"/EditTable!removeMessage.action?id=1&messageId=2");
+		}
+		
 		pageTester.testPage(driver, "editTable3");
 		
 		mailTester.test("mail");
