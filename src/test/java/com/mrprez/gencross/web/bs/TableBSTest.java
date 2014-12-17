@@ -449,6 +449,133 @@ public class TableBSTest {
 	}
 	
 	
+	@Test
+	public void testRemovePersonnageFromTable_Success() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		table.getPersonnages().add(new PersonnageWorkBO());
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		Integer personnageId = 20;
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setId(personnageId);
+		personnageWork.setTable(table);
+		table.getPersonnages().add(personnageWork);
+		Mockito.when(tableBS.getPersonnageDAO().loadPersonnageWork(personnageId)).thenReturn(personnageWork);
+		
+		// Execute
+		PersonnageWorkBO returnedPersonnageWork = tableBS.removePersonnageFromTable(tableId, personnageId, gm);
+		
+		// Check
+		Assert.assertEquals(personnageWork, returnedPersonnageWork);
+		Assert.assertFalse(table.getPersonnages().contains(personnageWork));
+		Assert.assertNull(personnageWork.getTable());
+		Mockito.verify(tableBS.getPersonnageDAO()).loadPersonnageWork(personnageId);
+		Mockito.verify(tableBS.getTableDAO()).loadTable(tableId);
+	}
+	
+	
+	@Test
+	public void testRemovePersonnageFromTable_FailTableNotExists() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		Integer tableId = 10;
+		Integer personnageId = 20;
+		
+		// Execute
+		PersonnageWorkBO returnedPersonnageWork = tableBS.removePersonnageFromTable(tableId, personnageId, gm);
+		
+		// Check
+		Assert.assertNull(returnedPersonnageWork);
+	}
+	
+	
+	@Test
+	public void testRemovePersonnageFromTable_FailNoGmTable() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		table.getPersonnages().add(new PersonnageWorkBO());
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		Integer personnageId = 20;
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setId(personnageId);
+		personnageWork.setTable(table);
+		table.getPersonnages().add(personnageWork);
+		Mockito.when(tableBS.getPersonnageDAO().loadPersonnageWork(personnageId)).thenReturn(personnageWork);
+		
+		// Execute
+		UserBO user = AuthentificationBSTest.buildUser("robin");
+		PersonnageWorkBO returnedPersonnageWork = tableBS.removePersonnageFromTable(tableId, personnageId, user);
+		
+		// Check
+		Assert.assertNull(returnedPersonnageWork);
+		Assert.assertTrue(table.getPersonnages().contains(personnageWork));
+		Assert.assertNotNull(personnageWork.getTable());
+	}
+	
+	
+	@Test
+	public void testRemovePersonnageFromTable_FailPersonnageNotExists() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		table.getPersonnages().add(new PersonnageWorkBO());
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		Integer personnageId = 20;
+		
+		// Execute
+		PersonnageWorkBO returnedPersonnageWork = tableBS.removePersonnageFromTable(tableId, personnageId, gm);
+		
+		// Check
+		Assert.assertNull(returnedPersonnageWork);
+		Assert.assertEquals( 1, table.getPersonnages().size());
+	}
+	
+	
+	@Test
+	public void testRemovePersonnageFromTable_FailNotTablePersonnage() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		table.getPersonnages().add(new PersonnageWorkBO());
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		Integer personnageId = 20;
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setId(personnageId);
+		personnageWork.setTable(buildTable(gm, "Metropolis", "DC-Comics"));
+		table.getPersonnages().add(personnageWork);
+		Mockito.when(tableBS.getPersonnageDAO().loadPersonnageWork(personnageId)).thenReturn(personnageWork);
+		
+		// Execute
+		PersonnageWorkBO returnedPersonnageWork = tableBS.removePersonnageFromTable(tableId, personnageId, gm);
+		
+		// Check
+		Assert.assertEquals(personnageWork, returnedPersonnageWork);
+		Assert.assertFalse(table.getPersonnages().contains(personnageWork));
+		Assert.assertNull(personnageWork.getTable());
+		Mockito.verify(tableBS.getPersonnageDAO()).loadPersonnageWork(personnageId);
+		Mockito.verify(tableBS.getTableDAO()).loadTable(tableId);
+	}
+	
 	
 	private TableBS buildMockedTableBS(){
 		TableBS tableBS = new TableBS();
