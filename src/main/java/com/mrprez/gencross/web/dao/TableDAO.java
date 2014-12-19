@@ -38,7 +38,11 @@ public class TableDAO extends AbstractDAO implements ITableDAO {
 	@Override
 	public TableBO getPersonnageTable(PersonnageWorkBO personnageWork) throws Exception {
 		getSession().saveOrUpdate(personnageWork);
-		return personnageWork.getTable();
+		TableBO table = personnageWork.getTable();
+		if(table != null){
+			table.getName();
+		}
+		return table;
 	}
 
 	@Override

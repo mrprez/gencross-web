@@ -169,9 +169,6 @@ public class TableBS implements ITableBS {
 	@Override
 	public TableBO getPersonnageTable(PersonnageWorkBO personnageWork) throws Exception {
 		TableBO result = tableDAO.getPersonnageTable(personnageWork);
-		if(result==null){
-			return null;
-		}
 		result.getName();
 		return result;
 	}
