@@ -84,16 +84,6 @@ public class EditTableAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String addPoints() throws Exception {
-		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		String error = tableBS.addPointsToPj(id, user, pointPoolName, pointPoolModification);
-		if(error!=null){
-			addActionError(error);
-			return execute();
-		}
-		return SUCCESS;
-	}
-	
 	public String transformInPNJ() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		PersonnageWorkBO personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageId, user);
