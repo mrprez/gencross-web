@@ -3,8 +3,11 @@ package com.mrprez.gencross.web.bs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,6 +19,7 @@ import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.PoolPoint;
 import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.disk.PluginDescriptor;
+import com.mrprez.gencross.web.bo.PersonnageDataBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
@@ -446,14 +450,14 @@ public class TableBSTest {
 		Integer tableId = table.getId();
 		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
-		personnageWork.setGameMaster(gm);
+		UserBO user = AuthentificationBSTest.buildUser("robin");
+		personnageWork.setGameMaster(user);
 		Integer personnageId = 10;
 		personnageWork.setId(personnageId);
 		Mockito.when(tableBS.getPersonnageDAO().loadPersonnageWork(personnageId)).thenReturn(personnageWork);
 		
 		// Execute
-		UserBO user = AuthentificationBSTest.buildUser("robin");
-		PersonnageWorkBO returnedPersonnageWork = tableBS.addPersonnageToTable(tableId, personnageId, user);
+		PersonnageWorkBO returnedPersonnageWork = tableBS.addPersonnageToTable(tableId, personnageId, gm);
 		
 		// Check
 		Assert.assertNull(returnedPersonnageWork);
@@ -612,22 +616,133 @@ public class TableBSTest {
 		
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		PersonnageWorkBO personnageTab[] = new PersonnageWorkBO[5];
-		for(int i=0; i<personnageTab.length; i++){
+		for(int i=0; i<5; i++){
+			Personnage personnage = new Personnage();
+			personnage.getPointPools().put("Compétences", new PoolPoint("Compétences", 50));
+			PersonnageDataBO personnageData = new PersonnageDataBO();
+			personnageData.setPersonnage(personnage);
 			PersonnageWorkBO personnageWork = new PersonnageWorkBO();
-			personnageTab[i] = new PersonnageWorkBO();
-			
+			personnageWork.setPersonnageData(personnageData);
+			table.getPersonnages().add(personnageWork);
 		}
 		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		UserBO user = AuthentificationBSTest.buildUser("robin");
-		tableBS.addPointsToPj(tableId, user, "Compétences", 10);
+		String errorMessage = tableBS.addPointsToPj(tableId, user, "Compétences", 10);
 		
+		// Check
+		Assert.assertEquals("Vous n'ête pas propriétaire de cette table", errorMessage);
+		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
+			Assert.assertEquals(50,  personnageWork.getPersonnage().getPointPools().get("Compétences").getTotal() );
+		}
 		
 	}
 	
 	
+	@Test
+	public void testAddPointsToPj_Success() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		
+		UserBO gm =  AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Map<PersonnageWorkBO, Integer> expectedPoints = new HashMap<PersonnageWorkBO, Integer>();
+		for(int i=0; i<7; i++){
+			Personnage personnage = new Personnage();
+			personnage.getPointPools().put("Compétences", new PoolPoint("Compétences", 50+i));
+			PersonnageDataBO personnageData = new PersonnageDataBO();
+			personnageData.setPersonnage(personnage);
+			PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+			personnageWork.setPersonnageData(personnageData);
+			if( i<5 ){
+				personnageWork.setPlayer(AuthentificationBSTest.buildUser("player"+i));
+				expectedPoints.put(personnageWork, 60+i);
+			}else{
+				expectedPoints.put(personnageWork, 50+i);
+			}
+			
+			table.getPersonnages().add(personnageWork);
+			
+		}
+		
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		// Execute
+		String errorMessage = tableBS.addPointsToPj(tableId, gm, "Compétences", 10);
+		
+		// Check
+		Assert.assertNull(errorMessage);
+		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
+			Assert.assertEquals((int)expectedPoints.get(personnageWork),  (int)personnageWork.getPersonnage().getPointPools().get("Compétences").getTotal() );
+		}
+	}
+	
+	
+	@Test
+	public void testGetAddablePersonnages() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
+		Collection<PersonnageWorkBO> addablePersonnageList = new ArrayList<PersonnageWorkBO>();
+		addablePersonnageList.add(new PersonnageWorkBO());
+		Mockito.when(tableBS.getAddablePersonnages(table)).thenReturn(addablePersonnageList);
+		
+		// Execute
+		Collection<PersonnageWorkBO> methodResult = tableBS.getAddablePersonnages(table);
+		
+		// Check
+		Assert.assertEquals(addablePersonnageList, methodResult);
+	}
+	
+	
+	@Test
+	public void testAddMessageToTable_Success() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		// Execute
+		String message = "Message to test";
+		tableBS.addMessageToTable(message, tableId, gm);
+		
+		// Check
+		Mockito.verify(tableBS.getTableDAO()).saveTable(table);
+		Assert.assertEquals(1, table.getMessages().size());
+		TableMessageBO resultMessage = table.getMessages().iterator().next();
+		Assert.assertEquals(gm, resultMessage.getAuthor());
+		Assert.assertEquals(message, resultMessage.getData());
+		Assert.assertTrue(resultMessage.getDate().getTime()-new Date().getTime() < 10*1000);
+	}
+	
+	
+	@Test
+	public void testAddMessageToTable_Fail() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		// Execute
+		String message = "Message to test";
+		UserBO user = AuthentificationBSTest.buildUser("robin");
+		BusinessException businessException = null;
+		try{
+			tableBS.addMessageToTable(message, tableId, user);
+		}catch(BusinessException e){
+			businessException = e;
+		}
+		
+		// Check
+		Assert.assertNotNull(businessException);
+		Assert.assertEquals("The author is not the table game master", businessException.getMessage());
+	}
 	
 	
 	private TableBS buildMockedTableBS(){
