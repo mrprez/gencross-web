@@ -185,7 +185,7 @@
 								<artifactItem>
 									<groupId>com.mrprez.gencross</groupId>
 									<artifactId>gencross-ui</artifactId>
-									<version>1.9-SNAPSHOT</version>
+									<version>1.9</version>
 									<classifier>build-zip</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
