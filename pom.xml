@@ -10,7 +10,7 @@
 	
 	<parent>
 		<artifactId>mrprez</artifactId>
-		<groupId>com.mrprez</groupId>gencross-
+		<groupId>com.mrprez</groupId>
 		<version>1.4</version>
 	</parent>
 	
