@@ -17,7 +17,7 @@
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 		<axis2.version>1.6.2</axis2.version>
-		<plugins-repository.version>1.6-SNAPSHOT</plugins-repository.version>
+		<plugins-repository.version>1.6</plugins-repository.version>
 	</properties>
 	
 	<scm>
