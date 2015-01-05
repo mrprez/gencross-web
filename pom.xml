@@ -10,7 +10,7 @@
 	
 	<parent>
 		<artifactId>mrprez</artifactId>
-		<groupId>com.mrprez</groupId>
+		<groupId>com.mrprez</groupId>gencross-
 		<version>1.4</version>
 	</parent>
 	
@@ -185,7 +185,7 @@
 								<artifactItem>
 									<groupId>com.mrprez.gencross</groupId>
 									<artifactId>gencross-ui</artifactId>
-									<version>1.9</version>
+									<version>1.9.1</version>
 									<classifier>build-zip</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
