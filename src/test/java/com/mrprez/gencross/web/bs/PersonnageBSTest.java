@@ -781,4 +781,71 @@ public class PersonnageBSTest {
 		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
 	}
 	
+	@Test
+	public void testAddFreeProperty_Success() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#Religion", "Catholique");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNotNull(personnageWork.getPersonnage().getProperty("Compétences#Religion#Catholique"));
+		Assert.assertEquals("Compétences#Religion#Catholique", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testAddFreeProperty_Fail_NoMother() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#NotExist", "Catholique");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Compétences#NotExist#Catholique"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testAddFreeProperty_Fail_NoSubProperties() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Compétences#Religion").removeSubProperties();
+		
+		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#Religion", "Catholique");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Compétences#Religion#Catholique"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testAddFreeProperty_Fail_NoDefaultProperty() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Compétences#Religion").getSubProperties().setDefaultProperty(null);
+		
+		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#Religion", "Catholique");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Compétences#Religion#Catholique"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testAddFreeProperty_Fail() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#Religion", "Catholique#");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Compétences#Religion#Catholique"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
 }
