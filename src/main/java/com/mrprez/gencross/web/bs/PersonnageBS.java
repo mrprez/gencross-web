@@ -228,7 +228,7 @@ public class PersonnageBS implements IPersonnageBS {
 			return null;
 		}
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
-		if(personnageWork.getPlayer()==null || personnageWork.getPlayer().getUsername()==null){
+		if(personnageWork.getPlayer()==null){
 			return null;
 		}
 		if(!personnageWork.getPlayer().getUsername().equals(player.getUsername())){
@@ -243,7 +243,7 @@ public class PersonnageBS implements IPersonnageBS {
 			return null;
 		}
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
-		if(personnageWork.getGameMaster()==null || personnageWork.getGameMaster().getUsername()==null){
+		if(personnageWork.getGameMaster()==null){
 			return null;
 		}
 		if(!personnageWork.getGameMaster().getUsername().equals(gameMaster.getUsername())){

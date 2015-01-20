@@ -3,22 +3,26 @@ package com.mrprez.gencross.web.bs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.mrprez.gencross.Personnage;
+import com.mrprez.gencross.PoolPoint;
 import com.mrprez.gencross.Property;
 import com.mrprez.gencross.Version;
 import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.history.HistoryItem;
+import com.mrprez.gencross.value.DoubleValue;
 import com.mrprez.gencross.web.bo.PersonnageDataBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
-import com.mrprez.gencross.web.bs.PersonnageBS;
 import com.mrprez.gencross.web.dao.PersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IUserDAO;
@@ -119,6 +123,37 @@ public class PersonnageBSTest {
 		PersonnageBS personnageBS = buildPeronnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setPlayer(user);
+		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
+		
+		personnageBS.deletePersonnageFromUser(1, user);
+		Mockito.verify(personnageBS.getPersonnageDAO()).deletePersonnage(personnageWork);
+	}
+	
+	@Test
+	public void testDeletePersonnageFromUser_WithGm() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		
+		UserBO user = AuthentificationBSTest.buildUser("mrprez");
+		
+		UserBO gm = AuthentificationBSTest.buildUser("azerty");
+		
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setGameMaster(gm);
+		personnageWork.setPlayer(user);
+		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
+		
+		personnageBS.deletePersonnageFromUser(1, user);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).deletePersonnage(personnageWork);
+		Assert.assertEquals(personnageWork.getGameMaster(), gm);
+		Assert.assertNull(personnageWork.getPlayer());
+	}
+	
+	@Test
+	public void testDeletePersonnageFromGm() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		UserBO user = AuthentificationBSTest.buildUser("mrprez");
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setGameMaster(user);
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		
@@ -127,21 +162,21 @@ public class PersonnageBSTest {
 	}
 	
 	@Test
-	public void testDeletePersonnageFromUser_WithOtherUser() throws Exception{
+	public void testDeletePersonnageFromGm_WithUser() throws Exception{
 		PersonnageBS personnageBS = buildPeronnageBS();
 		
-		UserBO user = AuthentificationBSTest.buildUser("mrprez");
+		UserBO gm = AuthentificationBSTest.buildUser("mrprez");
 		
-		UserBO otherUser = AuthentificationBSTest.buildUser("azerty");
+		UserBO user = AuthentificationBSTest.buildUser("azerty");
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
-		personnageWork.setGameMaster(user);
-		personnageWork.setPlayer(otherUser);
+		personnageWork.setGameMaster(gm);
+		personnageWork.setPlayer(user);
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		
-		personnageBS.deletePersonnageFromUser(1, user);
+		personnageBS.deletePersonnageFromUser(1, gm);
 		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).deletePersonnage(personnageWork);
-		Assert.assertEquals(personnageWork.getPlayer(), otherUser);
+		Assert.assertEquals(personnageWork.getPlayer(), user);
 		Assert.assertNull(personnageWork.getGameMaster());
 	}
 	
@@ -213,6 +248,16 @@ public class PersonnageBSTest {
 	}
 	
 	@Test
+	public void testLoadPersonnage_Fail_Null() throws Exception {
+		PersonnageBS personnageBS = buildPeronnageBS();
+		UserBO user = AuthentificationBSTest.buildUser("mrprez");
+		
+		PersonnageWorkBO resultPersonnageWork = personnageBS.loadPersonnage(null, user);
+		
+		Assert.assertNull(resultPersonnageWork);
+	}
+	
+	@Test
 	public void testLoadPersonnage_WithUser() throws Exception {
 		PersonnageBS personnageBS = buildPeronnageBS();
 		
@@ -249,39 +294,89 @@ public class PersonnageBSTest {
 	public void getLoadPersonnageAsGameMaster() throws Exception{
 		PersonnageBS personnageBS = buildPeronnageBS();
 		
-		PersonnageWorkBO personnageWork;
-		PersonnageWorkBO result;
-		
-		personnageWork = new PersonnageWorkBO();
-		personnageWork.setPlayer(AuthentificationBSTest.buildUser("mrprez"));
-		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
-		result = personnageBS.loadPersonnageAsGameMaster(1, AuthentificationBSTest.buildUser("mrprez"));
-		Assert.assertNull(result);
-		
-		personnageWork = new PersonnageWorkBO();
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setGameMaster(AuthentificationBSTest.buildUser("mrprez"));
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
-		result = personnageBS.loadPersonnageAsGameMaster(1, AuthentificationBSTest.buildUser("mrprez"));
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsGameMaster(1, AuthentificationBSTest.buildUser("mrprez"));
 		Assert.assertEquals(personnageWork, result);
+	}
+	
+	@Test
+	public void getLoadPersonnageAsGameMaster_Fail_GmNull() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setPlayer(AuthentificationBSTest.buildUser("mrprez"));
+		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsGameMaster(1, AuthentificationBSTest.buildUser("mrprez"));
+		Assert.assertNull(result);
+	}
+	
+	
+	@Test
+	public void getLoadPersonnageAsGameMaster_Fail_NullId() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsGameMaster(null, AuthentificationBSTest.buildUser("mrprez"));
+		Assert.assertNull(result);
+	}
+	
+	@Test
+	public void getLoadPersonnageAsGameMaster_Fail_NotRightGm() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setGameMaster(AuthentificationBSTest.buildUser("mrprez"));
+		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsGameMaster(1, AuthentificationBSTest.buildUser("azerty"));
+		Assert.assertNull(result);
 	}
 	
 	@Test
 	public void getLoadPersonnageAsPlayer() throws Exception{
 		PersonnageBS personnageBS = buildPeronnageBS();
 		
-		PersonnageWorkBO personnageWork;
-		PersonnageWorkBO result;
-		
-		personnageWork = new PersonnageWorkBO();
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setPlayer(AuthentificationBSTest.buildUser("mrprez"));
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
-		result = personnageBS.loadPersonnageAsPlayer(1, AuthentificationBSTest.buildUser("mrprez"));
-		Assert.assertEquals(personnageWork, result);
 		
-		personnageWork = new PersonnageWorkBO();
-		personnageWork.setGameMaster(AuthentificationBSTest.buildUser("mrprez"));
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsPlayer(1, AuthentificationBSTest.buildUser("mrprez"));
+		
+		Assert.assertEquals(personnageWork, result);
+	}
+	
+	
+
+	@Test
+	public void getLoadPersonnageAsPlayer_Fail_PlayerNull() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
-		result = personnageBS.loadPersonnageAsPlayer(1, AuthentificationBSTest.buildUser("mrprez"));
+		
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsPlayer(1, AuthentificationBSTest.buildUser("mrprez"));
+		
+		Assert.assertNull(result);
+	}
+	
+	@Test
+	public void getLoadPersonnageAsPlayer_Fail_NotRightPlayer() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setPlayer(AuthentificationBSTest.buildUser("azerty"));
+		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
+		
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsPlayer(1, AuthentificationBSTest.buildUser("mrprez"));
+		
+		Assert.assertNull(result);
+	}
+	
+	@Test
+	public void getLoadPersonnageAsPlayer_Fail_NullId() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO result = personnageBS.loadPersonnageAsPlayer(null, AuthentificationBSTest.buildUser("mrprez"));
+		
 		Assert.assertNull(result);
 	}
 	
@@ -312,6 +407,23 @@ public class PersonnageBSTest {
 	}
 	
 	@Test
+	public void testModifyPointPool_Fail() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		Map<String, Integer> pointPoolCopy = new HashMap<String, Integer>();
+		for(Entry<String, PoolPoint> pointPoolEntry : personnageWork.getPersonnage().getPointPools().entrySet()){
+			pointPoolCopy.put(pointPoolEntry.getKey(), pointPoolEntry.getValue().getTotal());
+		}
+		
+		personnageBS.modifyPointPool(personnageWork, "PA", 10);
+		
+		for(Entry<String, PoolPoint> pointPoolEntry : personnageWork.getPersonnage().getPointPools().entrySet()){
+			Assert.assertEquals(pointPoolCopy.get(pointPoolEntry.getKey()).intValue(), pointPoolEntry.getValue().getTotal());
+		}
+		
+	}
+	
+	@Test
 	public void testNextPhase() throws Exception{
 		PersonnageBS personnageBS = buildPeronnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
@@ -334,6 +446,19 @@ public class PersonnageBSTest {
 		
 		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
 		Assert.assertNull(personnageWork.getPersonnage().getProperty("Compétences#Connaissance spécialisée#Droit"));
+	}
+	
+	
+	@Test
+	public void testRemoveProperty_Fail() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		Property motherProperty = personnageWork.getPersonnage().getProperty("Compétences#Connaissance spécialisée");
+		personnageWork.getPersonnage().addPropertyToMotherProperty(motherProperty.getSubProperties().getOptions().get("Droit"));
+		
+		personnageBS.removeProperty(personnageWork, "Compétences#Commerce");
+		
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
 	}
 	
 	@Test
@@ -368,7 +493,7 @@ public class PersonnageBSTest {
 	}
 
 	@Test
-	public void testSetNewValue() throws Exception{
+	public void testSetNewValue_Success() throws Exception{
 		PersonnageBS personnageBS = buildPeronnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 
@@ -378,6 +503,149 @@ public class PersonnageBSTest {
 		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
 		Assert.assertEquals(4, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
 		Assert.assertEquals("Attributs#Erudition", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testSetNewValue_Fail() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+
+		boolean result = personnageBS.setNewValue(personnageWork, "7", "Attributs#Erudition");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(1, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testSetNewValue_Success_Options() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Attributs#Erudition").setOptions(new int[]{1,2,3,4,5});
+
+		boolean result = personnageBS.setNewValue(personnageWork, "4", "Attributs#Erudition");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(4, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+		Assert.assertEquals("Attributs#Erudition", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testSetNewValue_Fail_Options() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Attributs#Erudition").setOptions(new int[]{1,3,5});
+
+		boolean result = personnageBS.setNewValue(personnageWork, "4", "Attributs#Erudition");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(1, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testSetNewValue_Success_IntOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().setOffset(new Integer(2));
+
+		boolean result = personnageBS.setNewValue(personnageWork, "3", "Attributs#Erudition");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(3, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+		Assert.assertEquals("Attributs#Erudition", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testSetNewValue_Fail_IntOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().setOffset(new Integer(2));
+
+		boolean result = personnageBS.setNewValue(personnageWork, "4", "Attributs#Erudition");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(1, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testSetNewValue_Success_StringOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Nom").getValue().setOffset("a");
+
+		boolean result = personnageBS.setNewValue(personnageWork, "aaaa", "Nom");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals("aaaa", personnageWork.getPersonnage().getProperty("Nom").getValue().getString());
+		Assert.assertEquals("Nom", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testSetNewValue_Fail_StringOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Nom").getValue().setOffset("a");
+
+		boolean result = personnageBS.setNewValue(personnageWork, "tata", "Nom");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals("", personnageWork.getPersonnage().getProperty("Nom").getValue().getString());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testSetNewValue_Success_DoubleOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Compétences#Cartographie").setValue(new DoubleValue(0.0));
+		personnageWork.getPersonnage().getProperty("Compétences#Cartographie").getValue().setOffset(new Double(2.0));
+		personnageWork.getPersonnage().getProperty("Compétences#Cartographie").setMax(null);
+		personnageWork.getPersonnage().getProperty("Compétences#Cartographie").setMin(null);
+
+		boolean result = personnageBS.setNewValue(personnageWork, "4", "Compétences#Cartographie");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(4.0, personnageWork.getPersonnage().getProperty("Compétences#Cartographie").getValue().getDouble(), 0.1);
+		Assert.assertEquals("Compétences#Cartographie", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testSetNewValue_Fail_DoubletOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Attributs#Erudition").setValue(new DoubleValue(1.0));
+		personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().setOffset(new Double(2.0));
+
+		boolean result = personnageBS.setNewValue(personnageWork, "4", "Attributs#Erudition");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals(1, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testSetNewValue_Success_NullOffset() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		personnageWork.getPersonnage().getProperty("Nom").getValue();
+
+		boolean result = personnageBS.setNewValue(personnageWork, "Loïc", "Nom");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertEquals("Loïc", personnageWork.getPersonnage().getProperty("Nom").getValue().getString());
+		Assert.assertEquals("Nom", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
 	}
 	
 	@Test
@@ -404,6 +672,113 @@ public class PersonnageBSTest {
 		personnageBS.validatePersonnage(personnageWork);
 		
 		Assert.assertEquals(4, personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().getInt());
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Success() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Compétences#Connaissance spécialisée", "Droit", null);
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNotNull(personnageWork.getPersonnage().getProperty("Compétences#Connaissance spécialisée#Droit"));
+		Assert.assertEquals("Compétences#Connaissance spécialisée#Droit", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+		
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Success_Specification() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", "Barbe noire");
+		
+		Assert.assertTrue(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNotNull(personnageWork.getPersonnage().getProperty("Faiblesses#Ennemi - Barbe noire"));
+		Assert.assertEquals("Faiblesses#Ennemi - Barbe noire", personnageWork.getPersonnage().getHistory().get(0).getAbsoluteName());
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Fail_MotherNull() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Toto", "Droit", null);
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Toto#Droit"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Fail_NoSubList() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Attributs#Erudition", "Droit", null);
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Attributs#Eruditio#Droit"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Fail_BadOption() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Compétences#Connaissance spécialisée", "Toto", null);
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertNull(personnageWork.getPersonnage().getProperty("Compétences#Connaissance spécialisée#Toto"));
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Fail_NullSpecification() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", null);
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertTrue(personnageWork.getPersonnage().getProperty("Faiblesses").getSubProperties().isEmpty());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+		
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Fail_EmptySpecification() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", "");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertTrue(personnageWork.getPersonnage().getProperty("Faiblesses").getSubProperties().isEmpty());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
+		
+	}
+	
+	@Test
+	public void testAddPropertyFromOption_Fail() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		
+		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", "Barbe#noire");
+		
+		Assert.assertFalse(result);
+		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.never()).savePersonnage(personnageWork.getPersonnageData());
+		Assert.assertTrue(personnageWork.getPersonnage().getProperty("Faiblesses").getSubProperties().isEmpty());
+		Assert.assertTrue(personnageWork.getPersonnage().getHistory().isEmpty());
 	}
 	
 }
