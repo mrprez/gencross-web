@@ -321,13 +321,6 @@ public class PersonnageBS implements IPersonnageBS {
 	}
 
 	@Override
-	public void changeComment(PersonnageWorkBO personnageWork, String propertyAbsoluteName, String newComment) throws Exception {
-		Property property = personnageWork.getPersonnage().getProperty(propertyAbsoluteName);
-		property.setComment(newComment);
-		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
-	}
-
-	@Override
 	public void modifyPointPool(PersonnageWorkBO personnageWork, String pointPoolName, Integer modification) throws Exception {
 		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		

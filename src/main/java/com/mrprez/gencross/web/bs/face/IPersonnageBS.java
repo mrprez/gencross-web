@@ -43,8 +43,6 @@ public interface IPersonnageBS {
 	
 	void nextPhase(PersonnageWorkBO personnageWorkBO) throws Exception;
 	
-	void changeComment(PersonnageWorkBO personnageWorkBO, String propertyAbsoluteName, String newComment) throws Exception;
-	
 	void modifyPointPool(PersonnageWorkBO personnageWorkBO, String pointPoolName, Integer modification) throws Exception;
 	
 	void modifyHistory(PersonnageWorkBO personnageWorkBO, String pointPoolName, Integer cost, int index) throws Exception;

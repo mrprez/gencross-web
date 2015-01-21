@@ -381,7 +381,7 @@ public class PersonnageBSTest {
 	}
 	
 	@Test
-	public void testModifyHistory() throws Exception{
+	public void testModifyHistory_Success() throws Exception{
 		PersonnageBS personnageBS = buildPeronnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 		Personnage personnage = personnageWork.getPersonnage();
@@ -391,6 +391,40 @@ public class PersonnageBSTest {
 		Assert.assertEquals(13, personnage.getPointPools().get("Attributs").getRemaining());
 		Assert.assertEquals(-8, personnage.getPointPools().get("Expérience").getRemaining());
 		Assert.assertEquals("Attributs#Erudition", personnage.getHistory().get(0).getAbsoluteName());
+		Assert.assertEquals(HistoryItem.UPDATE, personnage.getHistory().get(0).getAction());
+		Assert.assertEquals("Expérience", personnage.getHistory().get(0).getPointPool());
+		Assert.assertEquals(8, personnage.getHistory().get(0).getCost());
+	}
+	
+	@Test
+	public void testModifyHistory_Success_NoPointPool() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		Personnage personnage = personnageWork.getPersonnage();
+		personnage.setNewValue("Attributs#Erudition", 3);
+		
+		personnageBS.modifyHistory(personnageWork, "Toto", 8, 0);
+		
+		Assert.assertEquals(13, personnage.getPointPools().get("Attributs").getRemaining());
+		Assert.assertEquals(0, personnage.getPointPools().get("Expérience").getRemaining());
+		Assert.assertEquals("Attributs#Erudition", personnage.getHistory().get(0).getAbsoluteName());
+		Assert.assertEquals(HistoryItem.UPDATE, personnage.getHistory().get(0).getAction());
+		Assert.assertEquals("Toto", personnage.getHistory().get(0).getPointPool());
+		Assert.assertEquals(2, personnage.getHistory().get(0).getCost());
+	}
+	
+	@Test
+	public void testModifyHistory_Success_NoNewPointPool() throws Exception{
+		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
+		Personnage personnage = personnageWork.getPersonnage();
+		personnage.setNewValue("Nom", "Loic");
+		
+		personnageBS.modifyHistory(personnageWork, "Expérience", 8, 0);
+		
+		Assert.assertEquals(13, personnage.getPointPools().get("Attributs").getRemaining());
+		Assert.assertEquals(-8, personnage.getPointPools().get("Expérience").getRemaining());
+		Assert.assertEquals("Nom", personnage.getHistory().get(0).getAbsoluteName());
 		Assert.assertEquals(HistoryItem.UPDATE, personnage.getHistory().get(0).getAction());
 		Assert.assertEquals("Expérience", personnage.getHistory().get(0).getPointPool());
 		Assert.assertEquals(8, personnage.getHistory().get(0).getCost());

@@ -212,19 +212,6 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 		return "history";
 	}
 	
-	public String changeComment() throws Exception {
-		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		personnageBS.changeComment(personnageWork, propertyAbsoluteName, comment);
-		updatedProperties = new HashSet<String>(1);
-		updatedProperties.add(propertyAbsoluteName);
-		
-		return INPUT;
-	}
-	
 	public String modifyPointPool() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageWorkId, user);
