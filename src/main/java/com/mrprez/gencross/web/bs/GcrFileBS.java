@@ -82,7 +82,7 @@ public class GcrFileBS implements IGcrFileBS {
 	@Override
 	public PersonnageWorkBO createPersonnageAsGameMaster(File gcrFile, String personnageName, UserBO user, String password) throws Exception {
 		Personnage personnage = personnageFactory.loadPersonnageFromGcr(gcrFile);
-		if(personnage.getPassword()!=null && !personnage.getPassword().equals(password)){
+		if(personnage.getPassword()==null || !personnage.getPassword().equals(password)){
 			return null;
 		}
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
@@ -102,9 +102,9 @@ public class GcrFileBS implements IGcrFileBS {
 	public String uploadGcrPersonnage(File gcrFile, int personnageId, UserBO user, String password) throws Exception{
 		PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
 		
-		if(personnageWork.getGameMaster()!=null && personnageWork.getGameMaster().equals(user)){
+		if(user.equals(personnageWork.getGameMaster())){
 			return uploadGcrPersonnageAsGameMaster(gcrFile, personnageWork, password);
-		}else if(personnageWork.getPlayer()!=null && personnageWork.getPlayer().equals(user)){
+		}else if(user.equals(personnageWork.getPlayer())){
 			return uploadGcrPersonnageAsPlayer(gcrFile, personnageWork);
 		}else{
 			return "Ce personnage ne vous appartient pas";
@@ -132,7 +132,7 @@ public class GcrFileBS implements IGcrFileBS {
 		Personnage uploadedPersonnage = personnageFactory.loadPersonnageFromGcr(gcrFile);
 		
 		Personnage personnage = personnageWork.getPersonnage();
-		if(!personnage.getClass().equals(personnageWork.getPersonnage().getClass())){
+		if(!uploadedPersonnage.getClass().equals(personnage.getClass())){
 			return "Ce fichier n'est pas un personnage "+personnageWork.getPersonnage().getClass().getSimpleName();
 		}
 		
@@ -140,21 +140,23 @@ public class GcrFileBS implements IGcrFileBS {
 		Iterator<HistoryItem> historyIt = personnage.getHistory().iterator();
 		
 		// On controle que l'historique a les mêmes dates jusqu'à la dernière validation du MJ.
-		boolean isValidationDatePassed = (personnageWork.getValidationDate()==null);
-		while(historyIt.hasNext() && uploadedHistoryIt.hasNext() && !isValidationDatePassed){
+		boolean isValidationDateReached = (personnageWork.getValidationDate()==null);
+		while(historyIt.hasNext() && uploadedHistoryIt.hasNext() && !isValidationDateReached){
 			HistoryItem historyItem = historyIt.next();
 			HistoryItem uploadedHistoryItem = uploadedHistoryIt.next();
 			if(historyItem.getDate().after(personnageWork.getValidationDate())){
-				isValidationDatePassed = true;
+				isValidationDateReached = true;
 			}else if(!historyItem.getDate().equals(uploadedHistoryItem.getDate())){
 				return "Il ne s'agit pas du personnage: "+personnageWork.getName();
 			}
 		}
-		if(historyIt.hasNext() && !isValidationDatePassed){
+		if(historyIt.hasNext() && !isValidationDateReached){
 			return "Ce fichier date d'avant la dernière validation du MJ, vous ne pouvez pas le charger en tant que joueur.";
 		}
 		
 		personnageWork.getPersonnageData().setPersonnage(uploadedPersonnage);
+		
+		personnageDAO.savePersonnage(personnageWork.getPersonnageData());
 		
 		return null;
 	}
