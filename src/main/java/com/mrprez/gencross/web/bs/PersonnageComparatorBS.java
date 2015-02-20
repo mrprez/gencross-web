@@ -107,7 +107,7 @@ public class PersonnageComparatorBS implements IPersonnageComparatorBS{
 			return false;
 		}
 		Iterator<Property> it1 = propertiesList1.getOptions().values().iterator();
-		Iterator<Property> it2 = propertiesList1.getOptions().values().iterator();
+		Iterator<Property> it2 = propertiesList2.getOptions().values().iterator();
 		while(it1.hasNext() && it2.hasNext()){
 			if(!compare(it1.next(), it2.next()).isEmpty()){
 				return false;

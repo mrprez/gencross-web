@@ -18,7 +18,7 @@ public class ParamsBS implements IParamsBS {
 	}
 
 	@Override
-	public Collection<ParamBO> getAllParms() throws Exception {
+	public Collection<ParamBO> getAllParams() throws Exception {
 		return paramDAO.getAllParams();
 	}
 

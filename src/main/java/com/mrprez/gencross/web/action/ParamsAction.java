@@ -27,7 +27,7 @@ public class ParamsAction extends ActionSupport {
 	
 	
 	public String execute() throws Exception {
-		paramList = paramsBS.getAllParms();
+		paramList = paramsBS.getAllParams();
 		
 		return INPUT;
 	}

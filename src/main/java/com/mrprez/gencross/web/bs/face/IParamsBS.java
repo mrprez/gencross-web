@@ -10,7 +10,7 @@ public interface IParamsBS {
 	
 	ParamBO getParam(String key) throws Exception;
 	
-	Collection<ParamBO> getAllParms() throws Exception;
+	Collection<ParamBO> getAllParams() throws Exception;
 
 	ParamBO updateParam(String key, Date date) throws Exception;
 
