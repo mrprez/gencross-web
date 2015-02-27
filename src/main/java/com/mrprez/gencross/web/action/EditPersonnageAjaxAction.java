@@ -40,7 +40,6 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	private String specification;
 	private String newProperty;
 	private Integer historyLastIndex;
-	private String comment;
 	private Integer pointPoolModification;
 	private Integer historyIndex;
 	private Integer cost;
@@ -360,12 +359,6 @@ public class EditPersonnageAjaxAction extends ActionSupport {
 	}
 	public void setReloadHistory(boolean reloadHistory) {
 		this.reloadHistory = reloadHistory;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
 	}
 	public Integer getPointPoolModification() {
 		return pointPoolModification;

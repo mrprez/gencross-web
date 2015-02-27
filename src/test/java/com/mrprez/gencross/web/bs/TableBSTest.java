@@ -189,7 +189,7 @@ public class TableBSTest {
 	
 	
 	
-	private TableBO buildTable(UserBO gm, String name, String type) {
+	public static TableBO buildTable(UserBO gm, String name, String type) {
 		TableBO table = new TableBO();
 		table.setGameMaster(gm);
 		table.setId((int) (Math.random()*1000));

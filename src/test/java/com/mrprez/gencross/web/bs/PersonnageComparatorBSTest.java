@@ -232,9 +232,7 @@ public class PersonnageComparatorBSTest {
 		personnage1.getPhaseList().add("Phase2");
 		personnage1.passToNextPhase();
 		personnage2.getPhaseList().add("Phase1");
-		personnage2.getPhaseList().add("Phase2");
 		personnage2.passToNextPhase();
-		personnage2.getErrors().add("Error");
 		
 		boolean result = personnageComparatorBS.hasTheSameNextPhaseAvaibility(personnage1, personnage2);
 		

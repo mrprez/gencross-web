@@ -61,8 +61,6 @@ public class PersonnageComparatorBS implements IPersonnageComparatorBS{
 			return false;
 		}else if(property1.isRemovable()!=property2.isRemovable()){
 			return false;
-		}else if(!compareObject(property1.getComment(),property2.getComment())){
-			return false;
 		}else if(!property1.getFullName().equals(property2.getFullName())){
 			return false;
 		}else if(!compareObject(property1.getMax(), property2.getMax())){

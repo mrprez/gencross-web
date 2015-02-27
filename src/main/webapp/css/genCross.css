@@ -290,13 +290,6 @@ td.listePersonnageTitre{
 	vertical-align:top;
 }
 
-#peronnageCommentPanel{
-	padding: 0;
-	border: 5px ridge #215F88;
-	height:100%;
-	vertical-align:top;
-}
-
 #phasePanel{
 	padding-left: 10px;
 	font-weight: bold;
@@ -432,46 +425,6 @@ form.editForm{
 	font-family: sans-serif;
 	display: inline-block;
 	width: 35px;
-	text-align: center;
-}
-
-#commentDisplayer{
-	display: none;
-	position: absolute;
-	z-index: 10;
-	background-color: white;
-	border: 4px solid #215F88;
-	padding: 3px;
-}
-
-#commentEditor{
-	display: none;
-	position: absolute;
-	z-index: 10;
-	background-color: white;
-	border: 4px solid #215F88;
-	padding: 3px;
-}
-
-.comment{
-	display: none;
-}
-
-#commentCommand{
-	text-align: right;
-}
-
-#commentEditorCommand{
-	text-align: right;
-}
-
-#commentContent{
-	border: 1px solid #90AFC3;
-	padding: 1px;
-	font-family: Serif;
-}
-
-#validationCommentDiv{
 	text-align: center;
 }
 

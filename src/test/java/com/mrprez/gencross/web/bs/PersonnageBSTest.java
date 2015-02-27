@@ -23,7 +23,7 @@ import com.mrprez.gencross.web.dao.face.IUserDAO;
 public class PersonnageBSTest {
 	
 	
-	public static PersonnageBS buildPeronnageBS() throws Exception{
+	public static PersonnageBS buildPersonnageBS() throws Exception{
 		PersonnageBS personnageBS = new PersonnageBS();
 		PersonnageDAO personnageDAO = Mockito.mock(PersonnageDAO.class);
 		personnageBS.setPersonnageDAO(personnageDAO);
@@ -40,7 +40,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testModifyHistory_Success() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		Personnage personnage = personnageWork.getPersonnage();
 		personnage.setNewValue("Attributs#Erudition", 3);
@@ -56,7 +56,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testModifyHistory_Success_NoPointPool() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		Personnage personnage = personnageWork.getPersonnage();
 		personnage.setNewValue("Attributs#Erudition", 3);
@@ -73,7 +73,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testModifyHistory_Success_NoNewPointPool() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		Personnage personnage = personnageWork.getPersonnage();
 		personnage.setNewValue("Nom", "Loic");
@@ -90,7 +90,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testModifyPointPool() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		personnageBS.modifyPointPool(personnageWork, "Expérience", 10);
@@ -100,7 +100,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testModifyPointPool_Fail() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		Map<String, Integer> pointPoolCopy = new HashMap<String, Integer>();
 		for(Entry<String, PoolPoint> pointPoolEntry : personnageWork.getPersonnage().getPointPools().entrySet()){
@@ -117,7 +117,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testNextPhase() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setPersonnageData(new PersonnageDataBO());
 		personnageWork.getPersonnageData().setPersonnage(Mockito.mock(Personnage.class));
@@ -129,7 +129,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testRemoveProperty() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		Property motherProperty = personnageWork.getPersonnage().getProperty("Compétences#Connaissance spécialisée");
 		personnageWork.getPersonnage().addPropertyToMotherProperty(motherProperty.getSubProperties().getOptions().get("Droit"));
@@ -143,7 +143,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testRemoveProperty_Fail() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		Property motherProperty = personnageWork.getPersonnage().getProperty("Compétences#Connaissance spécialisée");
 		personnageWork.getPersonnage().addPropertyToMotherProperty(motherProperty.getSubProperties().getOptions().get("Droit"));
@@ -155,7 +155,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Success() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 
 		boolean result = personnageBS.setNewValue(personnageWork, "4", "Attributs#Erudition");
@@ -168,7 +168,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Fail() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 
 		boolean result = personnageBS.setNewValue(personnageWork, "7", "Attributs#Erudition");
@@ -181,7 +181,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Success_Options() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Attributs#Erudition").setOptions(new int[]{1,2,3,4,5});
 
@@ -195,7 +195,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Fail_Options() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Attributs#Erudition").setOptions(new int[]{1,3,5});
 
@@ -209,7 +209,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Success_IntOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().setOffset(new Integer(2));
 
@@ -223,7 +223,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Fail_IntOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().setOffset(new Integer(2));
 
@@ -237,7 +237,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Success_StringOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Nom").getValue().setOffset("a");
 
@@ -251,7 +251,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Fail_StringOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Nom").getValue().setOffset("a");
 
@@ -265,7 +265,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Success_DoubleOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Compétences#Cartographie").setValue(new DoubleValue(0.0));
 		personnageWork.getPersonnage().getProperty("Compétences#Cartographie").getValue().setOffset(new Double(2.0));
@@ -282,7 +282,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Fail_DoubletOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Attributs#Erudition").setValue(new DoubleValue(1.0));
 		personnageWork.getPersonnage().getProperty("Attributs#Erudition").getValue().setOffset(new Double(2.0));
@@ -297,7 +297,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testSetNewValue_Success_NullOffset() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Nom").getValue();
 
@@ -311,7 +311,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Success() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Compétences#Connaissance spécialisée", "Droit", null);
@@ -325,7 +325,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Success_Specification() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", "Barbe noire");
@@ -338,7 +338,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Fail_MotherNull() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Toto", "Droit", null);
@@ -351,7 +351,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Fail_NoSubList() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Attributs#Erudition", "Droit", null);
@@ -364,7 +364,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Fail_BadOption() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Compétences#Connaissance spécialisée", "Toto", null);
@@ -377,7 +377,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Fail_NullSpecification() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", null);
@@ -391,7 +391,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Fail_EmptySpecification() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", "");
@@ -405,7 +405,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddPropertyFromOption_Fail() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addPropertyFromOption(personnageWork, "Faiblesses", "Ennemi - ", "Barbe#noire");
@@ -418,7 +418,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddFreeProperty_Success() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#Religion", "Catholique");
@@ -431,7 +431,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddFreeProperty_Fail_NoMother() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#NotExist", "Catholique");
@@ -444,7 +444,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddFreeProperty_Fail_NoSubProperties() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Compétences#Religion").removeSubProperties();
 		
@@ -458,7 +458,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddFreeProperty_Fail_NoDefaultProperty() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.getPersonnage().getProperty("Compétences#Religion").getSubProperties().setDefaultProperty(null);
 		
@@ -472,7 +472,7 @@ public class PersonnageBSTest {
 	
 	@Test
 	public void testAddFreeProperty_Fail() throws Exception{
-		PersonnageBS personnageBS = buildPeronnageBS();
+		PersonnageBS personnageBS = buildPersonnageBS();
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		
 		boolean result = personnageBS.addFreeProperty(personnageWork, "Compétences#Religion", "Catholique#");

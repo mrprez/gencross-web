@@ -36,7 +36,7 @@ public class PersonnageWorkBSTest {
 
 	@Test
 	public void testCreatePersonnageAsPlayer() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO mrprez = AuthentificationBSTest.buildUser("mrprez");
 		Mockito.when(personnageBS.getUserDAO().getUser("mrprez")).thenReturn(mrprez);
 		
@@ -61,7 +61,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testCreatePersonnageAsGameMaster() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("azerty");
 		Mockito.when(personnageBS.getUserDAO().getUser("azerty")).thenReturn(user);
 		
@@ -86,7 +86,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testCreatePersonnageAsGameMasterAndPlayer() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		
 		PersonnageWorkBO personnageWork = personnageBS.createPersonnageAsGameMasterAndPlayer("Pavillon Noir", "Robert", user);
@@ -100,7 +100,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testDeletePersonnageFromUser() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setPlayer(user);
@@ -112,7 +112,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testDeletePersonnageFromUser_WithGm() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		
@@ -131,7 +131,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testDeletePersonnageFromGm() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setGameMaster(user);
@@ -143,7 +143,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testDeletePersonnageFromGm_WithUser() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		UserBO gm = AuthentificationBSTest.buildUser("mrprez");
 		
@@ -162,7 +162,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testGetAvailablePersonnageTypes() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		personnageBS.setPersonnageFactory(Mockito.mock(PersonnageFactory.class));
 		PluginDescriptor pluginDescriptor1 = new PluginDescriptor();
 		pluginDescriptor1.setName("A");
@@ -186,7 +186,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testGetGameMasterPersonnageList() throws Exception {
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		Mockito.when(personnageBS.getPersonnageDAO().getGameMasterPersonnageList(user)).thenReturn(Arrays.asList(personnageWork));
@@ -197,7 +197,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testGetPersonnageListFromType() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork1 = new PersonnageWorkBO();
 		PersonnageWorkBO personnageWork2 = new PersonnageWorkBO();
 		Mockito.when(personnageBS.getPersonnageDAO().getPersonnageListFromType("Pavillon Noir")).thenReturn(Arrays.asList(personnageWork1, personnageWork2));
@@ -207,7 +207,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testGetPlayerPersonnageList() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		Mockito.when(personnageBS.getPersonnageDAO().getPlayerPersonnageList(user)).thenReturn(new ArrayList<PersonnageWorkBO>());
 		
@@ -217,7 +217,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testLoadPersonnage() throws Exception {
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(new Integer(1))).thenReturn(personnageWork);
 		
@@ -229,7 +229,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testLoadPersonnage_Fail_Null() throws Exception {
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		UserBO user = AuthentificationBSTest.buildUser("mrprez");
 		
 		PersonnageWorkBO resultPersonnageWork = personnageBS.loadPersonnage(null, user);
@@ -239,7 +239,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testLoadPersonnage_WithUser() throws Exception {
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork;
 		PersonnageWorkBO result;
@@ -272,7 +272,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsGameMaster() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setGameMaster(AuthentificationBSTest.buildUser("mrprez"));
@@ -283,7 +283,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsGameMaster_Fail_GmNull() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setPlayer(AuthentificationBSTest.buildUser("mrprez"));
@@ -295,7 +295,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsGameMaster_Fail_NullId() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO result = personnageBS.loadPersonnageAsGameMaster(null, AuthentificationBSTest.buildUser("mrprez"));
 		Assert.assertNull(result);
@@ -303,7 +303,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsGameMaster_Fail_NotRightGm() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setGameMaster(AuthentificationBSTest.buildUser("mrprez"));
@@ -314,7 +314,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsPlayer() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setPlayer(AuthentificationBSTest.buildUser("mrprez"));
@@ -329,7 +329,7 @@ public class PersonnageWorkBSTest {
 
 	@Test
 	public void getLoadPersonnageAsPlayer_Fail_PlayerNull() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		Mockito.when(personnageBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
@@ -341,7 +341,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsPlayer_Fail_NotRightPlayer() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setPlayer(AuthentificationBSTest.buildUser("azerty"));
@@ -354,7 +354,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void getLoadPersonnageAsPlayer_Fail_NullId() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO result = personnageBS.loadPersonnageAsPlayer(null, AuthentificationBSTest.buildUser("mrprez"));
 		
 		Assert.assertNull(result);
@@ -362,7 +362,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testSavePersonnage() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 		
 		personnageBS.savePersonnage(personnageWork);
@@ -372,7 +372,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testSavePersonnageBackground() throws Exception {
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 		
 		personnageBS.savePersonnageBackground(personnageWork, "Background Test");
@@ -383,7 +383,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testSavePersonnageWork() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 
 		personnageBS.savePersonnageWork(personnageWork);
@@ -393,7 +393,7 @@ public class PersonnageWorkBSTest {
 
 	@Test
 	public void testUnvalidatePersonnage() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 		personnageWork.setValidPersonnageData(new PersonnageDataBO());
 		personnageWork.getValidPersonnageData().setPersonnage(personnageWork.getPersonnage().clone());
@@ -406,7 +406,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testValidatePersonnage() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
 		personnageWork.setValidPersonnageData(new PersonnageDataBO());
 		personnageWork.getValidPersonnageData().setPersonnage(personnageWork.getPersonnage().clone());
@@ -419,7 +419,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testAttribute_Success_WithOld() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		UserBO oldPlayer = AuthentificationBSTest.buildUser("oldPlayer");
 		UserBO oldGameMaster = AuthentificationBSTest.buildUser("oldGm");
@@ -441,7 +441,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testAttribute_Success() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		UserBO player = AuthentificationBSTest.buildUser("robin");
 		UserBO gameMaster = AuthentificationBSTest.buildUser("batman");
@@ -456,7 +456,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testAttribute_Success_RemovePlayer() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		UserBO oldPlayer = AuthentificationBSTest.buildUser("oldPlayer");
 		UserBO oldGameMaster = AuthentificationBSTest.buildUser("oldGm");
@@ -472,7 +472,7 @@ public class PersonnageWorkBSTest {
 	
 	@Test
 	public void testAttribute_Success_RemoveGm() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPeronnageBS();
+		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		UserBO oldPlayer = AuthentificationBSTest.buildUser("oldPlayer");
 		UserBO oldGameMaster = AuthentificationBSTest.buildUser("oldGm");

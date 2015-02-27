@@ -221,7 +221,7 @@ public class ParamsBSTest {
 		return param;
 	}
 	
-	public static ParamsBS buildParamsBS(){
+	private ParamsBS buildParamsBS(){
 		ParamsBS paramsBS = new ParamsBS();
 		paramsBS.setParamDAO(Mockito.mock(IParamDAO.class));
 		return paramsBS;
