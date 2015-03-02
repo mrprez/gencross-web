@@ -11,7 +11,7 @@ public interface IPlanGameBS {
 	
 	Collection<PlannedGameBO> getPlannedGames(Integer tableId) throws Exception;
 
-	void updateGame(Integer plannedGameId, String title, Date startDate, Date endDate, UserBO user) throws Exception;
+	PlannedGameBO updateGame(Integer plannedGameId, String title, Date startDate, Date endDate, UserBO user) throws Exception;
 
 	PlannedGameBO createGame(Integer tableId, String title, Date startDate, Date endDate, UserBO user) throws Exception;
 	

@@ -19,12 +19,15 @@ import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.PoolPoint;
 import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.disk.PluginDescriptor;
+import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.PersonnageDataBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.util.BusinessException;
+import com.mrprez.gencross.web.dao.ParamDAO;
+import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.ITableDAO;
 
@@ -745,13 +748,80 @@ public class TableBSTest {
 	}
 	
 	
+	@Test
+	public void testAddSendMessage_Success() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableBS.getParamDAO().getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "admin@gmail.com"));
+		
+		// Execute
+		String message = "Message to test";
+		tableBS.addSendMessage(message, tableId, gm);
+		
+		// Check
+		Mockito.verify(tableBS.getTableDAO()).saveTable(table);
+		Set<String> toAddresses = new HashSet<String>(Arrays.asList("catwoman@gmail.com", "robin@gmail.com", "batman@gmail.com"));
+		Mockito.verify(tableBS.getMailResource()).send(toAddresses, "admin@gmail.com", "["+table.getId()+"] "+table.getName(), message);
+	}
+	
+	
+	@Test
+	public void testAddSendMessage_Fail() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableBS.getParamDAO().getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "admin@gmail.com"));
+		
+		// Execute
+		String message = "Message to test";
+		UserBO user = AuthentificationBSTest.buildUser("robin");
+		BusinessException businessException = null;
+		try{
+			tableBS.addSendMessage(message, tableId, user);
+		}catch(BusinessException be){
+			businessException = be;
+		}
+		
+		// Check
+		Assert.assertNotNull(businessException);
+		Assert.assertEquals("The author is not the table game master", businessException.getMessage());
+		Mockito.verify(tableBS.getTableDAO(), Mockito.never()).saveTable(Mockito.any(TableBO.class));
+		Mockito.verify(tableBS.getMailResource(), Mockito.never()).send(Mockito.anyCollectionOf(String.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+	}
+	
+		
 	private TableBS buildMockedTableBS(){
 		TableBS tableBS = new TableBS();
 		tableBS.setTableDAO(Mockito.mock(ITableDAO.class));
 		tableBS.setPersonnageDAO(Mockito.mock(IPersonnageDAO.class));
 		tableBS.setPersonnageFactory(Mockito.mock(PersonnageFactory.class));
+		tableBS.setMailResource(Mockito.mock(IMailResource.class));
+		tableBS.setParamDAO(Mockito.mock(ParamDAO.class));
 		
 		return tableBS;
+	}
+	
+	public static TableBO buildFullTable(UserBO gm, String name, String type) throws Exception{
+		TableBO table = buildTable(gm, name, type);
+		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork1.setGameMaster(gm);
+		personnageWork1.setPlayer(AuthentificationBSTest.buildUser("robin"));
+		table.getPersonnages().add(personnageWork1);
+		PersonnageWorkBO personnageWork2 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork2.setGameMaster(gm);
+		personnageWork2.setPlayer(AuthentificationBSTest.buildUser("catwoman"));
+		table.getPersonnages().add(personnageWork2);
+		PersonnageWorkBO personnageWork3 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork3.setGameMaster(gm);
+		table.getPersonnages().add(personnageWork3);
+		return table;
 	}
 	
 	

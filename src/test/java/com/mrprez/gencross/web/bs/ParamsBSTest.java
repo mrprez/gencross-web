@@ -214,7 +214,7 @@ public class ParamsBSTest {
 	}
 	
 	
-	private ParamBO buildParamBO(String key, Object value){
+	public static ParamBO buildParamBO(String key, Object value){
 		ParamBO param = new ParamBO();
 		param.setKey(key);
 		param.setValue(value);

@@ -69,7 +69,7 @@ public class PlanGameBS implements IPlanGameBS {
 	}
 	
 	@Override
-	public void updateGame(Integer plannedGameId, String title, Date startDate, Date endDate, UserBO user) throws Exception {
+	public PlannedGameBO updateGame(Integer plannedGameId, String title, Date startDate, Date endDate, UserBO user) throws Exception {
 		PlannedGameBO plannedGame = tableDao.loadPlannedGame(plannedGameId);
 		if(! plannedGame.getTable().getGameMaster().equals(user)){
 			throw new BusinessException("L'utilisateur n'est pas le MJ de la table");
@@ -91,6 +91,8 @@ public class PlanGameBS implements IPlanGameBS {
 		CalendarOutputter outputter = new CalendarOutputter();
 		outputter.output(calendar, baos);
 		mailResource.send(toAddresses, table.getGameMaster().getMail(), table.getName()+": nouvelle partie", "Une nouvelle partie a été planifiée", table.getName()+".ics", baos.toByteArray());
+		
+		return plannedGame;
 	}
 	
 	@Override

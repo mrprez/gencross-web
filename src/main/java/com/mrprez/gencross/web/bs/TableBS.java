@@ -1,7 +1,6 @@
 package com.mrprez.gencross.web.bs;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -211,7 +210,7 @@ public class TableBS implements ITableBS {
 	public void addSendMessage(String message, Integer tableId, UserBO author) throws Exception {
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(author)){
-			throw new Exception("The author is not the table game master");
+			throw new BusinessException("The author is not the table game master");
 		}
 		TableMessageBO tableMessage = new TableMessageBO();
 		tableMessage.setAuthor(author);
@@ -220,7 +219,7 @@ public class TableBS implements ITableBS {
 		table.getMessages().add(tableMessage);
 		tableDAO.saveTable(table);
 		
-		List<String> toAdresses = new ArrayList<String>();
+		Set<String> toAdresses = new HashSet<String>();
 		for(PersonnageWorkBO personnageWork : table.getPersonnages()){
 			if(personnageWork.getPlayer()!=null){
 				toAdresses.add(personnageWork.getPlayer().getMail());
@@ -287,24 +286,6 @@ public class TableBS implements ITableBS {
 	public Collection<PlannedGameBO> getPlannedGames(Integer tableId, Date startDate, Date endDate) throws Exception {
 		TableBO table = tableDAO.loadTable(tableId);
 		return calendarResource.getEntries(table.getName(), startDate, endDate);
-	}
-
-	@Override
-	public void replanGame(Integer tableId, Integer dayDelta, Integer minuteDelta, Date startDate, Date endDate, UserBO user) throws Exception {
-		TableBO table = tableDAO.loadTable(tableId);
-		if(! table.getGameMaster().equals(user)){
-			throw new BusinessException("User "+user+" not GM on table "+table.getName());
-		}
-		Calendar oldStart = Calendar.getInstance();
-		oldStart.setTime(startDate);
-		if(dayDelta!=null){
-			oldStart.add(Calendar.DATE, -dayDelta);
-		}
-		if(minuteDelta!=null){
-			oldStart.add(Calendar.MINUTE, -minuteDelta);
-		}
-		
-		calendarResource.updateEvent(table.getName(), oldStart.getTime(), startDate, endDate);
 	}
 
 	public ITableDAO getTableDAO() {
