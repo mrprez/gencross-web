@@ -1,5 +1,8 @@
 package com.mrprez.gencross.web.bs;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,6 +33,7 @@ import com.mrprez.gencross.web.dao.ParamDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.ITableDAO;
+import com.mrprez.gencross.web.dao.face.IUserDAO;
 
 public class TableBSTest {
 	
@@ -777,7 +781,6 @@ public class TableBSTest {
 		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
 		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
-		Mockito.when(tableBS.getParamDAO().getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "admin@gmail.com"));
 		
 		// Execute
 		String message = "Message to test";
@@ -796,6 +799,114 @@ public class TableBSTest {
 		Mockito.verify(tableBS.getMailResource(), Mockito.never()).send(Mockito.anyCollectionOf(String.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
 	}
 	
+	
+	@Test
+	public void testRemoveMessageFromTable_Fail() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		// Execute
+		UserBO user = AuthentificationBSTest.buildUser("robin");
+		BusinessException businessException = null;
+		try{
+			tableBS.removeMessageFromTable(20, tableId, user);
+		}catch(BusinessException be){
+			businessException = be;
+		}
+		
+		// Check
+		Assert.assertNotNull(businessException);
+		Assert.assertEquals("User is not the table game master", businessException.getMessage());
+		Assert.assertEquals(2, table.getMessages().size());
+	}
+	
+	
+	@Test
+	public void testRemoveMessageFromTable_Success() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm = AuthentificationBSTest.buildUser("batman");
+		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
+		Integer tableId = table.getId();
+		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		
+		// Execute
+		tableBS.removeMessageFromTable(20, tableId, gm);
+		
+		// Check
+		Assert.assertEquals(1, table.getMessages().size());
+	}
+	
+	
+	@Test
+	public void testConnectTableMailBox() throws Exception{
+		// Prepare
+		TableBS tableBS = buildMockedTableBS();
+		UserBO gm1 = AuthentificationBSTest.buildUser("batman");
+		TableBO table1 = buildFullTable(gm1, "Gotham", "DC-Comics");
+		table1.setId(1);
+		Mockito.when(tableBS.getTableDAO().loadTable(1)).thenReturn(table1);
+		UserBO gm2 = AuthentificationBSTest.buildUser("superman");
+		TableBO table2 = buildFullTable(gm2, "Metropolis", "DC-Comics");
+		Mockito.when(tableBS.getTableDAO().loadTable(2)).thenReturn(table2);
+		
+		TableMessageBO message1 = buildTableMessage(null, "No table ID", "2015/03/01 15:55:55", 0);
+		message1.setSubject("batcave");
+		message1.setSenderMail("pinguin@gmail.com");
+		message1.setTableId(null);
+		TableMessageBO message2 = buildTableMessage(null, "No table", "2015/03/01 15:00:52", 3);
+		message2.setSubject("[3]batcar");
+		message2.setSenderMail("joker@gmail.com");
+		TableMessageBO message3 = buildTableMessage(null, "No author", "2015/03/01 15:59:59", 1);
+		message3.setTitle("gift");
+		TableMessageBO message4 = buildTableMessage(null, "Normal message", "2015/03/01 17:12:45", 1);
+		message4.setSubject("Signal");
+		message4.setSenderMail("robin@gmail.com");
+		Mockito.when(tableBS.getUserDAO().getUserFromMail("robin@gmail.com")).thenReturn(AuthentificationBSTest.buildUser("robin"));
+		Collection<TableMessageBO> messageList = Arrays.asList(message1, message2, message3, message4);
+		Mockito.when(tableBS.getMailResource().getMails()).thenReturn(messageList);
+		
+		Mockito.when(tableBS.getParamDAO().getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "table.adress@gmail.com"));
+
+		// Execute
+		Collection<TableMessageBO> result = tableBS.connectTableMailBox();
+		
+		// Check
+		Assert.assertEquals(messageList, result);
+		Assert.assertEquals(4, table1.getMessages().size());
+		boolean messageFound = false;
+		for(TableMessageBO message : table1.getMessages()){
+			if(message.getDate().equals(message3.getDate())){
+				messageFound = true;
+				Assert.assertEquals(message3.getData(), message.getData());
+				Assert.assertNull(message.getSenderMail());
+				Assert.assertEquals(message3.getTitle(), message.getTitle());
+				Assert.assertNull(message.getAuthor());
+				Assert.assertEquals(1, (int)message3.getTableId());
+			}
+		}
+		Assert.assertTrue(messageFound);
+		messageFound = false;
+		for(TableMessageBO message : table1.getMessages()){
+			if(message.getDate().equals(message4.getDate())){
+				messageFound = true;
+				Assert.assertEquals(message4.getData(), message.getData());
+				Assert.assertEquals(message4.getSenderMail(), message.getSenderMail());
+				Assert.assertEquals(message4.getTitle(), message.getTitle());
+				Assert.assertEquals(message4.getAuthor(), message.getAuthor());
+				Assert.assertEquals(1, (int)message4.getTableId());
+			}
+		}
+		Assert.assertTrue(messageFound);
+		Mockito.verify(tableBS.getMailResource()).send("pinguin@gmail.com", "table.adress@gmail.com", "Invalid subject: batcave", "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nNo table ID");
+		Mockito.verify(tableBS.getMailResource()).send("joker@gmail.com", "table.adress@gmail.com", "Invalid subject: [3]batcar", "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nNo table");
+	}
+	
+	
 		
 	private TableBS buildMockedTableBS(){
 		TableBS tableBS = new TableBS();
@@ -804,12 +915,27 @@ public class TableBSTest {
 		tableBS.setPersonnageFactory(Mockito.mock(PersonnageFactory.class));
 		tableBS.setMailResource(Mockito.mock(IMailResource.class));
 		tableBS.setParamDAO(Mockito.mock(ParamDAO.class));
+		tableBS.setUserDAO(Mockito.mock(IUserDAO.class));
 		
 		return tableBS;
 	}
 	
+	
+	private static TableMessageBO buildTableMessage(UserBO author, String data, String date, int tableId) throws ParseException{
+		TableMessageBO message = new TableMessageBO();
+		message.setAuthor(author);
+		message.setData(data);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		message.setDate(dateFormat.parse(date));
+		message.setTableId(tableId);
+		
+		return message;
+	}
+	
+	
 	public static TableBO buildFullTable(UserBO gm, String name, String type) throws Exception{
 		TableBO table = buildTable(gm, name, type);
+		
 		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
 		personnageWork1.setGameMaster(gm);
 		personnageWork1.setPlayer(AuthentificationBSTest.buildUser("robin"));
@@ -821,6 +947,15 @@ public class TableBSTest {
 		PersonnageWorkBO personnageWork3 = PersonnageWorkBSTest.buildPersonnageWork();
 		personnageWork3.setGameMaster(gm);
 		table.getPersonnages().add(personnageWork3);
+		
+		TableMessageBO message1 = buildTableMessage(personnageWork2.getPlayer(), "Message 1", "2015/01/20 22:41:52", table.getId());
+		message1.setId(10);
+		table.getMessages().add(message1);
+		
+		TableMessageBO message2 = buildTableMessage(gm, "Message 2", "2015/02/15 11:52:25", table.getId());
+		message2.setId(20);
+		table.getMessages().add(message2);
+		
 		return table;
 	}
 	

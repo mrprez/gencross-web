@@ -1,11 +1,9 @@
 package com.mrprez.gencross.web.bs;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,13 +11,11 @@ import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
-import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 import com.mrprez.gencross.web.bs.util.BusinessException;
-import com.mrprez.gencross.web.dao.face.IGoogleCalendarResource;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IParamDAO;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
@@ -33,7 +29,6 @@ public class TableBS implements ITableBS {
 	private IMailResource mailResource;
 	private IUserDAO userDAO;
 	private IParamDAO paramDAO;
-	private IGoogleCalendarResource calendarResource;
 	
 
 	@Override
@@ -234,7 +229,7 @@ public class TableBS implements ITableBS {
 	public void removeMessageFromTable(Integer messageId, Integer tableId, UserBO user) throws Exception {
 		TableBO table = tableDAO.loadTable(tableId);
 		if(!table.getGameMaster().equals(user)){
-			throw new Exception("User is not the table game master");
+			throw new BusinessException("User is not the table game master");
 		}
 		Iterator<TableMessageBO> messageIt = table.getMessages().iterator();
 		while(messageIt.hasNext()){
@@ -282,12 +277,6 @@ public class TableBS implements ITableBS {
 		this.personnageFactory = personnageFactory;
 	}
 
-	@Override
-	public Collection<PlannedGameBO> getPlannedGames(Integer tableId, Date startDate, Date endDate) throws Exception {
-		TableBO table = tableDAO.loadTable(tableId);
-		return calendarResource.getEntries(table.getName(), startDate, endDate);
-	}
-
 	public ITableDAO getTableDAO() {
 		return tableDAO;
 	}
@@ -327,13 +316,5 @@ public class TableBS implements ITableBS {
 	public void setParamDAO(IParamDAO paramDAO) {
 		this.paramDAO = paramDAO;
 	}
-
-	public IGoogleCalendarResource getCalendarResource() {
-		return calendarResource;
-	}
-
-	public void setCalendarResource(IGoogleCalendarResource calendarResource) {
-		this.calendarResource = calendarResource;
-	}	
 	
 }

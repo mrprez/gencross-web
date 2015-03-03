@@ -1,11 +1,9 @@
 package com.mrprez.gencross.web.bs.face;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
-import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -42,8 +40,6 @@ public interface ITableBS {
 
 	Collection<String> getPointPoolList(Integer tableId) throws Exception;
 	
-	Collection<PlannedGameBO> getPlannedGames(Integer tableId, Date startDate, Date endDate) throws Exception;
-
 	void removeTable(Integer tableId, boolean deletePj, boolean deletePnj, UserBO user) throws Exception;
 
 	
