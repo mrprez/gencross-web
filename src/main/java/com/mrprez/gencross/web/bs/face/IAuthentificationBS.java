@@ -9,6 +9,8 @@ public interface IAuthentificationBS {
 	
 	UserBO authentificateUser(String username, String password) throws Exception;
 	
+	UserBO authentificateUserDigest(String username, String digest) throws Exception;
+	
 	UserBO createUser(String username, String password, String mail) throws Exception;
 	
 	List<UserBO> getUserList() throws Exception;

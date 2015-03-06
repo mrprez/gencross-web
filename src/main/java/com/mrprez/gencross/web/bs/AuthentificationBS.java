@@ -23,6 +23,17 @@ public class AuthentificationBS implements IAuthentificationBS{
 	
 	
 	@Override
+	public UserBO authentificateUserDigest(String username, String digest) throws Exception {
+		UserBO user = userDAO.getUser(username, digest);
+		if(user==null){
+			return null;
+		}
+		user.getRoles().iterator().next();
+		
+		return user;
+	}
+	
+	@Override
 	public UserBO authentificateUser(String username, String password) throws Exception {
 		if(password==null || username==null){
 			return null;
@@ -31,13 +42,7 @@ public class AuthentificationBS implements IAuthentificationBS{
 		// Récupération du MD5 du password
 		String digest = buildMD5Digest(password);
 		
-		UserBO user = userDAO.getUser(username, digest);
-		if(user==null){
-			return null;
-		}
-		user.getRoles().iterator().next();
-		
-		return user;
+		return authentificateUserDigest(username, digest);
 	}
 	
 	

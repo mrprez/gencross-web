@@ -10,7 +10,8 @@
 	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+		<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
 
 	<jsp-config>
 		<taglib>
@@ -58,6 +59,28 @@
 		<servlet-class>com.mrprez.gencross.web.Log4jInitServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<servlet>
+        <servlet-name>personnageService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>5</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>personnageService</servlet-name>
+        <url-pattern>/personnageService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>authentificationService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>6</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>authentificationService</servlet-name>
+        <url-pattern>/authentificationService</url-pattern>
+    </servlet-mapping>
     
     <welcome-file-list>
         <welcome-file>List.action</welcome-file>
