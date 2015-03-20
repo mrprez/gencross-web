@@ -38,6 +38,10 @@ public class AuthentificationService implements IAuthentificationService, SOAPHa
 		IAuthentificationBS authentificationBS = (IAuthentificationBS) ContextLoader.getCurrentWebApplicationContext().getBean("authentificationBS");
 		UserBO user = authentificationBS.authentificateUserDigest(username, digest);
 		
+		if(user==null){
+			return "";
+		}
+		
 		String token;
 		synchronized (authentifiedUsers) {
 			do{
