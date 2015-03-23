@@ -92,8 +92,8 @@ public class AuthentificationService implements IAuthentificationService, SOAPHa
 					String key = element.getLocalName();
 					if(TOKEN_KEY.equals(key)){
 						token = element.getTextContent();
+						purgeOldUserToken();
 						if(authentifiedUsers.containsKey(token)){
-							purgeOldUserToken();
 							UserDate userDate = authentifiedUsers.get(token);
 							userDate.resetTime();
 							localThreadUser.set(userDate.getUser());

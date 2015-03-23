@@ -2,6 +2,7 @@ package com.mrprez.gencross.web.bo;
 
 public class RoleBO {
 	public static final String USER = "user";
+	public static final String MANAGER = "manager";
 	
 	
 	private String name;
