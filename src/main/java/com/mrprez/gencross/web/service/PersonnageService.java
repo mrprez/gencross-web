@@ -1,7 +1,8 @@
 package com.mrprez.gencross.web.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
 
 import javax.jws.WebService;
 
@@ -13,6 +14,7 @@ import com.mrprez.gencross.web.bo.RoleBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.ws.api.IPersonnageService;
+import com.mrprez.gencross.ws.api.bo.PersonnageLabel;
 
 
 
@@ -28,20 +30,20 @@ public class PersonnageService implements IPersonnageService {
 	}
 	
 	
-//	@Override
-	public HashMap<Integer,String> getPersonnageLabels(PluginDescriptor pluginDescriptor) throws Exception{
+	@Override
+	public PersonnageLabel[] getPersonnageLabels(PluginDescriptor pluginDescriptor) throws Exception{
 		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
 		Collection<PersonnageWorkBO> personnageWorkList = personnageBS.getPersonnageListFromType(pluginDescriptor.getName());
 		
 		UserBO user = AuthentificationService.localThreadUser.get();
-		HashMap<Integer,String> result = new HashMap<Integer,String>();
+		List<PersonnageLabel> result = new ArrayList<PersonnageLabel>();
 		for(PersonnageWorkBO personnageWork : personnageWorkList){
 			if(user.getRoles().contains(RoleBO.MANAGER) && user.equals(personnageWork.getGameMaster())){
-				result.put(personnageWork.getId(), personnageWork.getName());
+				result.add(new PersonnageLabel(personnageWork.getId(), personnageWork.getName()));
 			}
 		}
 		
-		return result;
+		return new PersonnageLabel[0];
 	}
 
 	
