@@ -38,7 +38,7 @@ public class PersonnageService implements IPersonnageService {
 		UserBO user = AuthentificationService.localThreadUser.get();
 		List<PersonnageLabel> result = new ArrayList<PersonnageLabel>();
 		for(PersonnageWorkBO personnageWork : personnageWorkList){
-			if(user.getRoles().contains(RoleBO.MANAGER) && user.equals(personnageWork.getGameMaster())){
+			if(user.getRoles().contains(RoleBO.MANAGER) || user.equals(personnageWork.getGameMaster())){
 				result.add(new PersonnageLabel(personnageWork.getId(), personnageWork.getName()));
 			}
 		}
