@@ -1,5 +1,6 @@
 package com.mrprez.gencross.web.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import javax.jws.WebService;
 import org.springframework.web.context.ContextLoader;
 
 import com.mrprez.gencross.Personnage;
+import com.mrprez.gencross.disk.PersonnageFactory;
 import com.mrprez.gencross.disk.PersonnageSaver;
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
@@ -59,6 +61,23 @@ public class PersonnageService implements IPersonnageService {
 		PersonnageSaver.savePersonnage(personnage, baos);
 		return baos.toByteArray();
 	}
+
+
+	@Override
+	public void savePersonnage(int personnageId, byte[] xml) throws Exception {
+		PersonnageFactory personnageFactory = new PersonnageFactory();
+		ByteArrayInputStream bais = new ByteArrayInputStream(xml);
+		Personnage personnage = personnageFactory.loadPersonnage(bais);
+		
+		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId);
+		personnageWork.getPersonnageData().setPersonnage(personnage);
+		
+		personnageBS.savePersonnage(personnageWork);
+	}
+
+
+	
 	
 //	
 //	public void savePersonnage(Integer personnageId, byte[] personnageContent) throws Exception{
