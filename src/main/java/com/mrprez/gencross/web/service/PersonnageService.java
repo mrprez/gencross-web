@@ -1,5 +1,6 @@
 package com.mrprez.gencross.web.service;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,6 +9,8 @@ import javax.jws.WebService;
 
 import org.springframework.web.context.ContextLoader;
 
+import com.mrprez.gencross.Personnage;
+import com.mrprez.gencross.disk.PersonnageSaver;
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.RoleBO;
@@ -38,24 +41,25 @@ public class PersonnageService implements IPersonnageService {
 		UserBO user = AuthentificationService.localThreadUser.get();
 		List<PersonnageLabel> result = new ArrayList<PersonnageLabel>();
 		for(PersonnageWorkBO personnageWork : personnageWorkList){
-			if(user.getRoles().contains(RoleBO.MANAGER) || user.equals(personnageWork.getGameMaster())){
+			if(user.getRoles().contains(new RoleBO(RoleBO.MANAGER)) || user.equals(personnageWork.getGameMaster())){
 				result.add(new PersonnageLabel(personnageWork.getId(), personnageWork.getName()));
 			}
 		}
 		
-		return new PersonnageLabel[0];
+		return result.toArray(new PersonnageLabel[result.size()]);
 	}
 
 	
-//	public byte[] loadPersonnage(Integer personnageId) throws Exception{
-//		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
-//		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId);
-//		Personnage personnage = personnageWork.getPersonnageData().getPersonnage();
-//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//		PersonnageSaver.savePersonnage(personnage, baos);
-//		
-//		return baos.toByteArray();
-//	}
+	@Override
+	public byte[] getPersonnage(int id) throws Exception {
+		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(id);
+		Personnage personnage = personnageWork.getPersonnageData().getPersonnage();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PersonnageSaver.savePersonnage(personnage, baos);
+		return baos.toByteArray();
+	}
+	
 //	
 //	public void savePersonnage(Integer personnageId, byte[] personnageContent) throws Exception{
 //		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
