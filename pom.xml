@@ -6,7 +6,7 @@
 	
 	<artifactId>gencross-web</artifactId>
 	<groupId>com.mrprez.gencross</groupId>
-	<version>1.9.2-SNAPSHOT</version>
+	<version>1.10.2-SNAPSHOT</version>
 	
 	<parent>
 		<artifactId>mrprez</artifactId>
@@ -16,7 +16,7 @@
 	
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
-		<plugins-repository.version>1.4</plugins-repository.version>
+		<plugins-repository.version>1.6</plugins-repository.version>
 	</properties>
 	
 	<scm>
@@ -29,7 +29,7 @@
 		<dependency>
 			<artifactId>gencross</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.16-SNAPSHOT</version>
+			<version>1.16</version>
 		</dependency>
 		<dependency>
 			<artifactId>gencross-ws-api</artifactId>
@@ -189,7 +189,7 @@
 								<artifactItem>
 									<groupId>com.mrprez.gencross</groupId>
 									<artifactId>gencross-ui</artifactId>
-									<version>1.9-SNAPSHOT</version>
+									<version>1.9.1</version>
 									<classifier>build-zip</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
@@ -288,6 +288,7 @@
         		<plugins>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.10</version>
 						<executions>
 							<execution>
 								<id>default-test</id>
