@@ -29,7 +29,7 @@
 		<dependency>
 			<artifactId>gencross</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.16</version>
+			<version>1.17-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<artifactId>gencross-ws-api</artifactId>
@@ -288,7 +288,6 @@
         		<plugins>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.10</version>
 						<executions>
 							<execution>
 								<id>default-test</id>
