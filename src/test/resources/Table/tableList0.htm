@@ -85,6 +85,7 @@
 </div>
 </div>
 <div id="content">
+<div id="waitMask"/>
 <form method="post" action="/gencross-web/TableList!addTable.action" name="TableList!addTable" id="TableList!addTable"/>
 <table class="genCrossTable">
 <thead>
@@ -121,6 +122,24 @@
 </tr>
 </tbody>
 </table>
+<div id="deleteTableDiv">
+<form method="post" action="/gencross-web/TableList!removeTable.action" name="TableList!removeTable" id="TableList!removeTable">
+<input id="tableId" value="" name="tableId" type="hidden"/>
+<div id="deleteTableConfirm">Etes vous sur de vouloir supprimer cette table?</div>
+<div id="deleteTablePersonnage">Supprimer également
+<select id="TableList!removeTable_personnageDeletion" name="personnageDeletion">
+<option value="NONE">Aucun personnage</option>
+<option value="ONLY_PJ">Seulement les PJ</option>
+<option value="ONLY_PNJ">Seulement les PNJ</option>
+<option value="ALL">Tous les personnages</option>
+</select>
+</div>
+<center id="deleteTableButtons">
+<input class="class java.util.HashMap" value="Valider" id="TableList!removeTable_0" type="submit"/>
+<button onclick="javascript:cancelDeleteTable();" class="deleteTableFormButton" type="button">Annuler</button>
+</center>
+</form>
+</div>
 </div>
 <div id="footer"/>
 </body>

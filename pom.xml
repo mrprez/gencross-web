@@ -29,7 +29,7 @@
 		<dependency>
 			<artifactId>gencross</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.16</version>
+			<version>1.17-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<artifactId>gencross-ws-api</artifactId>
@@ -137,6 +137,12 @@
 			<artifactId>pavillonNoir</artifactId>
 			<version>1.5</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>gencross</artifactId>
+					<groupId>com.mrprez.gencross</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jtidy</groupId>
