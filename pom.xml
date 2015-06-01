@@ -6,7 +6,7 @@
 	
 	<artifactId>gencross-web</artifactId>
 	<groupId>com.mrprez.gencross</groupId>
-	<version>1.10.2-SNAPSHOT</version>
+	<version>1.11</version>
 	
 	<parent>
 		<artifactId>mrprez</artifactId>
@@ -22,7 +22,7 @@
 	<scm>
 		<connection>scm:git:git://github.com/mrprez/gencross-web.git</connection>
 		<developerConnection>scm:git:git@github.com:mrprez/gencross-web.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>gencross-web-1.11</tag>
 	</scm>
 	
 	<dependencies>
