@@ -16,7 +16,7 @@
 	
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
-		<plugins-repository.version>1.6</plugins-repository.version>
+		<plugins-repository.version>1.7</plugins-repository.version>
 	</properties>
 	
 	<scm>
