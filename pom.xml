@@ -6,7 +6,7 @@
 	
 	<artifactId>gencross-web</artifactId>
 	<groupId>com.mrprez.gencross</groupId>
-	<version>1.10.2-SNAPSHOT</version>
+	<version>1.11.1-SNAPSHOT</version>
 	
 	<parent>
 		<artifactId>mrprez</artifactId>
@@ -16,7 +16,7 @@
 	
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
-		<plugins-repository.version>1.6</plugins-repository.version>
+		<plugins-repository.version>1.7</plugins-repository.version>
 	</properties>
 	
 	<scm>
@@ -29,12 +29,12 @@
 		<dependency>
 			<artifactId>gencross</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.17-SNAPSHOT</version>
+			<version>1.17</version>
 		</dependency>
 		<dependency>
 			<artifactId>gencross-ws-api</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<artifactId>xml-apis</artifactId>
@@ -137,6 +137,12 @@
 			<artifactId>pavillonNoir</artifactId>
 			<version>1.5</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>gencross</artifactId>
+					<groupId>com.mrprez.gencross</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jtidy</groupId>
