@@ -117,8 +117,8 @@ public class GcrFileBS implements IGcrFileBS {
 			return "Mot de passe incorrect";
 		}
 		
-		if(!personnage.getClass().equals(personnageWork.getPersonnage().getClass())){
-			return "Ce fichier n'est pas un personnage "+personnageWork.getPersonnage().getClass().getSimpleName();
+		if(!personnage.getPluginDescriptor().getName().equals(personnageWork.getPluginName())){
+			return "Ce fichier n'est pas un personnage "+personnageWork.getPluginName();
 		}
 		
 		personnageWork.getPersonnageData().setPersonnage(personnage);
@@ -132,8 +132,8 @@ public class GcrFileBS implements IGcrFileBS {
 		Personnage uploadedPersonnage = personnageFactory.loadPersonnageFromGcr(gcrFile);
 		
 		Personnage personnage = personnageWork.getPersonnage();
-		if(!uploadedPersonnage.getClass().equals(personnage.getClass())){
-			return "Ce fichier n'est pas un personnage "+personnageWork.getPersonnage().getClass().getSimpleName();
+		if(!uploadedPersonnage.getPluginDescriptor().getName().equals(personnageWork.getPluginName())){
+			return "Ce fichier n'est pas un personnage "+personnageWork.getPluginName();
 		}
 		
 		Iterator<HistoryItem> uploadedHistoryIt = uploadedPersonnage.getHistory().iterator();

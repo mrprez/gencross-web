@@ -28,6 +28,7 @@ public class PersonnageWorkBSTest {
 		PersonnageFactory personnageFactory = new PersonnageFactory();
 		Personnage personnage = personnageFactory.buildNewPersonnage(pluginName);
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setPluginName(pluginName);
 		PersonnageDataBO personnageData = new PersonnageDataBO();
 		personnageData.setPersonnage(personnage);
 		personnageWork.setPersonnageData(personnageData);

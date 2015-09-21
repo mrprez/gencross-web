@@ -205,6 +205,8 @@ public class GcrFileBSTest {
 		personnageWork.setGameMaster(user);
 		Personnage filePersonnage = new PavillonNoir();
 		filePersonnage.setPassword("azerty");
+		filePersonnage.setPluginDescriptor(new PluginDescriptor());
+		filePersonnage.getPluginDescriptor().setName("Pavillon Noir");
 		Mockito.when(gcrFileBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		Mockito.when(gcrFileBS.getPersonnageFactory().loadPersonnageFromGcr(gcrFile)).thenReturn(filePersonnage);
 		
@@ -224,6 +226,8 @@ public class GcrFileBSTest {
 		personnageWork.setGameMaster(user);
 		Personnage filePersonnage = new PavillonNoir();
 		filePersonnage.setPassword("azerty");
+		filePersonnage.setPluginDescriptor(new PluginDescriptor());
+		filePersonnage.getPluginDescriptor().setName("Pavillon Noir");
 		Mockito.when(gcrFileBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		Mockito.when(gcrFileBS.getPersonnageFactory().loadPersonnageFromGcr(gcrFile)).thenReturn(filePersonnage);
 		
@@ -241,6 +245,8 @@ public class GcrFileBSTest {
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.setGameMaster(user);
 		Personnage filePersonnage = new PavillonNoir();
+		filePersonnage.setPluginDescriptor(new PluginDescriptor());
+		filePersonnage.getPluginDescriptor().setName("Pavillon Noir");
 		Mockito.when(gcrFileBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		Mockito.when(gcrFileBS.getPersonnageFactory().loadPersonnageFromGcr(gcrFile)).thenReturn(filePersonnage);
 		
@@ -260,12 +266,14 @@ public class GcrFileBSTest {
 		personnageWork.setGameMaster(user);
 		Personnage filePersonnage = new Personnage();
 		filePersonnage.setPassword("azerty");
+		filePersonnage.setPluginDescriptor(new PluginDescriptor());
+		filePersonnage.getPluginDescriptor().setName("Vampire");
 		Mockito.when(gcrFileBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		Mockito.when(gcrFileBS.getPersonnageFactory().loadPersonnageFromGcr(gcrFile)).thenReturn(filePersonnage);
 		
 		String result = gcrFileBS.uploadGcrPersonnage(gcrFile, 1, user, "azerty");
 		
-		Assert.assertEquals("Ce fichier n'est pas un personnage PavillonNoir", result);
+		Assert.assertEquals("Ce fichier n'est pas un personnage Pavillon Noir", result);
 		Mockito.verify(gcrFileBS.getPersonnageDAO(), Mockito.never()).savePersonnage(Mockito.any(PersonnageDataBO.class));
 	}
 	
@@ -316,15 +324,17 @@ public class GcrFileBSTest {
 		GcrFileBS gcrFileBS = buildGcrFileBS();
 		File gcrFile = new File("");
 		UserBO user = AuthentificationBSTest.buildUser("batman");
-		PersonnageWorkBO personnageWork = buildPersonnageWorkWithHistory();
+		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork("Pavillon Noir");
 		personnageWork.setPlayer(user);
 		Personnage filePersonnage = new Personnage();
+		filePersonnage.setPluginDescriptor(new PluginDescriptor());
+		filePersonnage.getPluginDescriptor().setName("Vampire");
 		Mockito.when(gcrFileBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork);
 		Mockito.when(gcrFileBS.getPersonnageFactory().loadPersonnageFromGcr(gcrFile)).thenReturn(filePersonnage);
 		
 		String result = gcrFileBS.uploadGcrPersonnage(gcrFile, 1, user, null);
 		
-		Assert.assertEquals("Ce fichier n'est pas un personnage PavillonNoir", result);
+		Assert.assertEquals("Ce fichier n'est pas un personnage Pavillon Noir", result);
 		Mockito.verify(gcrFileBS.getPersonnageDAO(), Mockito.never()).savePersonnage(Mockito.any(PersonnageDataBO.class));
 	}
 	
