@@ -83,11 +83,15 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		driver.findElement(By.id("Login_password")).sendKeys("azerty");
 		driver.findElement(By.id("Login_0")).click();
 		pageTester.testPage(driver, "login6");
+		driver.findElement(By.id("List!deletePersonnage_0")).click();
 		// ERROR: Caught exception [ERROR: Unsupported command [getConfirmation]]
 		try{
-			driver.findElement(By.id("List!deletePersonnage_0")).click();
+			Thread.sleep(1000);
 			driver.switchTo().alert().accept();
 		}catch(WebDriverException wde){
+			System.err.println("##################################");
+			System.err.println("WebDriverException:"+wde.getMessage());
+			wde.printStackTrace();
 			driver.get(baseUrl+context+"/List!deletePersonnage.action?personnageId=1");
 		}
 		
@@ -103,10 +107,10 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		pageTester.testPage(driver, "attribute3");
 		driver.findElement(By.cssSelector("span.menu")).click();
 		driver.findElement(By.linkText("Liste des personnages")).click();
-		
+		driver.findElement(By.id("List!deletePersonnage_0")).click();
 		// ERROR: Caught exception [ERROR: Unsupported command [getConfirmation]]
 		try{
-			driver.findElement(By.id("List!deletePersonnage_0")).click();
+			Thread.sleep(1000);
 			driver.switchTo().alert().accept();
 		}catch(WebDriverException wde){
 			driver.get(baseUrl+context+"/List!deletePersonnage.action?personnageId=1");
