@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<dataset>
+    <PARAMS PARAM_KEY="StringKey"  PARAM_VALUE="String Value" TYPE="S"/>
+    <PARAMS PARAM_KEY="DateKey"    PARAM_VALUE="Date Value"   TYPE="D"/>
+    <PARAMS PARAM_KEY="IntKey"     PARAM_VALUE="Int Value"    TYPE="I"/>
+    <PARAMS PARAM_KEY="RealKey "   PARAM_VALUE="Real Value"   TYPE="R"/>
+    <PARAMS PARAM_KEY="BooleanKey" PARAM_VALUE="Bool Value"   TYPE="B"/>
+    
+</dataset>
