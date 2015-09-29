@@ -29,7 +29,7 @@ public abstract class AbstractDaoTest {
         hibernateConfiguration = hibernateConfiguration.configure();
         getDao().setSessionFactory(hibernateConfiguration.buildSessionFactory());
         
-        Connection connection = DriverManager.getConnection(System.getProperty(hibernateConfiguration.getProperty("connection.url")),
+        Connection connection = DriverManager.getConnection(hibernateConfiguration.getProperty("connection.url"),
         		hibernateConfiguration.getProperty("connection.username"),
         		hibernateConfiguration.getProperty("connection.password"));
         
@@ -60,7 +60,7 @@ public abstract class AbstractDaoTest {
 	
 	
 	protected void insertIntoDatabase(Connection connection) throws Exception {
-		IDataSet dataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("src/test/resources/datasets/"+getDataSetFileName()+".xml"));
+		IDataSet dataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("src/test/resources/datasets/"+getDataSetFileName()));
 		DatabaseOperation.INSERT.execute(new DatabaseConnection(connection), dataSet);
 	}
 
