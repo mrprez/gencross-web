@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <dataset>
-    <PARAMS PARAM_KEY="StringKey"  PARAM_VALUE="String Value" TYPE="S"/>
-    <PARAMS PARAM_KEY="DateKey"    PARAM_VALUE="Date Value"   TYPE="D"/>
-    <PARAMS PARAM_KEY="IntKey"     PARAM_VALUE="Int Value"    TYPE="I"/>
-    <PARAMS PARAM_KEY="RealKey "   PARAM_VALUE="Real Value"   TYPE="R"/>
-    <PARAMS PARAM_KEY="BooleanKey" PARAM_VALUE="Bool Value"   TYPE="B"/>
+    <PARAMS PARAM_KEY="StringKey"  PARAM_VALUE="String Value"            TYPE="S"/>
+    <PARAMS PARAM_KEY="DateKey"    PARAM_VALUE="03/09/2015 10:02:21,159" TYPE="D"/>
+    <PARAMS PARAM_KEY="IntKey"     PARAM_VALUE="2015"                    TYPE="I"/>
+    <PARAMS PARAM_KEY="RealKey"    PARAM_VALUE="12.45"                   TYPE="R"/>
+    <PARAMS PARAM_KEY="BooleanKey" PARAM_VALUE="true"                    TYPE="B"/>
     
 </dataset>

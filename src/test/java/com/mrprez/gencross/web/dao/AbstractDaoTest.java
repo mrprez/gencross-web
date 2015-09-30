@@ -9,14 +9,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.cfg.Configuration;
+import org.junit.After;
 import org.junit.Before;
+import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
 public abstract class AbstractDaoTest {
+	
+	private IDataSet setupDataSet;
+	
+	private Connection connection;
+	
 	
 	public abstract AbstractDAO getDao();
 	
@@ -27,9 +36,10 @@ public abstract class AbstractDaoTest {
 	public void setUp() throws Exception{
 		Configuration hibernateConfiguration = new Configuration();
         hibernateConfiguration = hibernateConfiguration.configure();
-        getDao().setSessionFactory(hibernateConfiguration.buildSessionFactory());
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager(hibernateConfiguration.buildSessionFactory());
+        getDao().setTransactionManager(transactionManager);
         
-        Connection connection = DriverManager.getConnection(hibernateConfiguration.getProperty("connection.url"),
+        connection = DriverManager.getConnection(hibernateConfiguration.getProperty("connection.url"),
         		hibernateConfiguration.getProperty("connection.username"),
         		hibernateConfiguration.getProperty("connection.password"));
         
@@ -37,9 +47,13 @@ public abstract class AbstractDaoTest {
         	createDatabase(connection);
         	insertIntoDatabase(connection);
         }finally{
-        	connection.close();
+        	connection.commit();
         }
-        
+	}
+	
+	@After
+	public void tearDown() throws SQLException{
+		connection.close();
 	}
 	
 	private void createDatabase(Connection connection) throws SQLException, IOException{
@@ -47,7 +61,7 @@ public abstract class AbstractDaoTest {
         try{
 	        String sqlLine;
 	        while((sqlLine=reader.readLine())!=null){
-	        	if(sqlLine.isEmpty()){
+	        	if( ! sqlLine.isEmpty() ){
 		        	PreparedStatement statement = connection.prepareStatement(sqlLine);
 		        	statement.execute();
 	        	}
@@ -60,8 +74,18 @@ public abstract class AbstractDaoTest {
 	
 	
 	protected void insertIntoDatabase(Connection connection) throws Exception {
-		IDataSet dataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("src/test/resources/datasets/"+getDataSetFileName()));
-		DatabaseOperation.INSERT.execute(new DatabaseConnection(connection), dataSet);
+		setupDataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("src/test/resources/datasets/"+getDataSetFileName()));
+		DatabaseOperation.INSERT.execute(new DatabaseConnection(connection), setupDataSet);
+	}
+
+	public IDataSet getSetupDataSet() {
+		return setupDataSet;
+	}
+	
+	public ITable getTable(String tableName) throws DatabaseUnitException, SQLException{
+		DatabaseConnection databaseConnection = new DatabaseConnection(connection);
+		IDataSet databaseDataSet = databaseConnection.createDataSet();
+        return databaseDataSet.getTable(tableName);
 	}
 
 }

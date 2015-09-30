@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<dataset>
+	<ROLES NAME="manager"/>
+	<ROLES NAME="user"/>
+	<USER_ROLES USER_NAME="batman" ROLE_NAME="user"/>
+	<USER_ROLES USER_NAME="batman" ROLE_NAME="manager"/>
+    <USERS USER_NAME="batman" DIGEST="JD05+PKLExhll772tdR5ew==" MAIL="batman@mail.com"/>
+    <USERS USER_NAME="azerty" DIGEST="JD05+PKLExhll772tdR5ew==" MAIL="aze@mail.com"/>
+    <USERS USER_NAME="zertya" DIGEST="JD05+PKLExhll772tdR5ew==" MAIL="zer@mail.com"/>
+    <USERS USER_NAME="ertyaz" DIGEST="JD05+PKLExhll772tdR5ew==" MAIL="ert@mail.com"/>
+    
+</dataset>
