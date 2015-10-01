@@ -383,16 +383,6 @@ public class PersonnageWorkBSTest {
 	}
 	
 	@Test
-	public void testSavePersonnageWork() throws Exception{
-		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
-		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");
-
-		personnageBS.savePersonnageWork(personnageWork);
-		
-		Mockito.verify(personnageBS.getPersonnageDAO(), Mockito.atLeastOnce()).savePersonnageWork(personnageWork);
-	}
-
-	@Test
 	public void testUnvalidatePersonnage() throws Exception{
 		PersonnageBS personnageBS = PersonnageBSTest.buildPersonnageBS();
 		PersonnageWorkBO personnageWork = buildPersonnageWork("Pavillon Noir");

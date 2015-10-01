@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<dataset>
+	<ROLES NAME="manager"/>
+	<ROLES NAME="user"/>
+    
+</dataset>

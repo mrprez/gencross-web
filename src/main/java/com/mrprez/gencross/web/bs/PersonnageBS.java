@@ -173,11 +173,6 @@ public class PersonnageBS implements IPersonnageBS {
 	}
 	
 	@Override
-	public void savePersonnageWork(PersonnageWorkBO personnageWork)throws Exception {
-		personnageDAO.savePersonnageWork(personnageWork);
-	}
-	
-	@Override
 	public void validatePersonnage(PersonnageWorkBO personnageWork)throws Exception {
 		personnageDAO.savePersonnageWork(personnageWork);
 		personnageWork.getValidPersonnageData().setPersonnage(personnageWork.getPersonnage().clone());

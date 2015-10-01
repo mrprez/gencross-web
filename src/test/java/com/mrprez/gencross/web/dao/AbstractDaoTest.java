@@ -17,6 +17,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.cfg.Configuration;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 
@@ -86,6 +87,16 @@ public abstract class AbstractDaoTest {
 		DatabaseConnection databaseConnection = new DatabaseConnection(connection);
 		IDataSet databaseDataSet = databaseConnection.createDataSet();
         return databaseDataSet.getTable(tableName);
+	}
+	
+	public Integer findTableRow(ITable table, String columnName, Object value) throws DatabaseUnitException, SQLException{
+		for(int row=0; row<table.getRowCount(); row++){
+			if(value.equals(table.getValue(row, columnName))){
+				return row;
+			}
+		}
+		Assert.fail("No row found in "+table.getTableMetaData().getTableName()+" with "+columnName+"="+value);
+		return null;
 	}
 
 }

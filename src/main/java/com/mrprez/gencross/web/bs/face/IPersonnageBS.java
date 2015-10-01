@@ -21,8 +21,6 @@ public interface IPersonnageBS {
 	
 	void savePersonnage(PersonnageWorkBO personnageWorkBO) throws Exception;
 	
-	void savePersonnageWork(PersonnageWorkBO personnageWorkBO) throws Exception;
-	
 	List<PersonnageWorkBO> getPlayerPersonnageList(UserBO player) throws Exception;
 	
 	List<PersonnageWorkBO> getGameMasterPersonnageList(UserBO player) throws Exception;
