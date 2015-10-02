@@ -1,6 +1,8 @@
 package com.mrprez.gencross.web.bo;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
@@ -35,8 +37,18 @@ public class PersonnageXmlBO {
 	public Blob getData() throws IOException {
 		return Hibernate.createBlob(xml);
 	}
-	public void setData(Blob data) throws SQLException {
-		xml = data.getBytes(1, (int)data.length());
+	public void setData(Blob data) throws SQLException, IOException {
+		InputStream is = data.getBinaryStream();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream((int) data.length());
+		try{
+			int i;
+			while((i=is.read())>=0){
+				baos.write(i);
+			}
+		}finally{
+			is.close();
+		}
+		xml = baos.toByteArray();
 	}
 	
 	

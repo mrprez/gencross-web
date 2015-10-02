@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
+import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -89,14 +90,31 @@ public abstract class AbstractDaoTest {
         return databaseDataSet.getTable(tableName);
 	}
 	
+	public Integer checkTableRow(ITable table, String columnName, Object value) throws DatabaseUnitException, SQLException{
+		Integer row = findTableRow(table, columnName, value);
+		if(row==null){
+			Assert.fail("No row found in "+table.getTableMetaData().getTableName()+" with "+columnName+"="+value);
+		}
+		return row;
+	}
+	
 	public Integer findTableRow(ITable table, String columnName, Object value) throws DatabaseUnitException, SQLException{
 		for(int row=0; row<table.getRowCount(); row++){
 			if(value.equals(table.getValue(row, columnName))){
 				return row;
 			}
 		}
-		Assert.fail("No row found in "+table.getTableMetaData().getTableName()+" with "+columnName+"="+value);
 		return null;
+	}
+	
+	public int count(ITable table, String column, Object criteria) throws DataSetException{
+		int count = 0;
+		for(int row=0; row<table.getRowCount(); row++){
+			if(criteria.equals(table.getValue(row, column))){
+				count++;
+			}
+		}
+		return count;
 	}
 
 }

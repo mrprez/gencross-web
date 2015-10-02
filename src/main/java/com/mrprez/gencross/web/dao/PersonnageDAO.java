@@ -37,7 +37,7 @@ public class PersonnageDAO extends AbstractDAO implements IPersonnageDAO {
 
 	@Override
 	public PersonnageWorkBO loadPersonnageWork(int id) throws Exception {
-		PersonnageWorkBO personnageWork = (PersonnageWorkBO)getSession().load(PersonnageWorkBO.class, id);
+		PersonnageWorkBO personnageWork = (PersonnageWorkBO)getSession().get(PersonnageWorkBO.class, id);
 		if(personnageWork==null){
 			return null;
 		}
@@ -101,11 +101,6 @@ public class PersonnageDAO extends AbstractDAO implements IPersonnageDAO {
 	@Override
 	public void savePersonnageXml(PersonnageXmlBO personnageXml) {
 		getSession().saveOrUpdate(personnageXml);
-	}
-	
-	@Override
-	public void unsavedChanges(PersonnageXmlBO personnageXml){
-		getSession().evict(personnageXml);
 	}
 	
 	@SuppressWarnings("unchecked")

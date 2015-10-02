@@ -34,8 +34,6 @@ public interface IPersonnageDAO extends IAbstractDAO {
 
 	public void savePersonnageXml(PersonnageXmlBO personnageXml);
 
-	public void unsavedChanges(PersonnageXmlBO personnageXml);
-	
 	public Collection<PersonnageWorkBO> getAddablePersonnages(TableBO table) throws Exception;
 
 	Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception;
