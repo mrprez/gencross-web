@@ -321,11 +321,6 @@
 								<goals>
 									<goal>test</goal>
 								</goals>
-								<configuration>
-									<excludes>
-										<exclude>com/mrprez/gencross/web/selenium/*</exclude>
-									</excludes>
-								</configuration>
 							</execution>
 							<execution>
 								<id>selenium-test</id>
@@ -334,9 +329,10 @@
 									<goal>test</goal>
 								</goals>
 								<configuration>
-									<includes>
-										<include>com/mrprez/gencross/web/selenium/*</include>
-									</includes>
+									<testSourceDirectory>${basedir}/src/it/java/</testSourceDirectory>
+									<additionalClasspathElements>
+            							<additionalClasspathElement>${basedir}/src/it/resources</additionalClasspathElement>
+            						</additionalClasspathElements>
 									<systemProperties>
 							            <property>
 											<name>basedir</name>
@@ -372,11 +368,6 @@
 								<goals>
 									<goal>test</goal>
 								</goals>
-								<configuration>
-									<excludes>
-										<exclude>com/mrprez/gencross/web/selenium/*</exclude>
-									</excludes>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
