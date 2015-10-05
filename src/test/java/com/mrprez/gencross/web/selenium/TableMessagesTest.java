@@ -51,15 +51,18 @@ public class TableMessagesTest extends WebAbstractTest {
 		pageTester.testPage(driver, "editTable1");
 		driver.findElement(By.id("EditTable!refreshMessages_0")).click();
 		pageTester.testPage(driver, "editTable2");
+		driver.findElement(By.id("EditTable!removeMessage_0")).click();
 		try{
-			driver.findElement(By.id("EditTable!removeMessage_0")).click();
+			Thread.sleep(1000);
 			Alert alert = driver.switchTo().alert();
+			driver.switchTo().alert().accept();
 			Assert.assertEquals("Voulez-vous supprimer ce message?", alert.getText());
 			alert.accept();
 		}catch(WebDriverException wde){
+			System.err.println("WebDriverException:"+wde.getMessage());
+			wde.printStackTrace();
 			driver.get(baseUrl+context+"/EditTable!removeMessage.action?id=1&messageId=2");
 		}
-		
 		pageTester.testPage(driver, "editTable3");
 		
 		mailTester.test("mail");

@@ -679,7 +679,6 @@
 									</ul>
 								</li>
 								<li class="expandable, property" id="li_6">
-									<script language="Javascript" type="text/javascript">numberAssociation['Talents exotiques'] = '6';</script>
 									<a href="javascript:;" onclick="javascript:expandCollapse('Talents exotiques','6');" class="motherPropertyName">
 										<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expandable.jpg" class="expandImg"/>
 										<span id="span_6">Talents exotiques</span>
@@ -687,7 +686,7 @@
 									<ul class="expandable" id="subProperties_6">
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajouter par choix</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="addPropertyFromOptionForm_6" id="addPropertyFromOptionForm_6">
+											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addPropertyFromOptionForm_6" id="addPropertyFromOptionForm_6">
 												<input id="addPropertyFromOptionForm_6_motherProperty" value="Talents exotiques" name="motherProperty" type="hidden"/>
 												<select onkeydown="javascript:editFormKeyDown(event)" id="addPropertyFromOptionForm_6_optionProperty" name="optionProperty">
 													<option value="Contorsionnisme">Contorsionnisme</option>
@@ -706,11 +705,10 @@
 												<button type="button" onclick="javascript:addPropertyFromOption('6')">Valider</button>
 												<img onclick="javascript:hideAddPropertyForm(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
 											</form>
-											<script language="Javascript" type="text/javascript">specification['6'] = new Array();</script>
 										</li>
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajout libre</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="addFreePropertyForm_6" id="addFreePropertyForm_6">
+											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_6" id="addFreePropertyForm_6">
 												<input id="addFreePropertyForm_6_motherProperty" value="Talents exotiques" name="motherProperty" type="hidden"/>
 												<input onkeydown="javascript:editFormKeyDown(event)" id="addFreePropertyForm_6_newProperty" value="" name="newProperty" type="text"/>
 												<button type="button" onclick="javascript:addFreeProperty('6')">Valider</button>

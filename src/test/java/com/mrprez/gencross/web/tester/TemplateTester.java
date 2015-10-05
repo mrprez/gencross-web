@@ -38,7 +38,7 @@ public abstract class TemplateTester {
 	}
 	
 	
-	protected void test(String source, String testName, String extension) throws IOException, InterruptedException {
+	protected Boolean test(String source, String testName, String extension) throws IOException, InterruptedException {
 		System.out.println("Template file="+maskRepository+"/"+testName+extension);
 		File template = new File(maskRepository, testName+extension);
 		
@@ -52,7 +52,7 @@ public abstract class TemplateTester {
 		if (!template.exists()) {
 			allTemplatePresent = false;
 			writeTemplate(source, testName, extension);
-			return;
+			return null;
 		}
 		
 		writeFailFile(source, testName, extension);
@@ -68,19 +68,27 @@ public abstract class TemplateTester {
 					if(ignoreWhiteSpace){
 						templateLine = templateLine.trim();
 					}
-					Assert.assertTrue("\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"",
-							sourceLine.matches(templateLine));
+					if( ! sourceLine.matches(templateLine) ){
+						System.out.println("\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"");
+						return false;
+					}
 				} else {
-					Assert.assertEquals(templateLine.trim(), sourceLine.trim());
+					if( ! templateLine.trim().equals(sourceLine.trim())){
+						System.out.println("\"" + sourceLine + "\"\n not equals to:\n\"" + templateLine + "\"");
+						return false;
+					}
 				}
 			}
 			if (sourceReader.readLine() != null) {
-				Assert.fail("Source plus longue que le template");
+				System.out.println("Source plus longue que le template");
+				return false;
 			}
 			if (templateReader.readLine() != null) {
-				Assert.fail("Template plus long que la source");
+				System.out.println("Template plus long que la source");
+				return false;
 			}
 			deleteFailFile(testName, extension);
+			return true;
 		} finally {
 			templateReader.close();
 			sourceReader.close();
