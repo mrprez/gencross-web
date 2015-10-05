@@ -1,0 +1,2 @@
+# JavaMail SMTP provider
+protocol=smtp; type=transport; class=com.mrprez.gencross.web.dao.mock.MockTransport; vendor=MrPrez;

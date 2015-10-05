@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.ITable;
@@ -249,6 +252,69 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 		Assert.assertTrue(minDate.getTime() <= lastUpdateDate.getTime());
 		Assert.assertTrue(lastUpdateDate.getTime() <= maxDate.getTime());
 		Assert.assertArrayEquals((byte[])getTable("PERSONNAGE").getValue(row, "DATA"), personnageXml.getXml());
+	}
+	
+	
+	@Test
+	public void testGetAddablePersonnages() throws Exception{
+		// Prepare
+		TableBO table = (TableBO) personnageDao.getSession().get(TableBO.class, 1);
+		
+		// Execute
+		Collection<PersonnageWorkBO> personnageWorkList = personnageDao.getAddablePersonnages(table);
+		
+		// Check
+		Set<Integer> expectedPersonnageWorkIdList = new HashSet<Integer>(Arrays.asList(3, 4));
+		Assert.assertEquals(expectedPersonnageWorkIdList.size(), personnageWorkList.size());
+		for(PersonnageWorkBO personnageWork : personnageWorkList){
+			Assert.assertTrue(expectedPersonnageWorkIdList.contains(personnageWork.getId()));
+			expectedPersonnageWorkIdList.remove(personnageWork.getId());
+			checkPersonnageWorkDatabaseCompliance(personnageWork);
+		}
+		Assert.assertTrue(expectedPersonnageWorkIdList.isEmpty());
+	}
+	
+	
+	@Test
+	public void testGetPersonnageListFromType() throws Exception{
+		// Execute
+		Collection<PersonnageWorkBO> personnageWorkList = personnageDao.getPersonnageListFromType("Pavillon Noir");
+		
+		// Check
+		Assert.assertEquals(getTable("PERSONNAGE_WORK").getRowCount(), personnageWorkList.size());
+		for(PersonnageWorkBO personnageWork : personnageWorkList){
+			checkPersonnageWorkDatabaseCompliance(personnageWork);
+		}
+	}
+	
+	
+	@Test
+	public void testGetPersonnageListFromType_EmptyList() throws Exception{
+		// Execute
+		Collection<PersonnageWorkBO> personnageWorkList = personnageDao.getPersonnageListFromType("No existing type");
+		
+		// Check
+		Assert.assertTrue(personnageWorkList.isEmpty());
+	}
+	
+	
+	@Test
+	public void testGetLastModified() throws Exception{
+		// Prepare
+		Date date = dateFormat.parse("2015-03-25 00:00:00,000");
+		
+		// Execute
+		Collection<PersonnageWorkBO> personnageWorkList = personnageDao.getLastModified(date);
+		
+		// Check
+		Set<Integer> expectedPersonnageWorkIdList = new HashSet<Integer>(Arrays.asList(3, 4));
+		Assert.assertEquals(expectedPersonnageWorkIdList.size(), personnageWorkList.size());
+		for(PersonnageWorkBO personnageWork : personnageWorkList){
+			Assert.assertTrue(expectedPersonnageWorkIdList.contains(personnageWork.getId()));
+			expectedPersonnageWorkIdList.remove(personnageWork.getId());
+			checkPersonnageWorkDatabaseCompliance(personnageWork);
+		}
+		Assert.assertTrue(expectedPersonnageWorkIdList.isEmpty());
 	}
 	
 	
