@@ -89,7 +89,6 @@ public class AttributePersonnageTest extends WebAbstractTest {
 			Thread.sleep(1000);
 			driver.switchTo().alert().accept();
 		}catch(WebDriverException wde){
-			System.err.println("##################################");
 			System.err.println("WebDriverException:"+wde.getMessage());
 			wde.printStackTrace();
 			driver.get(baseUrl+context+"/List!deletePersonnage.action?personnageId=1");
