@@ -1,8 +1,11 @@
 package com.mrprez.gencross.web.dao.mock;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.mail.Address;
 import javax.mail.Message;
@@ -12,24 +15,34 @@ import javax.mail.Transport;
 import javax.mail.URLName;
 
 public class MockTransport extends Transport {
+	private static Map<String, MockTransport> mockTransportMap = new ConcurrentHashMap<String, MockTransport>();
 	
-	private static List<SendMessageRequest> sendMessageRequestList = Collections.synchronizedList(new ArrayList<SendMessageRequest>());
+	private String name;
+	private List<SendMessageRequest> sendMessageRequestList = Collections.synchronizedList(new ArrayList<SendMessageRequest>());
+	
 	
 
-	public MockTransport(Session session, URLName urlname) {
+	public MockTransport(Session session, URLName urlname) throws MalformedURLException {
 		super(session, urlname);
+		name = session.getProperty("mock.name");
+		mockTransportMap.put(name, this);
+	}
+	
+	public static MockTransport getMockTransport(String name){
+		return mockTransportMap.get(name);
 	}
 
 	@Override
 	public void sendMessage(Message message, Address[] addresses) throws MessagingException {
 		if(super.isConnected()){
+			System.out.println(message.getSubject());
 			sendMessageRequestList.add(new SendMessageRequest(this, message, addresses));
 		}else{
 			throw new MessagingException("Not connected");
 		}
 	}
 	
-	public static List<SendMessageRequest> getSendMessageRequestList(){
+	public List<SendMessageRequest> getSendMessageRequestList(){
 		return sendMessageRequestList;
 	}
 	
@@ -38,6 +51,7 @@ public class MockTransport extends Transport {
 		setConnected(true);
 	}
 	
+
 	
 	public class SendMessageRequest{
 		private MockTransport transport;
