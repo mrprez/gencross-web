@@ -312,6 +312,22 @@
 			<id>env-dev</id>
 			<build>
         		<plugins>
+        			<plugin>
+        				<artifactId>maven-compiler-plugin</artifactId>
+        				<executions>
+        					<execution>
+        						<id>compile-selenium-test</id>
+        						<phase>pre-integration-test</phase>
+        						<goals>
+        							<goal>testCompile</goal>
+        						</goals>
+        						<configuration>
+        							<source>${basedir}/src/it/java</source>
+        							<target>${basedir}/target/it-classes</target>
+        						</configuration>
+        					</execution>
+        				</executions>
+        			</plugin>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<executions>
@@ -329,7 +345,7 @@
 									<goal>test</goal>
 								</goals>
 								<configuration>
-									<testSourceDirectory>${basedir}/src/it/java/</testSourceDirectory>
+									<testSourceDirectory>${basedir}/target/it-classes/</testSourceDirectory>
 									<additionalClasspathElements>
             							<additionalClasspathElement>${basedir}/src/it/resources</additionalClasspathElement>
             						</additionalClasspathElements>
