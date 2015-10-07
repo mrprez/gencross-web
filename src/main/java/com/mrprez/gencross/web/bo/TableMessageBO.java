@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class TableMessageBO implements Comparable<TableMessageBO>{
 	private Integer id;
+	private String subject;
 	private String title;
 	private Integer tableId;
 	private String senderMail;
@@ -60,19 +61,21 @@ public class TableMessageBO implements Comparable<TableMessageBO>{
 	}
 	
 	public void setSubject(String subject){
+		this.subject = subject;
+		this.title = subject;
 		if(subject.contains("[") && subject.indexOf("]", subject.indexOf("[")) >= 0){
 			int start = subject.indexOf("[")+1;
 			int end = subject.indexOf("]", start);
 			String tableIdString = subject.substring(start, end).trim();
 			if(tableIdString.matches("[0-9]+")){
 				tableId = Integer.parseInt(tableIdString);
+				title = subject.substring(end+1).trim();
 			}
 		}
-		title = subject;
 	}
 	
 	public String getSubject(){
-		return title;
+		return subject;
 	}
 	
 	@Override

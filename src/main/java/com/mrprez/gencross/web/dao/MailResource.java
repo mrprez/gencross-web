@@ -193,20 +193,20 @@ public class MailResource implements IMailResource {
 				TableMessageBO tableMessage = new TableMessageBO();
 				tableMessage.setDate(mail.getReceivedDate());
 				tableMessage.setData(getText(mail));
-				if(mail.getFrom().length > 0){
+				if(mail.getFrom().length == 0){
+					sendError(new Exception("Mail sans auteur "+mail.getSubject()));
+				}else{
 					InternetAddress from = (InternetAddress) mail.getFrom()[0];
 					tableMessage.setSenderMail(from.getAddress());
-				}else{
-					sendError(new Exception("Mail sans auteur "+mail.getSubject()));
-				}
-				tableMessage.setSubject(mail.getSubject());
-				if(tableMessage.getTableId()!=null){
-					mail.setFlag(Flags.Flag.SEEN, true);
-					result.add(tableMessage);
-				}else{
-					send(tableMessage.getSenderMail(), (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue(),
-							"Invalid subject: " + tableMessage.getSubject(), 
-							"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]')." + "\n\n\n\n" + tableMessage.getData());
+					tableMessage.setSubject(mail.getSubject());
+					if(tableMessage.getTableId()!=null){
+						mail.setFlag(Flags.Flag.SEEN, true);
+						result.add(tableMessage);
+					}else{
+						send(tableMessage.getSenderMail(), (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue(),
+								"Invalid subject: " + tableMessage.getSubject(), 
+								"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]')." + "\n\n\n\n" + tableMessage.getData());
+					}
 				}
 			}
 			Logger.getLogger(getClass()).info(result.size()+" messages loaded from "+receiverSession.getProperty("mail.user"));

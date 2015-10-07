@@ -31,11 +31,15 @@ public class MockTransport extends Transport {
 	public static MockTransport getMockTransport(String name){
 		return mockTransportMap.get(name);
 	}
+	
+	public static void clearMockTransport(){
+		mockTransportMap.clear();;
+	}
 
 	@Override
 	public void sendMessage(Message message, Address[] addresses) throws MessagingException {
 		if(super.isConnected()){
-			System.out.println(message.getSubject());
+			message.getSubject();
 			sendMessageRequestList.add(new SendMessageRequest(this, message, addresses));
 		}else{
 			throw new MessagingException("Not connected");
