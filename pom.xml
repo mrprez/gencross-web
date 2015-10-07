@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>2.39.0</version>
+			<version>2.47.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -312,6 +312,22 @@
 			<id>env-dev</id>
 			<build>
         		<plugins>
+        			<plugin>
+        				<artifactId>maven-compiler-plugin</artifactId>
+        				<executions>
+        					<execution>
+        						<id>compile-selenium-test</id>
+        						<phase>pre-integration-test</phase>
+        						<goals>
+        							<goal>testCompile</goal>
+        						</goals>
+        						<configuration>
+        							<source>${basedir}/src/it/java</source>
+        							<target>${basedir}/target/it-classes</target>
+        						</configuration>
+        					</execution>
+        				</executions>
+        			</plugin>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<executions>
@@ -321,11 +337,6 @@
 								<goals>
 									<goal>test</goal>
 								</goals>
-								<configuration>
-									<excludes>
-										<exclude>com/mrprez/gencross/web/selenium/*</exclude>
-									</excludes>
-								</configuration>
 							</execution>
 							<execution>
 								<id>selenium-test</id>
@@ -334,9 +345,10 @@
 									<goal>test</goal>
 								</goals>
 								<configuration>
-									<includes>
-										<include>com/mrprez/gencross/web/selenium/*</include>
-									</includes>
+									<testSourceDirectory>${basedir}/target/it-classes/</testSourceDirectory>
+									<additionalClasspathElements>
+            							<additionalClasspathElement>${basedir}/src/it/resources</additionalClasspathElement>
+            						</additionalClasspathElements>
 									<systemProperties>
 							            <property>
 											<name>basedir</name>
@@ -372,11 +384,6 @@
 								<goals>
 									<goal>test</goal>
 								</goals>
-								<configuration>
-									<excludes>
-										<exclude>com/mrprez/gencross/web/selenium/*</exclude>
-									</excludes>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>

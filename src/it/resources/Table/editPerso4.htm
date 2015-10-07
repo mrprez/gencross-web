@@ -26,6 +26,7 @@
 				</a>
 				<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
 				<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});</script>
 				<table class="menu">
 					<tbody>
 						<tr>
@@ -57,12 +58,29 @@
 							<td class="menu">
 								<a class="menu" href="/gencross-web/link!downloads.action">Téléchargements</a>
 							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu">
+								<span class="menu">Administration</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Params.action">Gestion des paramètres</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/JobProcessing.action">Traitements programmés</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Logger.action">Gestion des logs</a>
+									</li>
+								</ul>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div id="headerRight">
-				<span id="username">azerty</span>
+				<span id="username">mrprez</span>
 				<br/>
 				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
 			</div>
@@ -72,18 +90,21 @@
 				<img style="display: none;" title="Attente Serveur..." alt="Attente Serveur..." src="/gencross-web/img/wait.gif" class="waitImage" id="waitImage"/>
 			</div>
 			<div style="display: none;" id="tooLongWaitMsg">
-				<a href="/gencross-web/Edit.action?personnageId=1">Attente trop longue: cliquez ici pour recharger la page.</a>
+				<a href="/gencross-web/Edit.action?personnageId=2">Attente trop longue: cliquez ici pour recharger la page.</a>
 			</div>
 			<div id="ajaxError">UNE ERREUR EST SURVENUE
 				<br/>
 				<span id="ajaxErrorDate">00:00:00</span>
 				<br/>
-				<a href="/gencross-web/Edit.action?personnageId=1">Recharger</a>
+				<a href="/gencross-web/Edit.action?personnageId=2">Recharger</a>
 			</div>
-			<script language="Javascript" type="text/javascript">personnageWorkId = 1;</script>
+			<script language="Javascript" type="text/javascript">personnageWorkId = 2;</script>
 			<div id="personnageName">
-				<span>Test INS</span>
-				<span id="gamemasterName">MJ: azerty</span>
+				<span>Table INS 2</span>
+				<span id="gamemasterName">MJ: mrprez</span>
+				<span id="tableName">Table:
+					<a href="/gencross-web/EditTable.action?id=1">Table INS</a>
+				</span>
 			</div>
 			<table id="personnageMainTable">
 				<tbody>
@@ -94,24 +115,24 @@
 								<img height="20" width="20" alt="Fichier d'aide" src="/gencross-web/img/helpFileDisabled.png"/>
 							</span>
 							<span class="actionIcon">
-								<a href="/gencross-web/Edit.action?personnageId=1">
+								<a href="/gencross-web/Edit.action?personnageId=2">
 									<img title="Recharger la page" height="20" width="20" alt="Recharger la page" src="/gencross-web/img/refresh.png"/>
 								</a>
 							</span>
 							<form method="get" action="/gencross-web/Edit!validatePersonnage.action" name="Edit!validatePersonnage" id="Edit!validatePersonnage">
-								<input id="Edit!validatePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
+								<input id="Edit!validatePersonnage_personnageId" value="2" name="personnageId" type="hidden"/>
 								<input value="Valider" id="Edit!validatePersonnage_0" type="submit"/>
 							</form>
 							<form method="get" action="/gencross-web/Edit!unvalidatePersonnage.action" name="Edit!unvalidatePersonnage" id="Edit!unvalidatePersonnage">
-								<input id="Edit!unvalidatePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
+								<input id="Edit!unvalidatePersonnage_personnageId" value="2" name="personnageId" type="hidden"/>
 								<input onclick="javascript:unvalidate(this)" value="Annuler" type="button"/>
 							</form>
 							<form method="get" action="/gencross-web/Export.action" name="Export" id="Export">
-								<input id="Export_personnageId" value="1" name="personnageId" type="hidden"/>
+								<input id="Export_personnageId" value="2" name="personnageId" type="hidden"/>
 								<input value="Export" id="Export_0" type="submit"/>
 							</form>
 							<form method="get" action="/gencross-web/Background.action" name="Background" id="Background">
-								<input id="Background_personnageId" value="1" name="personnageId" type="hidden"/>
+								<input id="Background_personnageId" value="2" name="personnageId" type="hidden"/>
 								<input value="Background" id="Background_0" type="submit"/>
 							</form>
 						</td>
@@ -144,7 +165,7 @@
 									<tbody>
 										<tr id="pointPool_0">
 											<td class="pointPool_name">PA</td>
-											<td class="pointPool_remaining">56/80</td>
+											<td class="pointPool_remaining">70/80</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
 												<form class="pointPoolForm" method="post" action="/gencross-web/EditAjax!getPointPool.action" onsubmit="return false;" name="EditAjax!getPointPool" id="EditAjax!getPointPool">
@@ -237,6 +258,9 @@
 											<td>Il reste des PA à dépenser</td>
 										</tr>
 										<tr>
+											<td>Vous devez dépenser entre 16 et 40 PA en Caracteristiques</td>
+										</tr>
+										<tr>
 											<td>Vous devez dépenser entre 20 et 40 PA en Talents</td>
 										</tr>
 										<tr>
@@ -252,7 +276,7 @@
 								<li class="unexpandable, property" id="li_0">
 									<script language="Javascript" type="text/javascript">numberAssociation['Superieur'] = '0';</script>
 									<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-									<span id="span_0">Superieur : Baal - Prince de la Guerre</span>
+									<span id="span_0">Superieur : Abalam - Prince de la Folie</span>
 								</li>
 								<li class="unexpandable, property" id="li_1">
 									<script language="Javascript" type="text/javascript">numberAssociation['Identit\u00E9'] = '1';</script>
@@ -279,18 +303,19 @@
 									</a>
 									<ul class="expanded" id="subProperties_3">
 										<li class="unexpandable, property" id="li_3_0">
+											<script language="Javascript" type="text/javascript">numberAssociation['Caracteristiques#Force'] = '3_0';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_3_0">Force : 5</span>
+											<span id="span_3_0">Force : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_0" id="form_3_0">
+											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_3_0" id="form_3_0">
 												<input id="form_3_0_propertyAbsoluteName" value="Caracteristiques#Force" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_3_0_newValue" value="5" name="newValue" type="hidden"/>
+												<input class="hiddenNewValue" id="form_3_0_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 1.5, 5);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minus.png"/>
 												</button>
-												<span class="displayedNewValue">5</span>
-												<button onkeydown="editFormKeyDown(event)" disabled="" onclick="javascript:plusValue(this, 0.5, 1.5, 5);" type="button" class="plusButton">
-													<img alt="+" src="/gencross-web/img/plusdisabled.png"/>
+												<span class="displayedNewValue">2</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 5);" type="button" class="plusButton">
+													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('3_0')">Valider</button>
 												<img onclick="javascript:hideEditFormFromChild(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
@@ -298,15 +323,15 @@
 										</li>
 										<li class="unexpandable, property" id="li_3_1">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_3_1">Agilité : 4</span>
+											<span id="span_3_1">Agilité : 3</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_1" id="form_3_1">
 												<input id="form_3_1_propertyAbsoluteName" value="Caracteristiques#Agilité" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_3_1_newValue" value="4" name="newValue" type="hidden"/>
+												<input class="hiddenNewValue" id="form_3_1_newValue" value="3" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 1.5, 5);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minus.png"/>
 												</button>
-												<span class="displayedNewValue">4</span>
+												<span class="displayedNewValue">3</span>
 												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 5);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
@@ -372,16 +397,17 @@
 											</form>
 										</li>
 										<li class="unexpandable, property" id="li_3_5">
+											<script language="Javascript" type="text/javascript">numberAssociation['Caracteristiques#Foi\/Chance'] = '3_5';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_3_5">Foi/Chance : 3</span>
+											<span id="span_3_5">Foi/Chance : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_5" id="form_3_5">
+											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_3_5" id="form_3_5">
 												<input id="form_3_5_propertyAbsoluteName" value="Caracteristiques#Foi/Chance" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_3_5_newValue" value="3" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 2, 5);" type="button" class="minusButton">
-													<img alt="-" src="/gencross-web/img/minus.png"/>
+												<input class="hiddenNewValue" id="form_3_5_newValue" value="2" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 5);" type="button" class="minusButton">
+													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">3</span>
+												<span class="displayedNewValue">2</span>
 												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 5);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
@@ -399,34 +425,39 @@
 									</a>
 									<ul class="expandable" id="subProperties_4">
 										<li class="unexpandable, property" id="li_4_0">
+											<script language="Javascript" type="text/javascript">numberAssociation['Blessures#Points de fatigue'] = '4_0';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_4_0">Points de fatigue : 7</span>
+											<span id="span_4_0">Points de fatigue : 4</span>
 										</li>
 										<li class="unexpandable, property" id="li_4_1">
+											<script language="Javascript" type="text/javascript">numberAssociation['Blessures#Blessures l\u00E9g\u00E8res'] = '4_1';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_4_1">Blessures légères : 7</span>
+											<span id="span_4_1">Blessures légères : 5</span>
 										</li>
 										<li class="unexpandable, property" id="li_4_2">
+											<script language="Javascript" type="text/javascript">numberAssociation['Blessures#Blessures graves'] = '4_2';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_4_2">Blessures graves : 14</span>
+											<span id="span_4_2">Blessures graves : 10</span>
 										</li>
 										<li class="unexpandable, property" id="li_4_3">
+											<script language="Javascript" type="text/javascript">numberAssociation['Blessures#Blessures fatales'] = '4_3';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_4_3">Blessures fatales : 21</span>
+											<span id="span_4_3">Blessures fatales : 15</span>
 										</li>
 										<li class="unexpandable, property" id="li_4_4">
+											<script language="Javascript" type="text/javascript">numberAssociation['Blessures#Morts subites'] = '4_4';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_4_4">Morts subites : 28</span>
+											<span id="span_4_4">Morts subites : 20</span>
 										</li>
 									</ul>
 								</li>
 								<li class="expandable, property" id="li_5">
 									<script language="Javascript" type="text/javascript">numberAssociation['Talents principaux'] = '5';</script>
 									<a href="javascript:;" onclick="javascript:expandCollapse('Talents principaux','5');" class="motherPropertyName">
-										<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expanded.jpg" class="expandImg"/>
+										<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expandable.jpg" class="expandImg"/>
 										<span id="span_5">Talents principaux</span>
 									</a>
-									<ul class="expanded" id="subProperties_5">
+									<ul class="expandable" id="subProperties_5">
 										<li class="unexpandable, property" id="li_5_0">
 											<script language="Javascript" type="text/javascript">numberAssociation['Talents principaux#Baratin'] = '5_0';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
@@ -448,27 +479,27 @@
 										</li>
 										<li class="expandable, property" id="li_5_1">
 											<a href="javascript:;" onclick="javascript:expandCollapse('Talents principaux#Combat','5_1');" class="motherPropertyName">
-												<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expanded.jpg" class="expandImg"/>
-												<span id="span_5_1">Combat : 2</span>
+												<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expandable.jpg" class="expandImg"/>
+												<span id="span_5_1">Combat : 1.5</span>
 											</a>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_1" id="form_5_1">
 												<input id="form_5_1_propertyAbsoluteName" value="Talents principaux#Combat" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_1_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_5_1_newValue" value="1.5" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1.5</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('5_1')">Valider</button>
 												<img onclick="javascript:hideEditFormFromChild(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
 											</form>
-											<ul class="expanded" id="subProperties_5_1">
+											<ul class="expandable" id="subProperties_5_1">
 												<li class="addProperty">
 													<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajout libre</span>
-													<form style="display: inline-block;" class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_5_1" id="addFreePropertyForm_5_1">
+													<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_5_1" id="addFreePropertyForm_5_1">
 														<input id="addFreePropertyForm_5_1_motherProperty" value="Talents principaux#Combat" name="motherProperty" type="hidden"/>
 														<input onkeydown="javascript:editFormKeyDown(event)" id="addFreePropertyForm_5_1_newProperty" value="" name="newProperty" type="text"/>
 														<button type="button" onclick="javascript:addFreeProperty('5_1')">Valider</button>
@@ -479,16 +510,16 @@
 										</li>
 										<li class="unexpandable, property" id="li_5_2">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_5_2">Corps à corps : 2</span>
+											<span id="span_5_2">Corps à corps : 1.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_2" id="form_5_2">
 												<input id="form_5_2_propertyAbsoluteName" value="Talents principaux#Corps à corps" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_2_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_5_2_newValue" value="1.5" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1.5</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('5_2')">Valider</button>
@@ -497,16 +528,16 @@
 										</li>
 										<li class="unexpandable, property" id="li_5_3">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_5_3">Défense : 2</span>
+											<span id="span_5_3">Défense : 1.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_3" id="form_5_3">
 												<input id="form_5_3_propertyAbsoluteName" value="Talents principaux#Défense" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_3_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_5_3_newValue" value="1.5" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1.5</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('5_3')">Valider</button>
@@ -515,16 +546,16 @@
 										</li>
 										<li class="unexpandable, property" id="li_5_4">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_5_4">Discrétion : 2</span>
+											<span id="span_5_4">Discrétion : 1.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_4" id="form_5_4">
 												<input id="form_5_4_propertyAbsoluteName" value="Talents principaux#Discrétion" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_4_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_5_4_newValue" value="1.5" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1.5</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('5_4')">Valider</button>
@@ -551,17 +582,18 @@
 											</form>
 										</li>
 										<li class="unexpandable, property" id="li_5_6">
+											<script language="Javascript" type="text/javascript">numberAssociation['Talents principaux#Enqu\u00EAte'] = '5_6';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_5_6">Enquête : 1.5</span>
+											<span id="span_5_6">Enquête : 1</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_6" id="form_5_6">
+											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_5_6" id="form_5_6">
 												<input id="form_5_6_propertyAbsoluteName" value="Talents principaux#Enquête" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_6_newValue" value="1.5" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_5_6_newValue" value="1" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">1.5</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('5_6')">Valider</button>
@@ -679,7 +711,6 @@
 									</ul>
 								</li>
 								<li class="expandable, property" id="li_6">
-									<script language="Javascript" type="text/javascript">numberAssociation['Talents exotiques'] = '6';</script>
 									<a href="javascript:;" onclick="javascript:expandCollapse('Talents exotiques','6');" class="motherPropertyName">
 										<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expandable.jpg" class="expandImg"/>
 										<span id="span_6">Talents exotiques</span>
@@ -687,7 +718,7 @@
 									<ul class="expandable" id="subProperties_6">
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajouter par choix</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="addPropertyFromOptionForm_6" id="addPropertyFromOptionForm_6">
+											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addPropertyFromOptionForm_6" id="addPropertyFromOptionForm_6">
 												<input id="addPropertyFromOptionForm_6_motherProperty" value="Talents exotiques" name="motherProperty" type="hidden"/>
 												<select onkeydown="javascript:editFormKeyDown(event)" id="addPropertyFromOptionForm_6_optionProperty" name="optionProperty">
 													<option value="Contorsionnisme">Contorsionnisme</option>
@@ -706,11 +737,10 @@
 												<button type="button" onclick="javascript:addPropertyFromOption('6')">Valider</button>
 												<img onclick="javascript:hideAddPropertyForm(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
 											</form>
-											<script language="Javascript" type="text/javascript">specification['6'] = new Array();</script>
 										</li>
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajout libre</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="addFreePropertyForm_6" id="addFreePropertyForm_6">
+											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_6" id="addFreePropertyForm_6">
 												<input id="addFreePropertyForm_6_motherProperty" value="Talents exotiques" name="motherProperty" type="hidden"/>
 												<input onkeydown="javascript:editFormKeyDown(event)" id="addFreePropertyForm_6_newProperty" value="" name="newProperty" type="text"/>
 												<button type="button" onclick="javascript:addFreeProperty('6')">Valider</button>
@@ -747,16 +777,16 @@
 									<ul class="expandable" id="subProperties_8">
 										<li class="unexpandable, property" id="li_8_0">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_8_0">Acrobatie : 2</span>
+											<span id="span_8_0">Acrobatie : 1.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_0" id="form_8_0">
 												<input id="form_8_0_propertyAbsoluteName" value="Talents secondaires#Acrobatie" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_8_0_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_8_0_newValue" value="1.5" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1.5</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('8_0')">Valider</button>
@@ -815,17 +845,18 @@
 											</ul>
 										</li>
 										<li class="unexpandable, property" id="li_8_3">
+											<script language="Javascript" type="text/javascript">numberAssociation['Talents secondaires#Athl\u00E9tisme'] = '8_3';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_8_3">Athlétisme : 2.5</span>
+											<span id="span_8_3">Athlétisme : 1</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_3" id="form_8_3">
+											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_8_3" id="form_8_3">
 												<input id="form_8_3_propertyAbsoluteName" value="Talents secondaires#Athlétisme" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_8_3_newValue" value="2.5" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2.5, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_8_3_newValue" value="1" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2.5</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2.5, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('8_3')">Valider</button>
@@ -834,16 +865,16 @@
 										</li>
 										<li class="unexpandable, property" id="li_8_4">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_8_4">Conduite : 2</span>
+											<span id="span_8_4">Conduite : 1.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_4" id="form_8_4">
 												<input id="form_8_4_propertyAbsoluteName" value="Talents secondaires#Conduite" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_8_4_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_8_4_newValue" value="1.5" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1.5</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1.5, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('8_4')">Valider</button>
@@ -920,17 +951,18 @@
 											</form>
 										</li>
 										<li class="unexpandable, property" id="li_8_8">
+											<script language="Javascript" type="text/javascript">numberAssociation['Talents secondaires#Intimidation'] = '8_8';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_8_8">Intimidation : 2.5</span>
+											<span id="span_8_8">Intimidation : 1</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_8" id="form_8_8">
+											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_8_8" id="form_8_8">
 												<input id="form_8_8_propertyAbsoluteName" value="Talents secondaires#Intimidation" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_8_8_newValue" value="2.5" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2.5, 7);" type="button" class="minusButton">
+												<input class="hiddenNewValue" id="form_8_8_newValue" value="1" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1, 7);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 												</button>
-												<span class="displayedNewValue">2.5</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2.5, 7);" type="button" class="plusButton">
+												<span class="displayedNewValue">1</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
 												<button type="button" onclick="javascript:setNewValue('8_8')">Valider</button>
@@ -1238,15 +1270,36 @@
 									</ul>
 								</li>
 								<li class="expandable, property" id="li_9">
-									<script language="Javascript" type="text/javascript">numberAssociation['Pouvoirs'] = '9';</script>
 									<a href="javascript:;" onclick="javascript:expandCollapse('Pouvoirs','9');" class="motherPropertyName">
-										<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expandable.jpg" class="expandImg"/>
+										<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expanded.jpg" class="expandImg"/>
 										<span id="span_9">Pouvoirs</span>
 									</a>
-									<ul class="expandable" id="subProperties_9">
+									<ul class="expanded" id="subProperties_9">
+										<li class="unexpandable, property" id="li_9_0">
+											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
+											<span id="span_9_0">Adhérence : 1</span>
+											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
+											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_9_0" id="form_9_0">
+												<input id="form_9_0_propertyAbsoluteName" value="Pouvoirs#Adhérence" name="propertyAbsoluteName" type="hidden"/>
+												<input class="hiddenNewValue" id="form_9_0_newValue" value="1" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1, 2);" type="button" class="minusButton">
+													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
+												</button>
+												<span class="displayedNewValue">1</span>
+												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 1, 2);" type="button" class="plusButton">
+													<img alt="+" src="/gencross-web/img/plus.png"/>
+												</button>
+												<button type="button" onclick="javascript:setNewValue('9_0')">Valider</button>
+												<img onclick="javascript:hideEditFormFromChild(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
+											</form>
+											<form class="removeForm" method="post" action="/gencross-web/EditAjax!getProperty.action" name="removeForm_9_0" id="removeForm_9_0">
+												<input id="removeForm_9_0_propertyAbsoluteName" value="Pouvoirs#Adhérence" name="propertyAbsoluteName" type="hidden"/>
+												<img onclick="javascript:removeProperty('9_0');" alt="Supprimer" src="/gencross-web/img/remove.png" class="removeImg"/>
+											</form>
+										</li>
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajouter par choix</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="addPropertyFromOptionForm_9" id="addPropertyFromOptionForm_9">
+											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addPropertyFromOptionForm_9" id="addPropertyFromOptionForm_9">
 												<input id="addPropertyFromOptionForm_9_motherProperty" value="Pouvoirs" name="motherProperty" type="hidden"/>
 												<select onkeydown="javascript:editFormKeyDown(event)" id="addPropertyFromOptionForm_9_optionProperty" name="optionProperty">
 													<option value="Absorption d’énergie sexuelle">Absorption d’énergie sexuelle</option>
@@ -1350,13 +1403,11 @@
 													<option value="Vitesse">Vitesse</option>
 													<option value="Vol">Vol</option>
 													<option value="Volonté supranormale">Volonté supranormale</option>
-													<option value="Art de combat">Art de combat</option>
-													<option value="Message officiel">Message officiel</option>
+													<option value="Camisole">Camisole</option>
 												</select>
 												<button type="button" onclick="javascript:addPropertyFromOption('9')">Valider</button>
 												<img onclick="javascript:hideAddPropertyForm(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
 											</form>
-											<script language="Javascript" type="text/javascript">specification['9'] = new Array(); specification['9']['Membre blind\u00E9 - ']=''; specification['9']['Membre exotique - ']='';</script>
 										</li>
 									</ul>
 								</li>
@@ -1368,12 +1419,12 @@
 									</a>
 									<ul class="expandable" id="subProperties_10">
 										<li class="unexpandable, property" id="li_10_0">
-											<script language="Javascript" type="text/javascript">numberAssociation['Pouvoirs de grade#Guerre'] = '10_0';</script>
+											<script language="Javascript" type="text/javascript">numberAssociation['Pouvoirs de grade#Folie'] = '10_0';</script>
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_10_0">Guerre : 0</span>
+											<span id="span_10_0">Folie : 0</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_10_0" id="form_10_0">
-												<input id="form_10_0_propertyAbsoluteName" value="Pouvoirs de grade#Guerre" name="propertyAbsoluteName" type="hidden"/>
+												<input id="form_10_0_propertyAbsoluteName" value="Pouvoirs de grade#Folie" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_10_0_newValue" value="0" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 1, 0, 6);" type="button" class="minusButton">
 													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
@@ -1386,58 +1437,21 @@
 												<img onclick="javascript:hideEditFormFromChild(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
 											</form>
 										</li>
-										<li class="unexpandable, property" id="li_10_1">
-											<script language="Javascript" type="text/javascript">numberAssociation['Pouvoirs de grade#Arm\u00E9e'] = '10_1';</script>
-											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_10_1">Armée : 0</span>
-											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_10_1" id="form_10_1">
-												<input id="form_10_1_propertyAbsoluteName" value="Pouvoirs de grade#Armée" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_10_1_newValue" value="0" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 1, 0, 6);" type="button" class="minusButton">
-													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
-												</button>
-												<span class="displayedNewValue">0</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 1, 0, 6);" type="button" class="plusButton">
-													<img alt="+" src="/gencross-web/img/plus.png"/>
-												</button>
-												<button type="button" onclick="javascript:setNewValue('10_1')">Valider</button>
-												<img onclick="javascript:hideEditFormFromChild(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
-											</form>
-										</li>
-										<li class="unexpandable, property" id="li_10_2">
-											<script language="Javascript" type="text/javascript">numberAssociation['Pouvoirs de grade#Armes'] = '10_2';</script>
-											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_10_2">Armes : 0</span>
-											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_10_2" id="form_10_2">
-												<input id="form_10_2_propertyAbsoluteName" value="Pouvoirs de grade#Armes" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_10_2_newValue" value="0" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 1, 0, 6);" type="button" class="minusButton">
-													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
-												</button>
-												<span class="displayedNewValue">0</span>
-												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 1, 0, 6);" type="button" class="plusButton">
-													<img alt="+" src="/gencross-web/img/plus.png"/>
-												</button>
-												<button type="button" onclick="javascript:setNewValue('10_2')">Valider</button>
-												<img onclick="javascript:hideEditFormFromChild(this);" alt="Replier" src="/gencross-web/img/fold.png" class="foldImg"/>
-											</form>
-										</li>
 									</ul>
 								</li>
 								<li class="unexpandable, property" id="li_11">
+									<script language="Javascript" type="text/javascript">numberAssociation['PP'] = '11';</script>
 									<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-									<span id="span_11">PP : 5</span>
+									<span id="span_11">PP : 4</span>
 									<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-									<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_11" id="form_11">
+									<form class="editForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="form_11" id="form_11">
 										<input id="form_11_propertyAbsoluteName" value="PP" name="propertyAbsoluteName" type="hidden"/>
-										<input class="hiddenNewValue" id="form_11_newValue" value="5" name="newValue" type="hidden"/>
-										<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 1, 5, 15);" type="button" class="minusButton">
+										<input class="hiddenNewValue" id="form_11_newValue" value="4" name="newValue" type="hidden"/>
+										<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 1, 4, 15);" type="button" class="minusButton">
 											<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
 										</button>
-										<span class="displayedNewValue">5</span>
-										<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 1, 5, 15);" type="button" class="plusButton">
+										<span class="displayedNewValue">4</span>
+										<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 1, 4, 15);" type="button" class="plusButton">
 											<img alt="+" src="/gencross-web/img/plus.png"/>
 										</button>
 										<button type="button" onclick="javascript:setNewValue('11')">Valider</button>
@@ -1482,7 +1496,7 @@
 								</li>
 							</ul>
 							<form method="post" action="/gencross-web/Edit!nextPhase.action" name="Edit!nextPhase" id="Edit!nextPhase">
-								<input id="Edit!nextPhase_personnageId" value="1" name="personnageId" type="hidden"/>
+								<input id="Edit!nextPhase_personnageId" value="2" name="personnageId" type="hidden"/>
 								<table class="wwFormTable">
 									<tbody>
 										<tr>
@@ -1509,35 +1523,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr title="Caracteristiques#Foi/Chance" id="historyItemLine_3" class="historyItemLine">
-										<td class="historyIndex">3</td>
-										<td>Foi/Chance</td>
-										<td>2</td>
-										<td>3</td>
-										<td>4 PA
-											<img onclick="javascript:displayHistoryEditForm(3);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_3" id="historyForm_3">
-												<input class="historyFormCost" id="historyForm_3_cost" value="4" size="1" name="cost" type="text"/>
-												<select id="historyForm_3_pointPoolName" name="pointPoolName">
-													<option selected="selected" value="PA">PA</option>
-													<option value="Points de talents secondaires">Points de talents secondaires</option>
-													<option value="Pouvoirs de grade">Pouvoirs de grade</option>
-												</select>
-												<img onclick="javascript:modifyHistory(3);" alt="Valider" src="/gencross-web/img/validate.png" class="activeImg historyFormImg"/>
-												<img onclick="javascript:hideHistoryEditForm(3);" alt="Fermer" src="/gencross-web/img/fold.png" class="activeImg historyFormImg"/>
-											</form>
-										</td>
-										<td title="00:00:00,000 00/00/0000">00:00 00/00</td>
-									</tr>
 									<tr title="Caracteristiques#Agilité" id="historyItemLine_2" class="historyItemLine">
 										<td class="historyIndex">2</td>
 										<td>Agilité</td>
 										<td>2</td>
-										<td>4</td>
-										<td>8 PA
+										<td>3</td>
+										<td>4 PA
 											<img onclick="javascript:displayHistoryEditForm(2);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
 											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_2" id="historyForm_2">
-												<input class="historyFormCost" id="historyForm_2_cost" value="8" size="1" name="cost" type="text"/>
+												<input class="historyFormCost" id="historyForm_2_cost" value="4" size="1" name="cost" type="text"/>
 												<select id="historyForm_2_pointPoolName" name="pointPoolName">
 													<option selected="selected" value="PA">PA</option>
 													<option value="Points de talents secondaires">Points de talents secondaires</option>
@@ -1549,15 +1543,15 @@
 										</td>
 										<td title="00:00:00,000 00/00/0000">00:00 00/00</td>
 									</tr>
-									<tr title="Caracteristiques#Force" id="historyItemLine_1" class="historyItemLine">
+									<tr title="Pouvoirs#Adhérence" id="historyItemLine_1" class="historyItemLine">
 										<td class="historyIndex">1</td>
-										<td>Force</td>
-										<td>2</td>
-										<td>5</td>
-										<td>12 PA
+										<td>Adhérence</td>
+										<td/>
+										<td>1</td>
+										<td>6 PA
 											<img onclick="javascript:displayHistoryEditForm(1);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
 											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_1" id="historyForm_1">
-												<input class="historyFormCost" id="historyForm_1_cost" value="12" size="1" name="cost" type="text"/>
+												<input class="historyFormCost" id="historyForm_1_cost" value="6" size="1" name="cost" type="text"/>
 												<select id="historyForm_1_pointPoolName" name="pointPoolName">
 													<option selected="selected" value="PA">PA</option>
 													<option value="Points de talents secondaires">Points de talents secondaires</option>
@@ -1573,7 +1567,7 @@
 										<td class="historyIndex">0</td>
 										<td>Superieur</td>
 										<td/>
-										<td>Baal - Prince de la Guerre</td>
+										<td>Abalam - Prince de la Folie</td>
 										<td>0
 											<img onclick="javascript:displayHistoryEditForm(0);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
 											<form class="historyEditForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="historyForm_0" id="historyForm_0">
@@ -1595,7 +1589,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<span class="personnageFooterElement">Identifiant du personnage = 1</span>
+			<span class="personnageFooterElement">Identifiant du personnage = 2</span>
 			<span class="personnageFooterElement">Plugin = INS - 1.11</span>
 		</div>
 		<div id="footer"/>

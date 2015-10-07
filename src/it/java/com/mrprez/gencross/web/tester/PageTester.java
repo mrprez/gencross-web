@@ -34,7 +34,7 @@ public class PageTester extends TemplateTester {
 	private static String HTML_EXTENSION = ".htm";
 	
 	private List<ExpectedCondition<Boolean>> waitConditionList = new ArrayList<ExpectedCondition<Boolean>>();
-	private long sleepTime = 1000;
+	private long sleepTime = 2000;
 	
 	
 	public PageTester(String maskGroup, String maskGroupRepositoryPath, String workDirPath) {
@@ -57,7 +57,13 @@ public class PageTester extends TemplateTester {
 			throw te;
 		}
 		
-		test(driver.getPageSource(), testName, HTML_EXTENSION);
+		for(int tryNb=0; tryNb<10; tryNb++){
+			if(test(driver.getPageSource(), testName, HTML_EXTENSION)){
+				return;
+			}
+			Thread.sleep(sleepTime);
+		}
+		Assert.fail("testPage "+testName+" fails");
 	}
 
 	
@@ -117,7 +123,14 @@ public class PageTester extends TemplateTester {
 	}
 	
 	
-	
+	public long getSleepTime() {
+		return sleepTime;
+	}
+
+
+	public void setSleepTime(long sleepTime) {
+		this.sleepTime = sleepTime;
+	}
 	
 	
 
