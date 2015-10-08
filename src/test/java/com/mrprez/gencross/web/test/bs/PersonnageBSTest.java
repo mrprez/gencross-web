@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +16,7 @@ import com.mrprez.gencross.history.HistoryItem;
 import com.mrprez.gencross.value.DoubleValue;
 import com.mrprez.gencross.web.bo.PersonnageDataBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
+import com.mrprez.gencross.web.bs.PersonnageBS;
 import com.mrprez.gencross.web.dao.PersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IUserDAO;

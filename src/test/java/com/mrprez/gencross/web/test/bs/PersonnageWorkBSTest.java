@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.PersonnageDataBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.bs.PersonnageBS;
 
 public class PersonnageWorkBSTest {
 	

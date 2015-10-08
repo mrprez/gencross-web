@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,6 +8,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.mrprez.gencross.disk.PersonnageFactory;
+import com.mrprez.gencross.web.bs.AuthentificationBS;
+import com.mrprez.gencross.web.bs.ExportBS;
+import com.mrprez.gencross.web.bs.GcrFileBS;
+import com.mrprez.gencross.web.bs.ParamsBS;
+import com.mrprez.gencross.web.bs.PersonnageBS;
+import com.mrprez.gencross.web.bs.PlanGameBS;
+import com.mrprez.gencross.web.bs.TableBS;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IUserDAO;

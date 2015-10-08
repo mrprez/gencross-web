@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.mrprez.gencross.web.bo.ParamBO;
+import com.mrprez.gencross.web.bs.ParamsBS;
 import com.mrprez.gencross.web.bs.util.BusinessException;
 import com.mrprez.gencross.web.dao.face.IParamDAO;
 

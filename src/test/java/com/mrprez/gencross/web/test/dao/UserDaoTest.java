@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -12,6 +12,8 @@ import org.junit.Test;
 
 import com.mrprez.gencross.web.bo.RoleBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.dao.AbstractDAO;
+import com.mrprez.gencross.web.dao.UserDAO;
 
 public class UserDaoTest extends AbstractDaoTest {
 

@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,6 +21,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
+
+import com.mrprez.gencross.web.dao.AbstractDAO;
 
 public abstract class AbstractDaoTest {
 	

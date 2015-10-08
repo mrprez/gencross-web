@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.io.FileInputStream;
 import java.util.Arrays;
@@ -10,6 +10,8 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.mrprez.gencross.web.bs.LoggerBS;
 
 public class LoggerBSTest {
 	

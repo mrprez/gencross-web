@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,8 +27,10 @@ import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.PersonnageXmlBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
-import com.mrprez.gencross.web.bs.AuthentificationBSTest;
-import com.mrprez.gencross.web.bs.TableBSTest;
+import com.mrprez.gencross.web.dao.AbstractDAO;
+import com.mrprez.gencross.web.dao.PersonnageDAO;
+import com.mrprez.gencross.web.test.bs.AuthentificationBSTest;
+import com.mrprez.gencross.web.test.bs.TableBSTest;
 
 public class PersonnageDaoTest extends AbstractDaoTest {
 

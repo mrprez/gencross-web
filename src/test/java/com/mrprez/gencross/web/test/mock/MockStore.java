@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao.mock;
+package com.mrprez.gencross.web.test.mock;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
