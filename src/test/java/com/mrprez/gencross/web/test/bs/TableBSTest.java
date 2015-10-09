@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -28,6 +28,7 @@ import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.bs.TableBS;
 import com.mrprez.gencross.web.bs.util.BusinessException;
 import com.mrprez.gencross.web.dao.ParamDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;

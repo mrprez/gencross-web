@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -10,6 +10,7 @@ import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
 import com.mrprez.gencross.value.IntValue;
 import com.mrprez.gencross.value.Value;
+import com.mrprez.gencross.web.bs.PersonnageComparatorBS;
 
 public class PersonnageComparatorBSTest {
 	

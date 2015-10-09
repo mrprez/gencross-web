@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,11 +35,12 @@ import org.mockito.stubbing.Answer;
 
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
+import com.mrprez.gencross.web.dao.MailResource;
 import com.mrprez.gencross.web.dao.face.IParamDAO;
-import com.mrprez.gencross.web.dao.mock.MockFolder;
-import com.mrprez.gencross.web.dao.mock.MockStore;
-import com.mrprez.gencross.web.dao.mock.MockTransport;
-import com.mrprez.gencross.web.dao.mock.MockTransport.SendMessageRequest;
+import com.mrprez.gencross.web.test.mock.MockFolder;
+import com.mrprez.gencross.web.test.mock.MockStore;
+import com.mrprez.gencross.web.test.mock.MockTransport;
+import com.mrprez.gencross.web.test.mock.MockTransport.SendMessageRequest;
 
 public class MailResourceTest {
 	
@@ -185,7 +186,7 @@ public class MailResourceTest {
 		String toAdress = "batman@mail.com";
 		String subject = "File test";
 		String text = "Test send mail with a file.";
-		File attachment = new File("src/test/java/com/mrprez/gencross/web/dao/MailResourceTest.java");
+		File attachment = new File("src/test/java/com/mrprez/gencross/web/test/dao/MailResourceTest.java");
 		
 		// Execute
 		mailResource.send(toAdress, subject, text, attachment);

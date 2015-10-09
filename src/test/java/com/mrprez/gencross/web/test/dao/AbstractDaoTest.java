@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -16,11 +16,16 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
+
+import com.mrprez.gencross.web.dao.AbstractDAO;
 
 public abstract class AbstractDaoTest {
 	
@@ -28,6 +33,7 @@ public abstract class AbstractDaoTest {
 	
 	private Connection connection;
 	
+	private Session session;
 	
 	public abstract AbstractDAO getDao();
 	
@@ -38,8 +44,11 @@ public abstract class AbstractDaoTest {
 	public void setUp() throws Exception{
 		Configuration hibernateConfiguration = new Configuration();
         hibernateConfiguration = hibernateConfiguration.configure();
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager(hibernateConfiguration.buildSessionFactory());
+        SessionFactory sessionFactory = hibernateConfiguration.buildSessionFactory();
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
         getDao().setTransactionManager(transactionManager);
+        session = sessionFactory.getCurrentSession();
+		
         
         connection = DriverManager.getConnection(hibernateConfiguration.getProperty("connection.url"),
         		hibernateConfiguration.getProperty("connection.username"),
@@ -115,6 +124,18 @@ public abstract class AbstractDaoTest {
 			}
 		}
 		return count;
+	}
+	
+	protected Session getSession(){
+		Transaction transaction = session.getTransaction();
+		if(!transaction.isActive()){
+			transaction.begin();
+		}
+		return session;
+	}
+
+	public Transaction getTransaction() {
+		return session.getTransaction();
 	}
 
 }

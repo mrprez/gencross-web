@@ -72,12 +72,12 @@ public class PersonnageSenderJob extends GencrossJob {
 					mailResource.sendError(e);
 				}
 			}
-			personnageDAO.getTransaction().rollback();
+			sessionFactory.getCurrentSession().getTransaction().rollback();
 			
 			lastSendDateParam.setValue(startDate);
 			paramDAO.save(lastSendDateParam);
 			
-			paramDAO.getTransaction().commit();
+			sessionFactory.getCurrentSession().getTransaction().commit();
 			
 			Logger.getLogger("senderJob").info("END PersonnageSenderJob");
 			
@@ -89,7 +89,7 @@ public class PersonnageSenderJob extends GencrossJob {
 				e1.printStackTrace();
 				throw new JobExecutionException(e1);
 			}
-			paramDAO.getTransaction().rollback();
+			sessionFactory.getCurrentSession().getTransaction().rollback();
 		}
 	}
 

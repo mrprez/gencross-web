@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.mrprez.gencross.web.bo.ParamBO;
 
-public interface IParamDAO extends IAbstractDAO {
+public interface IParamDAO {
 	
 	public ParamBO getParam(String key) throws Exception;
 	

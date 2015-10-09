@@ -10,7 +10,7 @@ import com.mrprez.gencross.web.bo.PersonnageXmlBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
 
-public interface IPersonnageDAO extends IAbstractDAO {
+public interface IPersonnageDAO {
 	
 	public void savePersonnage(PersonnageDataBO personnageData) throws Exception;
 	

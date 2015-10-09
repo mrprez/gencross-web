@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -18,6 +18,8 @@ import org.quartz.JobKey;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
+
+import com.mrprez.gencross.web.bs.JobBS;
 
 public class JobBSTest {
 	

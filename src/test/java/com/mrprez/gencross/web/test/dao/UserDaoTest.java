@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -12,6 +12,8 @@ import org.junit.Test;
 
 import com.mrprez.gencross.web.bo.RoleBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.dao.AbstractDAO;
+import com.mrprez.gencross.web.dao.UserDAO;
 
 public class UserDaoTest extends AbstractDaoTest {
 
@@ -95,7 +97,7 @@ public class UserDaoTest extends AbstractDaoTest {
 		
 		// Execute
 		UserBO returnedUser = userDao.saveUser(user);
-		userDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		Assert.assertEquals(user, returnedUser);
@@ -133,7 +135,7 @@ public class UserDaoTest extends AbstractDaoTest {
 		
 		// Execute
 		userDao.deleteUser(user);
-		userDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		ITable userTable = getTable("USERS");

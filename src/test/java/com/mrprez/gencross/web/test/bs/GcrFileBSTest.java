@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.io.File;
 import java.util.Date;
@@ -16,6 +16,7 @@ import com.mrprez.gencross.value.DoubleValue;
 import com.mrprez.gencross.web.bo.PersonnageDataBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.bs.GcrFileBS;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 
 public class GcrFileBSTest {

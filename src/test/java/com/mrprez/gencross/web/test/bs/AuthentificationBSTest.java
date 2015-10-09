@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.RoleBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.bs.AuthentificationBS;
 import com.mrprez.gencross.web.dao.face.IMailResource;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IRoleDAO;

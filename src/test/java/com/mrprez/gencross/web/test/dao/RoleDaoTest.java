@@ -1,9 +1,11 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.mrprez.gencross.web.bo.RoleBO;
+import com.mrprez.gencross.web.dao.AbstractDAO;
+import com.mrprez.gencross.web.dao.RoleDAO;
 
 public class RoleDaoTest extends AbstractDaoTest {
 

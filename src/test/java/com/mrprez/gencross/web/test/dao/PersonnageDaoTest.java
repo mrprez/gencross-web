@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,8 +27,10 @@ import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.PersonnageXmlBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
-import com.mrprez.gencross.web.bs.AuthentificationBSTest;
-import com.mrprez.gencross.web.bs.TableBSTest;
+import com.mrprez.gencross.web.dao.AbstractDAO;
+import com.mrprez.gencross.web.dao.PersonnageDAO;
+import com.mrprez.gencross.web.test.bs.AuthentificationBSTest;
+import com.mrprez.gencross.web.test.bs.TableBSTest;
 
 public class PersonnageDaoTest extends AbstractDaoTest {
 
@@ -45,7 +47,7 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 		
 		// Execute
 		personnageDao.savePersonnage(personnageData);
-		personnageDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		Assert.assertNotNull(personnageData.getLastUpdateDate());
@@ -76,7 +78,7 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 		
 		// Execute
 		personnageDao.savePersonnageWork(personnageWork);
-		personnageDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		Date maxDate = new Date();
@@ -127,14 +129,14 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 	public void testLoadValidPersonnage() throws Exception{
 		// Prepare
 		PersonnageWorkBO personnageWork = buildPersonnageWork();
-		personnageDao.getSession().save(personnageWork.getPersonnageData());
-		personnageDao.getSession().save(personnageWork.getValidPersonnageData());
-		personnageDao.getSession().save(personnageWork);
-		personnageDao.getTransaction().commit();
+		getSession().beginTransaction();
+		getSession().save(personnageWork.getPersonnageData());
+		getSession().save(personnageWork.getValidPersonnageData());
+		getSession().save(personnageWork);
+		getTransaction().commit();
 		
 		// Execute
 		PersonnageDataBO validPersonnageData = personnageDao.loadValidPersonnage(personnageWork);
-		personnageDao.getTransaction().rollback();
 		
 		// Check
 		ITable personnageTable = getTable("PERSONNAGE");
@@ -193,12 +195,11 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 	@Test
 	public void testDeletePersonnage() throws Exception{
 		// Prepare
-		PersonnageWorkBO personnageWork = (PersonnageWorkBO) personnageDao.getSession().get(PersonnageWorkBO.class, 1);
-		personnageDao.getTransaction().rollback();
+		PersonnageWorkBO personnageWork = (PersonnageWorkBO) getSession().get(PersonnageWorkBO.class, 1);
 		
 		// Execute
 		personnageDao.deletePersonnage(personnageWork);
-		personnageDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		Assert.assertNull( findTableRow(getTable("PERSONNAGE_WORK"), "ID", personnageWork.getId()) );;
@@ -238,12 +239,12 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 	public void testSavePersonnageXml() throws Exception{
 		// Prepare
 		Date minDate = new Date();
-		PersonnageXmlBO personnageXml = (PersonnageXmlBO) personnageDao.getSession().get(PersonnageXmlBO.class, 5);
+		PersonnageXmlBO personnageXml = (PersonnageXmlBO) getSession().get(PersonnageXmlBO.class, 5);
 		personnageXml.setXml("This is not XML, but here, it does not matter".getBytes());
 		
 		// Execute
 		personnageDao.savePersonnageXml(personnageXml);
-		personnageDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		Date maxDate = new Date();
@@ -258,7 +259,7 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 	@Test
 	public void testGetAddablePersonnages() throws Exception{
 		// Prepare
-		TableBO table = (TableBO) personnageDao.getSession().get(TableBO.class, 1);
+		TableBO table = (TableBO) getSession().get(TableBO.class, 1);
 		
 		// Execute
 		Collection<PersonnageWorkBO> personnageWorkList = personnageDao.getAddablePersonnages(table);

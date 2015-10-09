@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mrprez.gencross.web.bo.UserBO;
 
-public interface IUserDAO extends IAbstractDAO {
+public interface IUserDAO {
 	
 	public UserBO getUser(String username, String digest) throws Exception;
 	

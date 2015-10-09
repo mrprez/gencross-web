@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.bs;
+package com.mrprez.gencross.web.test.bs;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,6 +19,7 @@ import org.mockito.stubbing.Answer;
 import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.bs.PlanGameBS;
 import com.mrprez.gencross.web.bs.util.BusinessException;
 import com.mrprez.gencross.web.dao.TableDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;

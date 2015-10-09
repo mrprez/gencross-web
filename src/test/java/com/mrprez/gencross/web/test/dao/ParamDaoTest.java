@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.dao;
+package com.mrprez.gencross.web.test.dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,6 +12,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.mrprez.gencross.web.bo.ParamBO;
+import com.mrprez.gencross.web.dao.AbstractDAO;
+import com.mrprez.gencross.web.dao.ParamDAO;
 
 public class ParamDaoTest extends AbstractDaoTest {
 
@@ -117,7 +119,7 @@ public class ParamDaoTest extends AbstractDaoTest {
 		
 		// Execute
 		paramDao.save(param);
-		paramDao.getTransaction().commit();
+		getTransaction().commit();
 		
 		// Check
 		checkDatabaseExistence(param, getTable("PARAMS"));

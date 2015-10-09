@@ -10,7 +10,7 @@ import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
 
-public interface ITableDAO extends IAbstractDAO {
+public interface ITableDAO {
 	TableBO loadTable(Integer id) throws Exception;
 	
 	Collection<TableBO> getTableFromGM(UserBO gm) throws Exception;
