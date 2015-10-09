@@ -115,7 +115,7 @@ public abstract class WebAbstractTest {
 	}
 
 	private void init() throws IOException {
-		root = new File(getProperty("basedir") + "/src/test/resources");
+		root = new File(getProperty("basedir") + "/src/it/resources");
 		resourceDir = new File(root, name);
 		tomcatDir = new File(getProperty("tomcat.path"));
 
