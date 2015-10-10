@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Restrictions;
 
 import com.mrprez.gencross.web.bo.PersonnageDataBO;
@@ -93,14 +94,23 @@ public class PersonnageDAO extends AbstractDAO implements IPersonnageDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<PersonnageXmlBO> getAllXml() throws Exception {
-		Criteria criteria = getSession().createCriteria(PersonnageXmlBO.class);
-		return criteria.list();
+	public Collection<PersonnageXmlBO> getXmlByType(String name) throws Exception {
+		SQLQuery sqlQuery = getSession().createSQLQuery("select PERSONNAGE.* from PERSONNAGE join PERSONNAGE_WORK on "
+				+ "PERSONNAGE.ID=PERSONNAGE_WORK.PERSONNAGE or PERSONNAGE.ID=PERSONNAGE_WORK.VALID_PERSONNAGE "
+				+ "where PERSONNAGE_WORK.type=?");
+		sqlQuery.addEntity(PersonnageXmlBO.class);
+		sqlQuery.setString(0, name);
+		return sqlQuery.list();
 	}
 	
 	@Override
 	public void savePersonnageXml(PersonnageXmlBO personnageXml) {
 		getSession().saveOrUpdate(personnageXml);
+	}
+	
+	@Override
+	public void evict(PersonnageXmlBO personnageXml) {
+		getSession().evict(personnageXml);
 	}
 	
 	@SuppressWarnings("unchecked")

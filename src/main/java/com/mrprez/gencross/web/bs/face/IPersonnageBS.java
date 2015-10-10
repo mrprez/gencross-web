@@ -55,7 +55,7 @@ public interface IPersonnageBS {
 
 	Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception;
 
-	void migrate() throws Exception;
+	void migrate(PluginDescriptor pluginDescriptor) throws Exception;
 
 	void savePersonnageBackground(PersonnageWorkBO personnageWork, String background) throws Exception;
 

@@ -372,12 +372,13 @@ public class PersonnageBS implements IPersonnageBS {
 	}
 	
 	@Override
-	public void migrate() throws Exception{
+	public void migrate(PluginDescriptor pluginDescriptor) throws Exception{
 		PersonnageFactory migrationPersonnageFactory = new PersonnageFactory(true);
-		for(PersonnageXmlBO personnageXml : personnageDAO.getAllXml()){
+		for(PersonnageXmlBO personnageXml : personnageDAO.getXmlByType(pluginDescriptor.getName())){
 			InputStream is = new ByteArrayInputStream(personnageXml.getXml());
 			try{
 				personnageFactory.loadPersonnage(is);
+				personnageDAO.evict(personnageXml);
 			}catch(PersonnageVersionException pve){
 				Logger.getLogger(getClass()).info("Try to migrate personnage "+personnageXml.getId());
 				is = new ByteArrayInputStream(personnageXml.getXml());
@@ -385,9 +386,7 @@ public class PersonnageBS implements IPersonnageBS {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				PersonnageSaver.savePersonnage(personnage, baos);
 				personnageXml.setXml(baos.toByteArray());
-				personnageDAO.savePersonnageXml(personnageXml);
 			}
-			
 		}
 	}
 	

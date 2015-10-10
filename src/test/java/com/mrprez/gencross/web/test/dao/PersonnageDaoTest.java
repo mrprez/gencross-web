@@ -221,9 +221,9 @@ public class PersonnageDaoTest extends AbstractDaoTest {
 	
 	
 	@Test
-	public void testGetAllXml() throws Exception{
+	public void testGetXmlByType() throws Exception{
 		// Execute
-		Collection<PersonnageXmlBO> personnageXmlList = personnageDao.getAllXml();
+		Collection<PersonnageXmlBO> personnageXmlList = personnageDao.getXmlByType("Pavillon Noir");
 		
 		// Check
 		Assert.assertEquals(getTable("PERSONNAGE").getRowCount(), personnageXmlList.size());

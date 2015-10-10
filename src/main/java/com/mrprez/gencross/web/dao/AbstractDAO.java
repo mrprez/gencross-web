@@ -15,7 +15,7 @@ public abstract class AbstractDAO {
 		}
 	}
 	
-	protected Session getSession(){
+	public Session getSession(){
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		if(!transaction.isActive()){
@@ -24,11 +24,15 @@ public abstract class AbstractDAO {
 		return session;
 	}
 	
-	protected Transaction getTransaction(){
+	public Transaction getTransaction(){
 		return getSession().getTransaction();
 	}
 
 	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

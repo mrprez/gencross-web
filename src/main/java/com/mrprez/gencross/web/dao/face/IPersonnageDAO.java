@@ -30,13 +30,15 @@ public interface IPersonnageDAO {
 
 	public Collection<PersonnageWorkBO> getLastModified(Date date) throws Exception;
 
-	public Collection<PersonnageXmlBO> getAllXml() throws Exception;
+	public Collection<PersonnageXmlBO> getXmlByType(String name) throws Exception;
 
 	public void savePersonnageXml(PersonnageXmlBO personnageXml);
 
 	public Collection<PersonnageWorkBO> getAddablePersonnages(TableBO table) throws Exception;
 
-	Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception;
+	public Collection<PersonnageWorkBO> getPersonnageListFromType(String type) throws Exception;
+	
+	public void evict(PersonnageXmlBO personnageXml) throws Exception;
 
 	
 }

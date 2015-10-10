@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.ContextLoader;
 
+import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bs.face.IParamsBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
@@ -38,7 +39,9 @@ public class MigrationServlet implements Servlet {
 			ParamBO param = paramsBS.getParam(ParamBO.MIGRATION);
 			if(param!=null && (Boolean)param.getValue()) {
 				IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
-				personnageBS.migrate();
+				for(PluginDescriptor pluginDescriptor : personnageBS.getAvailablePersonnageTypes()){
+					personnageBS.migrate(pluginDescriptor);
+				}
 			}
 		}catch(Exception e){
 			Logger.getLogger(this.getClass()).error("Personnage migration failed", e);
