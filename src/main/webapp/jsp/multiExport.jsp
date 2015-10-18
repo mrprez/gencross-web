@@ -66,7 +66,7 @@
 			<s:param name="id">
 				<s:property value="table.id"/>
 			</s:param>
-			<img alt="<==" class="activeImg" src="<s:url value="/img/left_arrow.png"/>" /> Retour
+			<img alt="<==" class="straddling" src="<s:url value="/img/left_arrow.png"/>" /> Retour
 		</s:a>
 	</div>
 

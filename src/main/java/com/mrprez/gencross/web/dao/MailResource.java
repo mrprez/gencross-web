@@ -64,7 +64,7 @@ public class MailResource implements IMailResource {
 		message.setSubject(subject);
 		Multipart multipart = new MimeMultipart();
 		MimeBodyPart textBodyPart = new MimeBodyPart();
-		textBodyPart.setText(text);
+		textBodyPart.setText(text, "UTF-8", "html");
 		multipart.addBodyPart(textBodyPart);
 		if(attachment!=null){
 			MimeBodyPart attachmentBodyPart = new MimeBodyPart();
@@ -222,15 +222,26 @@ public class MailResource implements IMailResource {
 	private String getText(Message message) throws IOException, MessagingException{
 		Object content = message.getContent();
 		if(content instanceof Multipart){
-			Multipart multipart = (Multipart) content;
-			for(int i=0; i<multipart.getCount(); i++){
-				BodyPart bodyPart = multipart.getBodyPart(i);
-				if(bodyPart.getContentType().toLowerCase().startsWith("text/plain")){
-					return bodyPart.getContent().toString();
-				}
+			String text = extractFromMultipart((Multipart) content, "TEXT/HTML");
+			if(text!=null){
+				return text;
+			}
+			text = extractFromMultipart((Multipart) content, "TEXT/PLAIN");
+			if(text!=null){
+				return text;
 			}
 		}
 		return content.toString();
+	}
+	
+	private String extractFromMultipart(Multipart multipart, String mimeType) throws MessagingException, IOException{
+		for(int i=0; i<multipart.getCount(); i++){
+			BodyPart bodyPart = multipart.getBodyPart(i);
+			if(bodyPart.getContentType().toLowerCase().startsWith(mimeType)){
+				return bodyPart.getContent().toString();
+			}
+		}
+		return null;
 	}
 
 	public IParamDAO getParamDAO() {

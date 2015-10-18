@@ -211,7 +211,19 @@ td.summaryTableLine{
 /* Login */
 #loginContent{
 	margin: 0 auto;
-	width: 300px;
+	width: 250px;
+}
+
+h3.centerTitle{
+	text-align: center;
+}
+
+p.connectedMessage{
+	text-align: center;
+}
+
+.homeLink{
+	text-align: center;
 }
 
 
@@ -590,19 +602,19 @@ table.pointPool{
 /* Subscription */
 
 #subscriptionDiv{
-	margin-left: 100px;
-}
-
-#subscriptionTitle{
-	font-weight: bold;
-	font-size: large;
-	padding-left: 20px;
+	margin: 0 auto;
+	width: 500px;
 }
 
 #subscriptionForm{
 	margin-top: 20px;
 }
 
+/* Forgotten password */
+
+#subscribeLink{
+	float: right;
+}
 
 /* Attribution */
 
@@ -644,6 +656,11 @@ table.pointPool{
 #createFromFileButton{
 	margin-left: 10px;
 	margin-top: 30px;
+}
+
+img.straddling{
+	margin: 0 2px;
+	vertical-align: text-top;
 }
 
 

@@ -27,7 +27,9 @@
 </script>
 
 <div id="createFromFileButton">
-	<s:a action="Upload">==> Créer à partir d'un fichier GenCross</s:a>
+	<s:a action="Upload">
+		<img src="<s:url value="/img/upload.png"/>" class="straddling" /> Créer à partir d'un fichier GenCross <img src="<s:url value="/img/upload.png"/>" class="straddling" />
+	</s:a>
 </div>
 				
 

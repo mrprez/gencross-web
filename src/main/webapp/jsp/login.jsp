@@ -4,7 +4,7 @@
 <s:include value="include/header.jsp"/>
 
 	<div id="loginContent">
-		<h3>Authentification</h3>
+		<h3 class="centerTitle">Authentification</h3>
 		<s:if test="#session.user==null">
 			<s:form action="Login">
 				<s:actionerror />
@@ -16,7 +16,8 @@
 			<s:a action="ForgottenPassword">Mot de passe oublié</s:a><br/>
 		</s:if>
 		<s:else>
-			Vous êtes connecté.
+			<p class="connectedMessage">Vous êtes déjà connecté.</p>
+			<p class="homeLink"><s:a action="List">Retour à Accueil</s:a></p>
 		</s:else>
 	</div>
 	<script language="Javascript">

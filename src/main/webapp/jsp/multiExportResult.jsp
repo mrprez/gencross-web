@@ -14,7 +14,7 @@
 			<s:param name="tableId" value="%{table.id}"/>
 			<s:param name="exportedPjList" value="%{exportedPjList}"/>
 			<s:param name="exportedPnjList" value="%{exportedPnjList}"/>
-			<img alt="<==" src="<s:url value="/img/left_arrow.png"/>"/> Retour
+			<img alt="<==" src="<s:url value="/img/left_arrow.png"/>" class="straddling"/> Retour
 		</s:a>
 	</div>
 	
