@@ -237,7 +237,7 @@ public class MailResource implements IMailResource {
 	private String extractFromMultipart(Multipart multipart, String mimeType) throws MessagingException, IOException{
 		for(int i=0; i<multipart.getCount(); i++){
 			BodyPart bodyPart = multipart.getBodyPart(i);
-			if(bodyPart.getContentType().toLowerCase().startsWith(mimeType)){
+			if(bodyPart.getContentType().toLowerCase().startsWith(mimeType.toLowerCase())){
 				return bodyPart.getContent().toString();
 			}
 		}

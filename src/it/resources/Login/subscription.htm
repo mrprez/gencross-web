@@ -36,7 +36,7 @@
 		</div>
 		<div id="content">
 			<div id="subscriptionDiv">
-				<span id="subscriptionTitle">Inscription</span>
+				<h3 class="centerTitle">Inscription</h3>
 				<form method="post" action="/gencross-web/Subscription!authentification.action" name="subscriptionForm" id="subscriptionForm">
 					<table class="wwFormTable">
 						<tbody>
@@ -50,7 +50,7 @@
 									<label class="errorLabel" for="subscriptionForm_username">Login:</label>
 								</td>
 								<td>
-									<input id="subscriptionForm_username" value="" size="50" name="username" type="text"/>
+									<input id="subscriptionForm_username" value="" size="35" name="username" type="text"/>
 								</td>
 							</tr>
 							<tr errorfor="subscriptionForm_password">
@@ -63,7 +63,7 @@
 									<label class="errorLabel" for="subscriptionForm_password">Mot de passe:</label>
 								</td>
 								<td>
-									<input id="subscriptionForm_password" size="50" name="password" type="password"/>
+									<input id="subscriptionForm_password" size="35" name="password" type="password"/>
 								</td>
 							</tr>
 							<tr errorfor="subscriptionForm_confirmPassword">
@@ -76,7 +76,7 @@
 									<label class="errorLabel" for="subscriptionForm_confirmPassword">Confirmation du mot de passe:</label>
 								</td>
 								<td>
-									<input id="subscriptionForm_confirmPassword" size="50" name="confirmPassword" type="password"/>
+									<input id="subscriptionForm_confirmPassword" size="35" name="confirmPassword" type="password"/>
 								</td>
 							</tr>
 							<tr errorfor="subscriptionForm_mail">
@@ -89,19 +89,22 @@
 									<label class="errorLabel" for="subscriptionForm_mail">Adresse e-mail:</label>
 								</td>
 								<td>
-									<input id="subscriptionForm_mail" value="" size="50" name="mail" type="text"/>
+									<input id="subscriptionForm_mail" value="" size="35" name="mail" type="text"/>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
 									<div align="center">
-										<input value="Envoyer" id="subscriptionForm_0" type="submit"/>
+										<input value="Valider" id="subscriptionForm_0" type="submit"/>
 									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</form>
+				<a href="/gencross-web/Login.action">
+					<img src="/gencross-web/img/left_arrow.png" class="straddling" alt="&lt;=="/>Retour
+				</a>
 			</div>
 		</div>
 		<div id="footer"/>
