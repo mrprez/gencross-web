@@ -324,10 +324,6 @@
 		</action>
 		
 		
-		<action name="link!*">
-			<result>/jsp/{1}.jsp</result>
-		</action>
-		
 		<action name="*">
 			<result type="redirectAction">List</result>
 		</action>

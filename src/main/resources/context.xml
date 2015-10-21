@@ -88,7 +88,9 @@
 		<property name="authentificationBS" ref="authentificationBS"/>
 	</bean>
 	
-	<bean id="downloadAction" class="com.mrprez.gencross.web.action.DownloadAction" scope="prototype"></bean>
+	<bean id="downloadAction" class="com.mrprez.gencross.web.action.DownloadAction" scope="prototype">
+		<property name="gencrossUiPackagerBS" ref="gencrossUiPackagerBS"/>
+	</bean>
 	
 	<bean id="editPersonnageAction" class="com.mrprez.gencross.web.action.EditPersonnageAction" scope="prototype">
 		<property name="personnageBS" ref="personnageBS"/>
@@ -218,6 +220,10 @@
 	<bean id="planGameBS" class="com.mrprez.gencross.web.bs.PlanGameBS" scope="singleton">
 		<property name="mailResource" ref="MailResource"/>
 		<property name="tableDao" ref="TableDAO"/>
+	</bean>
+	
+	<bean id="gencrossUiPackagerBS" class="com.mrprez.gencross.web.bs.GencrossUiPackagerBS" scope="singleton">
+		<property name="personnageFactory" ref="personnageFactory"/>
 	</bean>
 	
 	

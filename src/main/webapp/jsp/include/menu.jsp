@@ -30,7 +30,7 @@
 				</script>
 				
 				<td class="menu">
-					<s:a cssClass="menu" action="link!downloads">Téléchargements</s:a>
+					<s:a cssClass="menu" action="Download">Téléchargements</s:a>
 				</td>
 				
 				<gcr:role allowedRole="manager">
