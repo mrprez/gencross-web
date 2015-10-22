@@ -19,7 +19,7 @@ public class LoginTest extends WebAbstractTest {
 	@Test
 	public void test() throws Exception {
 		driver.get(baseUrl + "gencross-web");
-		pageTester.testPage(driver, "login1");
+		//pageTester.testPage(driver, "login1");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("batman");
 		driver.findElement(By.id("Login_password")).clear();

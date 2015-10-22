@@ -38,7 +38,7 @@ public class SchedulerTest extends WebAbstractTest {
 	public void testSchedulerScreen() throws Exception {
 		driver.get(baseUrl + context);
 		System.out.println("testSchedulerScreen: just before login");
-		pageTester.testPage(driver, "login");
+		//pageTester.testPage(driver, "login");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");
 		driver.findElement(By.id("Login_password")).clear();
@@ -77,33 +77,39 @@ public class SchedulerTest extends WebAbstractTest {
 		pageTester.testPage(driver, "job0");
 		
 		driver.findElement(By.id("schedule-send-personnage-job")).click();
+		Thread.sleep(100);
 		int waitedSeconds = 0;
 		while(driver.getPageSource().contains("Running...") && waitedSeconds<MAX_JOB_TIME){
 			pageTester.testPage(driver, "jobRunning1");
 			Thread.sleep(1000);
 			waitedSeconds++;
 			driver.findElement(By.cssSelector("img[alt=\"Recharger la page\"]")).click();
+			Thread.sleep(100);
 		}
 		pageTester.testPage(driver, "jobFinished1");
 		mailTester.test("mail1");
 		
 		driver.findElement(By.id("schedule-save-personnage-job")).click();
+		Thread.sleep(100);
 		waitedSeconds = 0;
 		while(driver.getPageSource().contains("Running...") && waitedSeconds<MAX_JOB_TIME){
 			pageTester.testPage(driver, "jobRunning2");
 			Thread.sleep(1000);
 			waitedSeconds++;
 			driver.findElement(By.cssSelector("img[alt=\"Recharger la page\"]")).click();
+			Thread.sleep(100);
 		}
 		pageTester.testPage(driver, "jobFinished2");
 		
 		driver.findElement(By.id("schedule-get-table-mails-job")).click();
+		Thread.sleep(100);
 		waitedSeconds = 0;
 		while(driver.getPageSource().contains("Running...") && waitedSeconds<MAX_JOB_TIME){
 			pageTester.testPage(driver, "jobRunning3");
 			Thread.sleep(1000);
 			waitedSeconds++;
 			driver.findElement(By.cssSelector("img[alt=\"Recharger la page\"]")).click();
+			Thread.sleep(100);
 		}
 		pageTester.testPage(driver, "jobFinished3");
 		mailTester.test("mail2");
@@ -120,12 +126,14 @@ public class SchedulerTest extends WebAbstractTest {
 		pageTester.testPage(driver, "jobFinished3");
 		
 		driver.findElement(By.id("schedule-send-personnage-job")).click();
+		Thread.sleep(100);
 		waitedSeconds = 0;
 		while(driver.getPageSource().contains("Running...") && waitedSeconds<MAX_JOB_TIME){
 			pageTester.testPage(driver, "jobRunning4");
 			Thread.sleep(1000);
 			waitedSeconds++;
 			driver.findElement(By.cssSelector("img[alt=\"Recharger la page\"]")).click();
+			Thread.sleep(100);
 		}
 		pageTester.testPage(driver, "jobFinished3");
 		mailTester.test("mail3");

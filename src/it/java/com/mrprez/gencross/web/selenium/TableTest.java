@@ -56,7 +56,7 @@ public class TableTest extends WebAbstractTest{
 	@Test
 	public void testTable() throws Exception {
 		driver.get(baseUrl + context + "/Login.action");
-		pageTester.testPage(driver, "login");
+		//pageTester.testPage(driver, "login");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");
 		driver.findElement(By.id("Login_password")).clear();

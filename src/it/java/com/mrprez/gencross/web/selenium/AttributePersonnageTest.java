@@ -20,7 +20,7 @@ public class AttributePersonnageTest extends WebAbstractTest {
 	@Test
 	public void testAttributePersonnage() throws Exception {
 		driver.get(baseUrl + context);
-		pageTester.testPage(driver, "loginPage");
+		//pageTester.testPage(driver, "loginPage");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("azerty");
 		driver.findElement(By.id("Login_password")).clear();

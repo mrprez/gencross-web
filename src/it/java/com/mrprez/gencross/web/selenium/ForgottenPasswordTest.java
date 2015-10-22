@@ -21,7 +21,7 @@ public class ForgottenPasswordTest extends WebAbstractTest {
 	@Test
 	public void testForgottenPassword() throws Exception {
 		driver.get(baseUrl + "gencross-web/List.action");
-		pageTester.testPage(driver, "Login1");
+		//pageTester.testPage(driver, "Login1");
 		driver.findElement(By.linkText("Mot de passe oublié")).click();
 		pageTester.testPage(driver, "ForgottenPassword");
 		driver.findElement(By.id("ForgottenPassword_username")).clear();

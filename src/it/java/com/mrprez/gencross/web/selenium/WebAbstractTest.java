@@ -11,9 +11,6 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.ServerSocket;
-import java.net.SocketException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -29,17 +26,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.mrprez.gencross.web.tester.MailTester;
 import com.mrprez.gencross.web.tester.PageTester;
 import com.mrprez.gencross.web.utils.StreamProcessManager;
+import com.mrprez.gencross.web.utils.WebDriverProxy;
 
 /**
- * Cette classe est la base de tous les tests JUnit web. Elle est responsable du
+ * Cette classe est la base de tous les tests JUnit Selenium. Elle est responsable du
  * démarrage et de l'arrêt du server Tomcat. Elle va initialiser le PageTester
  * et le MailTester, reinitialiser la base de données, lancer le ChromeDriver.
  * Pour mettre de coté tous les masques avant de lancer le test (pour générer
@@ -49,13 +46,11 @@ import com.mrprez.gencross.web.utils.StreamProcessManager;
  */
 public abstract class WebAbstractTest {
 	private static final String JDK_PATH_VAR_NAME = "jdk.path";
-	private static final String SELENIUM_SERVER_PATH_VAR_NAME = "selenium.path";
 	private static final String MAIL_PATH = "mail.path";
 
 	protected String name;
 
 	private Properties properties;
-	private int seleniumNodePort = 5555;
 	private File root;
 	private File tomcatDir;
 	protected File resourceDir;
@@ -130,6 +125,9 @@ public abstract class WebAbstractTest {
 		pageTester.addReplacementRule("style=\"\" ", "");
 		pageTester.addReplacementRule("style=\"-webkit-user-select: none;\" ", "");
 		pageTester.addReplacementRule("cd_frame_id_=\"[0-9a-f]+\" ", "");
+		pageTester.addReplacementRule("style=\"zoom: 1;\" ", "");
+		pageTester.addReplacementRule("//&lt;!\\[CDATA\\[ ", "");
+		pageTester.addReplacementRule(" //\\]\\]&gt;</script>", "</script>");
 		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver driver) {
@@ -151,11 +149,7 @@ public abstract class WebAbstractTest {
 
 		launchTomcat();
 
-		launchSeleniumHub();
-
-		launchSeleniumNode();
-
-		launchRemoteWebDriver();
+		launchWebDriver();
 
 	}
 
@@ -224,83 +218,21 @@ public abstract class WebAbstractTest {
 
 	}
 
-	private void launchSeleniumHub() throws IOException {
-		System.out.println("launchSeleniumHub");
-
-		List<String> command = new ArrayList<String>();
-		command.add(getProperty(JDK_PATH_VAR_NAME) + "\\bin\\java.exe");
-		command.add("-jar");
-		command.add(getProperty(SELENIUM_SERVER_PATH_VAR_NAME));
-		command.add("-role");
-		command.add("hub");
-		System.out.println("Selenium hub cmd: " + StringUtils.join(command, " "));
-		ProcessBuilder processBuilder = new ProcessBuilder(command);
-		seleniumHubProcess = processBuilder.start();
-		new StreamProcessManager(seleniumHubProcess.getInputStream(), System.out, "[SeleniumHub]").start();
-		new StreamProcessManager(seleniumHubProcess.getErrorStream(), System.err, "[SeleniumHub]").start();
-
-	}
-
-	private void launchSeleniumNode() throws IOException {
-		System.out.println("launchSeleniumNode");
-
-		if (!isPortAvailable(seleniumNodePort)) {
-			System.out.println("Port " + seleniumNodePort + " is bound. A selenium node have to be started on this port");
-			return;
-		}
-
-		List<String> command = new ArrayList<String>();
-		command.add(getProperty(JDK_PATH_VAR_NAME) + "\\bin\\java.exe");
-		command.add("-jar");
-		command.add(getProperty(SELENIUM_SERVER_PATH_VAR_NAME));
-		command.add("-role");
-		command.add("node");
-		command.add("-hub");
-		command.add("http://localhost:4444/grid/register");
-		if(getProperty("webdriver.chrome.driver")!=null){
-			command.add("-Dwebdriver.chrome.driver=" + getProperty("webdriver.chrome.driver"));
-			command.add("-browser");
-			command.add("browserName=chrome,javascriptEnabled=true,platform=ANY");
-		}else if(getProperty("phantomjs.binary.path")!=null){
-			command.add("-Dphantomjs.binary.path=" + getProperty("phantomjs.binary.path"));
-			command.add("-browser");
-			command.add("browserName=phantomjs,javascriptEnabled=true,platform=ANY");
-		}else{
-			command.add("-browser");
-			command.add("browserName=htmlunit,javascriptEnabled=true,platform=ANY");
-		}
-		System.out.println("Selenium node cmd: " + StringUtils.join(command, " "));
-		ProcessBuilder processBuilder = new ProcessBuilder(command);
-		seleniumNodeProcess = processBuilder.start();
-		new StreamProcessManager(seleniumNodeProcess.getInputStream(), System.out, "[SeleniumNode]").start();
-		new StreamProcessManager(seleniumNodeProcess.getErrorStream(), System.err, "[SeleniumNode]").start();
-	}
-
-	private void launchRemoteWebDriver() throws InterruptedException, MalformedURLException {
+	
+	private void launchWebDriver() throws InterruptedException, MalformedURLException {
 		
-		DesiredCapabilities desiredCapabilities;
 		if(getProperty("webdriver.chrome.driver")!=null){
-			desiredCapabilities = DesiredCapabilities.chrome();
-		}else if(getProperty("phantomjs.binary.path")!=null){
-			desiredCapabilities = DesiredCapabilities.phantomjs();
+			System.setProperty("webdriver.chrome.driver", getProperty("webdriver.chrome.driver"));
+			driver = new ChromeDriver();
+//		}else if(getProperty("phantomjs.binary.path")!=null){
+//			driver = new PhantomJSDriver = DesiredCapabilities.phantomjs();
 		}else{
-			desiredCapabilities = DesiredCapabilities.htmlUnitWithJs();
-		}
-		
-		int startTryNb = 0;
-		while (driver == null) {
-			try {
-				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), desiredCapabilities);
-			} catch (WebDriverException e) {
-				startTryNb++;
-				if (startTryNb > 5*60) {
-					throw e;
-				}
-				Thread.sleep(1000);
-			}
+			driver = new HtmlUnitDriver(true);
 		}
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		driver = new WebDriverProxy(driver, 500);
 	}
 
 	@After
@@ -366,18 +298,5 @@ public abstract class WebAbstractTest {
 	}
 
 	
-	private boolean isPortAvailable(int port) throws IOException {
-		ServerSocket serverSocket = null;
-		try {
-			serverSocket = new ServerSocket(port);
-		} catch (SocketException e) {
-			return false;
-		} finally {
-			if (serverSocket != null && !serverSocket.isClosed()) {
-				serverSocket.close();
-			}
-		}
-		return true;
-	}
 
 }
