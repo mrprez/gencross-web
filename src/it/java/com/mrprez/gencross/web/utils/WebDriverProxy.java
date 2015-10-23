@@ -5,13 +5,18 @@ import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverProxy implements WebDriver {
 	
 	private final WebDriver webDriver;
 	private long waitTime = 500;
+	private List<ExpectedCondition<Boolean>> waitConditionList = new ArrayList<ExpectedCondition<Boolean>>();
+	
 	
 	
 	public WebDriverProxy(WebDriver webDriver) {
@@ -24,18 +29,35 @@ public class WebDriverProxy implements WebDriver {
 		this.webDriver = webDriver;
 		this.waitTime = waitTime;
 	}
-
-
-	public void get(String url) {
-		webDriver.get(url);
+	
+	
+	public void waitLoading() {
 		try {
 			Thread.sleep(waitTime);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+		try{
+			for (ExpectedCondition<Boolean> condition : waitConditionList) {
+				(new WebDriverWait(webDriver, 60, waitTime)).until(condition);
+			}
+		}catch(UnhandledAlertException unhandledAlertException){
+			System.out.println("Alert open: "+unhandledAlertException.getAlertText());
+		}
+	}
+	
+	
+	public void addWaitCondition(ExpectedCondition<Boolean> waitCondition) {
+		waitConditionList.add(waitCondition);
 	}
 
 
+	public void get(String url) {
+		webDriver.get(url);
+		waitLoading();
+	}
+	
+	
 	public String getCurrentUrl() {
 		return webDriver.getCurrentUrl();
 	}
@@ -49,14 +71,14 @@ public class WebDriverProxy implements WebDriver {
 	public List<WebElement> findElements(By by) {
 		List<WebElement> result = new ArrayList<WebElement>();
 		for(WebElement foundElement : webDriver.findElements(by)){
-			result.add(new WebElementProxy(foundElement, waitTime));
+			result.add(new WebElementProxy(foundElement, this));
 		}
 		return result;
 	}
 
 
 	public WebElement findElement(By by) {
-		return new WebElementProxy(webDriver.findElement(by), waitTime);
+		return new WebElementProxy(webDriver.findElement(by), this);
 	}
 
 
@@ -114,33 +136,6 @@ public class WebDriverProxy implements WebDriver {
 		return webDriver;
 	}
 
-
-	
-	
-//	@Override
-//	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//		if(method.getName().equals("findElement")){
-//			WebElementProxy webElementProxy = new WebElementProxy((WebElement) method.invoke(webDriver, args));
-//			return Proxy.newProxyInstance(WebElement.class.getClassLoader(), new Class[] { WebElement.class }, webElementProxy);
-//		}
-//		
-//		if(method.getName().equals("findElements")){
-//			List<?> webElements = (List<?>) method.invoke(webDriver, args);
-//			List<WebElement> result = new ArrayList<WebElement>(webElements.size());
-//			for(Object webElement : webElements){
-//				WebElementProxy webElementProxy = new WebElementProxy((WebElement) webElement);
-//				result.add((WebElement) Proxy.newProxyInstance(WebElement.class.getClassLoader(), new Class[] { WebElement.class }, webElementProxy));
-//			}
-//			return result;
-//		}
-//		
-//		if(method.getName().equals("get")){
-//			method.invoke(webDriver, args);
-//			Thread.sleep(2000);
-//		}
-//		
-//		return method.invoke(webDriver, args);
-//	}
 	
 
 }

@@ -1,14 +1,9 @@
 package com.mrprez.gencross.web.tester;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -22,67 +17,24 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.junit.Assert;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.w3c.tidy.Tidy;
 
 public class PageTester extends TemplateTester {
-	private static String TIMEOUT_SUFFIX = "_TIMEOUT";
 	private static String HTML_EXTENSION = ".htm";
 	
-	private List<ExpectedCondition<Boolean>> waitConditionList = new ArrayList<ExpectedCondition<Boolean>>();
-	private long sleepTime = 2000;
 	
-	
-	public PageTester(String maskGroup, String maskGroupRepositoryPath, String workDirPath) {
-		super(maskGroup, maskGroupRepositoryPath, workDirPath);
+	public PageTester(File maskRepository, File workDir) {
+		super(maskRepository, workDir);
 	}
 
 
+	
 	public void testPage(WebDriver driver, String testName) throws IOException, InterruptedException, DocumentException {
-		testPage(driver, testName, sleepTime);
-	}
-
-	public void testPage(WebDriver driver, String testName, long sleepTime) throws IOException, InterruptedException, DocumentException {
-		Thread.sleep(sleepTime);
-		try {
-			for (ExpectedCondition<Boolean> condition : waitConditionList) {
-				(new WebDriverWait(driver, 120)).until(condition);
-			}
-		} catch (TimeoutException te) {
-			writeTimeoutTest(driver.getPageSource(), testName);
-			throw te;
-		}
-		
-		for(int tryNb=0; tryNb<10; tryNb++){
-			if(test(driver.getPageSource(), testName, HTML_EXTENSION)){
-				return;
-			}
-			Thread.sleep(sleepTime);
-		}
-		Assert.fail("testPage "+testName+" fails");
+		test(driver.getPageSource(), testName, HTML_EXTENSION);
 	}
 
 	
-
-	private void writeTimeoutTest(String source, String testName) throws IOException {
-		File failFile = new File(workDir, testName + TIMEOUT_SUFFIX + HTML_EXTENSION);
-		Writer writer = new OutputStreamWriter(new FileOutputStream(failFile), "UTF-8");
-		try {
-			writer.write(source);
-		} finally {
-			writer.close();
-		}
-		Assert.assertTrue(failFile.exists());
-	}
-
-	public void addWaitCondition(ExpectedCondition<Boolean> waitCondition) {
-		waitConditionList.add(waitCondition);
-	}
-
 
 	@Override
 	protected String formatSource(String source) throws IOException {
@@ -123,14 +75,6 @@ public class PageTester extends TemplateTester {
 	}
 	
 	
-	public long getSleepTime() {
-		return sleepTime;
-	}
-
-
-	public void setSleepTime(long sleepTime) {
-		this.sleepTime = sleepTime;
-	}
 	
 	
 

@@ -5,12 +5,11 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-
-import com.mrprez.gencross.web.selenium.WebAbstractTest;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class TableMessagesTest extends WebAbstractTest {
 	
@@ -27,11 +26,20 @@ public class TableMessagesTest extends WebAbstractTest {
 		File dummyImapFolder = new File(mailTester.getMailFile().getParentFile(), "tableMessageMail");
 		dummyImapFolder.mkdirs();
 		FileUtils.copyFileToDirectory(new File(resourceDir, "INBOX"), dummyImapFolder);
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver input) {
+				if(input.getCurrentUrl().contains("EditTable")){
+					return input.getPageSource().contains("/js/ckeditor/plugins/styles/styles/default.js");
+				}
+				return true;
+			}
+		});
 	}
 
 
-	@Test
-	public void testTableMessages() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + "gencross-web/List.action");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("test");
@@ -53,7 +61,6 @@ public class TableMessagesTest extends WebAbstractTest {
 		pageTester.testPage(driver, "editTable2");
 		driver.findElement(By.id("EditTable!removeMessage_0")).click();
 		try{
-			Thread.sleep(1000);
 			Alert alert = driver.switchTo().alert();
 			driver.switchTo().alert().accept();
 			Assert.assertEquals("Voulez-vous supprimer ce message?", alert.getText());

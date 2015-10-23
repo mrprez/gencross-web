@@ -1,7 +1,5 @@
 package com.mrprez.gencross.web.utils;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +11,14 @@ import org.openqa.selenium.WebElement;
 public class WebElementProxy implements WebElement {
 	
 	private final WebElement webElement;
-	private long waitTime;
+	private WebDriverProxy webDriverProxy;
 	
 
-	public WebElementProxy(WebElement webElement, long waitTime) {
+	public WebElementProxy(WebElement webElement, WebDriverProxy webDriverProxy) {
 		super();
 		this.webElement = webElement;
-		this.waitTime = waitTime;
+		this.webDriverProxy = webDriverProxy;
 	}
-	
 	
 	
 
@@ -31,51 +28,21 @@ public class WebElementProxy implements WebElement {
 	}
 
 
-	public long getWaitTime() {
-		return waitTime;
-	}
-
-
-	public void setWaitTime(long waitTime) {
-		this.waitTime = waitTime;
-	}
-
-
-
-
-
 	public void click() {
 		webElement.click();
-		try {
-			Thread.sleep(waitTime);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+		webDriverProxy.waitLoading();
 	}
-
-
-
 
 
 	public void submit() {
 		webElement.submit();
-		try {
-			Thread.sleep(waitTime);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+		webDriverProxy.waitLoading();
 	}
-
-
-
 
 
 	public void sendKeys(CharSequence... keysToSend) {
 		webElement.sendKeys(keysToSend);
 	}
-
-
-
 
 
 	public void clear() {
@@ -129,7 +96,7 @@ public class WebElementProxy implements WebElement {
 	public List<WebElement> findElements(By by) {
 		List<WebElement> result = new ArrayList<WebElement>();
 		for(WebElement foundElement : webElement.findElements(by)){
-			result.add(new WebElementProxy(foundElement, waitTime));
+			result.add(new WebElementProxy(foundElement, webDriverProxy));
 		}
 		return result;
 	}
@@ -139,7 +106,7 @@ public class WebElementProxy implements WebElement {
 
 
 	public WebElement findElement(By by) {
-		return new WebElementProxy(webElement.findElement(by), waitTime);
+		return new WebElementProxy(webElement.findElement(by), webDriverProxy);
 	}
 
 

@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
-
-import com.mrprez.gencross.web.selenium.WebAbstractTest;
 
 public class ForgottenPasswordTest extends WebAbstractTest {
 	private static final String passwordMailLinePrefix = "Votre nouveau mot de passe: ";
@@ -18,10 +15,10 @@ public class ForgottenPasswordTest extends WebAbstractTest {
 		mailTester.addReplacementRule("Votre nouveau mot de passe: .{8}", "Votre nouveau mot de passe: XXXXXXXX");
 	}
 
-	@Test
-	public void testForgottenPassword() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + "gencross-web/List.action");
-		//pageTester.testPage(driver, "Login1");
+		pageTester.testPage(driver, "Login1");
 		driver.findElement(By.linkText("Mot de passe oublié")).click();
 		pageTester.testPage(driver, "ForgottenPassword");
 		driver.findElement(By.id("ForgottenPassword_username")).clear();

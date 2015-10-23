@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 import org.dom4j.DocumentException;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
-
-import com.mrprez.gencross.web.selenium.WebAbstractTest;
 
 public class EditPersonnageTest extends WebAbstractTest {
 	private int editTestNumber = 0;
@@ -19,19 +17,31 @@ public class EditPersonnageTest extends WebAbstractTest {
 		super("EditPersonnage");
 		pageTester.addReplacementRule("[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3} [0-9]{2}/[0-9]{2}/[0-9]{4}", "00:00:00,000 00/00/0000");
 		pageTester.addReplacementRule("[0-9]{2}:[0-9]{2} [0-9]{2}/[0-9]{2}", "00:00 00/00");
-		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
+	}
+	
+	
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.findElement(By.id("waitMask")).isDisplayed();
+				for(WebElement webElement : webDriver.findElements(By.id("waitMask"))){
+					if(webElement.isDisplayed()){
+						return false;
+					}
+				}
+				return true;
 			}
 		});
-		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return !webDriver.getPageSource().contains("waitLine");
 			}
 		});
-		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return !webDriver.getPageSource().contains("waitImg");
@@ -39,8 +49,8 @@ public class EditPersonnageTest extends WebAbstractTest {
 		});
 	}
 
-	@Test
-	public void testEditPersonnage() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + context);
 		
 		driver.findElement(By.id("usernameField")).clear();
@@ -127,7 +137,6 @@ public class EditPersonnageTest extends WebAbstractTest {
 		driver.findElement(By.cssSelector("#form_5_1 > button.plusButton")).click();
 		driver.findElement(By.cssSelector("#form_5_1 > button.plusButton")).click();
 		driver.findElement(By.xpath("(//button[@type='button'])[25]")).click();
-		// ERROR: Caught exception [ERROR: Unsupported command [getAlert]]
 		
 	}
 	
@@ -135,6 +144,8 @@ public class EditPersonnageTest extends WebAbstractTest {
 		DecimalFormat format = new DecimalFormat("00");
 		pageTester.testPage(driver, "editPersonnage"+format.format(editTestNumber++));
 	}
+
+
 
 	
 }

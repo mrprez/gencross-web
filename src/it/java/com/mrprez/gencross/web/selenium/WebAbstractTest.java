@@ -8,8 +8,11 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +27,15 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.mrprez.gencross.web.tester.MailTester;
 import com.mrprez.gencross.web.tester.PageTester;
 import com.mrprez.gencross.web.utils.StreamProcessManager;
@@ -47,6 +53,8 @@ import com.mrprez.gencross.web.utils.WebDriverProxy;
 public abstract class WebAbstractTest {
 	private static final String JDK_PATH_VAR_NAME = "jdk.path";
 	private static final String MAIL_PATH = "mail.path";
+	private static final String FAIL_FILE_NAME = "FAIL.html";
+	
 
 	protected String name;
 
@@ -54,14 +62,13 @@ public abstract class WebAbstractTest {
 	private File root;
 	private File tomcatDir;
 	protected File resourceDir;
+	protected File workDir;
 	protected String baseUrl;
 	protected String context;
 
 	private Process tomcatProcess;
-	private Process seleniumHubProcess;
-	private Process seleniumNodeProcess;
-
-	protected WebDriver driver;
+	
+	protected WebDriverProxy driver;
 	protected PageTester pageTester;
 	protected MailTester mailTester;
 
@@ -85,7 +92,27 @@ public abstract class WebAbstractTest {
 
 		init();
 	}
+	
+	protected abstract void processTest() throws Exception;
+	
 
+	@Test
+	public void test() throws Exception{
+		try{
+			processTest();
+		}catch(Exception e){
+			File failFile = new File(workDir, FAIL_FILE_NAME);
+			Writer writer = new OutputStreamWriter(new FileOutputStream(failFile), "UTF-8");
+			try {
+				writer.write(driver.getPageSource());
+			} finally {
+				writer.close();
+			}
+			throw e;
+		}
+	}
+	
+	
 	protected String getProperty(String name) {
 		return getProperty(name, null);
 	}
@@ -112,13 +139,14 @@ public abstract class WebAbstractTest {
 	private void init() throws IOException {
 		root = new File(getProperty("basedir") + "/src/it/resources");
 		resourceDir = new File(root, name);
+		workDir = new File(getProperty("project.build.directory") + "/seleniumTestResult", name);
+		
 		tomcatDir = new File(getProperty("tomcat.path"));
 
 		baseUrl = getProperty("base.url");
 		context = getProperty("project.name");
 
-		pageTester = new PageTester(name, root.getAbsolutePath(),
-				getProperty("project.build.directory") + "/seleniumTestResult");
+		pageTester = new PageTester(resourceDir, workDir);
 		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}", "jsessionid=00000000000000000000000000000000");
 		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
 		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
@@ -128,14 +156,10 @@ public abstract class WebAbstractTest {
 		pageTester.addReplacementRule("style=\"zoom: 1;\" ", "");
 		pageTester.addReplacementRule("//&lt;!\\[CDATA\\[ ", "");
 		pageTester.addReplacementRule(" //\\]\\]&gt;</script>", "</script>");
-		pageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver driver) {
-				return !driver.findElements(By.id("footer")).isEmpty();
-			}
-		});
-
-		mailTester = new MailTester(name, root.getAbsolutePath(), getProperty("project.build.directory") + "/seleniumTestResult", getProperty(MAIL_PATH));
+		pageTester.addReplacementRule("<tbody align=\"left\">", "<tbody>");
+		pageTester.addReplacementRule("<thead align=\"left\">", "<thead>");
+		
+		mailTester = new MailTester(resourceDir, workDir, getProperty(MAIL_PATH));
 		mailTester.deleteMailFile();
 	}
 
@@ -221,18 +245,28 @@ public abstract class WebAbstractTest {
 	
 	private void launchWebDriver() throws InterruptedException, MalformedURLException {
 		
+		WebDriver webDriver;
 		if(getProperty("webdriver.chrome.driver")!=null){
 			System.setProperty("webdriver.chrome.driver", getProperty("webdriver.chrome.driver"));
-			driver = new ChromeDriver();
-//		}else if(getProperty("phantomjs.binary.path")!=null){
-//			driver = new PhantomJSDriver = DesiredCapabilities.phantomjs();
+			webDriver = new ChromeDriver();
+		}else if(getProperty("phantomjs.binary.path")!=null){
+//			TODO use GhostDriver
+			webDriver = new HtmlUnitDriver(true);
 		}else{
-			driver = new HtmlUnitDriver(true);
+			webDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+			((HtmlUnitDriver)webDriver).setJavascriptEnabled(true);
 		}
 		
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		webDriver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		
-		driver = new WebDriverProxy(driver, 500);
+		driver = new WebDriverProxy(webDriver, 500);
+		
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver driver) {
+				return !driver.findElements(By.id("footer")).isEmpty();
+			}
+		});
 	}
 
 	@After
@@ -257,26 +291,6 @@ public abstract class WebAbstractTest {
 			e.printStackTrace();
 		}
 
-		try {
-			if (seleniumHubProcess != null) {
-				seleniumHubProcess.destroy();
-				seleniumHubProcess.waitFor();
-				System.out.println("selenium hub process ended with exit value: "+seleniumHubProcess.exitValue());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			if (seleniumNodeProcess != null) {
-				seleniumNodeProcess.destroy();
-				seleniumNodeProcess.waitFor();
-				System.out.println("selenium node process ended with exit value: "+seleniumNodeProcess.exitValue());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		Assert.assertTrue("Some templates are missing", pageTester.isAllTemplatePresent());
 		Assert.assertTrue("Mail template is missing", mailTester.isAllTemplatePresent());
 
@@ -296,7 +310,7 @@ public abstract class WebAbstractTest {
 		ImageIO.write(img, "jpeg", imgFile);
 		tool.beep();
 	}
-
 	
+
 
 }

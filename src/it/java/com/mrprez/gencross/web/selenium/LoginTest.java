@@ -2,10 +2,7 @@ package com.mrprez.gencross.web.selenium;
 
 import java.io.IOException;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
-
-import com.mrprez.gencross.web.selenium.WebAbstractTest;
 
 
 public class LoginTest extends WebAbstractTest {
@@ -16,10 +13,10 @@ public class LoginTest extends WebAbstractTest {
 	}
 
 	
-	@Test
-	public void test() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + "gencross-web");
-		//pageTester.testPage(driver, "login1");
+		pageTester.testPage(driver, "login1");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("batman");
 		driver.findElement(By.id("Login_password")).clear();

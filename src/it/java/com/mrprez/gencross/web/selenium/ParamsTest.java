@@ -2,11 +2,8 @@ package com.mrprez.gencross.web.selenium;
 
 import java.io.IOException;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
-
-import com.mrprez.gencross.web.selenium.WebAbstractTest;
 
 public class ParamsTest extends WebAbstractTest {
 
@@ -14,8 +11,8 @@ public class ParamsTest extends WebAbstractTest {
 		super("Params");
 	}
 
-	@Test
-	public void test() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + "gencross-web");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");

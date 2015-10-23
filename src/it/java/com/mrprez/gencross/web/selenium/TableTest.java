@@ -2,9 +2,9 @@ package com.mrprez.gencross.web.selenium;
 
 import java.io.IOException;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 
@@ -21,42 +21,50 @@ public class TableTest extends WebAbstractTest{
 		pageTester.addReplacementRule(" cke_focus", "");
 		pageTester.setIgnoreWhiteSpace(true);
 		
-		editPersonnageTester = new PageTester(this.name, pageTester.getMaskRepository().getParent(), pageTester.getWorkDir().getParent());
-		editPersonnageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.findElement(By.id("waitMask")).isDisplayed();
-			}
-		});
-		editPersonnageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.getPageSource().contains("waitLine");
-			}
-		});
-		editPersonnageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.getPageSource().contains("waitImg");
-			}
-		});
-		editPersonnageTester.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.findElement(By.id("waitMask")).isDisplayed();
-			}
-		});
+		editPersonnageTester = new PageTester(resourceDir, workDir);
 		editPersonnageTester.addReplacementRule("[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3} [0-9]{2}/[0-9]{2}/[0-9]{4}", "00:00:00,000 00/00/0000");
 		editPersonnageTester.addReplacementRule("[0-9]{2}:[0-9]{2} [0-9]{2}/[0-9]{2}", "00:00 00/00");
 		editPersonnageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
 		editPersonnageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
 		editPersonnageTester.addReplacementRule("style=\"\" ", "");
 	}
+	
+	
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				for(WebElement webElement : webDriver.findElements(By.id("waitMask"))){
+					if(webElement.isDisplayed()){
+						return false;
+					}
+				}
+				return true;
+			}
+		});
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return !webDriver.getPageSource().contains("waitLine");
+			}
+		});
+		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return !webDriver.getPageSource().contains("waitImg");
+			}
+		});
+		
+	}
+	
 
-	@Test
-	public void testTable() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + context + "/Login.action");
-		//pageTester.testPage(driver, "login");
+		pageTester.testPage(driver, "login");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");
 		driver.findElement(By.id("Login_password")).clear();
@@ -187,6 +195,11 @@ public class TableTest extends WebAbstractTest{
 	    
 		
 	}
+
+
+
+
+	
 
 	
 }

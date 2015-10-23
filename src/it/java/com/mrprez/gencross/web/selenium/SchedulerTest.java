@@ -3,7 +3,6 @@ package com.mrprez.gencross.web.selenium;
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
@@ -34,11 +33,10 @@ public class SchedulerTest extends WebAbstractTest {
 		
 	}
 	
-	@Test
-	public void testSchedulerScreen() throws Exception {
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + context);
-		System.out.println("testSchedulerScreen: just before login");
-		//pageTester.testPage(driver, "login");
+		pageTester.testPage(driver, "login");
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");
 		driver.findElement(By.id("Login_password")).clear();

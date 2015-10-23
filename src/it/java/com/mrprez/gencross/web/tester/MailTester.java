@@ -11,8 +11,8 @@ public class MailTester extends TemplateTester {
 	private File mailFile;
 	
 
-	public MailTester(String maskGroup, String maskRepositoryPath, String workDirPath, String mailPath) {
-		super(maskGroup, maskRepositoryPath, workDirPath);
+	public MailTester(File maskRepository, File workDir, String mailPath) {
+		super(maskRepository, workDir);
 		mailFile = new File(mailPath);
 		super.addReplacementRule("[0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{2}/[0-9]{2}/[0-9]{4}", "00:00:00 00/00/0000");
 	}

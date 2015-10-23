@@ -28,17 +28,16 @@ public abstract class TemplateTester {
 	private boolean ignoreWhiteSpace = false;
 		
 	
-	public TemplateTester(String maskGroup, String maskGroupRepositoryPath, String workDirPath){
+	public TemplateTester(File maskRepository, File workDir){
 		super();
-		maskRepository = new File(maskGroupRepositoryPath, maskGroup);
+		this.maskRepository = maskRepository;
+		this.workDir = workDir;
 		
-		new File(workDirPath).mkdir();
-		workDir = new File(workDirPath, maskGroup);
 		workDir.mkdir();
 	}
 	
 	
-	protected Boolean test(String source, String testName, String extension) throws IOException, InterruptedException {
+	protected void test(String source, String testName, String extension) throws IOException, InterruptedException {
 		System.out.println("Template file="+maskRepository+"/"+testName+extension);
 		File template = new File(maskRepository, testName+extension);
 		
@@ -52,7 +51,7 @@ public abstract class TemplateTester {
 		if (!template.exists()) {
 			allTemplatePresent = false;
 			writeTemplate(source, testName, extension);
-			return null;
+			return;
 		}
 		
 		writeFailFile(source, testName, extension);
@@ -68,27 +67,14 @@ public abstract class TemplateTester {
 					if(ignoreWhiteSpace){
 						templateLine = templateLine.trim();
 					}
-					if( ! sourceLine.matches(templateLine) ){
-						System.out.println("\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"");
-						return false;
-					}
+					Assert.assertTrue( "\"" + sourceLine + "\"\n doesn't match:\n\"" + templateLine + "\"", sourceLine.matches(templateLine) );
 				} else {
-					if( ! templateLine.trim().equals(sourceLine.trim())){
-						System.out.println("\"" + sourceLine + "\"\n not equals to:\n\"" + templateLine + "\"");
-						return false;
-					}
+					Assert.assertEquals( sourceLine, templateLine );
 				}
 			}
-			if (sourceReader.readLine() != null) {
-				System.out.println("Source plus longue que le template");
-				return false;
-			}
-			if (templateReader.readLine() != null) {
-				System.out.println("Template plus long que la source");
-				return false;
-			}
+			Assert.assertNull("Source plus longue que le template", sourceReader.readLine());
+			Assert.assertNull("Template plus long que la source", templateReader.readLine());
 			deleteFailFile(testName, extension);
-			return true;
 		} finally {
 			templateReader.close();
 			sourceReader.close();

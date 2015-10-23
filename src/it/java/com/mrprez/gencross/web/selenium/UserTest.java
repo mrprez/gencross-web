@@ -2,7 +2,6 @@ package com.mrprez.gencross.web.selenium;
 
 import java.io.IOException;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 
 public class UserTest extends WebAbstractTest {
@@ -12,9 +11,8 @@ public class UserTest extends WebAbstractTest {
 		super("User");
 	}
 
-	@Test
-	public void testUser() throws Exception {
-		System.out.println("testUser()");
+	@Override
+	public void processTest() throws Exception {
 		driver.get(baseUrl + context);
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("batman");
@@ -99,7 +97,7 @@ public class UserTest extends WebAbstractTest {
 		pageTester.testPage(driver, "loginSuccess3");
 		driver.findElement(By.cssSelector("#accountManagementMenu > span.menu")).click();
 		driver.get(baseUrl + context + "/ChangeMail.action");
-		pageTester.testPage(driver, "changeMailAddress2", 2000);
+		pageTester.testPage(driver, "changeMailAddress2");
 		driver.findElement(By.id("ChangeMail!changeMail_mail")).clear();
 		driver.findElement(By.id("ChangeMail!changeMail_mail")).sendKeys("batman.gotham.us");
 		pageTester.testPage(driver, "changeMailAddressFail");
