@@ -85,6 +85,7 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		try{
 			Thread.sleep(1000);
 			driver.switchTo().alert().accept();
+			Thread.sleep(500);
 		}catch(WebDriverException wde){
 			System.err.println("WebDriverException:"+wde.getMessage());
 			wde.printStackTrace();

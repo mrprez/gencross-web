@@ -10,6 +10,13 @@ public class ParamsTest extends WebAbstractTest {
 	public ParamsTest() throws IOException {
 		super("Params");
 	}
+	
+	
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		pageTester.addReplacementRule(" ui-state-hover", "");
+	}
 
 	@Override
 	public void processTest() throws Exception {
