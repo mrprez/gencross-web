@@ -216,6 +216,7 @@ public class MailResource implements IMailResource {
 			if(folder.isOpen()){
 				folder.close(false);
 			}
+			store.close();
 		}
 	}
 	
