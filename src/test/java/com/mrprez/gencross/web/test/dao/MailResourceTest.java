@@ -342,6 +342,7 @@ public class MailResourceTest {
 		checkSendMessageRequest(sendMessageRequest, "Invalid subject: Ha ha ha", text, (String)param.getValue(), null, null, "joker@mail.com");
 		
 		Assert.assertFalse(folder.isOpen());
+		Assert.assertFalse(MockStore.getMockStore(MAIL_MOCK_NAME).isConnected());
 	}
 	
 	
