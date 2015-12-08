@@ -957,8 +957,9 @@ form.plugins{
 
 /* Logs */
 
-#appenderTable{
-	margin-bottom: 30px;
+.loggerTable{
+	float: left;
+	margin: 10px;
 }
 
 

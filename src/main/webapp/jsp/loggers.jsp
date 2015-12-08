@@ -6,7 +6,7 @@
 <s:include value="include/header.jsp"/>
 
 
-<table id="appenderTable" class="genCrossTable">
+<table id="appenderTable" class="genCrossTable loggerTable">
 	<tr class="genCrossTable">
 		<th class="genCrossTable">Appender</th>
 		<th class="genCrossTable">Type</th>
@@ -28,7 +28,7 @@
 </table>
 
 
-<table class="genCrossTable">
+<table class="genCrossTable loggerTable">
 	<tr class="genCrossTable">
 		<th class="genCrossTable">Logger</th>
 		<th class="genCrossTable">Level</th>
