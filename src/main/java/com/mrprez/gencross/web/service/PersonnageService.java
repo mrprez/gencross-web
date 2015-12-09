@@ -78,16 +78,5 @@ public class PersonnageService implements IPersonnageService {
 
 
 	
-	
-//	
-//	public void savePersonnage(Integer personnageId, byte[] personnageContent) throws Exception{
-//		IPersonnageBS personnageBS = (IPersonnageBS) ContextLoader.getCurrentWebApplicationContext().getBean("personnageBS");
-//		PersonnageFactory personnageFactory = (PersonnageFactory) ContextLoader.getCurrentWebApplicationContext().getBean("personnageFactory");
-//		Personnage personnage = personnageFactory.loadPersonnage(new ByteArrayInputStream(personnageContent));
-//		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId);
-//		personnageWork.getPersonnageData().setPersonnage(personnage);
-//		personnageBS.savePersonnage(personnageWork);
-//	}
-	
 
 }

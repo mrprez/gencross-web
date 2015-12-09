@@ -7,7 +7,7 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="false" />
-    <constant name="struts.action.excludePattern" value="/personnageService.*,/authentificationService.*"/>
+    <constant name="struts.action.excludePattern" value="/ws/.*"/>
     <!-- intégration Spring --> 
     <constant name="struts.objectFactory.spring.autoWire" value="name" /> 
 
