@@ -1,4 +1,4 @@
-package com.mrprez.gencross.web.action;
+package com.mrprez.gencross.web.action.dwr;
 
 import java.util.Arrays;
 import java.util.HashSet;

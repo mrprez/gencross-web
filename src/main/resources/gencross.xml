@@ -153,16 +153,6 @@
 			<result name="error">/jsp/error.jsp</result>
 		</action>
 		
-		<action name="EditAjax!*" method="{1}" class="editPersonnageAjaxAction">
-			<interceptor-ref name="userSecurityStack"/>
-			<result name="input">/jsp/ajax/modifications.jsp</result>
-			<result name="property">/jsp/ajax/reloadProperty.jsp</result>
-			<result name="errorList">/jsp/include/errors.jsp</result>
-			<result name="pointPool">/jsp/ajax/reloadPointPool.jsp</result>
-			<result name="history">/jsp/ajax/reloadHistory.jsp</result>
-			<result name="historyItem">/jsp/ajax/reloadHistoryItem.jsp</result>
-		</action>
-		
 		<action name="EditTable!*" method="{1}" class="editTableAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/editTable.jsp</result>
