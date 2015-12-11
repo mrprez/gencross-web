@@ -11,7 +11,7 @@
     <!-- intégration Spring --> 
     <constant name="struts.objectFactory.spring.autoWire" value="name" /> 
 
-    <include file="gencross.xml"/>
+    <include file="strutsActions.xml"/>
 
     <!-- Add packages here -->
 
