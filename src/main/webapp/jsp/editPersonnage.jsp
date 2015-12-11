@@ -4,6 +4,8 @@
 
 <gcr:security-redirection target="/jsp/login.jsp"/>
 <s:include value="include/header.jsp"/>
+<script type='text/javascript' src='/gencross-web/dwr/engine.js'></script>
+<script type='text/javascript' src='/gencross-web/dwr/interface/editPersonnageAjaxAction.js'></script>
 
 <s:url id="reloadUrl" action="Edit">
 	<s:param name="personnageId">${personnageWork.id}</s:param>

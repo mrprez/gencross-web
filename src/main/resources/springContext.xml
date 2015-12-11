@@ -11,6 +11,9 @@
 			http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.0.xsd
 			http://www.springframework.org/schema/jee classpath:/org/springframework/ejb/config/spring-jee-3.0.xsd">
 
+	
+	
+	
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="get*" read-only="true"/>
@@ -97,11 +100,6 @@
 		<property name="tableBS" ref="tableBS"/>
 	</bean>
 	
-	<bean id="editPersonnageAjaxAction" class="com.mrprez.gencross.web.action.EditPersonnageAjaxAction" scope="prototype">
-		<property name="personnageBS" ref="personnageBS"/>
-		<property name="personnageComparatorBS" ref="personnageComparatorBS"/>
-	</bean>
-	
 	<bean id="editTableAction" class="com.mrprez.gencross.web.action.EditTableAction" scope="prototype">
 		<property name="personnageBS" ref="personnageBS"/>
 		<property name="tableBS" ref="tableBS"/>
@@ -167,6 +165,13 @@
 		<property name="personnageBS" ref="personnageBS"/>
 		<property name="gcrFileBS" ref="gcrFileBS"/>
 	</bean>
+	
+	<bean id="editPersonnageAjaxAction" class="com.mrprez.gencross.web.action.dwr.EditPersonnageAjaxAction" scope="prototype">
+		<property name="personnageBS" ref="personnageBS"/>
+		<property name="personnageComparatorBS" ref="personnageComparatorBS"/>
+	</bean>
+	
+	
 	
 	
 	<!-- ********* -->

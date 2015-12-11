@@ -204,10 +204,7 @@ function expand(propertyAbsoluteName, propertyNum){
 	var newSrc = oldSrc.replace('expandable','expanded');
 	img.attr('src', newSrc);
 	
-	var data = new Object();
-	data.personnageWorkId = personnageWorkId;
-	data.propertyAbsoluteName = propertyAbsoluteName;
-	$.post('<s:url action="../jsp/EditAjax" method="expand" includeParams="none"/>', data);
+	editPersonnageAjaxAction.expand(personnageWorkId, propertyAbsoluteName);
 }
 
 function collapse(propertyAbsoluteName, propertyNum){
@@ -219,10 +216,7 @@ function collapse(propertyAbsoluteName, propertyNum){
 	var newSrc = oldSrc.replace('expanded','expandable');
 	img.attr('src', newSrc);
 	
-	var data = new Object();
-	data.personnageWorkId = personnageWorkId;
-	data.propertyAbsoluteName = propertyAbsoluteName;
-	$.post('<s:url action="../jsp/EditAjax" method="collapse" includeParams="none"/>', data);
+	editPersonnageAjaxAction.collapse(personnageWorkId, propertyAbsoluteName);
 }
 
 function modifyPointPool(validateButton){
