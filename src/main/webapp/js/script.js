@@ -1,6 +1,4 @@
 
-var host = window.location.href;
-host = host.substring(0, host.lastIndexOf("/"));
 
 function selectGenerator(){
 	var selectList = $('#fileGeneratorName')[0];
