@@ -1,4 +1,9 @@
 
+/** Generic function */
+
+function showSubMenu(tdMenu){
+	$(tdMenu).children('ul').show('fast');
+}
 
 function selectGenerator(){
 	var selectList = $('#fileGeneratorName')[0];
@@ -21,11 +26,22 @@ function selectTemplateFile(selectList){
 	}
 }
 
+function allSelection(checkBoxNode){
+	var checked = $(checkBoxNode).prop('checked');
+	$(checkBoxNode).parent().parent().find('li > :checkbox').prop('checked', checked);
+}
+
+
+/** listPersonnage */
+
 function askMJPassword(form){
 	var password = prompt("En tant que MJ, vous devez choisir un mot de passe pour ce fichier:");
 	var passwordField = $(form).children('[name="password"]')[0];
 	passwordField.value = password;
 }
+
+
+/** upload */
 
 function hideDisplayPassword(checkbox){
 	if(checkbox.checked){
@@ -35,9 +51,8 @@ function hideDisplayPassword(checkbox){
 	}
 }
 
-function showSubMenu(tdMenu){
-	$(tdMenu).children('ul').show('fast');
-}
+
+/** editTable */
 
 function showHideMessage(authorSpan){
 	var messageContent = $(authorSpan).parent().parent().children('.messageContent');
@@ -52,6 +67,9 @@ function showHideMessage(authorSpan){
 	}
 	
 }
+
+
+/** createPersonnage */
 
 function showHidePlayerGmLists(radioButton){
 	var role = $(radioButton)[0].value;
@@ -75,16 +93,17 @@ function showHidePlayerGmLists(radioButton){
 	}
 }
 
-function allSelection(checkBoxNode){
-	var checked = $(checkBoxNode).prop('checked');
-	$(checkBoxNode).parent().parent().find('li > :checkbox').prop('checked', checked);
-}
+
+/** params */
 
 function displayEditParam(img, key){
 	var idSuffix = key.replace(/\./g,"_");
 	$('#paramForm_'+idSuffix).show();
 	$(img).hide();
 }
+
+
+/** listTable */
 
 function deleteTable(id){
 	$('#waitMask').show();
@@ -96,4 +115,42 @@ function cancelDeleteTable(){
 	$('#waitMask').hide();
 	$('#deleteTableDiv').hide();
 }
+
+
+/** editPersonnage */
+
+function expandCollapse(propertyAbsoluteName, propertyNum){
+	var ulId = 'subProperties_'+propertyNum;
+	if($('#'+ulId).hasClass('expanded')){
+		collapse(propertyAbsoluteName, propertyNum);
+	}else if($('#'+ulId).hasClass('expandable')){
+		expand(propertyAbsoluteName, propertyNum);
+	}
+}
+
+function expand(propertyAbsoluteName, propertyNum){
+	var ulId = 'subProperties_'+propertyNum;
+	$('#'+ulId).removeClass('expandable').addClass('expanded');
+	var liId = 'li_'+propertyNum;
+	var img = $('#'+liId+' > a.motherPropertyName > img.expandImg');
+	var oldSrc = img.attr('src');
+	var newSrc = oldSrc.replace('expandable','expanded');
+	img.attr('src', newSrc);
+	
+	editPersonnageAjaxAction.expand(personnageWorkId, propertyAbsoluteName);
+}
+
+function collapse(propertyAbsoluteName, propertyNum){
+	var ulId = 'subProperties_'+propertyNum;
+	$('#'+ulId).removeClass('expanded').addClass('expandable');
+	var liId = 'li_'+propertyNum;
+	var img = $('#'+liId+' > a.motherPropertyName > img.expandImg');
+	var oldSrc = img.attr('src');
+	var newSrc = oldSrc.replace('expanded','expandable');
+	img.attr('src', newSrc);
+	
+	editPersonnageAjaxAction.collapse(personnageWorkId, propertyAbsoluteName);
+}
+
+
 

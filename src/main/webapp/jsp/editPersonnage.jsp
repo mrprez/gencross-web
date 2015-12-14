@@ -4,9 +4,6 @@
 
 <gcr:security-redirection target="/jsp/login.jsp"/>
 <s:include value="include/header.jsp"/>
-<script language="JavaScript" type="text/javascript" src="<s:url value="/js/editPersonnage.js"/>" charset="utf-8"></script>
-<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/engine.js"/>"></script>
-<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
 
 <s:url id="reloadUrl" action="Edit">
 	<s:param name="personnageId">${personnageWork.id}</s:param>

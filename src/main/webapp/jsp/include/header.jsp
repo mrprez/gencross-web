@@ -10,6 +10,8 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery.ui.datepicker-fr.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/locale/locale_fr.js"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/engine.js"/>"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/tree.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
 		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"></link>
@@ -18,6 +20,7 @@
 		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" ></link>
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+		<s:property value="%{#request['struts.view_uri'].substring(1,2)}"/>
 		<div id="header">
 			<div id="headerLeft">
 				<s:a action="List">
