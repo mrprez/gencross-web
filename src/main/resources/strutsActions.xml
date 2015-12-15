@@ -132,6 +132,7 @@
         		<param name="actionName">Edit</param>
         		<param name="personnageId">${personnageId}</param>
         	</result>
+        	<result name="property">/jsp/include/editProperty.jsp</result>
 		</action>
 		
 		<action name="Background!*" method="{1}" class="backgroundAction">

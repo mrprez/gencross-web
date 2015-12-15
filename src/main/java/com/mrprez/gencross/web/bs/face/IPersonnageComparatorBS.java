@@ -10,7 +10,7 @@ public interface IPersonnageComparatorBS {
 	
 	boolean hasTheSameErrors(Personnage personnage1, Personnage personnage2) throws Exception;
 	
-	Set<Integer> findPointPoolDifferences(Personnage personnage1, Personnage personnage2) throws Exception;
+	Set<String> findPointPoolDifferences(Personnage personnage1, Personnage personnage2) throws Exception;
 	
 	boolean hasTheSameNextPhaseAvaibility(Personnage personnage1, Personnage personnage2) throws Exception;
 

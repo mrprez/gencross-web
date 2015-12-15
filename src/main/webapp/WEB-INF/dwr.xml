@@ -11,8 +11,9 @@
 			<param name="beanName" value="editPersonnageAjaxAction"/>
 			<include method="expand"/>
 			<include method="collapse"/>
+			<include method="updateValue"/>
 		</create>
-		
+		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.PersonnageChange"/>
 	</allow>
 
 </dwr>

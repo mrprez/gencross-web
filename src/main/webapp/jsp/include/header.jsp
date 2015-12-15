@@ -21,7 +21,7 @@
 		<link href="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.css"/>" rel="stylesheet" type="text/css"></link>
 		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" ></link>
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+	<body>
 		<div id="header">
 			<div id="headerLeft">
 				<s:a action="List">

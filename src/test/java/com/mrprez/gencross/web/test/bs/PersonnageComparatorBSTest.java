@@ -182,10 +182,10 @@ public class PersonnageComparatorBSTest {
 		
 		personnage1.getPointPools().get("PP1").spend(5);
 		
-		Set<Integer> result = personnageComparatorBS.findPointPoolDifferences(personnage1, personnage2);
+		Set<String> result = personnageComparatorBS.findPointPoolDifferences(personnage1, personnage2);
 		
 		Assert.assertEquals(1, result.size());
-		Assert.assertTrue(result.contains(0));
+		Assert.assertTrue(result.contains("PP1"));
 	}
 	
 	@Test
@@ -200,10 +200,10 @@ public class PersonnageComparatorBSTest {
 		
 		personnage1.getPointPools().get("PP2").setTotal(25);
 		
-		Set<Integer> result = personnageComparatorBS.findPointPoolDifferences(personnage1, personnage2);
+		Set<String> result = personnageComparatorBS.findPointPoolDifferences(personnage1, personnage2);
 		
 		Assert.assertEquals(1, result.size());
-		Assert.assertTrue(result.contains(1));
+		Assert.assertTrue(result.contains("PP2"));
 	}
 	
 	

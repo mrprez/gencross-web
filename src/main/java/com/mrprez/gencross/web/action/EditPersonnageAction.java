@@ -2,6 +2,10 @@ package com.mrprez.gencross.web.action;
 
 import java.io.InputStream;
 
+import org.apache.struts2.ServletActionContext;
+
+import com.mrprez.gencross.Personnage;
+import com.mrprez.gencross.Property;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
@@ -13,6 +17,7 @@ public class EditPersonnageAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private InputStream helpFileInputStream;
 	private Integer personnageId;
+	private String propertyAbsoluteName;
 	private PersonnageWorkBO personnageWork;
 	
 	private IPersonnageBS personnageBS;
@@ -71,6 +76,44 @@ public class EditPersonnageAction extends ActionSupport {
 		personnageBS.unvalidatePersonnage(personnageWork);
 		return INPUT;
 	}
+	
+	public String getProperty() throws Exception {
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
+		if(personnageWork==null){
+			return ERROR;
+		}
+		Personnage personnage = personnageWork.getPersonnage();
+		Property property = personnage.getProperty(propertyAbsoluteName);
+		String namesTab[] = propertyAbsoluteName.split("#");
+		int index = 0;
+		Property currentProperty = null;
+		for(Property comparProperty : personnage.getProperties()){
+			if(comparProperty.getFullName().equals(namesTab[0])){
+				currentProperty = comparProperty;
+				break;
+			}else{
+				index++;
+			}
+		}
+		StringBuilder propertyNum = new StringBuilder(""+index);
+		for(int i=1; i<namesTab.length; i++){
+			index = 0;
+			for(Property comparProperty : currentProperty.getSubProperties()){
+				if(comparProperty.getFullName().equals(namesTab[i])){
+					currentProperty = comparProperty;
+					break;
+				}else{
+					index++;
+				}
+			}
+			propertyNum.append("_"+index);
+		}
+		ServletActionContext.getRequest().setAttribute("propertyNum", propertyNum.toString());
+		ActionContext.getContext().getValueStack().push(property);
+		
+		return "property";
+	}
 
 	public InputStream getHelpFileInputStream() {
 		return helpFileInputStream;
@@ -110,6 +153,12 @@ public class EditPersonnageAction extends ActionSupport {
 	}
 	public void setTableBS(ITableBS tableBS) {
 		this.tableBS = tableBS;
+	}
+	public String getPropertyAbsoluteName() {
+		return propertyAbsoluteName;
+	}
+	public void setPropertyAbsoluteName(String propertyAbsoluteName) {
+		this.propertyAbsoluteName = propertyAbsoluteName;
 	}
 	
 	

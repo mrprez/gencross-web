@@ -131,7 +131,7 @@ public class EditPersonnageAjaxAction_old extends ActionSupport {
 	private void loadDifferences(Personnage personnage, Personnage personnageRef) throws Exception{
 		updatedProperties = personnageComparatorBS.findPropertiesDifferences(personnage, personnageRef);
 		reloadErrors = !personnageComparatorBS.hasTheSameErrors(personnage, personnageRef);
-		updatedPointPoolIndexes = personnageComparatorBS.findPointPoolDifferences(personnage, personnageRef);
+		//updatedPointPoolIndexes = personnageComparatorBS.findPointPoolDifferences(personnage, personnageRef);
 		actionMessage = personnage.getActionMessage();
 		personnage.clearActionMessage();
 		if(!personnageComparatorBS.hasTheSameNextPhaseAvaibility(personnage, personnageRef)){
@@ -141,43 +141,7 @@ public class EditPersonnageAjaxAction_old extends ActionSupport {
 	}
 	
 	
-	public String getProperty() throws Exception {
-		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		Personnage personnage = personnageWork.getPersonnage();
-		Property property = personnage.getProperty(propertyAbsoluteName);
-		String namesTab[] = propertyAbsoluteName.split("#");
-		int index = 0;
-		Property currentProperty = null;
-		for(Property comparProperty : personnage.getProperties()){
-			if(comparProperty.getFullName().equals(namesTab[0])){
-				currentProperty = comparProperty;
-				break;
-			}else{
-				index++;
-			}
-		}
-		StringBuilder propertyNum = new StringBuilder(""+index);
-		for(int i=1; i<namesTab.length; i++){
-			index = 0;
-			for(Property comparProperty : currentProperty.getSubProperties()){
-				if(comparProperty.getFullName().equals(namesTab[i])){
-					currentProperty = comparProperty;
-					break;
-				}else{
-					index++;
-				}
-			}
-			propertyNum.append("_"+index);
-		}
-		ServletActionContext.getRequest().setAttribute("propertyNum", propertyNum.toString());
-		ActionContext.getContext().getValueStack().push(property);
-		
-		return "property";
-	}
+	
 	
 	public String getErrorList() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");

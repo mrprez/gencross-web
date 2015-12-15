@@ -140,15 +140,13 @@ public class PersonnageComparatorBS implements IPersonnageComparatorBS{
 	}
 
 	@Override
-	public Set<Integer> findPointPoolDifferences(Personnage personnage1, Personnage personnage2) throws Exception {
-		HashSet<Integer> result = new HashSet<Integer>();
-		int index = 0;
+	public Set<String> findPointPoolDifferences(Personnage personnage1, Personnage personnage2) throws Exception {
+		HashSet<String> result = new HashSet<String>();
 		for(PoolPoint poolPoint1 : personnage1.getPointPools().values()){
 			PoolPoint poolPoint2 = personnage2.getPointPools().get(poolPoint1.getName());
 			if(poolPoint1.getRemaining()!=poolPoint2.getRemaining() || poolPoint1.getTotal()!=poolPoint2.getTotal()){
-				result.add(index);
+				result.add(poolPoint1.getName());
 			}
-			index++;
 		}
 		
 		return result;

@@ -81,107 +81,14 @@ function removeProperty(number){
 }
 	
 
-function reloadProperties(xml){
-	var updatedPropertyTab = $(xml).find('updatedProperty');
-	for(i=0; i<updatedPropertyTab.length; i++){
-		var propertyNum = numberAssociation[updatedPropertyTab.eq(i).text()];
-		$('#li_'+propertyNum).empty();
-		$('#li_'+propertyNum).append('<img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width=15 height=15/>');
-	}
-	if($(xml).find('errors').length>0){
-		$('#errors').empty();
-		$('#errors').append('<img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="35" height="35"/>');
-	}
-	var updatedpointPoolTab = $(xml).find('updatedPointPool');
-	for(i=0; i<updatedpointPoolTab.length; i++){
-		var trId = 'pointPool_'+updatedpointPoolTab.eq(i).text();
-		$('#'+trId).empty();
-		$('#'+trId).append('<img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/>');
-	}
-	if($(xml).find('phaseFinished').length>0){
-		$('#nextPhaseButton')[0].disabled = ($(xml).find('phaseFinished').first().text()=="false");
-	}
-	if($(xml).find('history').length>0){
-		var trText = '<tr id="waitLine">';
-		for(i=0; i<5; i++){
-			trText = trText+'<td><img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td>';
-		}
-		$('#historyTable > tbody').prepend('<tr id="waitLine"><td class="historyIndex"></td><td><img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td></tr>');
-	}
-	var changedHistoryTab = $(xml).find('changedHistory');
-	for(i=0; i<changedHistoryTab.length; i++){
-		var trId = 'historyItemLine_'+changedHistoryTab.eq(i).text();
-		$('#'+trId).empty();
-		$('#'+trId).append('<td class="historyIndex">'+changedHistoryTab.eq(i).text()+'</td><td><img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td>');
-	}
-	hideWaitMask();
-	
-	for(i=0; i<updatedPropertyTab.length; i++){
-		var propertyNum = numberAssociation[updatedPropertyTab.eq(i).text()];
-		var data = new Object();
-		data.personnageWorkId = personnageWorkId;
-		data.propertyAbsoluteName = updatedPropertyTab.eq(i).text();
-		data.propertyNum = propertyNum;
-		$('#li_'+propertyNum).load('<s:url action="../jsp/EditAjax" method="getProperty" includeParams="none"/> #li_'+propertyNum+' > *',data, executeJavascript);
-		eval($('#li_'+propertyNum)[0]);
-	}
-	if($(xml).find('errors').length>0){
-		var data = new Object();
-		data.personnageWorkId = personnageWorkId;
-		$('#errors').load('<s:url action="../jsp/EditAjax" method="getErrorList" includeParams="none"/> #errors > *',data);
-	}
-	for(i=0; i<updatedpointPoolTab.length; i++){
-		var trId = 'pointPool_'+updatedpointPoolTab.eq(i).text();
-		var data = new Object();
-		data.personnageWorkId = personnageWorkId;
-		data.pointPoolIndex = updatedpointPoolTab.eq(i).text();
-		$('#'+trId).load('<s:url action="../jsp/EditAjax" method="getPointPool" includeParams="none"/> #'+trId+' > *',data);
-	}
-	if($(xml).find('history').length>0){
-		var data = new Object();
-		data.personnageWorkId = personnageWorkId;
-		if($('#historyTable > tbody > tr.historyItemLine:first > td:eq(0)').size()==0){
-			data.historyLastIndex = '-1';
-			$.post('<s:url action="../jsp/EditAjax" method="getLastHistory" includeParams="none"/>', data, addHistory, 'html');
-		}else{
-			data.historyLastIndex = $('#historyTable > tbody > tr.historyItemLine:first > td:eq(0)').text();
-			$.post('<s:url action="../jsp/EditAjax" method="getLastHistory" includeParams="none"/>', data, addHistory, 'html');
-		}
-	}
-	var changedHistoryTab = $(xml).find('changedHistory');
-	for(i=0; i<changedHistoryTab.length; i++){
-		var trId = 'historyItemLine_'+changedHistoryTab.eq(i).text();
-		var data = new Object();
-		data.personnageWorkId = personnageWorkId;
-		data.historyIndex = changedHistoryTab.eq(i).text();
-		$('#'+trId).load('<s:url action="../jsp/EditAjax" method="getHistoryItem" includeParams="none"/> #'+trId+' > *',data);
-	}
-	
-	if($(xml).find('actionMessage').length>0){
-		alert($(xml).find('actionMessage').first().text());
-	}
-	
-}
+
 
 function addHistory(data){
 	$('#waitLine').remove();
 	$('#historyTable > tbody').prepend(data);
 }
 
-function executeJavascript(responseText, textStatus, XMLHttpRequest){
-	var position = 0;
-	var start = 0;
-	var end = 0;
-	while(start>=0){
-		start = responseText.indexOf('<script language="Javascript">', position);
-		position = start;
-		end = responseText.indexOf('</script>', position);
-		position = end;
-		if(start>=0){
-			eval(responseText.substring(start+30, end));
-		}
-	}	
-}
+
 
 
 
@@ -229,43 +136,8 @@ function uploadPersonnage(imageButton){
 	$(imageButton).parent().children(".uploadFile")[0].click();
 }
 
-function displayWaitMask(){
-	$('#waitMask').show();
-	$('#waitImage').show();
-	waitMaskTimeout = setTimeout("displayReload()",60000);
-}
 
-function hideWaitMask(){
-	clearTimeout(waitMaskTimeout);
-	$('#waitMask').hide();
-	$('#waitImage').hide();
-	$('#tooLongWaitMsg').hide();
-}
 
-function displayReload(){
-	$('#tooLongWaitMsg').show();
-}
-
-function editFormKeyDown(event){
-	if(event.keyCode==27){
-		hideEditFormFromChild(event.currentTarget);
-	}
-	if(event.keyCode==13){
-		$(event.currentTarget).parent().children('button').click();
-	}
-	if(event.keyCode==37){
-		var minusButton = $(event.currentTarget).parent().children('.minusButton');
-		if( ! minusButton.get(0).disabled ){
-			minusButton.click();
-		}
-	}
-	if(event.keyCode==39){
-		var plusButton = $(event.currentTarget).parent().children('.plusButton');
-		if( ! plusButton.get(0).disabled ){
-			plusButton.click();
-		}
-	}
-}
 
 function poolPointFormKeyDown(event){
 	if(event.keyCode==27){
