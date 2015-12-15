@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib uri="/gencross-taglib-URI" prefix="gcr"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -14,13 +15,13 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/tree.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
+		<gcr:script/>
 		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"></link>
 		<link href="<s:url value="/css/jquery-ui-1.10.3.custom.css"/>" rel="stylesheet" type="text/css"></link>
 		<link href="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.css"/>" rel="stylesheet" type="text/css"></link>
 		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" ></link>
 	</head>
 	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
-		<s:property value="%{#request['struts.view_uri'].substring(1,2)}"/>
 		<div id="header">
 			<div id="headerLeft">
 				<s:a action="List">

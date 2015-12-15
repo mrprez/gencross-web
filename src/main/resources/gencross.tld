@@ -37,7 +37,12 @@
 		</attribute>
 	</tag>
 	
-	<!-- TODO -->
+	<tag>
+		<description>Insère le fichier javascript correpondant à la jsp</description>
+		<name>script</name>
+		<tag-class>com.mrprez.gencross.web.action.tag.ScriptTag</tag-class>
+		<body-content>empty</body-content>
+	</tag>
 	
 	
 </taglib>
