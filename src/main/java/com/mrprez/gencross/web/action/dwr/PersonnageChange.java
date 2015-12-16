@@ -1,6 +1,8 @@
 package com.mrprez.gencross.web.action.dwr;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PersonnageChange {
@@ -15,7 +17,7 @@ public class PersonnageChange {
 	
 	private Boolean phaseFinished;
 	
-	private boolean historyChanges = false;
+	private List<Integer> newHistoryIndexes = new ArrayList<Integer>();
 
 	
 	
@@ -51,14 +53,6 @@ public class PersonnageChange {
 		this.actionMessage = actionMessage;
 	}
 
-	public boolean isHistoryChanges() {
-		return historyChanges;
-	}
-
-	public void setHistoryChanges(boolean historyChanges) {
-		this.historyChanges = historyChanges;
-	}
-
 	public Boolean getPhaseFinished() {
 		return phaseFinished;
 	}
@@ -66,6 +60,18 @@ public class PersonnageChange {
 	public void setPhaseFinished(Boolean phaseFinished) {
 		this.phaseFinished = phaseFinished;
 	}
+
+	public List<Integer> getNewHistoryIndexes() {
+		return newHistoryIndexes;
+	}
+
+	public void setNewHistoryIndexes(List<Integer> newHistoryIndexes) {
+		this.newHistoryIndexes = newHistoryIndexes;
+	}
+
+	
+
+	
 	
 	
 	

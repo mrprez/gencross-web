@@ -57,7 +57,9 @@ public class EditPersonnageAjaxAction {
 		if(!personnageComparatorBS.hasTheSameNextPhaseAvaibility(personnage, personnageRef)){
 			change.setPhaseFinished(personnage.phaseFinished());
 		}
-		change.setHistoryChanges(personnage.getHistory().size() != personnageRef.getHistory().size());
+		for(int index=personnageRef.getHistory().size(); index<personnage.getHistory().size(); index++){
+			change.getNewHistoryIndexes().add(index);
+		}
 		
 		return change;
 	}

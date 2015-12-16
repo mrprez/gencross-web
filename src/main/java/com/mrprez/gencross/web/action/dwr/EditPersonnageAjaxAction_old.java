@@ -141,39 +141,9 @@ public class EditPersonnageAjaxAction_old extends ActionSupport {
 	}
 	
 	
-	
-	
-	public String getErrorList() throws Exception {
-		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage());
-		
-		return "errorList";
-	}
-	
-	public String getPointPool() throws Exception {
-		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage().getPointPools().values().toArray()[pointPoolIndex]);
-		ActionContext.getContext().getValueStack().set("index", ""+pointPoolIndex);
-		return "pointPool";
-	}
 
-	public String getLastHistory() throws Exception {
-		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
-		if(personnageWork==null){
-			return ERROR;
-		}
-		newHistory = personnageWork.getPersonnage().getHistory().subList(historyLastIndex+1, personnageWork.getPersonnage().getHistory().size());
-		return "history";
-	}
+
+	
 	
 	public String modifyPointPool() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");

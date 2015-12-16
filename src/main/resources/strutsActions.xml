@@ -133,6 +133,8 @@
         		<param name="personnageId">${personnageId}</param>
         	</result>
         	<result name="property">/jsp/include/editProperty.jsp</result>
+        	<result name="errorList">/jsp/include/errors.jsp</result>
+        	<result name="pointPool">/jsp/include/pointPool.jsp</result>
 		</action>
 		
 		<action name="Background!*" method="{1}" class="backgroundAction">

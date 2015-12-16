@@ -41,8 +41,8 @@ function collapse(propertyAbsoluteName, propertyNum){
 
 function setNewValue(number){
 	displayWaitMask();
-	var propertyAbsoluteName;
-	var newValue;
+	var propertyAbsoluteName=null;
+	var newValue=null;
 	var serializedArray = $('#form_'+number).serializeArray();
 	for(var i=0; i<serializedArray.length; i++){
 		if(serializedArray[i].name=="newValue"){
@@ -52,76 +52,67 @@ function setNewValue(number){
 		}
 	}
 	hideEditForm($('#form_'+number));
-	
-	editPersonnageAjaxAction.updateValue(personnageWorkId, propertyAbsoluteName, newValue, reloadChanges);
+	if(newValue!=null && newValue!=null){
+		editPersonnageAjaxAction.updateValue(personnageWorkId, propertyAbsoluteName, newValue, reloadChanges);
+	}
 }
 
 
 function reloadChanges(changes){
-	for(var i=0; i<changes.propertyNames.length; i++){
+	var i;
+	for(i=0; i<changes.propertyNames.length; i++){
 		var propertyNum = numberAssociation[changes.propertyNames[i]];
 		$('#li_'+propertyNum).empty();
 		$('#li_'+propertyNum).append('<img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width=15 height=15/>');
 	}
 	if(changes.errorChanges){
 		$('#errors').empty();
-		$('#errors').append('<img src="'+context+'/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="35" height="35"/>');
+		$('#errors').append('<img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="35" height="35"/>');
 	}
-//	var updatedpointPoolTab = $(xml).find('updatedPointPool');
-//	for(i=0; i<updatedpointPoolTab.length; i++){
-//		var trId = 'pointPool_'+updatedpointPoolTab.eq(i).text();
-//		$('#'+trId).empty();
-//		$('#'+trId).append('<img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/>');
-//	}
+	for(i=0; i<changes.pointPoolNames.length; i++){
+		$("tr[pointPool='"+changes.pointPoolNames[i]+"']").empty();
+		$("tr[pointPool='"+changes.pointPoolNames[i]+"']").append('<img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="15" height="15"/>');
+	}
 	if(changes.phaseFinished != null){
 		$('#nextPhaseButton')[0].disabled = ! changes.phaseFinished;
 	}
-//	if($(xml).find('history').length>0){
-//		var trText = '<tr id="waitLine">';
-//		for(i=0; i<5; i++){
-//			trText = trText+'<td><img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td>';
-//		}
-//		$('#historyTable > tbody').prepend('<tr id="waitLine"><td class="historyIndex"></td><td><img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td></tr>');
-//	}
-//	var changedHistoryTab = $(xml).find('changedHistory');
-//	for(i=0; i<changedHistoryTab.length; i++){
-//		var trId = 'historyItemLine_'+changedHistoryTab.eq(i).text();
-//		$('#'+trId).empty();
-//		$('#'+trId).append('<td class="historyIndex">'+changedHistoryTab.eq(i).text()+'</td><td><img src="<s:url value="/img/wait.gif"/>" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td><td><img src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." width="15" height="15"/></td>');
-//	}
+	if(changes.newHistoryLength > 0){
+		var trText = '<tr id="waitLine">';
+		for(i=0; i<5; i++){
+			trText = trText+'<td><img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td>';
+		}
+		trText = trText+'</tr>';
+		$('#historyTable > tbody').prepend(trText);
+	}
+	
 	hideWaitMask();
 	
+	var data;
 	for(i=0; i<changes.propertyNames.length; i++){
 		propertyNum = numberAssociation[changes.propertyNames[i]];
-		var data = new Object();
+		data = new Object();
 		data.personnageId = personnageWorkId;
 		data.propertyAbsoluteName = changes.propertyNames[i];
 		data.propertyNum = propertyNum;
 		$('#li_'+propertyNum).load(context+'/Edit!getProperty #li_'+propertyNum+' > *',data, executeJavascript);
 	}
-//	if($(xml).find('errors').length>0){
-//		var data = new Object();
-//		data.personnageWorkId = personnageWorkId;
-//		$('#errors').load('<s:url action="../jsp/EditAjax" method="getErrorList" includeParams="none"/> #errors > *',data);
-//	}
-//	for(i=0; i<updatedpointPoolTab.length; i++){
-//		var trId = 'pointPool_'+updatedpointPoolTab.eq(i).text();
-//		var data = new Object();
-//		data.personnageWorkId = personnageWorkId;
-//		data.pointPoolIndex = updatedpointPoolTab.eq(i).text();
-//		$('#'+trId).load('<s:url action="../jsp/EditAjax" method="getPointPool" includeParams="none"/> #'+trId+' > *',data);
-//	}
-//	if($(xml).find('history').length>0){
-//		var data = new Object();
-//		data.personnageWorkId = personnageWorkId;
-//		if($('#historyTable > tbody > tr.historyItemLine:first > td:eq(0)').size()==0){
-//			data.historyLastIndex = '-1';
-//			$.post('<s:url action="../jsp/EditAjax" method="getLastHistory" includeParams="none"/>', data, addHistory, 'html');
-//		}else{
-//			data.historyLastIndex = $('#historyTable > tbody > tr.historyItemLine:first > td:eq(0)').text();
-//			$.post('<s:url action="../jsp/EditAjax" method="getLastHistory" includeParams="none"/>', data, addHistory, 'html');
-//		}
-//	}
+	if(changes.errorChanges){
+		data = new Object();
+		data.personnageId = personnageWorkId;
+		$('#errors').load(context+'/Edit!getErrorList #errors > *',data);
+	}
+	for(i=0; i<changes.pointPoolNames.length; i++){
+		data = new Object();
+		data.personnageId = personnageWorkId;
+		data.pointPoolName = changes.pointPoolNames[i];
+		$("tr[pointPool='"+changes.pointPoolNames[i]+"']").load(context+"/Edit!getPointPool tr[pointPool='"+changes.pointPoolNames[i]+"'] > *",data);
+	}
+	if(changes.newHistoryLength > 0){
+		data = new Object();
+		data.personnageId = personnageWorkId;
+		data.lastHistoryItemNumber = changes.newHistoryLength;
+		$.post('<s:url action="../jsp/EditAjax" method="getLastHistory" includeParams="none"/>', data, addHistory, 'html');
+	}
 //	var changedHistoryTab = $(xml).find('changedHistory');
 //	for(i=0; i<changedHistoryTab.length; i++){
 //		var trId = 'historyItemLine_'+changedHistoryTab.eq(i).text();
@@ -131,8 +122,8 @@ function reloadChanges(changes){
 //		$('#'+trId).load('<s:url action="../jsp/EditAjax" method="getHistoryItem" includeParams="none"/> #'+trId+' > *',data);
 //	}
 //	
-//	if($(xml).find('actionMessage').length>0){
-//		alert($(xml).find('actionMessage').first().text());
+//	if(changes.actionMessage!=null){
+//		alert(changes.actionMessage);
 //	}
 	
 }

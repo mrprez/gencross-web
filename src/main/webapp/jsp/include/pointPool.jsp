@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 
-<tr id="pointPool_${param.index}">
+<tr pointPool="<s:property value="name"/>">
 	<td class="pointPool_name"><s:property value="name"/></td>
 	<td class="pointPool_remaining"><s:property value="remaining"/>/<s:property value="total"/></td>
 	<s:if test="isGameMaster">

@@ -18,6 +18,8 @@ public class EditPersonnageAction extends ActionSupport {
 	private InputStream helpFileInputStream;
 	private Integer personnageId;
 	private String propertyAbsoluteName;
+	private String pointPoolName;
+	private Integer lastHistoryItemNumber;
 	private PersonnageWorkBO personnageWork;
 	
 	private IPersonnageBS personnageBS;
@@ -114,6 +116,37 @@ public class EditPersonnageAction extends ActionSupport {
 		
 		return "property";
 	}
+	
+	public String getErrorList() throws Exception {
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
+		if(personnageWork==null){
+			return ERROR;
+		}
+		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage());
+		
+		return "errorList";
+	}
+	
+	public String getPointPool() throws Exception {
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
+		if(personnageWork==null){
+			return ERROR;
+		}
+		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage().getPointPools().get(pointPoolName));
+		return "pointPool";
+	}
+	
+	public String getLastHistory() throws Exception {
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		personnageWork = personnageBS.loadPersonnage(personnageId, user);
+		if(personnageWork==null){
+			return ERROR;
+		}
+		newHistory = personnageWork.getPersonnage().getHistory().subList(historyLastIndex+1, personnageWork.getPersonnage().getHistory().size());
+		return "history";
+	}
 
 	public InputStream getHelpFileInputStream() {
 		return helpFileInputStream;
@@ -159,6 +192,18 @@ public class EditPersonnageAction extends ActionSupport {
 	}
 	public void setPropertyAbsoluteName(String propertyAbsoluteName) {
 		this.propertyAbsoluteName = propertyAbsoluteName;
+	}
+	public String getPointPoolName() {
+		return pointPoolName;
+	}
+	public void setPointPoolName(String pointPoolName) {
+		this.pointPoolName = pointPoolName;
+	}
+	public Integer getLastHistoryItemNumber() {
+		return lastHistoryItemNumber;
+	}
+	public void setLastHistoryItemNumber(Integer lastHistoryItemNumber) {
+		this.lastHistoryItemNumber = lastHistoryItemNumber;
 	}
 	
 	
