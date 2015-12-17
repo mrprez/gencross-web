@@ -135,6 +135,7 @@
         	<result name="property">/jsp/include/editProperty.jsp</result>
         	<result name="errorList">/jsp/include/errors.jsp</result>
         	<result name="pointPool">/jsp/include/pointPool.jsp</result>
+        	<result name="historyItem">/jsp/include/historyItem.jsp</result>
 		</action>
 		
 		<action name="Background!*" method="{1}" class="backgroundAction">

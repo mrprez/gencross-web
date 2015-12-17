@@ -170,8 +170,8 @@
 					</thead>
 					<tbody>
 						<s:iterator value="reversedIteratorHistory" status="stat">
-							<s:include value="include/history.jsp">
-								<s:param name="index" value="%{(history.size()-#stat.count)}"/>
+							<s:include value="include/historyItem.jsp">
+								<s:param name="historyItemIndex" value="%{(history.size()-#stat.count)}"/>
 							</s:include>
 						</s:iterator>
 					</tbody>

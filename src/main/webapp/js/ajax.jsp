@@ -12,21 +12,6 @@ function displayAjaxError(){
 	$('#ajaxError').show();
 }
 
-function setNewValue(number){
-	displayWaitMask();
-	var serializedArray = $('#form_'+number).serializeArray();
-	var postedData = new Object();
-	postedData.personnageWorkId = personnageWorkId;
-	for(i=0; i<serializedArray.length; i++){
-		if(serializedArray[i].name=="newValue"){
-			postedData.newValue = serializedArray[i].value;
-		}else if(serializedArray[i].name=="propertyAbsoluteName"){
-			postedData.propertyAbsoluteName = serializedArray[i].value;
-		}
-	}
-	hideEditForm($('#form_'+number));
-	$.post('<s:url action="../jsp/EditAjax" method="updateValue" includeParams="none"/>', postedData, reloadProperties, 'xml');
-}
 
 function addPropertyFromOption(number){
 	displayWaitMask();

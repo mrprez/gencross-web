@@ -6,6 +6,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
+import com.mrprez.gencross.history.HistoryItem;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
@@ -19,7 +20,7 @@ public class EditPersonnageAction extends ActionSupport {
 	private Integer personnageId;
 	private String propertyAbsoluteName;
 	private String pointPoolName;
-	private Integer lastHistoryItemNumber;
+	private Integer historyItemIndex;
 	private PersonnageWorkBO personnageWork;
 	
 	private IPersonnageBS personnageBS;
@@ -138,14 +139,17 @@ public class EditPersonnageAction extends ActionSupport {
 		return "pointPool";
 	}
 	
-	public String getLastHistory() throws Exception {
+	public String getHistoryItem() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
 			return ERROR;
 		}
-		newHistory = personnageWork.getPersonnage().getHistory().subList(historyLastIndex+1, personnageWork.getPersonnage().getHistory().size());
-		return "history";
+		
+		HistoryItem historyItem = personnageWork.getPersonnage().getHistory().get(historyItemIndex);
+		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage());
+		ActionContext.getContext().getValueStack().push(historyItem);
+		return "historyItem";
 	}
 
 	public InputStream getHelpFileInputStream() {
@@ -199,11 +203,11 @@ public class EditPersonnageAction extends ActionSupport {
 	public void setPointPoolName(String pointPoolName) {
 		this.pointPoolName = pointPoolName;
 	}
-	public Integer getLastHistoryItemNumber() {
-		return lastHistoryItemNumber;
+	public Integer getHistoryItemIndex() {
+		return historyItemIndex;
 	}
-	public void setLastHistoryItemNumber(Integer lastHistoryItemNumber) {
-		this.lastHistoryItemNumber = lastHistoryItemNumber;
+	public void setHistoryItemIndex(Integer historyItemIndex) {
+		this.historyItemIndex = historyItemIndex;
 	}
 	
 	

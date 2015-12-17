@@ -76,7 +76,7 @@ function reloadChanges(changes){
 	if(changes.phaseFinished != null){
 		$('#nextPhaseButton')[0].disabled = ! changes.phaseFinished;
 	}
-	if(changes.newHistoryLength > 0){
+	if(changes.newHistoryIndexes.length > 0){
 		var trText = '<tr id="waitLine">';
 		for(i=0; i<5; i++){
 			trText = trText+'<td><img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="15" height="15"/></td>';
@@ -107,24 +107,16 @@ function reloadChanges(changes){
 		data.pointPoolName = changes.pointPoolNames[i];
 		$("tr[pointPool='"+changes.pointPoolNames[i]+"']").load(context+"/Edit!getPointPool tr[pointPool='"+changes.pointPoolNames[i]+"'] > *",data);
 	}
-	if(changes.newHistoryLength > 0){
+	for(i=0; i<changes.newHistoryIndexes.length; i++){
 		data = new Object();
 		data.personnageId = personnageWorkId;
-		data.lastHistoryItemNumber = changes.newHistoryLength;
-		$.post('<s:url action="../jsp/EditAjax" method="getLastHistory" includeParams="none"/>', data, addHistory, 'html');
+		data.historyItemIndex = changes.newHistoryIndexes[i];
+		$.post(context+'/Edit!getHistoryItem', data, function(html) { $('#historyTable > tbody').prepend(html); }, 'html');
 	}
-//	var changedHistoryTab = $(xml).find('changedHistory');
-//	for(i=0; i<changedHistoryTab.length; i++){
-//		var trId = 'historyItemLine_'+changedHistoryTab.eq(i).text();
-//		var data = new Object();
-//		data.personnageWorkId = personnageWorkId;
-//		data.historyIndex = changedHistoryTab.eq(i).text();
-//		$('#'+trId).load('<s:url action="../jsp/EditAjax" method="getHistoryItem" includeParams="none"/> #'+trId+' > *',data);
-//	}
-//	
-//	if(changes.actionMessage!=null){
-//		alert(changes.actionMessage);
-//	}
+	$('#waitLine').remove();
+	if(changes.actionMessage!=null){
+		alert(changes.actionMessage);
+	}
 	
 }
 
