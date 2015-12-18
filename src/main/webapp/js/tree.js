@@ -116,10 +116,6 @@ function displayPointPoolForm(editImg){
 	$(editImg).parent().find('input[type=text]').focus();
 }
 
-function hidePointPoolForm(hideButton){
-	$(hideButton).parents('.pointPoolForm').hide();
-}
-
 function displayHistoryEditForm(index){
 	$('#historyForm_'+index).show();
 }

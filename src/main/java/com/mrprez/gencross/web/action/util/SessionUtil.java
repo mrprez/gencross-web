@@ -1,7 +1,6 @@
 package com.mrprez.gencross.web.action.util;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -23,7 +22,7 @@ public class SessionUtil {
 	@SuppressWarnings("unchecked")
 	public static void removeExpandingFromSession(int personnageWorkId, String expandedProperty){
 		if(ActionContext.getContext().getSession().containsKey(PERSONNAGES_WORKS_KEY+personnageWorkId)){
-			Map<String,String> expandedProperties = (Map<String, String>) ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY+personnageWorkId);
+			Set<String> expandedProperties = (Set<String>) ActionContext.getContext().getSession().get(PERSONNAGES_WORKS_KEY+personnageWorkId);
 			expandedProperties.remove(expandedProperty);
 		}
 	}

@@ -46,6 +46,76 @@ public class EditPersonnageAjaxAction {
 	}
 	
 	
+	public PersonnageChange addPropertyFromOption(int personnageWorkId, String motherPropertyName, String optionName, String specification) throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
+		if(personnageWork==null){
+			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
+			throw new Exception("Personnage not loaded");
+		}
+		Personnage personnageRef = personnageWork.getPersonnage().clone();
+		personnageBS.addPropertyFromOption(personnageWork, motherPropertyName, optionName, specification);
+		
+		return loadDifferences(personnageWork.getPersonnage(), personnageRef);
+	}
+	
+	
+	public PersonnageChange addFreeProperty(int personnageWorkId, String motherPropertyName, String newPropertyName) throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
+		if(personnageWork==null){
+			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
+			throw new Exception("Personnage not loaded");
+		}
+		Personnage personnageRef = personnageWork.getPersonnage().clone();
+		personnageBS.addFreeProperty(personnageWork, motherPropertyName, newPropertyName);
+		
+		return loadDifferences(personnageWork.getPersonnage(), personnageRef);
+	}
+	
+	
+	public PersonnageChange removeProperty(int personnageWorkId, String absolutePropertyName) throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
+		if(personnageWork==null){
+			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
+			throw new Exception("Personnage not loaded");
+		}
+		Personnage personnageRef = personnageWork.getPersonnage().clone();
+		personnageBS.removeProperty(personnageWork, absolutePropertyName);
+		
+		return loadDifferences(personnageWork.getPersonnage(), personnageRef);
+	}
+	
+	
+	public PersonnageChange modifyPointPool(int personnageWorkId, String poolName, int addedValue) throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
+		if(personnageWork==null){
+			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
+			throw new Exception("Personnage not loaded");
+		}
+		Personnage personnageRef = personnageWork.getPersonnage().clone();
+		personnageBS.modifyPointPool(personnageWork, poolName, addedValue);
+		
+		return loadDifferences(personnageWork.getPersonnage(), personnageRef);
+	}
+	
+	
+	public PersonnageChange modifyHistory(int personnageWorkId, int historyIndex, String poolName, int cost) throws Exception{
+		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageWorkId, user);
+		if(personnageWork==null){
+			Logger.getLogger(getClass()).warn("Personnage not in session (personnageWorkId="+personnageWorkId+", user="+ActionContext.getContext().getSession().get("user")+")");
+			throw new Exception("Personnage not loaded");
+		}
+		Personnage personnageRef = personnageWork.getPersonnage().clone();
+		personnageBS.modifyHistory(personnageWork, poolName, cost, historyIndex);
+
+		return loadDifferences(personnageWork.getPersonnage(), personnageRef);
+	}
+	
+	
 	private PersonnageChange loadDifferences(Personnage personnage, Personnage personnageRef) throws Exception{
 		PersonnageChange change = new PersonnageChange();
 		change.setPropertyNames(personnageComparatorBS.findPropertiesDifferences(personnage, personnageRef));

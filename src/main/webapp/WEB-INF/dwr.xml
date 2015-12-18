@@ -4,7 +4,6 @@
 
 <dwr>
 
-	<!-- without allow, DWR isn't allowed to do anything -->
 	<allow>
 		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.EditPersonnageAjaxAction"/>
 		<create creator="spring" javascript="editPersonnageAjaxAction" scope="application">
@@ -12,6 +11,11 @@
 			<include method="expand"/>
 			<include method="collapse"/>
 			<include method="updateValue"/>
+			<include method="addPropertyFromOption"/>
+			<include method="addFreeProperty"/>
+			<include method="removeProperty"/>
+			<include method="modifyPointPool"/>
+			<include method="modifyHistory"/>
 		</create>
 		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.PersonnageChange"/>
 	</allow>
