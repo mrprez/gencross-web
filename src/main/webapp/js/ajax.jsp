@@ -27,8 +27,4 @@ function unvalidate(button){
 	}
 }
 
-function uploadPersonnage(imageButton){
-	$(imageButton).parent().children(".uploadFile")[0].click();
-}
-
 
