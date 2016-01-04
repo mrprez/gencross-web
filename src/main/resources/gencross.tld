@@ -9,7 +9,7 @@
 	<tlib-version>1.1</tlib-version>
 	<short-name>gcr</short-name>
 	<tag>
-		<description>Redirige si le user connect� n'a pas le bon role</description>
+		<description>Redirige si le user connecte n'a pas le bon role</description>
 		<name>security-redirection</name>
 		<tag-class>com.mrprez.gencross.web.action.tag.SecurityRedirectTag</tag-class>
 		<body-content>empty</body-content>
@@ -26,7 +26,7 @@
 	</tag>
 	
 	<tag>
-		<description>Affiche son contenu que si le user a le role pr�cis�</description>
+		<description>Affiche son contenu que si le user a le role precise</description>
 		<name>role</name>
 		<tag-class>com.mrprez.gencross.web.action.tag.RoleAccessTag</tag-class>
 		<body-content>JSP</body-content>
@@ -38,7 +38,7 @@
 	</tag>
 	
 	<tag>
-		<description>Insère le fichier javascript correpondant à la jsp</description>
+		<description>Importe le fichier javascript correpondant à la jsp</description>
 		<name>script</name>
 		<tag-class>com.mrprez.gencross.web.action.tag.ScriptTag</tag-class>
 		<body-content>empty</body-content>
