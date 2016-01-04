@@ -1,7 +1,6 @@
 var numberAssociation = new Array();
 var specification = new Array();
 var personnageWorkId;
-var context = '/'+window.location.pathname.split( '/' )[1];
 
 
 

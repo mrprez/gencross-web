@@ -39,4 +39,5 @@
 			<div class="separator"></div>
 		</div>
 		<div id="content">
+			<div id="obstructionMask"></div>
 		

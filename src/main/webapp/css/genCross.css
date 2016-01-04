@@ -451,7 +451,7 @@ form.editForm{
 	color: red;
 }
 
-#waitMask {
+#obstructionMask {
 	position: fixed;
 	background-color: white;
 	z-index: 10;
@@ -475,13 +475,13 @@ form.editForm{
 }
 
 #tooLongWaitMsg{
-	display: none;
 	position: fixed;
 	width: 100%;
 	text-align: center;
 	top: 50%;
+	left: 0;
 	margin-top: 60px;
-	z-index: 20;
+	z-index: 30;
 	opacity: 1;
 }
 

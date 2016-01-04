@@ -1,6 +1,4 @@
 
-var waitMaskTimeout;
-
 
 function displayEditForm(imgElement){
 	$(imgElement).parent().children('.editForm').css('display', 'inline-block');
@@ -87,30 +85,6 @@ function hideAddPropertyForm(foldImage){
 	$(foldImage).parent().hide();
 }
 
-function getCursorPosition(event) {
-    event = event || window.event;
-    var cursorPosition = {x:0, y:0};
-    if (event.pageX || event.pageY) {
-    	cursorPosition.x = event.pageX;
-        cursorPosition.y = event.pageY;
-    } else {
-    	if(document.documentElement.scrollTop){
-    	alert("document.documentElement.scrollTop: "+document.documentElement.scrollTop
-    			+"\nevent.clientY: "+event.clientY
-    			+"\nsomme=" + (event.clientY+document.documentElement.scrollTop));
-    		cursorPosition.x = event.clientX + document.documentElement.scrollLeft;
-    		cursorPosition.y = event.clientY + document.documentElement.scrollTop;
-    	}else{
-	    	alert("document.documentElement.scrollTop: "+document.documentElement.scrollTop
-	    			+"\nevent.clientY: "+event.clientY
-	    			+"\nsomme=" + (event.clientY+document.documentElement.scrollTop));
-    		cursorPosition.x = event.clientX + document.body.scrollLeft;
-    		cursorPosition.y = event.clientY + document.body.scrollTop;
-    	}
-	}
-    return cursorPosition;
-}
-
 function displayPointPoolForm(editImg){
 	$(editImg).parent().children().css('display', 'inline');
 	$(editImg).parent().find('input[type=text]').focus();
@@ -162,15 +136,6 @@ function convertStringToDate(string){
 	var date = new Date(annee, mois, jour, heure, minute, seconde, milliSecondes);
 	
 	return date;
-}
-
-
-function getForm(element){
-	var currentElement = element;
-	while(currentElement[0].nodeName!="FORM"){
-		currentElement = currentElement.parent();
-	}
-	return currentElement;
 }
 
 function displayHistory(button){

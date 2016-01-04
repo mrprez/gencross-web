@@ -5,14 +5,6 @@
 <gcr:security-redirection target="/jsp/login.jsp"/>
 <s:include value="include/header.jsp"/>
 
-<s:url id="reloadUrl" action="Edit">
-	<s:param name="personnageId">${personnageWork.id}</s:param>
-</s:url>
-
-<div id="waitMask">
-	<img id="waitImage" class="waitImage" src="<s:url value="/img/wait.gif"/>" alt="Attente Serveur..." title="Attente Serveur..."/>
-</div>
-<div id="tooLongWaitMsg"><s:a href="%{reloadUrl}">Attente trop longue: cliquez ici pour recharger la page.</s:a></div>
 
 <div id="ajaxError">
 	UNE ERREUR EST SURVENUE<br/>

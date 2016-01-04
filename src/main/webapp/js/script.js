@@ -1,5 +1,8 @@
 
-/** Generic function */
+var context = '/'+window.location.pathname.split( '/' )[1];
+var waitMaskTimeout;
+
+
 
 function showSubMenu(tdMenu){
 	$(tdMenu).children('ul').show('fast');
@@ -32,20 +35,20 @@ function allSelection(checkBoxNode){
 }
 
 function displayWaitMask(){
-	$('#waitMask').show();
-	$('#waitImage').show();
+	$('#obstructionMask').show();
+	$('#obstructionMask').append("<img class='waitImage' src='"+context+"/img/wait.gif' alt='Attente Serveur...' title='Attente Serveur...'/>");
 	waitMaskTimeout = setTimeout("displayReload()",60000);
 }
 
 function hideWaitMask(){
 	clearTimeout(waitMaskTimeout);
-	$('#waitMask').hide();
-	$('#waitImage').hide();
-	$('#tooLongWaitMsg').hide();
+	$('#tooLongWaitMsg').remove();
+	$('#obstructionMask').hide();
+	$('#obstructionMask').empty();
 }
 
 function displayReload(){
-	$('#tooLongWaitMsg').show();
+	$('#obstructionMask').parent().append('<div id="tooLongWaitMsg"><a href="'+window.location.href+'">Attente trop longue: cliquez ici pour recharger la page.</a></div>');
 }
 
 function executeJavascript(responseText, textStatus, XMLHttpRequest){
@@ -62,6 +65,4 @@ function executeJavascript(responseText, textStatus, XMLHttpRequest){
 		}
 	}	
 }
-
-
 
