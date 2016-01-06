@@ -2,7 +2,18 @@
 var context = '/'+window.location.pathname.split( '/' )[1];
 var waitMaskTimeout;
 
+$(document).ajaxError(displayAjaxError);
 
+
+function displayAjaxError(errorMessage){
+	clearTimeout(waitMaskTimeout);
+	$('#obstructionMask').show();
+	$('#ajaxErrorMessage').empty();
+	$('#ajaxErrorDate').empty();
+	var date = new Date();
+	$('#ajaxErrorDate').append(''+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds());
+	$('#ajaxError').show();
+}
 
 function showSubMenu(tdMenu){
 	$(tdMenu).children('ul').show('fast');

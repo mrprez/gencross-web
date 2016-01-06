@@ -2,15 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 
-$('#ajaxError').ajaxError(displayAjaxError);
 
-function displayAjaxError(){
-	displayWaitMask();
-	$('#ajaxErrorDate').empty();
-	var date = new Date();
-	$('#ajaxErrorDate').append(''+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds())
-	$('#ajaxError').show();
-}
 
 
 

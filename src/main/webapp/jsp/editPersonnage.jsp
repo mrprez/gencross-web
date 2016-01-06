@@ -6,12 +6,6 @@
 <s:include value="include/header.jsp"/>
 
 
-<div id="ajaxError">
-	UNE ERREUR EST SURVENUE<br/>
-	<span id="ajaxErrorDate">00:00:00</span><br/>
-	<s:a href="%{reloadUrl}">Recharger</s:a>
-</div>
-
 <script language="Javascript">
 	personnageWorkId = <s:property value="personnageWork.id" escape="false" escapeJavaScript="true"/>;
 </script>

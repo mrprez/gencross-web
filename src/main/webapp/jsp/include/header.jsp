@@ -13,7 +13,6 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/locale/locale_fr.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/engine.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/tree.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
 		<gcr:script/>
 		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"></link>
@@ -40,4 +39,12 @@
 		</div>
 		<div id="content">
 			<div id="obstructionMask"></div>
+			
+			<div id="ajaxError">
+				<div>
+					UNE ERREUR SERVEUR EST SURVENUE A 
+					<span id="ajaxErrorDate">00:00:00</span>
+				</div>
+				<div><a href="javascript:window.location.reload(true);">Recharger la page</a></div>
+			</div>
 		

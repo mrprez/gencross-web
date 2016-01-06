@@ -84,7 +84,7 @@ public class EditPersonnageAction extends ActionSupport {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
-			return ERROR;
+			return "invalidRequest";
 		}
 		Personnage personnage = personnageWork.getPersonnage();
 		Property property = personnage.getProperty(propertyAbsoluteName);
@@ -122,7 +122,7 @@ public class EditPersonnageAction extends ActionSupport {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
-			return ERROR;
+			return "invalidRequest";
 		}
 		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage());
 		
@@ -133,7 +133,7 @@ public class EditPersonnageAction extends ActionSupport {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
-			return ERROR;
+			return "invalidRequest";
 		}
 		ActionContext.getContext().getValueStack().push(personnageWork.getPersonnage().getPointPools().get(pointPoolName));
 		return "pointPool";
@@ -143,7 +143,7 @@ public class EditPersonnageAction extends ActionSupport {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
 		personnageWork = personnageBS.loadPersonnage(personnageId, user);
 		if(personnageWork==null){
-			return ERROR;
+			return "invalidRequest";
 		}
 		
 		HistoryItem historyItem = personnageWork.getPersonnage().getHistory().get(historyItemIndex);

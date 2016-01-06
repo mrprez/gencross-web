@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
-<s:include value="include/header.jsp"/>
+<% response.setStatus(500); %>
+
+<s:include value="/jsp/include/header.jsp"/>
 
 <h2>Une erreur inattendue est survenue</h2>
 <p>
