@@ -78,9 +78,8 @@ function addPropertyFromOption(number){
 	var specificationValue = null;
 	if(specification[number][optionProperty]!=null){
 		specificationValue = prompt('Specifiez:');
-		if(specificationValue==null){
-			alert('Aucune spécification renseignée');
-			hideWaitMask();
+		if(specificationValue==null || specificationValue==""){
+			showAlertMessage('Aucune spécification renseignée');
 			return;
 		}
 	}
@@ -122,8 +121,8 @@ function modifyPointPool(poolName){
 	var addedValue = $("form[pointPoolName="+poolName+"]").find('input[type="text"][name="pointPoolModification"]')[0].value;
 	
 	if(addedValue.match("^[-]?[0-9]+$")==null){
-		alert("Vous devez rentrer un numérique");
 		hideWaitMask();
+		showAlertMessage("Vous devez rentrer un numérique");
 	}else{
 		editPersonnageAjaxAction.modifyPointPool(personnageWorkId, poolName, addedValue, reloadChanges);
 	}
@@ -213,7 +212,7 @@ function reloadChanges(changes){
 	}
 	$('#waitLine').remove();
 	if(changes.actionMessage!=null){
-		alert(changes.actionMessage);
+		showAlertMessage(changes.actionMessage);
 	}
 	
 }
@@ -393,6 +392,14 @@ function hideHistory(){
 	$('.historyColumn').hide();
 	$('#displayButtons').show();
 	$('#content').animate({marginLeft: "+=80", marginRight: "+=70"});
+}
+
+
+function unvalidate(button){
+	var validCallback = function(){
+		$(button).parent().submit();
+	};
+	showConfirm("Etes vous sur de vouloir revenir à la dernière version validée par le MJ?", "Valider", "Annuler", validCallback);
 }
 
 

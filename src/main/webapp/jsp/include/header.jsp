@@ -40,11 +40,12 @@
 		<div id="content">
 			<div id="obstructionMask"></div>
 			
-			<div id="ajaxError">
-				<div>
-					UNE ERREUR SERVEUR EST SURVENUE A 
-					<span id="ajaxErrorDate">00:00:00</span>
+			<div id="modalDiv">
+				<div id="modalDivText"></div>
+				<div id="modalDivButton">
+					<button id="modalDivButton"></button>
 				</div>
-				<div><a href="javascript:window.location.reload(true);">Recharger la page</a></div>
 			</div>
+			
+			
 		

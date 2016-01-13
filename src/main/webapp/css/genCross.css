@@ -485,7 +485,7 @@ form.editForm{
 	opacity: 1;
 }
 
-#ajaxError{
+#modalDiv{
 	display: none;
 	width: 300px;
 	padding: 5px;

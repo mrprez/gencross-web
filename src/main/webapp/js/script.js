@@ -5,14 +5,61 @@ var waitMaskTimeout;
 $(document).ajaxError(displayAjaxError);
 
 
+function showConfirm(message, validText, cancelText, validCallback, cancelCallback){
+	$('#obstructionMask').show();
+	$('#modalDivText').html(message);
+	$('#modalDivButton');
+	$('#modalDivButton').html("<button id='modalDivValidButton'>"+validText+"</button>"
+							+ "<button id='modalDivCancelButton'>"+cancelText+"</button>");
+	$('#modalDivButton > button').off("click");
+	if(validCallback!=null){
+		$('#modalDivValidButton').on("click", validCallback);
+	}
+	if(cancelCallback!=null){
+		$('#modalDivCancelButton').on("click", cancelCallback);
+	}
+	$('#modalDivButton > button').on("click", function(){
+		$('#modalDiv').hide();
+		$('#obstructionMask').hide();
+	});
+	$('#modalDiv').show();
+}
+
+function showAlertMessage(message, actionText, callback){
+	$('#obstructionMask').show();
+	$('#modalDivText').html(message);
+	$('#modalDivButton');
+	if(actionText==null){
+		actionText="OK";
+	}
+	$('#modalDivButton').html("<button>"+actionText+"</button>");
+	$('#modalDivButton > button').off("click");
+	if(callback!=null){
+		$('#modalDivButton > button').on("click", callback);
+	}
+	$('#modalDivButton > button').on("click", function(){
+		$('#modalDiv').hide();
+		$('#obstructionMask').hide();
+	});
+	$('#modalDiv').show();
+}
+
 function displayAjaxError(errorMessage){
 	clearTimeout(waitMaskTimeout);
-	$('#obstructionMask').show();
-	$('#ajaxErrorMessage').empty();
-	$('#ajaxErrorDate').empty();
+	var message = "UNE ERREUR EST SURVENUE A ";
 	var date = new Date();
-	$('#ajaxErrorDate').append(''+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds());
-	$('#ajaxError').show();
+	message = message + padLeft(date.getHours(), 2, '0');
+	message = message + ":" + padLeft(date.getMinutes(), 2, '0');
+	message = message + ":" + padLeft(date.getSeconds(), 2, '0');
+	showAlertMessage(message, "Recharger la page", function(){window.location.reload(true);});
+}
+
+function padLeft(str, length, char){
+	str = new String(str);
+	while(str.length<length){
+		str = char + str;
+	}
+	return str;
 }
 
 function showSubMenu(tdMenu){
