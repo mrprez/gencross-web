@@ -51,7 +51,12 @@
 					</s:else>
 				</span>
 				<span class="actionIcon">
-					<s:a href="%{reloadUrl}"><img src="<s:url value="/img/refresh.png"/>" alt="Recharger la page" width="20" height="20" title="Recharger la page"/></s:a>
+					<s:a action="Edit">
+						<s:param name="personnageId">
+							<s:property value="personnageWork.id"/>
+						</s:param>
+						<img src="<s:url value="/img/refresh.png"/>" alt="Recharger la page" width="20" height="20" title="Recharger la page"/>
+					</s:a>
 				</span>
 				<s:if test="isGameMaster">
 					<span class="actionIcon">
