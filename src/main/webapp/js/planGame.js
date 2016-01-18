@@ -42,24 +42,31 @@ function sendPlanModification(url, data){
 	return true;
 }
 
+function initScheduler(){
+	scheduler.config.fix_tab_position = false;
+	scheduler.init("scheduler",new Date(),"week");
+	reload();
+	scheduler.attachEvent("onEventChanged",function(id,ev){
+		var data = { title: ev.text, plannedGameId: id, startDate: formatDate(ev.start_date), endDate: formatDate(ev.end_date) };
+		var url = context+'/AjaxPlanGame!updatePlannedGame';
+		sendPlanModification(url, data);
+	});
+	scheduler.attachEvent("onEventAdded",function(id,ev){
+		var data = { title: ev.text, startDate: formatDate(ev.start_date), endDate: formatDate(ev.end_date) };
+		var url = context+'/AjaxPlanGame!createPlannedGame';
+		sendPlanModification(url, data);
+	});
+	scheduler.attachEvent("onEventDeleted",function(id){
+		var data = { plannedGameId: id };
+		var url = context+'/AjaxPlanGame!deletePlannedGame';
+		sendPlanModification(url, data);
+	});
+	scheduler.attachEvent("onEventCancel", function(id, flag) {
+		eventCancelled=true;
+	});
+}
+
+$( document ).ready(function() {initScheduler();});
+
 var eventCancelled;
-scheduler.init("scheduler",new Date(),"month");
-reload();
-scheduler.attachEvent("onEventChanged",function(id,ev){
-	var data = { title: ev.text, plannedGameId: id, startDate: formatDate(ev.start_date), endDate: formatDate(ev.end_date) };
-	var url = context+'/AjaxPlanGame!updatePlannedGame';
-	sendPlanModification(url, data);
-});
-scheduler.attachEvent("onEventAdded",function(id,ev){
-	var data = { title: ev.text, startDate: formatDate(ev.start_date), endDate: formatDate(ev.end_date) };
-	var url = context+'/AjaxPlanGame!createPlannedGame';
-	sendPlanModification(url, data);
-});
-scheduler.attachEvent("onEventDeleted",function(id){
-	var data = { plannedGameId: id };
-	var url = context+'/AjaxPlanGame!deletePlannedGame';
-	sendPlanModification(url, data);
-});
-scheduler.attachEvent("onEventCancel", function(id, flag) {
-	eventCancelled=true;
-});
+
