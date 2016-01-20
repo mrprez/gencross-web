@@ -59,7 +59,6 @@
 		
 		<global-results>
 			<result name="Exception">/jsp/exception.jsp</result>
-			<result name="AjaxException">/jsp/ajax/exception.jsp</result>
 			<result name="">Login</result>
 			<result name="Login">/jsp/login.jsp</result>
 			<result name="Forbiden">/jsp/403.jsp</result>
@@ -174,12 +173,6 @@
 		<action name="PlanGame!*" method="{1}" class="planGameAction">
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/planGame.jsp</result>
-		</action>
-		
-		<action name="AjaxPlanGame!*" method="{1}" class="planGameAction">
-			<exception-mapping exception="java.lang.Exception" result="AjaxException"/>
-			<interceptor-ref name="userSecurityStack"/>
-        	<result name="success">/jsp/ajax/planGameResult.jsp</result>
         	<result name="jsonPlannedGames">/jsp/ajax/jsonPlannedGames.jsp</result>
 		</action>
 		

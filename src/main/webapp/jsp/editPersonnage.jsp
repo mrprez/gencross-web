@@ -141,7 +141,7 @@
 				
 				<s:if test="actionMessage!=null">
 					<script language="Javascript">
-						alert('<s:property value="actionMessage" escape="false"/>');
+						showAlertMessage('<s:property value="actionMessage" escape="false"/>');
 					</script> 
 				</s:if>
 			</td>

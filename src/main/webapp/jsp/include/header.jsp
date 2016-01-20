@@ -13,6 +13,7 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/locale/locale_fr.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/engine.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/planGameAjaxAction.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
 		<gcr:script/>
 		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"></link>

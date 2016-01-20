@@ -171,6 +171,10 @@
 		<property name="personnageComparatorBS" ref="personnageComparatorBS"/>
 	</bean>
 	
+	<bean id="planGameAjaxAction" class="com.mrprez.gencross.web.action.dwr.PlanGameAjaxAction" scope="prototype">
+		<property name="planGameBS" ref="planGameBS"/>
+	</bean>
+	
 	
 	
 	

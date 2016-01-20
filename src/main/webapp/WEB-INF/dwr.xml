@@ -5,7 +5,7 @@
 <dwr>
 
 	<allow>
-		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.EditPersonnageAjaxAction"/>
+		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.*"/>
 		<create creator="spring" javascript="editPersonnageAjaxAction" scope="application">
 			<param name="beanName" value="editPersonnageAjaxAction"/>
 			<include method="expand"/>
@@ -17,7 +17,15 @@
 			<include method="modifyPointPool"/>
 			<include method="modifyHistory"/>
 		</create>
-		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.PersonnageChange"/>
+		
+		<create creator="spring" javascript="planGameAjaxAction" scope="application">
+			<param name="beanName" value="planGameAjaxAction"/>
+			<include method="createPlannedGame"/>
+			<include method="updatePlannedGame"/>
+			<include method="deletePlannedGame"/>
+		</create>
 	</allow>
+	
+	
 
 </dwr>

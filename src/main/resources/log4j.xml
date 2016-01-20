@@ -59,6 +59,11 @@
 		<appender-ref ref="console"/>
 	</logger>
 	
+	<logger name="org.directwebremoting">
+		<level value="TRACE"/>
+		<appender-ref ref="console"/>
+	</logger>
+	
 	<logger name="org.quartz">
 		<level value="INFO"/>
 		<appender-ref ref="quartzFile"/>

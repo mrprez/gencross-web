@@ -16,16 +16,6 @@
 	</s:form>
 </div>
 
-<div id="planGameError">
-	<span id="errors"></span>
-	<div>
-		<s:form action="PlanGame" theme="simple" method="get"><s:hidden name="tableId"/><s:submit value="Recharger"/></s:form>
-	</div>
-</div>
-
-
-<s:actionerror/>
-
 <div id="scheduler" class="dhx_cal_container" style="width:100%; height:600px;">
 	<div class="dhx_cal_navline">
 		<div class="dhx_cal_prev_button">&nbsp;</div>
