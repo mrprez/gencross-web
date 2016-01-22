@@ -11,6 +11,7 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery.ui.datepicker-fr.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/locale/locale_fr.js"/>" charset="utf-8"></script>
+		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/ext/dhtmlxscheduler_minical.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/engine.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/planGameAjaxAction.js"/>"></script>

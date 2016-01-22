@@ -623,3 +623,10 @@ div.dhx_cal_editor{
 .dhx_cal_light_wide .dhx_repeat_divider {
 	border-color: #215f88;
 }
+
+.dhx_minical_popup{
+	position:absolute;
+	z-index:10100;
+	width:225px;
+	height:175px;
+}

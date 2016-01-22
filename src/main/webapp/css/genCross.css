@@ -879,6 +879,17 @@ table.exportTable {
 	float: right;
 }
 
+#minical_text{
+	display: none;
+}
+
+#minical_span{
+	position: absolute;
+	top: 1px;
+	left: 180px;
+	cursor: pointer;
+}
+
 
 /* User List */
 

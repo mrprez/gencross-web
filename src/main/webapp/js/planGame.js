@@ -1,4 +1,6 @@
 
+//$.getScript(context+'/dhtmlxscheduler/ext/dhtmlxscheduler_minical.js');
+
 function getRequestParameter(name) {
 	var query = window.location.search.substring(1);
 	var pairs = query.split("&");
@@ -32,6 +34,13 @@ function initScheduler(){
 	scheduler.attachEvent(
 			"onEventDeleted",
 			function(id){ planGameAjaxAction.deletePlannedGame(id);}
+	);
+	$('#minical_text').datepicker({
+			showOn: "button",
+			buttonImageOnly: true,
+			buttonImage: "img/calendar.png",
+			onClose: function(dateText, inst){ scheduler.setCurrentView($("#minical_text").datepicker("getDate")); }
+		}
 	);
 }
 
