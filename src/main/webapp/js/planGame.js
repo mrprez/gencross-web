@@ -1,6 +1,4 @@
 
-//$.getScript(context+'/dhtmlxscheduler/ext/dhtmlxscheduler_minical.js');
-
 function getRequestParameter(name) {
 	var query = window.location.search.substring(1);
 	var pairs = query.split("&");
@@ -11,6 +9,12 @@ function getRequestParameter(name) {
 		}
 	}
 	return (false);
+}
+
+function deletePlannedGame(id){
+	if(id < Math.pow(2, 31)-1){
+		planGameAjaxAction.deletePlannedGame(id);
+	}
 }
 
 function reload(){
@@ -33,7 +37,7 @@ function initScheduler(){
 	);
 	scheduler.attachEvent(
 			"onEventDeleted",
-			function(id){ planGameAjaxAction.deletePlannedGame(id);}
+			function(id){ deletePlannedGame(id); }
 	);
 	$('#minical_text').datepicker({
 			showOn: "button",
@@ -42,6 +46,7 @@ function initScheduler(){
 			onClose: function(dateText, inst){ scheduler.setCurrentView($("#minical_text").datepicker("getDate")); }
 		}
 	);
+	$('#minical_text').datepicker("setDate", new Date());
 }
 
 $( document ).ready(function() {initScheduler();});
