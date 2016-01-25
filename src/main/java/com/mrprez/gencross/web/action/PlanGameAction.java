@@ -2,6 +2,8 @@ package com.mrprez.gencross.web.action;
 
 import java.util.Collection;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.mrprez.gencross.web.bo.PlannedGameBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -28,6 +30,7 @@ public class PlanGameAction extends ActionSupport {
 	
 	public String loadPlannedGames() throws Exception {
 		plannedGamesList = planGameBS.getPlannedGames(tableId);
+		ServletActionContext.getResponse().setHeader("Cache-Control", "no-cache, no-store");
 		return "jsonPlannedGames";
 	}
 	

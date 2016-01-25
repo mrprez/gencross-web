@@ -1,12 +1,12 @@
 
 
 function deleteTable(id){
-	$('#waitMask').show();
+	$('#obstructionMask').show();
 	$('#deleteTableDiv').show();
 	$('#tableId').val(id);
 }
 
 function cancelDeleteTable(){
-	$('#waitMask').hide();
+	$('#obstructionMask').hide();
 	$('#deleteTableDiv').hide();
 }

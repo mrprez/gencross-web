@@ -9,17 +9,11 @@
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery-1.10.1.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery-ui.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/jquery.ui.datepicker-fr.js"/>" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.js"/>" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/locale/locale_fr.js"/>" charset="utf-8"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/dhtmlxscheduler/ext/dhtmlxscheduler_minical.js"/>" charset="utf-8"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/engine.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/editPersonnageAjaxAction.js"/>"></script>
-		<script language="JavaScript" type="text/javascript" src="<s:url value="/dwr/interface/planGameAjaxAction.js"/>"></script>
 		<script language="JavaScript" type="text/javascript" src="<s:url value="/js/script.js"/>" charset="utf-8"></script>
 		<gcr:script/>
 		<link href="<s:url value="/css/genCross.css"/>" rel="stylesheet" type="text/css"></link>
 		<link href="<s:url value="/css/jquery-ui-1.10.3.custom.css"/>" rel="stylesheet" type="text/css"></link>
-		<link href="<s:url value="/dhtmlxscheduler/dhtmlxscheduler.css"/>" rel="stylesheet" type="text/css"></link>
 		<link rel="icon" type="image/jpeg" href="<s:url value="/img/icone_GenCross.jpg"/>" ></link>
 	</head>
 	<body>

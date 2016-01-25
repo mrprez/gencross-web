@@ -2,6 +2,7 @@ var numberAssociation = new Array();
 var specification = new Array();
 var personnageWorkId;
 
+$.getScript( context+'/dwr/interface/editPersonnageAjaxAction.js' );
 
 
 function expandCollapse(propertyAbsoluteName, propertyNum){

@@ -1,4 +1,8 @@
 
+$.getScript( context+'/dwr/interface/planGameAjaxAction.js' );
+
+
+
 function getRequestParameter(name) {
 	var query = window.location.search.substring(1);
 	var pairs = query.split("&");
@@ -47,8 +51,19 @@ function initScheduler(){
 		}
 	);
 	$('#minical_text').datepicker("setDate", new Date());
+	hideWaitMask();
 }
 
-$( document ).ready(function() {initScheduler();});
+function loadScheduler(){
+	displayWaitMask();
+	$.getScript( context+'/dhtmlxscheduler/dhtmlxscheduler.js', function( data, textStatus, jqxhr ){ loadSchedulerLocal(); } );
+}
+
+function loadSchedulerLocal(){
+	$('<link rel="stylesheet" type="text/css" href="'+context+'/dhtmlxscheduler/dhtmlxscheduler.css" />').appendTo('head');
+	$.getScript( context+'/dhtmlxscheduler/locale/locale_fr.js', function( data, textStatus, jqxhr ){ initScheduler(); } );
+}
+
+$( document ).ready(function() {loadScheduler();});
 
 
