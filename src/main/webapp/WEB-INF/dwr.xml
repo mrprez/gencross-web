@@ -5,6 +5,8 @@
 <dwr>
 
 	<allow>
+		<convert match="java.lang.Exception" converter="exception"/>
+		
 		<convert converter="bean" match="com.mrprez.gencross.web.action.dwr.*"/>
 		<create creator="spring" javascript="editPersonnageAjaxAction" scope="application">
 			<param name="beanName" value="editPersonnageAjaxAction"/>

@@ -2,7 +2,17 @@
 var context = '/'+window.location.pathname.split( '/' )[1];
 var waitMaskTimeout;
 
-$(document).ajaxError(displayAjaxError);
+$(document).ajaxError(displayException);
+
+window.onerror = function(errorMessage, url, lineNumber) {
+	displayException("\""+errorMessage+"\" dans "+url+" en ligne "+lineNumber);
+};
+
+dwr.engine.setErrorHandler(
+	function(message, exception){ 
+		displayException(exception.javaClassName+": "+message);
+	}
+);
 
 
 function showConfirm(message, validText, cancelText, validCallback, cancelCallback){
@@ -44,13 +54,15 @@ function showAlertMessage(message, actionText, callback){
 	$('#modalDiv').show();
 }
 
-function displayAjaxError(errorMessage){
+function displayException(errorMessage){
 	clearTimeout(waitMaskTimeout);
 	var message = "UNE ERREUR EST SURVENUE A ";
 	var date = new Date();
 	message = message + padLeft(date.getHours(), 2, '0');
 	message = message + ":" + padLeft(date.getMinutes(), 2, '0');
 	message = message + ":" + padLeft(date.getSeconds(), 2, '0');
+	message = message + "<br/>";
+	message = message + errorMessage;
 	showAlertMessage(message, "Recharger la page", function(){window.location.reload(true);});
 }
 

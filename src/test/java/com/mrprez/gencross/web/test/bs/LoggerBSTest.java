@@ -22,10 +22,10 @@ public class LoggerBSTest {
 		Collection<Logger> result = loggerBS.getLoggers();
 		
 		Set<String> loggerNames = new HashSet<String>(Arrays.asList(
-				"com.mrprez.gencross", "com.opensymphony", "org.apache.struts2", "org.hibernate",
-				"org.quartz", "org.springframework", "quartz", "responseDelay", "senderJob"));
+				"com.mrprez.gencross", "com.opensymphony", "org.apache.struts2", "org.directwebremoting",
+				"org.hibernate", "org.quartz", "org.springframework", "quartz", "responseDelay", "senderJob"));
 		for(Logger logger : result){
-			Assert.assertTrue(loggerNames.contains(logger.getName()));
+			Assert.assertTrue("Logger "+logger.getName()+" not expected", loggerNames.contains(logger.getName()));
 			loggerNames.remove(logger.getName());
 		}
 		Assert.assertTrue(loggerNames.isEmpty());

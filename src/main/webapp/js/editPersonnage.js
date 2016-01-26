@@ -56,7 +56,7 @@ function setNewValue(number){
 		var callbackMeta = {
 			callback:reloadChanges,
 			timeout:60000,
-			errorHandler:displayAjaxError
+			errorHandler:displayException
 		};
 		editPersonnageAjaxAction.updateValue(personnageWorkId, propertyAbsoluteName, newValue, callbackMeta);
 	}
