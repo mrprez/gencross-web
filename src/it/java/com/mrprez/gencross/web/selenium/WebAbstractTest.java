@@ -32,7 +32,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
@@ -140,6 +139,7 @@ public abstract class WebAbstractTest {
 		root = new File(getProperty("basedir") + "/src/it/resources");
 		resourceDir = new File(root, name);
 		workDir = new File(getProperty("project.build.directory") + "/seleniumTestResult", name);
+		workDir.mkdirs();
 		
 		tomcatDir = new File(getProperty("tomcat.path"));
 
@@ -249,9 +249,6 @@ public abstract class WebAbstractTest {
 		if(getProperty("webdriver.chrome.driver")!=null){
 			System.setProperty("webdriver.chrome.driver", getProperty("webdriver.chrome.driver"));
 			webDriver = new ChromeDriver();
-		}else if(getProperty("phantomjs.binary.path")!=null){
-			System.setProperty("phantomjs.binary.path", getProperty("phantomjs.binary.path"));
-			webDriver = new PhantomJSDriver();
 		}else{
 			webDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
 			((HtmlUnitDriver)webDriver).setJavascriptEnabled(true);

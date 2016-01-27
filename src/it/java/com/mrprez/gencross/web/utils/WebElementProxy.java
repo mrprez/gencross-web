@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 public class WebElementProxy implements WebElement {
@@ -139,6 +142,22 @@ public class WebElementProxy implements WebElement {
 
 	public String getCssValue(String propertyName) {
 		return webElement.getCssValue(propertyName);
+	}
+
+
+
+
+	@Override
+	public <X> X getScreenshotAs(OutputType<X> arg0) throws WebDriverException {
+		return webElement.getScreenshotAs(arg0);
+	}
+
+
+
+
+	@Override
+	public Rectangle getRect() {
+		return webElement.getRect();
 	}
 
 //	@Override
