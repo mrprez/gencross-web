@@ -181,13 +181,10 @@
 								<img class="expandImg" src="<s:url value="/img/expandable.jpg" includeParams="none"/>" alt="Déplier/Replier" width="10" height="10"/>
 								<s:property value="author.username"/>
 							</span>
-							<s:form cssClass="removeMessageForm" action="EditTable!removeMessage" method="post" onsubmit="javascript:return confirm('Voulez-vous supprimer ce message?')" theme="simple">
+							<s:form cssClass="removeMessageForm" action="EditTable!removeMessage" method="post" theme="simple">
 								<s:hidden name="messageId" value="%{id}"/>
 								<s:hidden name="id" value="%{tableId}"/>
-								<s:set name="imageUrl">
-									<s:url value="/img/remove.png"/>
-								</s:set>
-								<s:submit type="image" value="Supprimer" src="%{imageUrl}" title="Supprimer"/>
+								<img src="<s:url value="/img/remove.png"/>" class="editImg" alt="Supprimer" onclick="javascript:deleteMessage(this);"/>
 							</s:form>
 						</div>
 						<div class="messageDate"><s:date name="date" format="dd/MM/yyyy HH:mm:ss"/></div>

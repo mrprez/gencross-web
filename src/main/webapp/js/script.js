@@ -15,10 +15,15 @@ dwr.engine.setErrorHandler(
 );
 
 
-function showConfirm(message, validText, cancelText, validCallback, cancelCallback){
+function showConfirm(message, validCallback, cancelCallback, validText, cancelText){
 	$('#obstructionMask').show();
 	$('#modalDivText').html(message);
-	$('#modalDivButton');
+	if(validText==null){
+		validText = 'Valider';
+	}
+	if(cancelText==null){
+		cancelText = 'Annuler';
+	}
 	$('#modalDivButton').html("<button id='modalDivValidButton'>"+validText+"</button>"
 							+ "<button id='modalDivCancelButton'>"+cancelText+"</button>");
 	$('#modalDivButton > button').off("click");

@@ -11,5 +11,12 @@ function showHideMessage(authorSpan){
 		messageContent.hide();
 		image.src = imgSrc.substring(0, imgSrc.lastIndexOf("expanded.jpg"))+"expandable.jpg";
 	}
-	
+}
+
+
+function deleteMessage(imageForm){
+	var validCallback = function(){
+		$(imageForm).parent().submit();
+	};
+	showConfirm( 'Voulez-vous supprimer ce message?', validCallback);
 }

@@ -101,12 +101,9 @@
 									</s:param>
 									<img src="<s:url value="/img/upload.png"/>" alt="Charger" onclick="Javascript:uploadPersonnage(this)"/>
 								</s:a>
-								<s:form cssClass="imgForm" action="List!deletePersonnage" method="post" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" theme="simple">
+								<s:form cssClass="imgForm" action="List!deletePersonnage" method="post" theme="simple">
 									<s:hidden name="personnageId" value="%{id}"/>
-									<s:set name="imageUrl">
-										<s:url value="/img/remove.png"/>
-									</s:set>
-									<s:submit type="image" value="Supprimer" src="%{imageUrl}" title="Supprimer"/>
+									<img src="<s:url value="/img/remove.png"/>" class="editImg" alt="Supprimer" onclick="javascript:deletePersonnagePJ(this);" />
 								</s:form>
 							</td>
 						</tr>
@@ -219,12 +216,9 @@
 									<s:param name="personnageId"><s:property value="id"/></s:param>
 									<img src="<s:url value="/img/upload.png"/>" alt="Charger" onclick="Javascript:uploadPersonnage(this)"/>
 								</s:a>
-								<s:form cssClass="imgForm" action="List!deletePersonnage" method="post" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" theme="simple">
+								<s:form cssClass="imgForm" action="List!deletePersonnage" method="post" theme="simple">
 									<s:hidden name="personnageId" value="%{id}"/>
-									<s:set name="imageUrl">
-										<s:url value="/img/remove.png"/>
-									</s:set>
-									<s:submit type="image" value="Supprimer" src="%{imageUrl}" title="Supprimer"/>
+									<img src="<s:url value="/img/remove.png"/>" class="editImg" alt="Supprimer" onclick="javascript:deletePersonnageMJ(this);" />
 								</s:form>
 							</td>
 						</tr>

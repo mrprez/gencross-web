@@ -400,7 +400,7 @@ function unvalidate(button){
 	var validCallback = function(){
 		$(button).parent().submit();
 	};
-	showConfirm("Etes vous sur de vouloir revenir à la dernière version validée par le MJ?", "Valider", "Annuler", validCallback);
+	showConfirm("Etes vous sur de vouloir revenir à la dernière version validée par le MJ?", validCallback);
 }
 
 

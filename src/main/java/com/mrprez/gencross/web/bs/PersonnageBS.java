@@ -405,7 +405,7 @@ public class PersonnageBS implements IPersonnageBS {
 	@Override
 	public void savePersonnageBackground(PersonnageWorkBO personnageWork, String background) throws Exception {
 		personnageDAO.savePersonnageWork(personnageWork);
-		personnageWork.setBackground(background);
+		//personnageWork.setBackground(background);
 	}
 
 	public IPersonnageDAO getPersonnageDAO() {
