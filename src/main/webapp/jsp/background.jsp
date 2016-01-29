@@ -41,18 +41,22 @@
 				height: '500'
 			});
 			
+			var saved = true;
 			
+			window.onbeforeunload = function(){
+				if(saved == false){
+					return confirm('Voulez vous quitter la page sans sauvegarder ?');
+				}
+			};
 			
 			CKEDITOR.instances['bg'].on('blur', function() {
 				if (editor.checkDirty()) {
-					window.onbeforeunload = function(){
-						return "Vous n'avez pas enregistré, vos modifications seront perdues.";
-					};
+					saved = false;
 				}
 			});
 			
 			$("#backgroundForm").submit(function() {
-				window.onbeforeunload = null;
+				saved = true;
 			});
 			
 		</script>
