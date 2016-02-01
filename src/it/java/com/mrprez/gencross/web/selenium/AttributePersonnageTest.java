@@ -97,8 +97,6 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		pageTester.testPage(driver, "attribute3");
 		driver.findElement(By.cssSelector("span.menu")).click();
 		driver.findElement(By.linkText("Liste des personnages")).click();
-		driver.findElement(By.id("List!deletePersonnage_0")).click();
-		
 		driver.findElement(By.cssSelector("img[alt=Supprimer]")).click();
 		pageTester.testPage(driver, "deletePersonnage2");
 		driver.findElement(By.cssSelector("#modalDivButton > button")).click();
