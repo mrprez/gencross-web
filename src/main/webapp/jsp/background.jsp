@@ -45,7 +45,7 @@
 			
 			window.onbeforeunload = function(){
 				if(saved == false){
-					return confirm('Voulez vous quitter la page sans sauvegarder ?');
+					return confirm('Vous n'avez pas enregistré, vos modifications seront perdues.');
 				}
 			};
 			
