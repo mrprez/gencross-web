@@ -8,17 +8,14 @@
 		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/editPersonnage.js" type="text/javascript" language="JavaScript"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
-		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
 		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+	<body>
 		<div id="header">
 			<div id="headerLeft">
 				<a href="/gencross-web/List.action">
@@ -68,17 +65,12 @@
 			</div>
 		</div>
 		<div id="content">
-			<div id="waitMask">
-				<img title="Attente Serveur..." alt="Attente Serveur..." src="/gencross-web/img/wait.gif" class="waitImage" id="waitImage"/>
-			</div>
-			<div id="tooLongWaitMsg">
-				<a href="/gencross-web/Edit.action?personnageId=1">Attente trop longue: cliquez ici pour recharger la page.</a>
-			</div>
-			<div id="ajaxError">UNE ERREUR EST SURVENUE
-				<br/>
-				<span id="ajaxErrorDate">00:00:00</span>
-				<br/>
-				<a href="/gencross-web/Edit.action?personnageId=1">Recharger</a>
+			<div id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
 			</div>
 			<script language="Javascript" type="text/javascript">personnageWorkId = 1;</script>
 			<div id="personnageName">
@@ -139,23 +131,23 @@
 							<div class="pointPool">
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_0">
+										<tr pointpool="Attributs Majeur">
 											<td class="pointPool_name">Attributs Majeur</td>
 											<td class="pointPool_remaining">5/5</td>
 										</tr>
-										<tr id="pointPool_2">
+										<tr pointpool="Attributs Intermediaire">
 											<td class="pointPool_name">Attributs Intermediaire</td>
 											<td class="pointPool_remaining">4/4</td>
 										</tr>
-										<tr id="pointPool_4">
+										<tr pointpool="Attributs Mineur">
 											<td class="pointPool_name">Attributs Mineur</td>
 											<td class="pointPool_remaining">3/3</td>
 										</tr>
-										<tr id="pointPool_6">
+										<tr pointpool="Spécialités">
 											<td class="pointPool_name">Spécialités</td>
 											<td class="pointPool_remaining">4/4</td>
 										</tr>
-										<tr id="pointPool_8">
+										<tr pointpool="Contrats">
 											<td class="pointPool_name">Contrats</td>
 											<td class="pointPool_remaining">5/5</td>
 										</tr>
@@ -163,23 +155,23 @@
 								</table>
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_1">
+										<tr pointpool="Talents Majeur">
 											<td class="pointPool_name">Talents Majeur</td>
 											<td class="pointPool_remaining">11/11</td>
 										</tr>
-										<tr id="pointPool_3">
+										<tr pointpool="Talents Intermediaire">
 											<td class="pointPool_name">Talents Intermediaire</td>
 											<td class="pointPool_remaining">7/7</td>
 										</tr>
-										<tr id="pointPool_5">
+										<tr pointpool="Talents Mineur">
 											<td class="pointPool_name">Talents Mineur</td>
 											<td class="pointPool_remaining">4/4</td>
 										</tr>
-										<tr id="pointPool_7">
+										<tr pointpool="Avantages">
 											<td class="pointPool_name">Avantages</td>
 											<td class="pointPool_remaining">7/7</td>
 										</tr>
-										<tr id="pointPool_9">
+										<tr pointpool="Expérience">
 											<td class="pointPool_name">Expérience</td>
 											<td class="pointPool_remaining">0/0</td>
 										</tr>

@@ -65,11 +65,11 @@
 			</div>
 		</div>
 		<div id="content">
-			<div style="display: none;" id="obstructionMask"/>
-			<div id="modalDiv">
-				<div id="modalDivText"/>
+			<div style="display: block;" id="obstructionMask"/>
+			<div style="display: block;" id="modalDiv">
+				<div id="modalDivText">Le talent ne peut dépasser sa spécialité</div>
 				<div id="modalDivButton">
-					<button id="modalDivButton"/>
+					<button>OK</button>
 				</div>
 			</div>
 			<script language="Javascript" type="text/javascript">personnageWorkId = 1;</script>
@@ -136,7 +136,7 @@
 									<tbody>
 										<tr pointpool="PA">
 											<td class="pointPool_name">PA</td>
-											<td class="pointPool_remaining">56/80</td>
+											<td class="pointPool_remaining">42/80</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
 												<form pointpoolname="PA" class="pointPoolForm" method="post" action="/gencross-web/Edit!getPointPool.action" onsubmit="return false;" name="Edit!getPointPool" id="Edit!getPointPool">
@@ -192,15 +192,15 @@
 									<tbody>
 										<tr pointpool="Points de talents secondaires">
 											<td class="pointPool_name">Points de talents secondaires</td>
-											<td class="pointPool_remaining">0/0</td>
+											<td class="pointPool_remaining">14/14</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form pointpoolname="Points de talents secondaires" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
+												<form pointpoolname="Points de talents secondaires" class="pointPoolForm" method="post" action="/gencross-web/Edit!getPointPool.action" onsubmit="return false;" name="Edit!getPointPool" id="Edit!getPointPool">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Points de talents secondaires')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Points de talents secondaires')" id="Edit!getPointPool_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
@@ -224,6 +224,9 @@
 									<tbody>
 										<tr>
 											<td>Il reste des PA à dépenser</td>
+										</tr>
+										<tr>
+											<td>Il reste des Points de talents secondaires à dépenser</td>
 										</tr>
 										<tr>
 											<td>Vous devez dépenser entre 20 et 40 PA en Talents</td>
@@ -440,14 +443,14 @@
 												<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/expanded.jpg" class="expandImg"/>
 												<span id="span_5_1">Combat : 2</span>
 											</a>
-											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_1" id="form_5_1">
+											<img style="display: inline;" onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
+											<form style="display: none;" class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_1" id="form_5_1">
 												<input id="form_5_1_propertyAbsoluteName" value="Talents principaux#Combat" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_1_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
-													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
+												<input class="hiddenNewValue" id="form_5_1_newValue" value="6" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+													<img alt="-" src="http://localhost:8181/gencross-web/img/minus.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
+												<span class="displayedNewValue">6</span>
 												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
@@ -457,15 +460,15 @@
 											<ul class="expanded" id="subProperties_5_1">
 												<li class="unexpandable, property" id="li_5_1_0">
 													<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-													<span id="span_5_1_0">Nunjaku : 2</span>
+													<span id="span_5_1_0">Nunjaku : 5</span>
 													<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 													<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_1_0" id="form_5_1_0">
 														<input id="form_5_1_0_propertyAbsoluteName" value="Talents principaux#Combat#Nunjaku" name="propertyAbsoluteName" type="hidden"/>
-														<input class="hiddenNewValue" id="form_5_1_0_newValue" value="2" name="newValue" type="hidden"/>
-														<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
-															<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
+														<input class="hiddenNewValue" id="form_5_1_0_newValue" value="5" name="newValue" type="hidden"/>
+														<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+															<img alt="-" src="/gencross-web/img/minus.png"/>
 														</button>
-														<span class="displayedNewValue">2</span>
+														<span class="displayedNewValue">5</span>
 														<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
 															<img alt="+" src="/gencross-web/img/plus.png"/>
 														</button>
@@ -499,15 +502,15 @@
 										</li>
 										<li class="unexpandable, property" id="li_5_3">
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
-											<span id="span_5_3">Défense : 2</span>
+											<span id="span_5_3">Défense : 6</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
 											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_3" id="form_5_3">
 												<input id="form_5_3_propertyAbsoluteName" value="Talents principaux#Défense" name="propertyAbsoluteName" type="hidden"/>
-												<input class="hiddenNewValue" id="form_5_3_newValue" value="2" name="newValue" type="hidden"/>
-												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
-													<img alt="-" src="/gencross-web/img/minusdisabled.png"/>
+												<input class="hiddenNewValue" id="form_5_3_newValue" value="6" name="newValue" type="hidden"/>
+												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
+													<img alt="-" src="/gencross-web/img/minus.png"/>
 												</button>
-												<span class="displayedNewValue">2</span>
+												<span class="displayedNewValue">6</span>
 												<button onkeydown="editFormKeyDown(event)" onclick="javascript:plusValue(this, 0.5, 2, 7);" type="button" class="plusButton">
 													<img alt="+" src="/gencross-web/img/plus.png"/>
 												</button>
@@ -1509,6 +1512,46 @@
 									</tr>
 								</thead>
 								<tbody>
+									<tr title="Talents principaux#Défense" id="historyItemLine_6" class="historyItemLine">
+										<td class="historyIndex">6</td>
+										<td>Défense</td>
+										<td>2</td>
+										<td>6</td>
+										<td>8 PA
+											<img onclick="javascript:displayHistoryEditForm(6);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
+											<form class="historyEditForm" method="post" action="/gencross-web/Edit!getHistoryItem.action" onsubmit="return false;" name="historyForm_6" id="historyForm_6">
+												<input class="historyFormCost" id="historyForm_6_cost" value="8" size="1" name="cost" type="text"/>
+												<select id="historyForm_6_pointPoolName" name="pointPoolName">
+													<option selected="selected" value="PA">PA</option>
+													<option value="Points de talents secondaires">Points de talents secondaires</option>
+													<option value="Pouvoirs de grade">Pouvoirs de grade</option>
+												</select>
+												<img onclick="javascript:modifyHistory(6);" alt="Valider" src="/gencross-web/img/validate.png" class="activeImg historyFormImg"/>
+												<img onclick="javascript:hideHistoryEditForm(6);" alt="Fermer" src="/gencross-web/img/fold.png" class="activeImg historyFormImg"/>
+											</form>
+										</td>
+										<td title="00:00:00,000 00/00/0000">00:00 00/00</td>
+									</tr>
+									<tr title="Talents principaux#Combat#Nunjaku" id="historyItemLine_5" class="historyItemLine">
+										<td class="historyIndex">5</td>
+										<td>Nunjaku</td>
+										<td>2</td>
+										<td>5</td>
+										<td>6 PA
+											<img onclick="javascript:displayHistoryEditForm(5);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
+											<form class="historyEditForm" method="post" action="/gencross-web/Edit!getHistoryItem.action" onsubmit="return false;" name="historyForm_5" id="historyForm_5">
+												<input class="historyFormCost" id="historyForm_5_cost" value="6" size="1" name="cost" type="text"/>
+												<select id="historyForm_5_pointPoolName" name="pointPoolName">
+													<option selected="selected" value="PA">PA</option>
+													<option value="Points de talents secondaires">Points de talents secondaires</option>
+													<option value="Pouvoirs de grade">Pouvoirs de grade</option>
+												</select>
+												<img onclick="javascript:modifyHistory(5);" alt="Valider" src="/gencross-web/img/validate.png" class="activeImg historyFormImg"/>
+												<img onclick="javascript:hideHistoryEditForm(5);" alt="Fermer" src="/gencross-web/img/fold.png" class="activeImg historyFormImg"/>
+											</form>
+										</td>
+										<td title="00:00:00,000 00/00/0000">00:00 00/00</td>
+									</tr>
 									<tr title="Talents principaux#Combat#Nunjaku" id="historyItemLine_4" class="historyItemLine">
 										<td class="historyIndex">4</td>
 										<td>Nunjaku</td>

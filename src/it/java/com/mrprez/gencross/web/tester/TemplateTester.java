@@ -11,7 +11,9 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,7 +26,7 @@ public abstract class TemplateTester {
 	protected Map<String, String> replacementRules = new HashMap<String, String>();
 	protected File maskRepository;
 	protected File workDir;
-	private boolean allTemplatePresent = true;
+	private List<String> missingTemplates = new ArrayList<String>();
 	private boolean ignoreWhiteSpace = false;
 		
 	
@@ -49,7 +51,7 @@ public abstract class TemplateTester {
 		}
 		
 		if (!template.exists()) {
-			allTemplatePresent = false;
+			missingTemplates.add(maskRepository+"/"+testName+extension);
 			writeTemplate(source, testName, extension);
 			return;
 		}
@@ -146,10 +148,6 @@ public abstract class TemplateTester {
 		}
 	}
 
-	public boolean isAllTemplatePresent() {
-		return allTemplatePresent;
-	}
-
 	public File getMaskRepository() {
 		return maskRepository;
 	}
@@ -169,6 +167,11 @@ public abstract class TemplateTester {
 
 	public void setIgnoreWhiteSpace(boolean ignoreWhiteSpace) {
 		this.ignoreWhiteSpace = ignoreWhiteSpace;
+	}
+
+
+	public List<String> getMissingTemplates() {
+		return missingTemplates;
 	}
 	
 

@@ -8,17 +8,14 @@
 		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/editPersonnage.js" type="text/javascript" language="JavaScript"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
-		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
 		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+	<body>
 		<div id="header">
 			<div id="headerLeft">
 				<a href="/gencross-web/List.action">
@@ -68,17 +65,12 @@
 			</div>
 		</div>
 		<div id="content">
-			<div style="display: none;" id="waitMask">
-				<img style="display: none;" title="Attente Serveur..." alt="Attente Serveur..." src="/gencross-web/img/wait.gif" class="waitImage" id="waitImage"/>
-			</div>
-			<div style="display: none;" id="tooLongWaitMsg">
-				<a href="/gencross-web/Edit.action?personnageId=1">Attente trop longue: cliquez ici pour recharger la page.</a>
-			</div>
-			<div id="ajaxError">UNE ERREUR EST SURVENUE
-				<br/>
-				<span id="ajaxErrorDate">00:00:00</span>
-				<br/>
-				<a href="/gencross-web/Edit.action?personnageId=1">Recharger</a>
+			<div style="display: none;" id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
 			</div>
 			<script language="Javascript" type="text/javascript">personnageWorkId = 1;</script>
 			<div id="personnageName">
@@ -142,23 +134,22 @@
 							<div class="pointPool">
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_0">
+										<tr pointpool="PA">
 											<td class="pointPool_name">PA</td>
 											<td class="pointPool_remaining">68/80</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/EditAjax!getPointPool.action" onsubmit="return false;" name="EditAjax!getPointPool" id="EditAjax!getPointPool">
-													<input id="EditAjax!getPointPool_pointPoolName" value="PA" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="PA" class="pointPoolForm" method="post" action="/gencross-web/Edit!getPointPool.action" onsubmit="return false;" name="Edit!getPointPool" id="Edit!getPointPool">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="EditAjax!getPointPool_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('PA')" id="Edit!getPointPool_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('PA')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -169,23 +160,22 @@
 												</form>
 											</td>
 										</tr>
-										<tr id="pointPool_2">
+										<tr pointpool="Pouvoirs de grade">
 											<td class="pointPool_name">Pouvoirs de grade</td>
 											<td class="pointPool_remaining">0/0</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="Pouvoirs de grade" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="Pouvoirs de grade" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Pouvoirs de grade')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('Pouvoirs de grade')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -200,23 +190,22 @@
 								</table>
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_1">
+										<tr pointpool="Points de talents secondaires">
 											<td class="pointPool_name">Points de talents secondaires</td>
 											<td class="pointPool_remaining">0/0</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="Points de talents secondaires" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="Points de talents secondaires" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Points de talents secondaires')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('Points de talents secondaires')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -285,7 +274,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_3_0">Force : 5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_0" id="form_3_0">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_3_0" id="form_3_0">
 												<input id="form_3_0_propertyAbsoluteName" value="Caracteristiques#Force" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_3_0_newValue" value="5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 1.5, 5);" type="button" class="minusButton">
@@ -829,7 +818,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_8_3">Athlétisme : 2.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_3" id="form_8_3">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_8_3" id="form_8_3">
 												<input id="form_8_3_propertyAbsoluteName" value="Talents secondaires#Athlétisme" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_8_3_newValue" value="2.5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2.5, 7);" type="button" class="minusButton">
@@ -935,7 +924,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_8_8">Intimidation : 2.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_8" id="form_8_8">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_8_8" id="form_8_8">
 												<input id="form_8_8_propertyAbsoluteName" value="Talents secondaires#Intimidation" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_8_8_newValue" value="2.5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2.5, 7);" type="button" class="minusButton">
@@ -1529,7 +1518,7 @@
 										<td>5</td>
 										<td>12 PA
 											<img onclick="javascript:displayHistoryEditForm(1);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_1" id="historyForm_1">
+											<form class="historyEditForm" method="post" action="/gencross-web/Edit!getHistoryItem.action" onsubmit="return false;" name="historyForm_1" id="historyForm_1">
 												<input class="historyFormCost" id="historyForm_1_cost" value="12" size="1" name="cost" type="text"/>
 												<select id="historyForm_1_pointPoolName" name="pointPoolName">
 													<option selected="selected" value="PA">PA</option>

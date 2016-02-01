@@ -8,17 +8,14 @@
 		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/editPersonnage.js" type="text/javascript" language="JavaScript"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
-		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
 		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+	<body>
 		<div id="header">
 			<div id="headerLeft">
 				<a href="/gencross-web/List.action">
@@ -68,17 +65,12 @@
 			</div>
 		</div>
 		<div id="content">
-			<div style="display: none;" id="waitMask">
-				<img style="display: none;" title="Attente Serveur..." alt="Attente Serveur..." src="/gencross-web/img/wait.gif" class="waitImage" id="waitImage"/>
-			</div>
-			<div style="display: none;" id="tooLongWaitMsg">
-				<a href="/gencross-web/Edit.action?personnageId=1">Attente trop longue: cliquez ici pour recharger la page.</a>
-			</div>
-			<div id="ajaxError">UNE ERREUR EST SURVENUE
-				<br/>
-				<span id="ajaxErrorDate">00:00:00</span>
-				<br/>
-				<a href="/gencross-web/Edit.action?personnageId=1">Recharger</a>
+			<div style="display: none;" id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
 			</div>
 			<script language="Javascript" type="text/javascript">personnageWorkId = 1;</script>
 			<div id="personnageName">
@@ -142,23 +134,22 @@
 							<div class="pointPool">
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_0">
+										<tr pointpool="PA">
 											<td class="pointPool_name">PA</td>
 											<td class="pointPool_remaining">56/80</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/EditAjax!getPointPool.action" onsubmit="return false;" name="EditAjax!getPointPool" id="EditAjax!getPointPool">
-													<input id="EditAjax!getPointPool_pointPoolName" value="PA" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="PA" class="pointPoolForm" method="post" action="/gencross-web/Edit!getPointPool.action" onsubmit="return false;" name="Edit!getPointPool" id="Edit!getPointPool">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="EditAjax!getPointPool_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('PA')" id="Edit!getPointPool_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('PA')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -169,23 +160,22 @@
 												</form>
 											</td>
 										</tr>
-										<tr id="pointPool_2">
+										<tr pointpool="Pouvoirs de grade">
 											<td class="pointPool_name">Pouvoirs de grade</td>
 											<td class="pointPool_remaining">0/0</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="Pouvoirs de grade" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="Pouvoirs de grade" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Pouvoirs de grade')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('Pouvoirs de grade')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -200,23 +190,22 @@
 								</table>
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_1">
+										<tr pointpool="Points de talents secondaires">
 											<td class="pointPool_name">Points de talents secondaires</td>
 											<td class="pointPool_remaining">0/0</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="Points de talents secondaires" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="Points de talents secondaires" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Points de talents secondaires')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('Points de talents secondaires')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -282,7 +271,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_3_0">Force : 5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_0" id="form_3_0">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_3_0" id="form_3_0">
 												<input id="form_3_0_propertyAbsoluteName" value="Caracteristiques#Force" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_3_0_newValue" value="5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 1.5, 5);" type="button" class="minusButton">
@@ -300,7 +289,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_3_1">Agilité : 4</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_1" id="form_3_1">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_3_1" id="form_3_1">
 												<input id="form_3_1_propertyAbsoluteName" value="Caracteristiques#Agilité" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_3_1_newValue" value="4" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 1.5, 5);" type="button" class="minusButton">
@@ -375,7 +364,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_3_5">Foi/Chance : 3</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_3_5" id="form_3_5">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_3_5" id="form_3_5">
 												<input id="form_3_5_propertyAbsoluteName" value="Caracteristiques#Foi/Chance" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_3_5_newValue" value="3" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" onclick="javascript:minusValue(this, 0.5, 2, 5);" type="button" class="minusButton">
@@ -452,7 +441,7 @@
 												<span id="span_5_1">Combat : 2</span>
 											</a>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_1" id="form_5_1">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_1" id="form_5_1">
 												<input id="form_5_1_propertyAbsoluteName" value="Talents principaux#Combat" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_5_1_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
@@ -468,7 +457,7 @@
 											<ul class="expandable" id="subProperties_5_1">
 												<li class="addProperty">
 													<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajout libre</span>
-													<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_5_1" id="addFreePropertyForm_5_1">
+													<form class="addPropertyForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_5_1" id="addFreePropertyForm_5_1">
 														<input id="addFreePropertyForm_5_1_motherProperty" value="Talents principaux#Combat" name="motherProperty" type="hidden"/>
 														<input onkeydown="javascript:editFormKeyDown(event)" id="addFreePropertyForm_5_1_newProperty" value="" name="newProperty" type="text"/>
 														<button type="button" onclick="javascript:addFreeProperty('5_1')">Valider</button>
@@ -481,7 +470,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_5_2">Corps à corps : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_2" id="form_5_2">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_2" id="form_5_2">
 												<input id="form_5_2_propertyAbsoluteName" value="Talents principaux#Corps à corps" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_5_2_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
@@ -499,7 +488,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_5_3">Défense : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_3" id="form_5_3">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_3" id="form_5_3">
 												<input id="form_5_3_propertyAbsoluteName" value="Talents principaux#Défense" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_5_3_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
@@ -517,7 +506,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_5_4">Discrétion : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_4" id="form_5_4">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_4" id="form_5_4">
 												<input id="form_5_4_propertyAbsoluteName" value="Talents principaux#Discrétion" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_5_4_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
@@ -554,7 +543,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_5_6">Enquête : 1.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_5_6" id="form_5_6">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_5_6" id="form_5_6">
 												<input id="form_5_6_propertyAbsoluteName" value="Talents principaux#Enquête" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_5_6_newValue" value="1.5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 1.5, 7);" type="button" class="minusButton">
@@ -686,7 +675,7 @@
 									<ul class="expandable" id="subProperties_6">
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajouter par choix</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addPropertyFromOptionForm_6" id="addPropertyFromOptionForm_6">
+											<form class="addPropertyForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="addPropertyFromOptionForm_6" id="addPropertyFromOptionForm_6">
 												<input id="addPropertyFromOptionForm_6_motherProperty" value="Talents exotiques" name="motherProperty" type="hidden"/>
 												<select onkeydown="javascript:editFormKeyDown(event)" id="addPropertyFromOptionForm_6_optionProperty" name="optionProperty">
 													<option value="Contorsionnisme">Contorsionnisme</option>
@@ -708,7 +697,7 @@
 										</li>
 										<li class="addProperty">
 											<span onclick="javascript:displayAddPropertyForm(this)" class="addProperty">Ajout libre</span>
-											<form class="addPropertyForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_6" id="addFreePropertyForm_6">
+											<form class="addPropertyForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="addFreePropertyForm_6" id="addFreePropertyForm_6">
 												<input id="addFreePropertyForm_6_motherProperty" value="Talents exotiques" name="motherProperty" type="hidden"/>
 												<input onkeydown="javascript:editFormKeyDown(event)" id="addFreePropertyForm_6_newProperty" value="" name="newProperty" type="text"/>
 												<button type="button" onclick="javascript:addFreeProperty('6')">Valider</button>
@@ -747,7 +736,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_8_0">Acrobatie : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_0" id="form_8_0">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_8_0" id="form_8_0">
 												<input id="form_8_0_propertyAbsoluteName" value="Talents secondaires#Acrobatie" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_8_0_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
@@ -816,7 +805,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_8_3">Athlétisme : 2.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_3" id="form_8_3">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_8_3" id="form_8_3">
 												<input id="form_8_3_propertyAbsoluteName" value="Talents secondaires#Athlétisme" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_8_3_newValue" value="2.5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2.5, 7);" type="button" class="minusButton">
@@ -834,7 +823,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_8_4">Conduite : 2</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_4" id="form_8_4">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_8_4" id="form_8_4">
 												<input id="form_8_4_propertyAbsoluteName" value="Talents secondaires#Conduite" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_8_4_newValue" value="2" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2, 7);" type="button" class="minusButton">
@@ -921,7 +910,7 @@
 											<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 											<span id="span_8_8">Intimidation : 2.5</span>
 											<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-											<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_8_8" id="form_8_8">
+											<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_8_8" id="form_8_8">
 												<input id="form_8_8_propertyAbsoluteName" value="Talents secondaires#Intimidation" name="propertyAbsoluteName" type="hidden"/>
 												<input class="hiddenNewValue" id="form_8_8_newValue" value="2.5" name="newValue" type="hidden"/>
 												<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 0.5, 2.5, 7);" type="button" class="minusButton">
@@ -1428,7 +1417,7 @@
 									<img height="10" width="10" alt="Déplier/Replier" src="/gencross-web/img/unexpandable.jpg" class="expandImg"/>
 									<span id="span_11">PP : 5</span>
 									<img onclick="javascript:displayEditForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg editPropertyImg"/>
-									<form class="editForm" method="post" action="/gencross-web/EditAjax!getProperty.action" onsubmit="return false;" name="form_11" id="form_11">
+									<form class="editForm" method="post" action="/gencross-web/Edit!getProperty.action" onsubmit="return false;" name="form_11" id="form_11">
 										<input id="form_11_propertyAbsoluteName" value="PP" name="propertyAbsoluteName" type="hidden"/>
 										<input class="hiddenNewValue" id="form_11_newValue" value="5" name="newValue" type="hidden"/>
 										<button onkeydown="javascript:editFormKeyDown(event)" disabled="" onclick="javascript:minusValue(this, 1, 5, 15);" type="button" class="minusButton">
@@ -1514,7 +1503,7 @@
 										<td>3</td>
 										<td>4 PA
 											<img onclick="javascript:displayHistoryEditForm(3);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_3" id="historyForm_3">
+											<form class="historyEditForm" method="post" action="/gencross-web/Edit!getHistoryItem.action" onsubmit="return false;" name="historyForm_3" id="historyForm_3">
 												<input class="historyFormCost" id="historyForm_3_cost" value="4" size="1" name="cost" type="text"/>
 												<select id="historyForm_3_pointPoolName" name="pointPoolName">
 													<option selected="selected" value="PA">PA</option>
@@ -1534,7 +1523,7 @@
 										<td>4</td>
 										<td>8 PA
 											<img onclick="javascript:displayHistoryEditForm(2);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_2" id="historyForm_2">
+											<form class="historyEditForm" method="post" action="/gencross-web/Edit!getHistoryItem.action" onsubmit="return false;" name="historyForm_2" id="historyForm_2">
 												<input class="historyFormCost" id="historyForm_2_cost" value="8" size="1" name="cost" type="text"/>
 												<select id="historyForm_2_pointPoolName" name="pointPoolName">
 													<option selected="selected" value="PA">PA</option>
@@ -1554,7 +1543,7 @@
 										<td>5</td>
 										<td>12 PA
 											<img onclick="javascript:displayHistoryEditForm(1);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-											<form class="historyEditForm" method="post" action="/gencross-web/EditAjax!getLastHistory.action" onsubmit="return false;" name="historyForm_1" id="historyForm_1">
+											<form class="historyEditForm" method="post" action="/gencross-web/Edit!getHistoryItem.action" onsubmit="return false;" name="historyForm_1" id="historyForm_1">
 												<input class="historyFormCost" id="historyForm_1_cost" value="12" size="1" name="cost" type="text"/>
 												<select id="historyForm_1_pointPoolName" name="pointPoolName">
 													<option selected="selected" value="PA">PA</option>

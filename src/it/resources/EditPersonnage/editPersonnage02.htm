@@ -8,17 +8,14 @@
 		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/editPersonnage.js" type="text/javascript" language="JavaScript"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
-		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
 		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+	<body>
 		<div id="header">
 			<div id="headerLeft">
 				<a href="/gencross-web/List.action">
@@ -68,17 +65,12 @@
 			</div>
 		</div>
 		<div id="content">
-			<div id="waitMask">
-				<img title="Attente Serveur..." alt="Attente Serveur..." src="/gencross-web/img/wait.gif" class="waitImage" id="waitImage"/>
-			</div>
-			<div id="tooLongWaitMsg">
-				<a href="/gencross-web/Edit.action?personnageId=1">Attente trop longue: cliquez ici pour recharger la page.</a>
-			</div>
-			<div id="ajaxError">UNE ERREUR EST SURVENUE
-				<br/>
-				<span id="ajaxErrorDate">00:00:00</span>
-				<br/>
-				<a href="/gencross-web/Edit.action?personnageId=1">Recharger</a>
+			<div id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
 			</div>
 			<script language="Javascript" type="text/javascript">personnageWorkId = 1;</script>
 			<div id="personnageName">
@@ -142,23 +134,22 @@
 							<div class="pointPool">
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_0">
+										<tr pointpool="PA">
 											<td class="pointPool_name">PA</td>
 											<td class="pointPool_remaining">80/80</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="PA" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="PA" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('PA')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('PA')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -169,23 +160,22 @@
 												</form>
 											</td>
 										</tr>
-										<tr id="pointPool_2">
+										<tr pointpool="Pouvoirs de grade">
 											<td class="pointPool_name">Pouvoirs de grade</td>
 											<td class="pointPool_remaining">0/0</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="Pouvoirs de grade" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="Pouvoirs de grade" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Pouvoirs de grade')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('Pouvoirs de grade')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>
@@ -200,23 +190,22 @@
 								</table>
 								<table class="pointPool">
 									<tbody>
-										<tr id="pointPool_1">
+										<tr pointpool="Points de talents secondaires">
 											<td class="pointPool_name">Points de talents secondaires</td>
 											<td class="pointPool_remaining">0/0</td>
 											<td class="pointPool_modify">
 												<img onclick="javascript:displayPointPoolForm(this);" alt="Editer" src="/gencross-web/img/edit.png" class="editImg"/>
-												<form class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
-													<input id="Edit_pointPoolName" value="Points de talents secondaires" name="pointPoolName" type="hidden"/>
+												<form pointpoolname="Points de talents secondaires" class="pointPoolForm" method="post" action="/gencross-web/Edit.action" onsubmit="return false;" name="Edit" id="Edit">
 													<table>
 														<tbody>
 															<tr>
 																<td colspan="2">
-																	<input class="class java.util.HashMap" onkeydown="javascript:poolPointFormKeyDown(event)" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
+																	<input class="class java.util.HashMap" onkeydown="javascript:modifyPointPoolKeyDown('Points de talents secondaires')" id="Edit_pointPoolModification" value="" size="5" name="pointPoolModification" type="text"/>
 																</td>
 															</tr>
 															<tr>
 																<td>
-																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool(this)" class="foldImg"/>
+																	<img src="/gencross-web/img/validate.png" onclick="javascript:modifyPointPool('Points de talents secondaires')" class="foldImg"/>
 																</td>
 																<td>
 																	<img src="/gencross-web/img/fold.png" onclick="javascript:hidePointPoolForm(this)" class="foldImg"/>

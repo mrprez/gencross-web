@@ -137,7 +137,16 @@ public class EditPersonnageTest extends WebAbstractTest {
 		driver.findElement(By.cssSelector("#form_5_1 > button.plusButton")).click();
 		driver.findElement(By.cssSelector("#form_5_1 > button.plusButton")).click();
 		driver.findElement(By.xpath("(//button[@type='button'])[25]")).click();
-		
+		testEditPage();
+		driver.findElement(By.cssSelector("#modalDivButton > button")).click();
+		testEditPage();
+		driver.findElement(By.cssSelector("#li_5_1 > img.editImg.editPropertyImg")).click();
+		driver.findElement(By.cssSelector("#form_5_1 > button.minusButton")).click();
+		driver.findElement(By.cssSelector("#form_5_1 > button.minusButton")).click();
+		driver.findElement(By.cssSelector("#form_5_1 > button.minusButton")).click();
+		driver.findElement(By.cssSelector("#form_5_1 > button.minusButton")).click();
+		driver.findElement(By.xpath("(//button[@type='button'])[25]")).click();
+		testEditPage();
 	}
 	
 	private void testEditPage() throws IOException, InterruptedException, DocumentException{

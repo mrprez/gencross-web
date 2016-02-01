@@ -288,8 +288,8 @@ public abstract class WebAbstractTest {
 			e.printStackTrace();
 		}
 
-		Assert.assertTrue("Some templates are missing", pageTester.isAllTemplatePresent());
-		Assert.assertTrue("Mail template is missing", mailTester.isAllTemplatePresent());
+		Assert.assertTrue("Some templates are missing: "+pageTester.getMissingTemplates(), pageTester.getMissingTemplates().isEmpty());
+		Assert.assertTrue("Mail template is missing: "+mailTester.getMissingTemplates(), mailTester.getMissingTemplates().isEmpty());
 
 	}
 

@@ -8,17 +8,14 @@
 		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/dhtmlxscheduler/locale/locale_fr.js" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/ajax.jsp" type="text/javascript" language="JavaScript"/>
-		<script charset="utf-8" src="/gencross-web/js/tree.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/listPersonnage.js" type="text/javascript" language="JavaScript"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
-		<link type="text/css" rel="stylesheet" href="/gencross-web/dhtmlxscheduler/dhtmlxscheduler.css"/>
 		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
 	</head>
-	<body onload="$('#ajaxError').ajaxError(displayAjaxError);">
+	<body>
 		<div id="header">
 			<div id="headerLeft">
 				<a href="/gencross-web/List.action">
@@ -86,6 +83,13 @@
 			</div>
 		</div>
 		<div id="content">
+			<div id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
+			</div>
 			<table class="personnageListContainer">
 				<tbody>
 					<tr class="listePersonnageTitre">
@@ -165,9 +169,9 @@
 											<a title="Charger au format gcr" href="/gencross-web/Upload.action?personnageId=1">
 												<img onclick="Javascript:uploadPersonnage(this)" alt="Charger" src="/gencross-web/img/upload.png"/>
 											</a>
-											<form class="imgForm" method="post" action="/gencross-web/List!deletePersonnage.action" onsubmit="javascript:return confirm('Voulez-vous supprimer ce personnage?\n Si ce personnage a un PJ autre que vous, il ne sera pas supprimer pour ce PJ.')" name="List!deletePersonnage" id="List!deletePersonnage">
+											<form class="imgForm" method="post" action="/gencross-web/List!deletePersonnage.action" name="List!deletePersonnage" id="List!deletePersonnage">
 												<input id="List!deletePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
-												<input title="Supprimer" value="Supprimer" id="List!deletePersonnage_0" src="/gencross-web/img/remove.png" alt="Supprimer" type="image"/>
+												<img onclick="javascript:deletePersonnageMJ(this);" alt="Supprimer" class="editImg" src="/gencross-web/img/remove.png"/>
 											</form>
 										</td>
 									</tr>
