@@ -1,11 +1,5 @@
 package com.mrprez.gencross.web.selenium;
 
-import java.awt.AWTException;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
@@ -18,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
-import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.PrefixFileFilter;
@@ -268,8 +260,6 @@ public abstract class WebAbstractTest {
 
 	@After
 	public void tearDown() throws Exception {
-		recordScreen("finalScreenShot");
-
 		try {
 			if (tomcatProcess != null) {
 				tomcatProcess.destroy();
@@ -293,20 +283,6 @@ public abstract class WebAbstractTest {
 
 	}
 
-	protected void recordScreen(String name) throws InterruptedException, AWTException, IOException {
-		File imgFile = new File(pageTester.getWorkDir(), name + ".jpg");
-		if (imgFile.exists()) {
-			imgFile.delete();
-		}
-		Toolkit tool = Toolkit.getDefaultToolkit();
-		Dimension d = tool.getScreenSize();
-		Rectangle rect = new Rectangle(d);
-		Robot robot = new Robot();
-		Thread.sleep(2000);
-		BufferedImage img = robot.createScreenCapture(rect);
-		ImageIO.write(img, "jpeg", imgFile);
-		tool.beep();
-	}
 	
 
 

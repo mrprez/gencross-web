@@ -19,7 +19,6 @@ public class TableTest extends WebAbstractTest{
 		
 		pageTester.addReplacementRule("[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}", "00/00/0000 00:00:00");
 		pageTester.addReplacementRule(" cke_focus", "");
-		pageTester.setIgnoreWhiteSpace(true);
 		
 		editPersonnageTester = new PageTester(resourceDir, workDir);
 		editPersonnageTester.addReplacementRule("[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3} [0-9]{2}/[0-9]{2}/[0-9]{4}", "00:00:00,000 00/00/0000");

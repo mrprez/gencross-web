@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class TableMessagesTest extends WebAbstractTest {
@@ -59,18 +56,10 @@ public class TableMessagesTest extends WebAbstractTest {
 		pageTester.testPage(driver, "editTable1");
 		driver.findElement(By.id("EditTable!refreshMessages_0")).click();
 		pageTester.testPage(driver, "editTable2");
-		driver.findElement(By.id("EditTable!removeMessage_0")).click();
-		try{
-			Alert alert = driver.switchTo().alert();
-			driver.switchTo().alert().accept();
-			Assert.assertEquals("Voulez-vous supprimer ce message?", alert.getText());
-			alert.accept();
-		}catch(WebDriverException wde){
-			System.err.println("WebDriverException:"+wde.getMessage());
-			wde.printStackTrace();
-			driver.get(baseUrl+context+"/EditTable!removeMessage.action?id=1&messageId=2");
-		}
+		driver.findElement(By.id("removeMessageImg_1")).click();
 		pageTester.testPage(driver, "editTable3");
+		driver.findElement(By.cssSelector("#modalDivButton > button")).click();
+		pageTester.testPage(driver, "editTable4");
 		
 		mailTester.test("mail");
 	}
