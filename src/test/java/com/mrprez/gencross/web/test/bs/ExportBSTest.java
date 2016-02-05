@@ -12,8 +12,12 @@ import java.util.zip.ZipInputStream;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import com.mrprez.gencross.export.DrawerGenerator;
@@ -26,30 +30,44 @@ import com.mrprez.gencross.web.bs.ExportBS;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.ITemplateFileResource;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class ExportBSTest {
+	
+	@Mock
+	private IPersonnageDAO personnageDao;
+	
+	@Mock
+	private ITemplateFileResource templateFileResource;
+	
+	@InjectMocks
+	private ExportBS exportBS;
+	
 	
 	
 	@Test
 	public void testExport_withoutFileTemplate() throws Exception{
+		// Prepare
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork();
 		FileGenerator fileGenerator = buildMockedFileGenerator();
-		ExportBS exportBS = buildExportBS();
 		
+		// Execute
 		byte[] byteArrayresult = exportBS.export(personnageWork, fileGenerator);
 		
+		// Check
 		Assert.assertArrayEquals("template".getBytes(), byteArrayresult);
 	}
 	
 	@Test
 	public void testExport_withFileTemplate() throws Exception{
+		// Prepare
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork();
 		File file = new File("templateFile");
 		TemplatedFileGenerator fileGenerator = buildMockedTemplatedFileGenerator();
-		ExportBS exportBS = buildExportBS();
 		
+		// Execute
 		byte[] byteArrayresult = exportBS.export(personnageWork, fileGenerator, file);
 		
+		// Check
 		Assert.assertArrayEquals("template".getBytes(), byteArrayresult);
 		Mockito.verify(fileGenerator).setTemplate(file);
 	}
@@ -57,15 +75,17 @@ public class ExportBSTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testExport_withStringTemplate() throws Exception{
+		// Prepare
 		PersonnageWorkBO personnageWork = PersonnageWorkBSTest.buildPersonnageWork();
 		File file = new File("templateFile");
 		TemplatedFileGenerator fileGenerator = buildMockedTemplatedFileGenerator();
-		ExportBS exportBS = buildExportBS();
 		Mockito.when(exportBS.getTemplateFileResource().getTemplate(Mockito.any(Class.class), Mockito.anyString(), Mockito.anyString()))
 				.thenReturn(file);
 		
+		// Execute
 		byte[] byteArrayresult = exportBS.export(personnageWork, fileGenerator, "fileName");
 		
+		// Check
 		Assert.assertArrayEquals("template".getBytes(), byteArrayresult);
 		Mockito.verify(fileGenerator).setTemplate(file);
 		Mockito.verify(fileGenerator).setTemplate(file);
@@ -73,43 +93,43 @@ public class ExportBSTest {
 	
 	@Test
 	public void testGetGenerator_Success_WithPackageName() throws Exception{
-		ExportBS exportBS = buildExportBS();
-		
+		// Execute
 		FileGenerator fileGenerator = exportBS.getGenerator("com.mrprez.gencross.export.TextGenerator");
 		
+		// Check
 		Assert.assertTrue(fileGenerator instanceof com.mrprez.gencross.export.TextGenerator);
 	}
 	
 	@Test
 	public void testGetGenerator_Success_WithoutPackageName() throws Exception{
-		ExportBS exportBS = buildExportBS();
-		
+		// Execute
 		FileGenerator fileGenerator = exportBS.getGenerator("TextGenerator");
 		
+		// Check
 		Assert.assertTrue(fileGenerator instanceof com.mrprez.gencross.export.TextGenerator);
 	}
 	
 	@Test
 	public void testGetGenerator_Fail_WithPackageName() throws Exception{
-		ExportBS exportBS = buildExportBS();
-		
+		// Execute
 		FileGenerator fileGenerator = exportBS.getGenerator("com.mrprez.gencross.export.TotoGenerator");
 		
+		// Check
 		Assert.assertNull(fileGenerator);
 	}
 	
 	@Test
 	public void testGetGenerator_Fail_WithoutPackageName() throws Exception{
-		ExportBS exportBS = buildExportBS();
-		
+		// Execute
 		FileGenerator fileGenerator = exportBS.getGenerator("TotoGenerator");
 		
+		// Check
 		Assert.assertNull(fileGenerator);
 	}
 	
 	@Test
 	public void testMultiExport() throws Exception{
-		ExportBS exportBS = buildExportBS();
+		// Prepare
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
 		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
@@ -128,8 +148,10 @@ public class ExportBSTest {
 		personnageWork3.setName("Perso3");
 		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
 		
+		// Execute
 		byte[] result = exportBS.multiExport(Arrays.asList(1, 2, 3), user, new SimpleTxtGenerator());
 		
+		// Check
 		ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(result));
 		try{
 			ZipEntry zipEntry1 = zis.getNextEntry();
@@ -168,7 +190,7 @@ public class ExportBSTest {
 	
 	@Test
 	public void testMultiExportInGrid() throws Exception{
-		ExportBS exportBS = buildExportBS();
+		// Prepare
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
 		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
@@ -187,8 +209,10 @@ public class ExportBSTest {
 		personnageWork3.setName("Perso3");
 		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
 		
+		// Execute
 		List<String[]> result = exportBS.multiExportInGrid(Arrays.asList(1, 2, 3), user);
 		
+		// Check
 		for(String[] stringTab : result){
 			Assert.assertEquals(3, stringTab.length);
 			Assert.assertEquals(stringTab[1], stringTab[2]);
@@ -198,22 +222,16 @@ public class ExportBSTest {
 	
 	@Test
 	public void testGetTemplateFiles() throws Exception{
-		ExportBS exportBS = buildExportBS();
+		// Prepare
 		Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles = new HashMap<Class<? extends TemplatedFileGenerator>, List<String>>();
 		templateFiles.put(DrawerGenerator.class, Arrays.asList("Toto", "Tutu"));
 		Mockito.when(exportBS.getTemplateFiles("Pavillon Noir")).thenReturn(templateFiles);
 		
+		// Execute
 		Map<Class<? extends TemplatedFileGenerator>, List<String>> result = exportBS.getTemplateFiles("Pavillon Noir");
 		
+		// Check
 		Assert.assertEquals(templateFiles, result);
-	}
-	
-	
-	private ExportBS buildExportBS(){
-		ExportBS exportBS = new ExportBS();
-		exportBS.setPersonnageDAO(Mockito.mock(IPersonnageDAO.class));
-		exportBS.setTemplateFileResource(Mockito.mock(ITemplateFileResource.class));
-		return exportBS;
 	}
 	
 	

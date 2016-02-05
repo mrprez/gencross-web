@@ -17,6 +17,7 @@ public class PersonnageComparatorBSTest {
 	
 	@Test
 	public void testFindPropertiesDifferences_haveTheSameAttributes() throws Exception{
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
 		Personnage personnage2 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
@@ -37,9 +38,10 @@ public class PersonnageComparatorBSTest {
 		personnage1.getProperty("Compétences#Intendance#Apprentissage").setOptions(Arrays.<Value>asList(new IntValue(0)));
 		personnage2.getProperty("Compétences#Intendance#Apprentissage").setOptions(Arrays.<Value>asList(new IntValue(0)));
 		
-		
+		// Execute
 		Set<String> result = personnageComparatorBS.findPropertiesDifferences(personnage1, personnage2);
 		
+		// Check
 		Assert.assertEquals(9, result.size());
 		Assert.assertTrue(result.contains("Attributs#Carrure"));
 		Assert.assertTrue(result.contains("Attributs#Erudition"));
@@ -54,6 +56,7 @@ public class PersonnageComparatorBSTest {
 	
 	@Test
 	public void testFindPropertiesDifferences_compareSubpropertiesAttributes() throws Exception{
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
 		Personnage personnage2 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
@@ -71,8 +74,10 @@ public class PersonnageComparatorBSTest {
 		personnage1.getProperty("Avantages").getSubProperties().getOptions().put("Sorcier", new Property("Sorcier", personnage1.getProperty("Avantages")));
 		personnage2.getProperty("Compétences#Balistique").getSubProperties().getOptions().put("Apprentissage2", new Property("Apprentissage2", personnage2.getProperty("Compétences#Balistique")));
 		
+		// Execute
 		Set<String> result = personnageComparatorBS.findPropertiesDifferences(personnage1, personnage2);
 		
+		// Check
 		Assert.assertEquals(10, result.size());
 		Assert.assertTrue(result.contains("Compétences#Religion"));
 		Assert.assertTrue(result.contains("Compétences#Connaissance spécialisée"));
@@ -90,14 +95,17 @@ public class PersonnageComparatorBSTest {
 	
 	@Test
 	public void testFindPropertiesDifferences_compareObject() throws Exception{
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
 		Personnage personnage2 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
 		personnage1.getProperty("Esquive").setValue(null);
 		personnage1.getProperty("Avantages").setValue(new IntValue(0));
 		
+		// Execute
 		Set<String> result = personnageComparatorBS.findPropertiesDifferences(personnage1, personnage2);
 		
+		// Check
 		Assert.assertEquals(2, result.size());
 		Assert.assertTrue(result.contains("Esquive"));
 		Assert.assertTrue(result.contains("Avantages"));
@@ -106,6 +114,7 @@ public class PersonnageComparatorBSTest {
 
 	@Test
 	public void testFindPropertiesDifferences_compare() throws Exception{
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
 		Personnage personnage2 = PersonnageWorkBSTest.buildPersonnageWork().getPersonnage();
@@ -113,8 +122,10 @@ public class PersonnageComparatorBSTest {
 		personnage2.getProperty("Faiblesses").getSubProperties().add(personnage2.getProperty("Faiblesses").getSubProperties().getOptions().get("Manchot"));
 		personnage2.getProperty("Compétences#Balistique").setName("Tir au canon");
 				
+		// Execute
 		Set<String> result = personnageComparatorBS.findPropertiesDifferences(personnage1, personnage2);
 		
+		// Check
 		Assert.assertEquals(3, result.size());
 		Assert.assertTrue(result.contains("Avantages"));
 		Assert.assertTrue(result.contains("Faiblesses"));
@@ -124,6 +135,7 @@ public class PersonnageComparatorBSTest {
 	
 	@Test
 	public void testHasTheSameErrors_FailSize() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -132,13 +144,16 @@ public class PersonnageComparatorBSTest {
 		personnage1.getErrors().add("error2");
 		personnage2.getErrors().add("error1");
 		
+		// Execute
 		boolean result = personnageComparatorBS.hasTheSameErrors(personnage1, personnage2);
 		
+		// Check
 		Assert.assertFalse(result);
 	}
 	
 	@Test
 	public void testHasTheSameErrors_FailTextDifference() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -148,13 +163,16 @@ public class PersonnageComparatorBSTest {
 		personnage2.getErrors().add("error1");
 		personnage2.getErrors().add("errorX");
 		
+		// Execute
 		boolean result = personnageComparatorBS.hasTheSameErrors(personnage1, personnage2);
 		
+		// Check
 		Assert.assertFalse(result);
 	}
 	
 	@Test
 	public void testHasTheSameErrors_Success() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -164,14 +182,17 @@ public class PersonnageComparatorBSTest {
 		personnage2.getErrors().add("error1");
 		personnage2.getErrors().add("error2");
 		
+		// Execute
 		boolean result = personnageComparatorBS.hasTheSameErrors(personnage1, personnage2);
 		
+		// Check
 		Assert.assertTrue(result);
 	}
 	
 	
 	@Test
 	public void testFindPointPoolDifferences_FailPoolValue() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -182,14 +203,17 @@ public class PersonnageComparatorBSTest {
 		
 		personnage1.getPointPools().get("PP1").spend(5);
 		
+		// Execute
 		Set<String> result = personnageComparatorBS.findPointPoolDifferences(personnage1, personnage2);
 		
+		// Check
 		Assert.assertEquals(1, result.size());
 		Assert.assertTrue(result.contains("PP1"));
 	}
 	
 	@Test
 	public void testFindPointPoolDifferences_FailPoolTotal() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -200,8 +224,10 @@ public class PersonnageComparatorBSTest {
 		
 		personnage1.getPointPools().get("PP2").setTotal(25);
 		
+		// Execute
 		Set<String> result = personnageComparatorBS.findPointPoolDifferences(personnage1, personnage2);
 		
+		// Check
 		Assert.assertEquals(1, result.size());
 		Assert.assertTrue(result.contains("PP2"));
 	}
@@ -209,6 +235,7 @@ public class PersonnageComparatorBSTest {
 	
 	@Test
 	public void testHasTheSameNextPhaseAvaibility_Fail() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -219,13 +246,16 @@ public class PersonnageComparatorBSTest {
 		personnage2.getPhaseList().add("Phase2");
 		personnage2.passToNextPhase();
 		
+		// Execute
 		boolean result = personnageComparatorBS.hasTheSameNextPhaseAvaibility(personnage1, personnage2);
 		
+		// Check
 		Assert.assertTrue(result);
 	}
 	
 	@Test
 	public void testHasTheSameNextPhaseAvaibility_Success() throws Exception {
+		// Prepare
 		PersonnageComparatorBS personnageComparatorBS = new PersonnageComparatorBS();
 		Personnage personnage1 = new Personnage();
 		Personnage personnage2 = new Personnage();
@@ -235,8 +265,10 @@ public class PersonnageComparatorBSTest {
 		personnage2.getPhaseList().add("Phase1");
 		personnage2.passToNextPhase();
 		
+		// Execute
 		boolean result = personnageComparatorBS.hasTheSameNextPhaseAvaibility(personnage1, personnage2);
 		
+		// Check
 		Assert.assertFalse(result);
 	}
 }

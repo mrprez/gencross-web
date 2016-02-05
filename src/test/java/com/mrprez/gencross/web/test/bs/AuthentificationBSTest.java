@@ -6,7 +6,11 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.RoleBO;
@@ -17,8 +21,20 @@ import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.IRoleDAO;
 import com.mrprez.gencross.web.dao.face.IUserDAO;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AuthentificationBSTest {
 	
+	@Mock
+	private IUserDAO userDao;
+	@Mock
+	private IPersonnageDAO personnageDao;
+	@Mock
+	private IRoleDAO roleDao;
+	@Mock
+	private IMailResource mailResource;
+	
+	@InjectMocks
+	private AuthentificationBS authentificationBS;
 	
 	
 	@Test
@@ -36,11 +52,7 @@ public class AuthentificationBSTest {
 		returnedUser.setDigest(digest);
 		returnedUser.setRoles(roles);
 		
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		authentificationBS.setUserDAO(userDao);
 		Mockito.when(userDao.getUser(username, digest)).thenReturn(returnedUser);
-		
 		
 		// Execute
 		UserBO user = authentificationBS.authentificateUser(username, password);
@@ -67,11 +79,7 @@ public class AuthentificationBSTest {
 		returnedUser.setDigest(digest);
 		returnedUser.setRoles(roles);
 		
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		authentificationBS.setUserDAO(userDao);
 		Mockito.when(userDao.getUser(username, digest)).thenReturn(returnedUser);
-		
 		
 		// Execute
 		UserBO user = authentificationBS.authentificateUser(username, "badPassword");
@@ -83,13 +91,9 @@ public class AuthentificationBSTest {
 	
 	@Test
 	public void testCreateUser_Success() throws Exception{
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		IRoleDAO roleDao = Mockito.mock(IRoleDAO.class);
+		// Prepare
 		Mockito.when(roleDao.getRole(RoleBO.USER)).thenReturn(new RoleBO(RoleBO.USER));
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		authentificationBS.setUserDAO(userDao);
-		authentificationBS.setRoleDAO(roleDao);
-		
+
 		String username = "batman";
 		String password = "robin";
 		String mail = "batman@gmail.com";
@@ -107,23 +111,16 @@ public class AuthentificationBSTest {
 		Assert.assertTrue(user.getRoles().contains(new RoleBO(RoleBO.USER)));
 		
 		Mockito.verify(userDao).saveUser(user);
-		
 	}
 	
 	
 	@Test
 	public void testRemoveUser_Success() throws Exception{
 		// Prepare
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		authentificationBS.setUserDAO(userDao);
 		String userName = "batman";
 		UserBO user = buildUser(userName);
 		Mockito.when(userDao.getUser(userName)).thenReturn(user);
 		
-		IPersonnageDAO personnageDAO = Mockito.mock(IPersonnageDAO.class);
-		authentificationBS.setPersonnageDAO(personnageDAO);
 		PersonnageWorkBO gameMasterPersonnage1 = new PersonnageWorkBO();
 		gameMasterPersonnage1.setGameMaster(user);
 		PersonnageWorkBO gameMasterPersonnage2 = new PersonnageWorkBO();
@@ -137,18 +134,18 @@ public class AuthentificationBSTest {
 		PersonnageWorkBO playerPersonnage2 = new PersonnageWorkBO();
 		playerPersonnage2.setPlayer(user);
 		playerPersonnage2.setGameMaster(buildUser("toto"));
-		Mockito.when(personnageDAO.getGameMasterPersonnageList(user)).thenReturn(Arrays.asList(gameMasterPersonnage1, gameMasterPersonnage2, bothPersonnage));
-		Mockito.when(personnageDAO.getPlayerPersonnageList(user)).thenReturn(Arrays.asList(playerPersonnage1, playerPersonnage2, bothPersonnage));
+		Mockito.when(personnageDao.getGameMasterPersonnageList(user)).thenReturn(Arrays.asList(gameMasterPersonnage1, gameMasterPersonnage2, bothPersonnage));
+		Mockito.when(personnageDao.getPlayerPersonnageList(user)).thenReturn(Arrays.asList(playerPersonnage1, playerPersonnage2, bothPersonnage));
 		
 		// Execute
 		boolean result = authentificationBS.removeUser(userName);
 		
 		// Check
 		Assert.assertTrue(result);
-		Mockito.verify(personnageDAO).deletePersonnage(gameMasterPersonnage1);
+		Mockito.verify(personnageDao).deletePersonnage(gameMasterPersonnage1);
 		Assert.assertNull(gameMasterPersonnage2.getGameMaster());
-		Mockito.verify(personnageDAO).deletePersonnage(bothPersonnage);
-		Mockito.verify(personnageDAO).deletePersonnage(playerPersonnage1);
+		Mockito.verify(personnageDao).deletePersonnage(bothPersonnage);
+		Mockito.verify(personnageDao).deletePersonnage(playerPersonnage1);
 		Assert.assertNull(playerPersonnage2.getPlayer());
 		
 		Mockito.verify(userDao).deleteUser(user);
@@ -157,10 +154,6 @@ public class AuthentificationBSTest {
 	@Test
 	public void testRemoveUser_Fail() throws Exception{
 		// Prepare
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		authentificationBS.setUserDAO(userDao);
 		Mockito.when(userDao.getUser("batman")).thenReturn(null);
 		
 		// Execute
@@ -173,19 +166,12 @@ public class AuthentificationBSTest {
 	@Test
 	public void testSendPassword_Success() throws Exception{
 		// Prepare
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		authentificationBS.setUserDAO(userDao);
 		String username = "batman";
 		String digest = "8ee60a2e00c90d7e00d5069188dc115b";
 		UserBO user = buildUser(username);
 		user.setDigest(digest);
 		Mockito.when(userDao.getUser(username)).thenReturn(user);
 		
-		IMailResource mailResource = Mockito.mock(IMailResource.class);
-		authentificationBS.setMailResource(mailResource);
-				
 		// Execute
 		UserBO resultUser = authentificationBS.sendPassword(username);
 		
@@ -199,18 +185,11 @@ public class AuthentificationBSTest {
 	@Test
 	public void testSendPassword_Fail() throws Exception{
 		// Prepare
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		authentificationBS.setUserDAO(userDao);
 		String username = "batman";
 		String digest = "8ee60a2e00c90d7e00d5069188dc115b";
 		UserBO user = buildUser(username);
 		user.setDigest(digest);
 		Mockito.when(userDao.getUser(username)).thenReturn(null);
-		
-		IMailResource mailResource = Mockito.mock(IMailResource.class);
-		authentificationBS.setMailResource(mailResource);
 				
 		// Execute
 		UserBO resultUser = authentificationBS.sendPassword(username);
@@ -224,10 +203,6 @@ public class AuthentificationBSTest {
 	@Test
 	public void testChangePassword() throws Exception{
 		// Prepare
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		authentificationBS.setUserDAO(userDao);
-		
 		UserBO user = buildUser("batman");
 		String digest = "8ee60a2e00c90d7e00d5069188dc115b";
 		user.setDigest(digest);
@@ -245,10 +220,6 @@ public class AuthentificationBSTest {
 	@Test
 	public void testChangeMail() throws Exception{
 		// Prepare
-		AuthentificationBS authentificationBS = new AuthentificationBS();
-		IUserDAO userDao = Mockito.mock(IUserDAO.class);
-		authentificationBS.setUserDAO(userDao);
-		
 		UserBO user = buildUser("batman");
 		
 		// Execute

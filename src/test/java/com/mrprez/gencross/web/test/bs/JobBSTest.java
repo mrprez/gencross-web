@@ -12,7 +12,11 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.SchedulerException;
@@ -21,17 +25,22 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import com.mrprez.gencross.web.bs.JobBS;
 
+@RunWith(MockitoJUnitRunner.class)
 public class JobBSTest {
 	
 	private SchedulerFactory schedulerFactory;
 	
+	@InjectMocks
+	private JobBS jobBS;
+	@Mock
+	private ServletContext servletContext;
 	
 	@Test
 	public void testGetJobList() throws Exception{
-		JobBS jobBS = buildJobBS();
-		
+		// Execute
 		Collection<JobDetail> result = jobBS.getJobList();
 		
+		// Check
 		Set<JobKey> expectedJobKeys = new HashSet<JobKey>();
 		expectedJobKeys.add(new JobKey("send-personnage-job", "GENCROSS_GROUP"));
 		expectedJobKeys.add(new JobKey("save-personnage-job", "GENCROSS_GROUP"));
@@ -43,15 +52,6 @@ public class JobBSTest {
 		Assert.assertTrue(expectedJobKeys.isEmpty());
 	}
 	
-	
-	
-	private JobBS buildJobBS() throws SchedulerException{
-		JobBS jobBS = new JobBS();
-		ServletContext servletContext = Mockito.mock(ServletContext.class);
-		Mockito.when(servletContext.getAttribute("org.quartz.impl.StdSchedulerFactory.KEY")).thenReturn(schedulerFactory);
-		jobBS.setServletContext(servletContext);
-		return jobBS;
-	}
 	
 	@Before
 	public void startScheduler() throws SchedulerException{
@@ -71,6 +71,8 @@ public class JobBSTest {
 		
 		schedulerFactory = new StdSchedulerFactory(properties);
 		schedulerFactory.getScheduler().start();
+		Mockito.when(servletContext.getAttribute("org.quartz.impl.StdSchedulerFactory.KEY")).thenReturn(schedulerFactory);
+		
 	}
 	
 	@After

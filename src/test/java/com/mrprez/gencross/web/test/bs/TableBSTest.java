@@ -16,7 +16,11 @@ import java.util.TreeSet;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.PoolPoint;
@@ -30,20 +34,40 @@ import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.TableBS;
 import com.mrprez.gencross.web.bs.util.BusinessException;
-import com.mrprez.gencross.web.dao.ParamDAO;
 import com.mrprez.gencross.web.dao.face.IMailResource;
+import com.mrprez.gencross.web.dao.face.IParamDAO;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.ITableDAO;
 import com.mrprez.gencross.web.dao.face.IUserDAO;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TableBSTest {
+	
+	@InjectMocks
+	private TableBS tableBS;
+	
+	@Mock
+	private ITableDAO tableDao;
+	
+	@Mock
+	private IPersonnageDAO personnageDao;
+	
+	@Mock
+	private PersonnageFactory personnageFactory;
+	
+	@Mock
+	private IMailResource mailResource;
+	
+	@Mock
+	private IParamDAO paramDao;
+	
+	@Mock
+	private IUserDAO userDao;
 	
 	
 	@Test
 	public void testCreateTable() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		String name = "Gotham";
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		String type = "DC-Comics";
@@ -56,15 +80,13 @@ public class TableBSTest {
 		Assert.assertEquals(name, table.getName());
 		Assert.assertEquals(gm, table.getGameMaster());
 		Assert.assertEquals(table.getType(), type);
-		Mockito.verify(tableBS.getTableDAO()).saveTable(table);
+		Mockito.verify(tableDao).saveTable(table);
 	}
 	
 	
 	@Test
 	public void testRemoveTable_Success_None() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC");
 		PersonnageWorkBO pj = new PersonnageWorkBO();
@@ -74,16 +96,13 @@ public class TableBSTest {
 		PersonnageWorkBO pnj = new PersonnageWorkBO();
 		pnj.setGameMaster(gm);
 		table.getPersonnages().add(pnj);
-		Mockito.when(tableBS.getTableDAO().loadTable(table.getId())).thenReturn(table);
-		
-		IPersonnageDAO personnageDao = Mockito.mock(IPersonnageDAO.class);
-		tableBS.setPersonnageDAO(personnageDao);
+		Mockito.when(tableDao.loadTable(table.getId())).thenReturn(table);
 		
 		// Execute
 		tableBS.removeTable(table.getId(), false, false, AuthentificationBSTest.buildUser("batman"));
 		
 		// Check
-		Mockito.verify(tableBS.getTableDAO()).deleteTable(table);
+		Mockito.verify(tableDao).deleteTable(table);
 		Mockito.verify(personnageDao, Mockito.never()).deletePersonnage(Mockito.any(PersonnageWorkBO.class));
 	}
 	
@@ -91,8 +110,6 @@ public class TableBSTest {
 	@Test
 	public void testRemoveTable_Success_Pj() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC");
 		PersonnageWorkBO pj = new PersonnageWorkBO();
@@ -102,16 +119,13 @@ public class TableBSTest {
 		PersonnageWorkBO pnj = new PersonnageWorkBO();
 		pnj.setGameMaster(gm);
 		table.getPersonnages().add(pnj);
-		Mockito.when(tableBS.getTableDAO().loadTable(table.getId())).thenReturn(table);
-		
-		IPersonnageDAO personnageDao = Mockito.mock(IPersonnageDAO.class);
-		tableBS.setPersonnageDAO(personnageDao);
+		Mockito.when(tableDao.loadTable(table.getId())).thenReturn(table);
 		
 		// Execute
 		tableBS.removeTable(table.getId(), true, false, AuthentificationBSTest.buildUser("batman"));
 		
 		// Check
-		Mockito.verify(tableBS.getTableDAO()).deleteTable(table);
+		Mockito.verify(tableDao).deleteTable(table);
 		Mockito.verify(personnageDao).deletePersonnage(pj);
 		Mockito.verify(personnageDao, Mockito.never()).deletePersonnage(pnj);
 	}
@@ -120,8 +134,6 @@ public class TableBSTest {
 	@Test
 	public void testRemoveTable_Success_Pnj() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC");
 		PersonnageWorkBO pj = new PersonnageWorkBO();
@@ -131,13 +143,13 @@ public class TableBSTest {
 		PersonnageWorkBO pnj = new PersonnageWorkBO();
 		pnj.setGameMaster(gm);
 		table.getPersonnages().add(pnj);
-		Mockito.when(tableBS.getTableDAO().loadTable(table.getId())).thenReturn(table);
+		Mockito.when(tableDao.loadTable(table.getId())).thenReturn(table);
 		
 		// Execute
 		tableBS.removeTable(table.getId(), false, true, AuthentificationBSTest.buildUser("batman"));
 		
 		// Check
-		Mockito.verify(tableBS.getTableDAO()).deleteTable(table);
+		Mockito.verify(tableDao).deleteTable(table);
 		Mockito.verify(tableBS.getPersonnageDAO()).deletePersonnage(pnj);
 		Mockito.verify(tableBS.getPersonnageDAO(), Mockito.never()).deletePersonnage(pj);
 	}
@@ -146,8 +158,6 @@ public class TableBSTest {
 	@Test
 	public void testRemoveTable_Success_All() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC");
 		PersonnageWorkBO pj = new PersonnageWorkBO();
@@ -157,16 +167,13 @@ public class TableBSTest {
 		PersonnageWorkBO pnj = new PersonnageWorkBO();
 		pnj.setGameMaster(gm);
 		table.getPersonnages().add(pnj);
-		Mockito.when(tableBS.getTableDAO().loadTable(table.getId())).thenReturn(table);
-		
-		IPersonnageDAO personnageDao = Mockito.mock(IPersonnageDAO.class);
-		tableBS.setPersonnageDAO(personnageDao);
+		Mockito.when(tableDao.loadTable(table.getId())).thenReturn(table);
 		
 		// Execute
 		tableBS.removeTable(table.getId(), true, true, AuthentificationBSTest.buildUser("batman"));
 		
 		// Check
-		Mockito.verify(tableBS.getTableDAO()).deleteTable(table);
+		Mockito.verify(tableDao).deleteTable(table);
 		Mockito.verify(personnageDao).deletePersonnage(pnj);
 		Mockito.verify(personnageDao).deletePersonnage(pj);
 	}
@@ -175,10 +182,9 @@ public class TableBSTest {
 	@Test
 	public void testRemoveTable_Fail() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC");
-		Mockito.when(tableBS.getTableDAO().loadTable(table.getId())).thenReturn(table);
+		Mockito.when(tableDao.loadTable(table.getId())).thenReturn(table);
 		
 		// Execute
 		BusinessException exception = null;
@@ -194,80 +200,61 @@ public class TableBSTest {
 	}
 	
 	
-	
-	
-	
-	public static TableBO buildTable(UserBO gm, String name, String type) {
-		TableBO table = new TableBO();
-		table.setGameMaster(gm);
-		table.setId((int) (Math.random()*1000));
-		table.setName(name);
-		table.setType(type);
-		table.setPersonnages(new HashSet<PersonnageWorkBO>());
-		
-		return table;
-	}
-	
-	
 	@Test
 	public void testGetTableListForUser() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		List<TableBO> tableList = new ArrayList<TableBO>();
 		tableList.add(buildTable(user, "Gotham", "DC-Comics"));
 		tableList.add(buildTable(user, "Mystérieuses caraïbes", "Pavillon Noir"));
-		Mockito.when(tableBS.getTableDAO().getTableFromGM(user)).thenReturn(tableList);
+		Mockito.when(tableDao.getTableFromGM(user)).thenReturn(tableList);
 		
 		// Execute
 		Set<TableBO> returnedTableList = tableBS.getTableListForUser(user);
 		
 		// Check
 		Assert.assertEquals(new HashSet<TableBO>(tableList), returnedTableList);
-		Mockito.verify(tableBS.getTableDAO()).getTableFromGM(user);
+		Mockito.verify(tableDao).getTableFromGM(user);
 	}
 	
 	
 	@Test
 	public void testGetTableForGM_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(user, "Gotham", "DC-Comics");
 		table.setMessages(new TreeSet<TableMessageBO>());
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		TableBO returnedTable = tableBS.getTableForGM(tableId, user);
 		
 		// Check
 		Assert.assertEquals(table, returnedTable);
-		Mockito.verify(tableBS.getTableDAO()).loadTable(tableId);
+		Mockito.verify(tableDao).loadTable(tableId);
 	}
 	
 	@Test
 	public void testGetTableForGM_Fail() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(user, "Gotham", "DC-Comics");
 		table.setMessages(new TreeSet<TableMessageBO>());
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		TableBO returnedTable = tableBS.getTableForGM(tableId, AuthentificationBSTest.buildUser("robin"));
 		
 		// Check
 		Assert.assertNull(returnedTable);
-		Mockito.verify(tableBS.getTableDAO()).loadTable(tableId);
+		Mockito.verify(tableDao).loadTable(tableId);
 	}
 	
 	@Test
 	public void testGetPjList() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		PersonnageWorkBO pj1 = new PersonnageWorkBO();
 		pj1.setPlayer(AuthentificationBSTest.buildUser("robin"));
@@ -278,7 +265,7 @@ public class TableBSTest {
 		table.getPersonnages().addAll(Arrays.asList(pnj1, pj1, pj2, pnj2));
 		
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		Collection<PersonnageWorkBO> returnedPjList = tableBS.getPjList(tableId);
@@ -293,10 +280,9 @@ public class TableBSTest {
 	@Test
 	public void testGetPointPoolList() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn( table );
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn( table );
 		Personnage newPersonnage = new Personnage();
 		newPersonnage.getPointPools().put("Attributs", new PoolPoint("Attributs", 10));
 		newPersonnage.getPointPools().put("Compétences", new PoolPoint("Compétences", 100));
@@ -317,11 +303,10 @@ public class TableBSTest {
 	@Test
 	public void testAddNewPersonnageToTable_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		Personnage newPersonnage = new Personnage();
 		newPersonnage.setPluginDescriptor(new PluginDescriptor());
 		newPersonnage.getPluginDescriptor().setName("DC-Comics");
@@ -345,7 +330,6 @@ public class TableBSTest {
 	@Test
 	public void testAddNewPersonnageToTable_Fail_TableDoesNotExist() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		
 		// Execute
@@ -359,11 +343,10 @@ public class TableBSTest {
 	@Test
 	public void testAddNewPersonnageToTable_Fail_NotMj() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO user = AuthentificationBSTest.buildUser("robin");
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		TableBO returnedTable = tableBS.addNewPersonnageToTable(tableId, "Joker", user);
@@ -376,11 +359,10 @@ public class TableBSTest {
 	@Test
 	public void testAddPersonnageToTable_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		personnageWork.setGameMaster(gm);
 		Integer personnageId = 10;
@@ -401,7 +383,6 @@ public class TableBSTest {
 	@Test
 	public void testAddPersonnageToTable_FailTableNotExist() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		
 		// Execute
@@ -415,11 +396,10 @@ public class TableBSTest {
 	@Test
 	public void testAddPersonnageToTable_FailNotTableGm() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		UserBO user = AuthentificationBSTest.buildUser("robin");
@@ -434,11 +414,10 @@ public class TableBSTest {
 	@Test
 	public void testAddPersonnageToTable_PersoNotExist() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		PersonnageWorkBO returnedPersonnageWork = tableBS.addPersonnageToTable(tableId, 9, gm);
@@ -452,11 +431,10 @@ public class TableBSTest {
 	@Test
 	public void testAddPersonnageToTable_FailNotPersoGm() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		UserBO user = AuthentificationBSTest.buildUser("robin");
 		personnageWork.setGameMaster(user);
@@ -477,13 +455,11 @@ public class TableBSTest {
 	@Test
 	public void testRemovePersonnageFromTable_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
 		table.getPersonnages().add(new PersonnageWorkBO());
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		Integer personnageId = 20;
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
@@ -500,15 +476,13 @@ public class TableBSTest {
 		Assert.assertFalse(table.getPersonnages().contains(personnageWork));
 		Assert.assertNull(personnageWork.getTable());
 		Mockito.verify(tableBS.getPersonnageDAO()).loadPersonnageWork(personnageId);
-		Mockito.verify(tableBS.getTableDAO()).loadTable(tableId);
+		Mockito.verify(tableDao).loadTable(tableId);
 	}
 	
 	
 	@Test
 	public void testRemovePersonnageFromTable_FailTableNotExists() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		Integer tableId = 10;
 		Integer personnageId = 20;
@@ -524,13 +498,11 @@ public class TableBSTest {
 	@Test
 	public void testRemovePersonnageFromTable_FailNoGmTable() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
 		table.getPersonnages().add(new PersonnageWorkBO());
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		Integer personnageId = 20;
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
@@ -553,13 +525,11 @@ public class TableBSTest {
 	@Test
 	public void testRemovePersonnageFromTable_FailPersonnageNotExists() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
 		table.getPersonnages().add(new PersonnageWorkBO());
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		Integer personnageId = 20;
 		
@@ -575,13 +545,11 @@ public class TableBSTest {
 	@Test
 	public void testRemovePersonnageFromTable_FailNotTablePersonnage() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
 		table.getPersonnages().add(new PersonnageWorkBO());
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		Integer personnageId = 20;
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
@@ -601,13 +569,11 @@ public class TableBSTest {
 	@Test
 	public void testGetPersonnageTable_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
 		table.getPersonnages().add(personnageWork);
 		personnageWork.setTable(table);
-		Mockito.when(tableBS.getTableDAO().getPersonnageTable(personnageWork)).thenReturn(table);
+		Mockito.when(tableDao.getPersonnageTable(personnageWork)).thenReturn(table);
 		
 		// Execute
 		TableBO resultTable = tableBS.getPersonnageTable(personnageWork);
@@ -620,8 +586,6 @@ public class TableBSTest {
 	@Test
 	public void testAddPointsToPj_Fail() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
 		for(int i=0; i<5; i++){
@@ -633,7 +597,7 @@ public class TableBSTest {
 			personnageWork.setPersonnageData(personnageData);
 			table.getPersonnages().add(personnageWork);
 		}
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		UserBO user = AuthentificationBSTest.buildUser("robin");
@@ -651,8 +615,6 @@ public class TableBSTest {
 	@Test
 	public void testAddPointsToPj_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
-		
 		UserBO gm =  AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
@@ -675,7 +637,7 @@ public class TableBSTest {
 			
 		}
 		
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		String errorMessage = tableBS.addPointsToPj(tableId, gm, "Compétences", 10);
@@ -691,7 +653,6 @@ public class TableBSTest {
 	@Test
 	public void testGetAddablePersonnages() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		TableBO table = buildTable(AuthentificationBSTest.buildUser("batman"), "Gotham", "DC-Comics");
 		Collection<PersonnageWorkBO> addablePersonnageList = new ArrayList<PersonnageWorkBO>();
 		addablePersonnageList.add(new PersonnageWorkBO());
@@ -708,18 +669,17 @@ public class TableBSTest {
 	@Test
 	public void testAddMessageToTable_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		String message = "Message to test";
 		tableBS.addMessageToTable(message, tableId, gm);
 		
 		// Check
-		Mockito.verify(tableBS.getTableDAO()).saveTable(table);
+		Mockito.verify(tableDao).saveTable(table);
 		Assert.assertEquals(1, table.getMessages().size());
 		TableMessageBO resultMessage = table.getMessages().iterator().next();
 		Assert.assertEquals(gm, resultMessage.getAuthor());
@@ -731,11 +691,10 @@ public class TableBSTest {
 	@Test
 	public void testAddMessageToTable_Fail() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		String message = "Message to test";
@@ -756,32 +715,30 @@ public class TableBSTest {
 	@Test
 	public void testAddSendMessage_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
-		Mockito.when(tableBS.getParamDAO().getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "admin@gmail.com"));
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
+		Mockito.when(paramDao.getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "admin@gmail.com"));
 		
 		// Execute
 		String message = "Message to test";
 		tableBS.addSendMessage(message, tableId, gm);
 		
 		// Check
-		Mockito.verify(tableBS.getTableDAO()).saveTable(table);
+		Mockito.verify(tableDao).saveTable(table);
 		Set<String> toAddresses = new HashSet<String>(Arrays.asList("catwoman@gmail.com", "robin@gmail.com", "batman@gmail.com"));
-		Mockito.verify(tableBS.getMailResource()).send(toAddresses, "admin@gmail.com", "["+table.getId()+"] "+table.getName(), message);
+		Mockito.verify(mailResource).send(toAddresses, "admin@gmail.com", "["+table.getId()+"] "+table.getName(), message);
 	}
 	
 	
 	@Test
 	public void testAddSendMessage_Fail() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		String message = "Message to test";
@@ -796,19 +753,18 @@ public class TableBSTest {
 		// Check
 		Assert.assertNotNull(businessException);
 		Assert.assertEquals("The author is not the table game master", businessException.getMessage());
-		Mockito.verify(tableBS.getTableDAO(), Mockito.never()).saveTable(Mockito.any(TableBO.class));
-		Mockito.verify(tableBS.getMailResource(), Mockito.never()).send(Mockito.anyCollectionOf(String.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+		Mockito.verify(tableDao, Mockito.never()).saveTable(Mockito.any(TableBO.class));
+		Mockito.verify(mailResource, Mockito.never()).send(Mockito.anyCollectionOf(String.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
 	}
 	
 	
 	@Test
 	public void testRemoveMessageFromTable_Fail() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		UserBO user = AuthentificationBSTest.buildUser("robin");
@@ -829,11 +785,10 @@ public class TableBSTest {
 	@Test
 	public void testRemoveMessageFromTable_Success() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm = AuthentificationBSTest.buildUser("batman");
 		TableBO table = buildFullTable(gm, "Gotham", "DC-Comics");
 		Integer tableId = table.getId();
-		Mockito.when(tableBS.getTableDAO().loadTable(tableId)).thenReturn(table);
+		Mockito.when(tableDao.loadTable(tableId)).thenReturn(table);
 		
 		// Execute
 		tableBS.removeMessageFromTable(20, tableId, gm);
@@ -846,14 +801,13 @@ public class TableBSTest {
 	@Test
 	public void testConnectTableMailBox() throws Exception{
 		// Prepare
-		TableBS tableBS = buildMockedTableBS();
 		UserBO gm1 = AuthentificationBSTest.buildUser("batman");
 		TableBO table1 = buildFullTable(gm1, "Gotham", "DC-Comics");
 		table1.setId(1);
-		Mockito.when(tableBS.getTableDAO().loadTable(1)).thenReturn(table1);
+		Mockito.when(tableDao.loadTable(1)).thenReturn(table1);
 		UserBO gm2 = AuthentificationBSTest.buildUser("superman");
 		TableBO table2 = buildFullTable(gm2, "Metropolis", "DC-Comics");
-		Mockito.when(tableBS.getTableDAO().loadTable(2)).thenReturn(table2);
+		Mockito.when(tableDao.loadTable(2)).thenReturn(table2);
 		
 		TableMessageBO message1 = buildTableMessage(null, "No table ID", "2015/03/01 15:55:55", 0);
 		message1.setSubject("batcave");
@@ -867,11 +821,11 @@ public class TableBSTest {
 		TableMessageBO message4 = buildTableMessage(null, "Normal message", "2015/03/01 17:12:45", 1);
 		message4.setSubject("Signal");
 		message4.setSenderMail("robin@gmail.com");
-		Mockito.when(tableBS.getUserDAO().getUserFromMail("robin@gmail.com")).thenReturn(AuthentificationBSTest.buildUser("robin"));
+		Mockito.when(userDao.getUserFromMail("robin@gmail.com")).thenReturn(AuthentificationBSTest.buildUser("robin"));
 		Collection<TableMessageBO> messageList = Arrays.asList(message1, message2, message3, message4);
-		Mockito.when(tableBS.getMailResource().getMails()).thenReturn(messageList);
+		Mockito.when(mailResource.getMails()).thenReturn(messageList);
 		
-		Mockito.when(tableBS.getParamDAO().getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "table.adress@gmail.com"));
+		Mockito.when(paramDao.getParam(ParamBO.TABLE_ADRESS)).thenReturn(ParamsBSTest.buildParamBO(ParamBO.TABLE_ADRESS, "table.adress@gmail.com"));
 
 		// Execute
 		Collection<TableMessageBO> result = tableBS.connectTableMailBox();
@@ -903,22 +857,20 @@ public class TableBSTest {
 			}
 		}
 		Assert.assertTrue(messageFound);
-		Mockito.verify(tableBS.getMailResource()).send("pinguin@gmail.com", "table.adress@gmail.com", "Invalid subject: batcave", "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nNo table ID");
-		Mockito.verify(tableBS.getMailResource()).send("joker@gmail.com", "table.adress@gmail.com", "Invalid subject: [3]batcar", "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nNo table");
+		Mockito.verify(mailResource).send("pinguin@gmail.com", "table.adress@gmail.com", "Invalid subject: batcave", "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nNo table ID");
+		Mockito.verify(mailResource).send("joker@gmail.com", "table.adress@gmail.com", "Invalid subject: [3]batcar", "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nNo table");
 	}
 	
 	
+	public static TableBO buildTable(UserBO gm, String name, String type) {
+		TableBO table = new TableBO();
+		table.setGameMaster(gm);
+		table.setId((int) (Math.random()*1000));
+		table.setName(name);
+		table.setType(type);
+		table.setPersonnages(new HashSet<PersonnageWorkBO>());
 		
-	private TableBS buildMockedTableBS(){
-		TableBS tableBS = new TableBS();
-		tableBS.setTableDAO(Mockito.mock(ITableDAO.class));
-		tableBS.setPersonnageDAO(Mockito.mock(IPersonnageDAO.class));
-		tableBS.setPersonnageFactory(Mockito.mock(PersonnageFactory.class));
-		tableBS.setMailResource(Mockito.mock(IMailResource.class));
-		tableBS.setParamDAO(Mockito.mock(ParamDAO.class));
-		tableBS.setUserDAO(Mockito.mock(IUserDAO.class));
-		
-		return tableBS;
+		return table;
 	}
 	
 	
