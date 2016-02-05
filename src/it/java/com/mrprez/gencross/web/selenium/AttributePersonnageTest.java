@@ -3,7 +3,6 @@ package com.mrprez.gencross.web.selenium;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.Select;
 
 public class AttributePersonnageTest extends WebAbstractTest {
