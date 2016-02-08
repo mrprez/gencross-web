@@ -52,7 +52,7 @@
 					<s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
 				</span>
 			</s:iterator>
-			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip" id='zipExport"/>
+			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip" id="zipExport"/>
 		</div>
 	</s:form>
 	

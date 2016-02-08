@@ -1,0 +1,2034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
+		<title>Gen-Cross</title>
+		<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
+		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
+	</head>
+	<body>
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action">
+					<img src="/gencross-web/img/logo_GenCross.jpg"/>
+				</a>
+				<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});</script>
+				<table class="menu">
+					<tbody>
+						<tr>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu">
+								<span class="menu">Personnages</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/List.action">Liste des personnages</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/TableList.action">Liste des tables</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Create.action">Créer un personnage</a>
+									</li>
+								</ul>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu">
+								<span class="menu">Gérer son compte</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+									</li>
+								</ul>
+							</td>
+							<td class="menu">
+								<a class="menu" href="/gencross-web/Download.action">Téléchargements</a>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu">
+								<span class="menu">Administration</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Params.action">Gestion des paramètres</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/JobProcessing.action">Traitements programmés</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Logger.action">Gestion des logs</a>
+									</li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="headerRight">
+				<span id="username">mrprez</span>
+				<br/>
+				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
+			</div>
+		</div>
+		<div id="content">
+			<div id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
+			</div>
+			<div id="tableTitle">
+				<span>Table Export</span>
+			</div>
+			<div id="multiExportResultReturn">
+				<a href="/gencross-web/MultiExport.action?tableId=1&amp;exportedPjList=1%2C+2&amp;exportedPnjList=3%2C+4">
+					<img class="straddling" src="/gencross-web/img/left_arrow.png" alt="&lt;=="/>Retour
+				</a>
+			</div>
+			<table class="exportTable">
+				<tbody>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Nom</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Nationalité</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attributs</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Erudition</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Perception</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Pouvoir</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Carrure</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Dextérité</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Réflexe</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Social</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Esquive</pre>
+						</th>
+						<td class="exportTable">4</td>
+						<td class="exportTable">4</td>
+						<td class="exportTable">4</td>
+						<td class="exportTable">16</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Vie</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">10</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Compétences</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Balistique</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Cartographie</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Commerce</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Connaissance spécialisée</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable"/>
+						<td class="exportTable">Droit : 1</td>
+						<td class="exportTable">Géographie : 1</td>
+						<td class="exportTable"/>
+						<td class="exportTable">Histoire : 1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable"/>
+						<td class="exportTable">Attribut 1 : Erudition</td>
+						<td class="exportTable">Attribut 1 : Erudition</td>
+						<td class="exportTable"/>
+						<td class="exportTable">Attribut 1 : Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable"/>
+						<td class="exportTable">Attribut 2 : Erudition</td>
+						<td class="exportTable">Attribut 2 : Erudition</td>
+						<td class="exportTable"/>
+						<td class="exportTable">Attribut 2 : Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable"/>
+						<td class="exportTable">Apprentissage : 0</td>
+						<td class="exportTable">Apprentissage : 0</td>
+						<td class="exportTable"/>
+						<td class="exportTable">Apprentissage : 0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Herboristerie</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Ingénierie navale</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Intendance</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Lire/écrire</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Médecine</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Religion</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Sciences</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Tactique</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Art</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Pointage de pièces</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Recharge de pièces</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Artisanat</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Chasse</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Chirurgie</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Dressage</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Premiers soins</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Connaissance des navires</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Connaissances nautiques</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Connaissance de la signalisation</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Hydrographie</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Navigation</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Pêche</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Pratique nautique</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Timonerie</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Acrobatie/escalade</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Athlétisme</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Discrétion</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Équitation</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Larcins</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Natation</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Survie</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Vigilance</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Comédie</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Connaissance des colons/indigènes</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Connaissance des marins</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Empathie</pre>
+						</th>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+						<td class="exportTable">Perception</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Enseignement</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Étiquette</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Intimidation</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Jeu</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+						<td class="exportTable">Pouvoir</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Langue étrangère</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Meneur d’hommes</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Persuasion</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Politique</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+						<td class="exportTable">Erudition</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Séduction</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+						<td class="exportTable">Social</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Armes blanches</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Armes à feu</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Armes de jet</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Combat à mains nues</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+						<td class="exportTable">Carrure</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Escrime</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+						<td class="exportTable">3</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Esquive</pre>
+						</th>
+						<td class="exportTable">1</td>
+						<td class="exportTable">1</td>
+						<td class="exportTable">2</td>
+						<td class="exportTable">2</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 1</pre>
+						</th>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+						<td class="exportTable">Dextérité</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Attribut 2</pre>
+						</th>
+						<td class="exportTable">Réflexe</td>
+						<td class="exportTable">Réflexe</td>
+						<td class="exportTable">Réflexe</td>
+						<td class="exportTable">Réflexe</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Apprentissage</pre>
+						</th>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+						<td class="exportTable">0</td>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Faiblesses</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+					<tr class="exportTable">
+						<th class="exportTable">
+							<pre>Avantages</pre>
+						</th>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+						<td class="exportTable"/>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="footer"/>
+	</body>
+</html>
