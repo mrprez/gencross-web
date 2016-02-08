@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" name="generator"/>
+		<title>Gen-Cross</title>
+		<meta content="IE=8" http-equiv="X-UA-Compatible"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-1.10.1.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery-ui.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
+		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
+		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
+		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
+	</head>
+	<body>
+		<div id="header">
+			<div id="headerLeft">
+				<a href="/gencross-web/List.action">
+					<img src="/gencross-web/img/logo_GenCross.jpg"/>
+				</a>
+				<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
+				<script language="Javascript" type="text/javascript">$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});</script>
+				<table class="menu">
+					<tbody>
+						<tr>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="personnageMenu">
+								<span class="menu">Personnages</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/List.action">Liste des personnages</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/TableList.action">Liste des tables</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Create.action">Créer un personnage</a>
+									</li>
+								</ul>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="accountManagementMenu">
+								<span class="menu">Gérer son compte</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ChangePassword.action">Changer son mot de passe.</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/ChangeMail.action">Changer son adresse mail.</a>
+									</li>
+								</ul>
+							</td>
+							<td class="menu">
+								<a class="menu" href="/gencross-web/Download.action">Téléchargements</a>
+							</td>
+							<td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu">
+								<span class="menu">Administration</span>
+								<ul class="subMenu">
+									<li class="subMenu">
+										<a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Params.action">Gestion des paramètres</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/JobProcessing.action">Traitements programmés</a>
+									</li>
+									<li class="subMenu">
+										<a href="/gencross-web/Logger.action">Gestion des logs</a>
+									</li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="headerRight">
+				<span id="username">mrprez</span>
+				<br/>
+				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
+			</div>
+		</div>
+		<div id="content">
+			<div id="obstructionMask"/>
+			<div id="modalDiv">
+				<div id="modalDivText"/>
+				<div id="modalDivButton">
+					<button id="modalDivButton"/>
+				</div>
+			</div>
+			<div id="tableTitle">
+				<span>Table Export</span>
+			</div>
+			<form enctype="multipart/form-data" method="post" action="/gencross-web/MultiExport.action" name="MultiExport" id="MultiExport">
+				<ul class="exportedList">
+					<li style="list-style: none">
+						<span class="checkboxlistLabel">
+							<input onchange="javascript:allSelection(this);" type="checkbox"/>PNJ
+						</span>
+					</li>
+					<li>
+						<input class="exportedList" id="exportedPnjList-1" value="3" name="exportedPnjList" type="checkbox"/>
+						<label class="checkboxLabel" for="exportedPnjList-1">Test Export 3</label>
+					</li>
+					<li>
+						<input class="exportedList" id="exportedPnjList-2" value="4" name="exportedPnjList" type="checkbox"/>
+						<label class="checkboxLabel" for="exportedPnjList-2">Test Export 4</label>
+					</li>
+					<li>
+						<input class="exportedList" id="exportedPnjList-3" value="5" name="exportedPnjList" type="checkbox"/>
+						<label class="checkboxLabel" for="exportedPnjList-3">Test Export 5</label>
+					</li>
+					<li style="list-style: none">
+						<input value="" name="__multiselect_exportedPnjList" id="__multiselect_MultiExport_exportedPnjList" type="hidden"/>
+					</li>
+				</ul>
+				<ul class="exportedList">
+					<li style="list-style: none">
+						<span class="checkboxlistLabel">
+							<input onchange="javascript:allSelection(this);" type="checkbox"/>PJ
+						</span>
+					</li>
+					<li>
+						<input class="exportedList" id="exportedPjList-1" value="1" name="exportedPjList" type="checkbox"/>
+						<label class="checkboxLabel" for="exportedPjList-1">Test Export 1 (mrprez)</label>
+					</li>
+					<li>
+						<input class="exportedList" id="exportedPjList-2" value="2" name="exportedPjList" type="checkbox"/>
+						<label class="checkboxLabel" for="exportedPjList-2">Test Export 2 (azerty)</label>
+					</li>
+					<li style="list-style: none">
+						<input value="" name="__multiselect_exportedPjList" id="__multiselect_MultiExport_exportedPjList" type="hidden"/>
+					</li>
+				</ul>
+				<div>
+					<input value="Export Web" name="action:MultiExport!export" id="MultiExport_MultiExport!export" type="submit"/>
+				</div>
+				<div>
+					<input value="Export CSV" name="action:MultiExport!exportCsv" id="MultiExport_MultiExport!exportCsv" type="submit"/>
+				</div>
+				<div>
+					<select onchange="javascript:selectGenerator(this)" id="fileGeneratorName" name="fileGeneratorName">
+						<option value="XlsGenerator">Fichier Excel(.xls)</option>
+						<option selected="selected" value="DrawerGenerator">Fichier GenCross-Drawer</option>
+						<option value="PptxGenerator">Fichier PowerPoint .pptx</option>
+						<option value="XmlGenerator">Fichier XML</option>
+						<option value="EncodedXmlGenerator">Fichier avec template XML</option>
+						<option value="TextGenerator">Fichier avec template texte</option>
+						<option value="SimpleTxtGenerator">Fichier texte</option>
+						<option value="SimpleTextWithCommentsGenerator">Fichier texte avec commentaires</option>
+						<option value="CompactFileGenerator">Fichier texte compact</option>
+					</select>
+					<span style="display: inline;" class="templateFileList" id="DrawerGenerator_templatesEl">
+						<label for="DrawerGenerator_templates">Fichier template:</label>
+						<select onchange="javascript:selectTemplateFile(this)" class="selectTemplate" id="DrawerGenerator_templates" name="selectedTemplate">
+							<option value="Uploader un fichier">Uploader un fichier</option>
+						</select>
+					</span>
+					<span style="display: none;" class="templateFileList" id="EncodedXmlGenerator_templatesEl">
+						<label for="EncodedXmlGenerator_templates">Fichier template:</label>
+						<select onchange="javascript:selectTemplateFile(this)" class="selectTemplate" id="EncodedXmlGenerator_templates" name="">
+							<option value="Uploader un fichier">Uploader un fichier</option>
+						</select>
+					</span>
+					<span style="display: none;" class="templateFileList" id="PptxGenerator_templatesEl">
+						<label for="PptxGenerator_templates">Fichier template:</label>
+						<select onchange="javascript:selectTemplateFile(this)" class="selectTemplate" id="PptxGenerator_templates" name="">
+							<option value="Uploader un fichier">Uploader un fichier</option>
+						</select>
+					</span>
+					<span style="display: none;" class="templateFileList" id="TextGenerator_templatesEl">
+						<label for="TextGenerator_templates">Fichier template:</label>
+						<select onchange="javascript:selectTemplateFile(this)" class="selectTemplate" id="TextGenerator_templates" name="">
+							<option value="Uploader un fichier">Uploader un fichier</option>
+						</select>
+					</span>
+					<span style="display: none;" class="templateFileList" id="XlsGenerator_templatesEl">
+						<label for="XlsGenerator_templates">Fichier template:</label>
+						<select onchange="javascript:selectTemplateFile(this)" class="selectTemplate" id="XlsGenerator_templates" name="">
+							<option value="Uploader un fichier">Uploader un fichier</option>
+						</select>
+					</span>
+					<input value="Export Zip" name="action:MultiExport!exportZip" id="MultiExport_MultiExport!exportZip" type="submit"/>
+				</div>
+				<input id="MultiExport_tableId" value="1" name="tableId" type="hidden"/>
+			</form>
+			<script type="text/javascript">selectGenerator(); $("[name='selectedTemplate']").children("[value='']").attr("selected", "true");</script>
+			<div id="backToEditDiv">
+				<a href="/gencross-web/EditTable.action?id=1">
+					<img src="/gencross-web/img/left_arrow.png" class="straddling" alt="&lt;=="/>Retour
+				</a>
+			</div>
+		</div>
+		<div id="footer"/>
+	</body>
+</html>
