@@ -39,10 +39,10 @@
 			<s:checkboxlist theme="GcrTheme" label="PJ" list="pjList" name="exportedPjList" cssClass="exportedList"/>
 		</s:else>
 		<div>
-			<s:submit theme="simple" action="MultiExport!export" value="Export Web"/>
+			<s:submit theme="simple" action="MultiExport!export" value="Export Web" id="export"/>
 		</div>
 		<div>
-			<s:submit theme="simple" action="MultiExport!exportCsv" value="Export CSV"/>
+			<s:submit theme="simple" action="MultiExport!exportCsv" value="Export CSV" id="csvExport"/>
 		</div>
 		<div>
 			<s:select id="fileGeneratorName" theme="simple" name="fileGeneratorName" list="generatorList" listKey="value.simpleName" listValue="key" onchange="javascript:selectGenerator(this)"/>
@@ -52,7 +52,7 @@
 					<s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
 				</span>
 			</s:iterator>
-			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip"/>
+			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip" id='zipExport"/>
 		</div>
 	</s:form>
 	

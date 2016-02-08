@@ -67,7 +67,7 @@ public class ExportTest extends WebAbstractTest {
 		driver.findElement(By.id("MultiExport!export")).findElement(By.xpath("ul[1]/span/input[@type='checkbox']")).click();
 		driver.findElement(By.id("exportedPnjList-3")).click();
 		driver.findElement(By.id("MultiExport!export")).findElement(By.xpath("ul[2]/span/input[@type='checkbox']")).click();
-		driver.findElement(By.id("MultiExport_MultiExport!export")).click();
+		driver.findElement(By.id("MultiExport!export_MultiExport!export")).click();
 		pageTester.testPage(driver, "export3");
 		driver.findElement(By.linkText("Retour")).click();
 		pageTester.testPage(driver, "export1");
