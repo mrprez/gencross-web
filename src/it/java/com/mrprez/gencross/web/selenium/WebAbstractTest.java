@@ -1,5 +1,8 @@
 package com.mrprez.gencross.web.selenium;
 
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
@@ -22,7 +25,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
@@ -140,16 +145,16 @@ public abstract class WebAbstractTest {
 
 		pageTester = new PageTester(resourceDir, workDir);
 		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}", "jsessionid=00000000000000000000000000000000");
-		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
-		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
+//		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
+//		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
 		pageTester.addReplacementRule("style=\"\" ", "");
-		pageTester.addReplacementRule("style=\"-webkit-user-select: none;\" ", "");
-		pageTester.addReplacementRule("cd_frame_id_=\"[0-9a-f]+\" ", "");
-		pageTester.addReplacementRule("style=\"zoom: 1;\" ", "");
-		pageTester.addReplacementRule("//&lt;!\\[CDATA\\[ ", "");
-		pageTester.addReplacementRule(" //\\]\\]&gt;</script>", "</script>");
-		pageTester.addReplacementRule("<tbody align=\"left\">", "<tbody>");
-		pageTester.addReplacementRule("<thead align=\"left\">", "<thead>");
+//		pageTester.addReplacementRule("style=\"-webkit-user-select: none;\" ", "");
+//		pageTester.addReplacementRule("cd_frame_id_=\"[0-9a-f]+\" ", "");
+//		pageTester.addReplacementRule("style=\"zoom: 1;\" ", "");
+//		pageTester.addReplacementRule("//&lt;!\\[CDATA\\[ ", "");
+//		pageTester.addReplacementRule(" //\\]\\]&gt;</script>", "</script>");
+//		pageTester.addReplacementRule("<tbody align=\"left\">", "<tbody>");
+//		pageTester.addReplacementRule("<thead align=\"left\">", "<thead>");
 		
 		mailTester = new MailTester(resourceDir, workDir, getProperty(MAIL_PATH));
 		mailTester.deleteMailFile();
@@ -236,11 +241,18 @@ public abstract class WebAbstractTest {
 
 	
 	private void launchWebDriver() throws InterruptedException, MalformedURLException {
-		
 		WebDriver webDriver;
 		if(getProperty("webdriver.chrome.driver")!=null){
 			System.setProperty("webdriver.chrome.driver", getProperty("webdriver.chrome.driver"));
-			webDriver = new ChromeDriver();
+			ChromeOptions chromeOptions = new ChromeOptions();
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			for(GraphicsDevice device : ge.getScreenDevices()){
+				if( ! device.equals(ge.getDefaultScreenDevice()) ){
+					GraphicsConfiguration graphicConf = device.getDefaultConfiguration();
+					chromeOptions.addArguments("--window-position="+graphicConf.getBounds().x+","+graphicConf.getBounds().y);
+				}
+			}
+			webDriver = new ChromeDriver(chromeOptions);
 		}else{
 			webDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
 			((HtmlUnitDriver)webDriver).setJavascriptEnabled(true);
@@ -253,7 +265,20 @@ public abstract class WebAbstractTest {
 		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver driver) {
-				return !driver.findElements(By.id("footer")).isEmpty();
+				if(driver.findElements(By.id("footer")).isEmpty()){
+					return false;
+				}
+				for(WebElement webElement : driver.findElements(By.cssSelector("img.waitImage"))){
+					if(webElement.isDisplayed()){
+						return false;
+					}
+				}
+				for(WebElement webElement : driver.findElements(By.cssSelector("img.waitImg"))){
+					if(webElement.isDisplayed()){
+						return false;
+					}
+				}
+				return true;
 			}
 		});
 	}

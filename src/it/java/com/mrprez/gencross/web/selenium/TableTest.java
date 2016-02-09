@@ -3,9 +3,6 @@ package com.mrprez.gencross.web.selenium;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 
 import com.mrprez.gencross.web.tester.PageTester;
@@ -18,45 +15,10 @@ public class TableTest extends WebAbstractTest{
 		super("Table");
 		
 		pageTester.addReplacementRule("[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}", "00/00/0000 00:00:00");
-		pageTester.addReplacementRule(" cke_focus", "");
 		
 		editPersonnageTester = new PageTester(resourceDir, workDir);
 		editPersonnageTester.addReplacementRule("[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3} [0-9]{2}/[0-9]{2}/[0-9]{4}", "00:00:00,000 00/00/0000");
 		editPersonnageTester.addReplacementRule("[0-9]{2}:[0-9]{2} [0-9]{2}/[0-9]{2}", "00:00 00/00");
-		editPersonnageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
-		editPersonnageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
-		editPersonnageTester.addReplacementRule("style=\"\" ", "");
-	}
-	
-	
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		
-		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				for(WebElement webElement : webDriver.findElements(By.id("waitMask"))){
-					if(webElement.isDisplayed()){
-						return false;
-					}
-				}
-				return true;
-			}
-		});
-		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.getPageSource().contains("waitLine");
-			}
-		});
-		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.getPageSource().contains("waitImg");
-			}
-		});
-		
 	}
 	
 
@@ -182,16 +144,6 @@ public class TableTest extends WebAbstractTest{
 	    editPersonnageTester.testPage(driver, "editPerso5");
 	    driver.findElement(By.linkText("Table INS")).click();
 	    pageTester.testPage(driver, "editTable11");
-		
-		driver.findElement(By.id("MultiExport_0")).click();
-		pageTester.testPage(driver, "multiExport1");
-	    driver.findElement(By.id("exportedPnjList-1")).click();
-	    driver.findElement(By.id("exportedPnjList-3")).click();
-	    driver.findElement(By.id("exportedPjList-1")).click();
-	    driver.findElement(By.id("exportedPjList-2")).click();
-	    driver.findElement(By.id("MultiExport_MultiExport!export")).click();
-	    pageTester.testPage(driver, "multiExport2");
-	    
 		
 	}
 

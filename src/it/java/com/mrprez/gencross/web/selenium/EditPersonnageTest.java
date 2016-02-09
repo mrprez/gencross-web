@@ -5,9 +5,6 @@ import java.text.DecimalFormat;
 
 import org.dom4j.DocumentException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 
 public class EditPersonnageTest extends WebAbstractTest {
@@ -20,35 +17,6 @@ public class EditPersonnageTest extends WebAbstractTest {
 	}
 	
 	
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		
-		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				for(WebElement webElement : webDriver.findElements(By.id("waitMask"))){
-					if(webElement.isDisplayed()){
-						return false;
-					}
-				}
-				return true;
-			}
-		});
-		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.getPageSource().contains("waitLine");
-			}
-		});
-		driver.addWaitCondition(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return !webDriver.getPageSource().contains("waitImg");
-			}
-		});
-	}
-
 	@Override
 	public void processTest() throws Exception {
 		driver.get(baseUrl + context);
