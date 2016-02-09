@@ -145,16 +145,7 @@ public abstract class WebAbstractTest {
 
 		pageTester = new PageTester(resourceDir, workDir);
 		pageTester.addReplacementRule("jsessionid=[0-9A-F]{32}", "jsessionid=00000000000000000000000000000000");
-//		pageTester.addReplacementRule("<style id=\"wrc-middle-css\" type=\"text/css\">.*?</style>", "");
-//		pageTester.addReplacementRule("<script id=\"wrc-script-middle_window\" type=\"text/javascript\" language=\"JavaScript\">.*?</script>", "");
 		pageTester.addReplacementRule("style=\"\" ", "");
-//		pageTester.addReplacementRule("style=\"-webkit-user-select: none;\" ", "");
-//		pageTester.addReplacementRule("cd_frame_id_=\"[0-9a-f]+\" ", "");
-//		pageTester.addReplacementRule("style=\"zoom: 1;\" ", "");
-//		pageTester.addReplacementRule("//&lt;!\\[CDATA\\[ ", "");
-//		pageTester.addReplacementRule(" //\\]\\]&gt;</script>", "</script>");
-//		pageTester.addReplacementRule("<tbody align=\"left\">", "<tbody>");
-//		pageTester.addReplacementRule("<thead align=\"left\">", "<thead>");
 		
 		mailTester = new MailTester(resourceDir, workDir, getProperty(MAIL_PATH));
 		mailTester.deleteMailFile();
