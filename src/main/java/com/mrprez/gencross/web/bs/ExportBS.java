@@ -184,6 +184,14 @@ public class ExportBS implements IExportBS {
 		return result;
 	}
 	
+	
+	/**
+	 * Compare subPropertiesList of all Property in propertyList argument.
+	 * If each subPropertiesList contains the same property (if they have the same name in the same order), return true,
+	 * otherwise return false; 
+	 * @param propertyList
+	 * @return true if all subPropertiesList contains the same properties, false otherwise.
+	 */
 	private boolean hasFixSubProperties(List<Property> propertyList){
 		int maxPropertiesListSize = 0;
 		for(Property property : propertyList){
@@ -210,18 +218,33 @@ public class ExportBS implements IExportBS {
 		return true;
 	}
 	
-	private List<String[]> treatMovingProperties(List<Property> propertyList, int depth){
+	private List<String[]> treatMovingProperties(List<Property> propertyList, int depth) throws IOException{
 		List<String[]> result = new ArrayList<String[]>();
 		String line[] = new String[propertyList.size() + 1];
 		
-		int index = 0;
-		for(Property property : propertyList){
-			index++;
-			if(property != null){
-				line[index] = property.getText();
+		if(hasSameNameOrNull(propertyList)){
+			// TODO line[0] = StringUtils.repeat("  ", depth) + ....getFullName();
+			int index = 0;
+			for(Property property : propertyList){
+				index++;
+				line[index] = property.getRenderer().displayValue(property);
+				if(line[index].startsWith("<html>")){
+					HtmlToText htmlToText = new HtmlToText();
+					htmlToText.parse(line[index]);
+					line[index] = htmlToText.getString();
+				}
 			}
+			result.add(line);
+		}else{
+			int index = 0;
+			for(Property property : propertyList){
+				index++;
+				if(property != null){
+					line[index] = property.getText();
+				}
+			}
+			result.add(line);
 		}
-		result.add(line);
 		
 		int maxPropertiesListSize = 0;
 		for(Property property : propertyList){
@@ -245,6 +268,21 @@ public class ExportBS implements IExportBS {
 		}
 		
 		return result;
+	}
+	
+	
+	private boolean hasSameNameOrNull(List<Property> propertyList){
+		String name = null;
+		for(Property property : propertyList){
+			if(property!=null){
+				if(name==null){
+					name = property.getFullName();
+				}else if( ! name.equals(property.getFullName())){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	
