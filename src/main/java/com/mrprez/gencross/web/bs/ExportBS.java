@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -122,36 +123,35 @@ public class ExportBS implements IExportBS {
 		
 		List<String[]> result = new ArrayList<String[]>();
 		for(Property property : personnageList.get(0).getProperties()){
-			List<Property> propertyList = new ArrayList<Property>();
-			for(Personnage personnage : personnageList){
-				propertyList.add(personnage.getProperty(property.getAbsoluteName()));
+			Property[] propertyTab = new Property[personnageList.size()];
+			for(int i=0; i<personnageList.size(); i++){
+				propertyTab[i] = personnageList.get(i).getProperty(property.getAbsoluteName());
 			}
-			result.addAll(treatFixProperty(propertyList, 0));
+			result.addAll(treatFixProperty(propertyTab));
 		}
 		
 		return result;
 	}
 	
-	private List<String[]> treatFixProperty(List<Property> propertyList, int depth) throws IOException{
+	private List<String[]> treatFixProperty(Property[] propertyTab) throws IOException{
 		List<String[]> result = new ArrayList<String[]>();
-		String line[] = new String[propertyList.size() + 1];
+		result.add(buildFixExportLine(propertyTab));
 		
-		line[0] = StringUtils.repeat("  ", depth) + propertyList.get(0).getFullName();
-		
-		int index = 0;
-		for(Property property : propertyList){
-			index++;
-			line[index] = property.getRenderer().displayValue(property);
-			if(line[index].startsWith("<html>")){
-				HtmlToText htmlToText = new HtmlToText();
-				htmlToText.parse(line[index]);
-				line[index] = htmlToText.getString();
+		@SuppressWarnings("unchecked")
+		List<Property>[] subPropertiesListTab = new List[propertyTab.length];
+		for(int index=0; index<propertyTab.length; index++){
+			if(propertyTab[index].getSubProperties()!=null){
+				subPropertiesListTab[index] = new ArrayList<Property>();
+				for(Property subProperty : propertyTab[index].getSubProperties()){
+					subPropertiesListTab[index].add(subProperty);
+				}
 			}
 		}
-		result.add(line);
+		
+		
 		
 		int maxPropertiesListSize = 0;
-		for(Property property : propertyList){
+		for(Property property : propertyTab){
 			if(property.getSubProperties()!=null && property.getSubProperties().size()>maxPropertiesListSize){
 				maxPropertiesListSize = property.getSubProperties().size();
 			}
@@ -182,6 +182,23 @@ public class ExportBS implements IExportBS {
 		}
 		
 		return result;
+	}
+	
+	
+	private String[] buildFixExportLine(Property[] propertyTab) throws IOException{
+		String[] line = new String[propertyTab.length + 1];
+		line[0] = propertyTab[0].getAbsoluteName().replaceAll("[^#]*#", "  ");
+		
+		for(int index=0; index<propertyTab.length; index++){
+			Property property = propertyTab[index];
+			line[index+1] = property.getRenderer().displayValue(property);
+			if(line[index+1].startsWith("<html>")){
+				HtmlToText htmlToText = new HtmlToText();
+				htmlToText.parse(line[index]);
+				line[index+1] = htmlToText.getString();
+			}
+		}
+		return line;
 	}
 	
 	
@@ -218,33 +235,18 @@ public class ExportBS implements IExportBS {
 		return true;
 	}
 	
-	private List<String[]> treatMovingProperties(List<Property> propertyList, int depth) throws IOException{
+	private List<String[]> treatMovingProperties(List<Property> propertyList, int depth){
 		List<String[]> result = new ArrayList<String[]>();
 		String line[] = new String[propertyList.size() + 1];
 		
-		if(hasSameNameOrNull(propertyList)){
-			// TODO line[0] = StringUtils.repeat("  ", depth) + ....getFullName();
-			int index = 0;
-			for(Property property : propertyList){
-				index++;
-				line[index] = property.getRenderer().displayValue(property);
-				if(line[index].startsWith("<html>")){
-					HtmlToText htmlToText = new HtmlToText();
-					htmlToText.parse(line[index]);
-					line[index] = htmlToText.getString();
-				}
+		int index = 0;
+		for(Property property : propertyList){
+			index++;
+			if(property != null){
+				line[index] = property.getText();
 			}
-			result.add(line);
-		}else{
-			int index = 0;
-			for(Property property : propertyList){
-				index++;
-				if(property != null){
-					line[index] = property.getText();
-				}
-			}
-			result.add(line);
 		}
+		result.add(line);
 		
 		int maxPropertiesListSize = 0;
 		for(Property property : propertyList){
@@ -268,21 +270,6 @@ public class ExportBS implements IExportBS {
 		}
 		
 		return result;
-	}
-	
-	
-	private boolean hasSameNameOrNull(List<Property> propertyList){
-		String name = null;
-		for(Property property : propertyList){
-			if(property!=null){
-				if(name==null){
-					name = property.getFullName();
-				}else if( ! name.equals(property.getFullName())){
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 	
 	
