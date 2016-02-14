@@ -19,11 +19,15 @@
 	</div>
 	
 	<table class="exportTable">
-		<s:iterator value="export" var="line">
+		<s:iterator value="export.lines">
 			<tr class="exportTable">
-				<th class="exportTable"><pre>${line[0]}</pre></th>
-				<s:iterator value="line" begin="1">
-					<td class="exportTable"><s:property/></td>
+				<th class="exportTable">
+					<s:property value="title" />
+				</th>
+				<s:iterator value="values">
+					<td class="exportTable">
+						<s:property/>
+					</td>
 				</s:iterator>
 			</tr>
 		</s:iterator>

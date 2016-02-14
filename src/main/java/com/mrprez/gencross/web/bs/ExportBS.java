@@ -2,10 +2,9 @@ package com.mrprez.gencross.web.bs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -17,7 +16,7 @@ import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
-import com.mrprez.gencross.util.HtmlToText;
+import com.mrprez.gencross.web.bo.MultiExportBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IExportBS;
@@ -112,7 +111,7 @@ public class ExportBS implements IExportBS {
 	}
 	
 	@Override
-	public List<String[]> multiExportInGrid(Collection<Integer> personnageIdList, UserBO user) throws Exception{
+	public MultiExportBO multiExportInGrid(Collection<Integer> personnageIdList, UserBO user) throws Exception{
 		List<Personnage> personnageList = new ArrayList<Personnage>(personnageIdList.size());
 		for(Integer personnageId : personnageIdList){
 			PersonnageWorkBO personnageWork = personnageDAO.loadPersonnageWork(personnageId);
@@ -120,157 +119,22 @@ public class ExportBS implements IExportBS {
 				personnageList.add(personnageWork.getPersonnage());
 			}
 		}
+		MultiExportBO multiExportResult = new MultiExportBO(personnageList);
 		
-		List<String[]> result = new ArrayList<String[]>();
+		
 		for(Property property : personnageList.get(0).getProperties()){
-			Property[] propertyTab = new Property[personnageList.size()];
-			for(int i=0; i<personnageList.size(); i++){
-				propertyTab[i] = personnageList.get(i).getProperty(property.getAbsoluteName());
+			List<Property> propertyList = new ArrayList<Property>();
+			for(Personnage personnage : personnageList){
+				propertyList.add(personnage.getProperty(property.getAbsoluteName()));
 			}
-			result.addAll(treatFixProperty(propertyTab));
+			multiExportResult.addFixProperty(property.getAbsoluteName(), propertyList);
 		}
 		
-		return result;
-	}
-	
-	private List<String[]> treatFixProperty(Property[] propertyTab) throws IOException{
-		List<String[]> result = new ArrayList<String[]>();
-		result.add(buildFixExportLine(propertyTab));
-		
-		@SuppressWarnings("unchecked")
-		List<Property>[] subPropertiesListTab = new List[propertyTab.length];
-		for(int index=0; index<propertyTab.length; index++){
-			if(propertyTab[index].getSubProperties()!=null){
-				subPropertiesListTab[index] = new ArrayList<Property>();
-				for(Property subProperty : propertyTab[index].getSubProperties()){
-					subPropertiesListTab[index].add(subProperty);
-				}
-			}
-		}
-		
-		
-		
-		int maxPropertiesListSize = 0;
-		for(Property property : propertyTab){
-			if(property.getSubProperties()!=null && property.getSubProperties().size()>maxPropertiesListSize){
-				maxPropertiesListSize = property.getSubProperties().size();
-			}
-		}
-		
-		if(maxPropertiesListSize>0){
-			if(hasFixSubProperties(propertyList)){
-				for(int i=0; i<maxPropertiesListSize; i++){
-					List<Property> subPropertyList = new ArrayList<Property>();
-					for(Property property : propertyList){
-						subPropertyList.add(property.getSubProperties().get(i));
-					}
-					result.addAll(treatFixProperty(subPropertyList, depth+1));
-				}
-			}else{
-				for(int i=0; i<maxPropertiesListSize; i++){
-					List<Property> subPropertyList = new ArrayList<Property>();
-					for(Property property : propertyList){
-						if(property!=null && property.getSubProperties()!=null && i<property.getSubProperties().size()){
-							subPropertyList.add(property.getSubProperties().get(i));
-						}else{
-							subPropertyList.add(null);
-						}
-					}
-					result.addAll(treatMovingProperties(subPropertyList, 0));
-				}
-			}
-		}
-		
-		return result;
+		return multiExportResult;
 	}
 	
 	
-	private String[] buildFixExportLine(Property[] propertyTab) throws IOException{
-		String[] line = new String[propertyTab.length + 1];
-		line[0] = propertyTab[0].getAbsoluteName().replaceAll("[^#]*#", "  ");
-		
-		for(int index=0; index<propertyTab.length; index++){
-			Property property = propertyTab[index];
-			line[index+1] = property.getRenderer().displayValue(property);
-			if(line[index+1].startsWith("<html>")){
-				HtmlToText htmlToText = new HtmlToText();
-				htmlToText.parse(line[index]);
-				line[index+1] = htmlToText.getString();
-			}
-		}
-		return line;
-	}
-	
-	
-	/**
-	 * Compare subPropertiesList of all Property in propertyList argument.
-	 * If each subPropertiesList contains the same property (if they have the same name in the same order), return true,
-	 * otherwise return false; 
-	 * @param propertyList
-	 * @return true if all subPropertiesList contains the same properties, false otherwise.
-	 */
-	private boolean hasFixSubProperties(List<Property> propertyList){
-		int maxPropertiesListSize = 0;
-		for(Property property : propertyList){
-			if(property.getSubProperties() == null || property.getSubProperties().isEmpty()){
-				return false;
-			}
-			if(maxPropertiesListSize == 0){
-				maxPropertiesListSize = property.getSubProperties().size();
-			}else if(property.getSubProperties().size() != maxPropertiesListSize){
-				return false;
-			}
-		}
-		
-		for(int i=0; i<maxPropertiesListSize; i++){
-			String propertyName = null;
-			for(Property property : propertyList){
-				if(propertyName==null){
-					propertyName = property.getSubProperties().get(i).getAbsoluteName();
-				}else if(!propertyName.equals(property.getSubProperties().get(i).getAbsoluteName())){
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
-	private List<String[]> treatMovingProperties(List<Property> propertyList, int depth){
-		List<String[]> result = new ArrayList<String[]>();
-		String line[] = new String[propertyList.size() + 1];
-		
-		int index = 0;
-		for(Property property : propertyList){
-			index++;
-			if(property != null){
-				line[index] = property.getText();
-			}
-		}
-		result.add(line);
-		
-		int maxPropertiesListSize = 0;
-		for(Property property : propertyList){
-			if(property!=null && property.getSubProperties()!=null && property.getSubProperties().size()>maxPropertiesListSize){
-				maxPropertiesListSize = property.getSubProperties().size();
-			}
-		}
-		
-		if(maxPropertiesListSize > 0){
-			for(int i=0; i<maxPropertiesListSize; i++){
-				List<Property> subPropertyList = new ArrayList<Property>();
-				for(Property property : propertyList){
-					if(property!=null && property.getSubProperties()!=null && i<property.getSubProperties().size()){
-						subPropertyList.add(property.getSubProperties().get(i));
-					}else{
-						subPropertyList.add(null);
-					}
-				}
-				result.addAll(treatMovingProperties(subPropertyList, depth+1));
-			}
-		}
-		
-		return result;
-	}
+
 	
 	
 	@Override

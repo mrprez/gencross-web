@@ -12,6 +12,7 @@ import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.action.util.ClassNameComparator;
+import com.mrprez.gencross.web.bo.MultiExportBO;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -39,7 +40,7 @@ public class MultiExportAction extends ActionSupport {
 	private String fileName;
 	private Integer fileSize;
 	private InputStream inputStream;
-	private List<String[]> export;
+	private MultiExportBO export;
 	
 	private ITableBS tableBS;
 	private IExportBS exportBS;
@@ -81,15 +82,15 @@ public class MultiExportAction extends ActionSupport {
 		}
 		
 		StringBuilder resultBuilder = new StringBuilder();
-		for(String line[] : export){
-			for(int i=0; i<line.length; i++){
-				if(line[i]!=null){
-					resultBuilder.append(line[i]);
-				}
-				resultBuilder.append(";");
-			}
-			resultBuilder.append("\n");
-		}
+//		for(String line[] : export){
+//			for(int i=0; i<line.length; i++){
+//				if(line[i]!=null){
+//					resultBuilder.append(line[i]);
+//				}
+//				resultBuilder.append(";");
+//			}
+//			resultBuilder.append("\n");
+//		}
 		byte csvContent[] = resultBuilder.toString().getBytes("ISO-8859-1");
 		fileSize = csvContent.length;
 		inputStream = new ByteArrayInputStream(csvContent);
@@ -258,7 +259,7 @@ public class MultiExportAction extends ActionSupport {
 		this.inputStream = inputStream;
 	}
 
-	public List<String[]> getExport() {
+	public MultiExportBO getExport() {
 		return export;
 	}
 

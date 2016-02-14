@@ -188,37 +188,37 @@ public class ExportBSTest {
 		}
 	}
 	
-	@Test
-	public void testMultiExportInGrid() throws Exception{
-		// Prepare
-		UserBO user = AuthentificationBSTest.buildUser("batman");
-		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
-		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
-		personnageWork1.setId(1);
-		personnageWork1.setPlayer(user);
-		personnageWork1.setName("Perso1");
-		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork1);
-		PersonnageWorkBO personnageWork2 = PersonnageWorkBSTest.buildPersonnageWork();
-		personnageWork2.setId(2);
-		personnageWork2.setGameMaster(user);
-		personnageWork2.setName("Perso2");
-		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(2)).thenReturn(personnageWork2);
-		PersonnageWorkBO personnageWork3 = PersonnageWorkBSTest.buildPersonnageWork();
-		personnageWork3.setId(3);
-		personnageWork3.setPlayer(otherUser);
-		personnageWork3.setName("Perso3");
-		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
-		
-		// Execute
-		List<String[]> result = exportBS.multiExportInGrid(Arrays.asList(1, 2, 3), user);
-		
-		// Check
-		for(String[] stringTab : result){
-			Assert.assertEquals(3, stringTab.length);
-			Assert.assertEquals(stringTab[1], stringTab[2]);
-			Assert.assertTrue(stringTab[0].length() > 0);
-		}
-	}
+//	@Test
+//	public void testMultiExportInGrid() throws Exception{
+//		// Prepare
+//		UserBO user = AuthentificationBSTest.buildUser("batman");
+//		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
+//		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
+//		personnageWork1.setId(1);
+//		personnageWork1.setPlayer(user);
+//		personnageWork1.setName("Perso1");
+//		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork1);
+//		PersonnageWorkBO personnageWork2 = PersonnageWorkBSTest.buildPersonnageWork();
+//		personnageWork2.setId(2);
+//		personnageWork2.setGameMaster(user);
+//		personnageWork2.setName("Perso2");
+//		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(2)).thenReturn(personnageWork2);
+//		PersonnageWorkBO personnageWork3 = PersonnageWorkBSTest.buildPersonnageWork();
+//		personnageWork3.setId(3);
+//		personnageWork3.setPlayer(otherUser);
+//		personnageWork3.setName("Perso3");
+//		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
+//		
+//		// Execute
+//		List<String[]> result = exportBS.multiExportInGrid(Arrays.asList(1, 2, 3), user);
+//		
+//		// Check
+//		for(String[] stringTab : result){
+//			Assert.assertEquals(3, stringTab.length);
+//			Assert.assertEquals(stringTab[1], stringTab[2]);
+//			Assert.assertTrue(stringTab[0].length() > 0);
+//		}
+//	}
 	
 	@Test
 	public void testGetTemplateFiles() throws Exception{
