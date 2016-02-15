@@ -82,15 +82,19 @@ public class MultiExportAction extends ActionSupport {
 		}
 		
 		StringBuilder resultBuilder = new StringBuilder();
-//		for(String line[] : export){
-//			for(int i=0; i<line.length; i++){
-//				if(line[i]!=null){
-//					resultBuilder.append(line[i]);
-//				}
-//				resultBuilder.append(";");
-//			}
-//			resultBuilder.append("\n");
-//		}
+		for(MultiExportBO.MultiExportLine line : export.getLines()){
+			if(line.getTitle()!=null){
+				resultBuilder.append(line.getTitle());
+			}
+			resultBuilder.append(";");
+			for(String value : line.getValues()){
+				if(value!=null){
+					resultBuilder.append(value);
+				}
+				resultBuilder.append(";");
+			}
+			resultBuilder.append("\n");
+		}
 		byte csvContent[] = resultBuilder.toString().getBytes("ISO-8859-1");
 		fileSize = csvContent.length;
 		inputStream = new ByteArrayInputStream(csvContent);

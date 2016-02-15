@@ -21,7 +21,7 @@
 	<table class="exportTable">
 		<s:iterator value="export.getLines()">
 			<tr class="exportTable">
-				<th class="exportTable">
+				<th class="exportTable" style="padding-left:${depth}pc;">
 					<s:property value="title" />
 				</th>
 				<s:iterator value="values">
