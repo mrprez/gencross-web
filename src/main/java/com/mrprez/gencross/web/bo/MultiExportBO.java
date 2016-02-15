@@ -1,12 +1,14 @@
 package com.mrprez.gencross.web.bo;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
+import com.mrprez.gencross.util.HtmlToText;
+import com.mrprez.gencross.value.Value;
 
 public class MultiExportBO {
 	
@@ -14,18 +16,20 @@ public class MultiExportBO {
 	private List<MultiExportLine> lines = new ArrayList<MultiExportLine>();
 	
 	
-	public MultiExportBO(Collection<Personnage> personnageList){
+	public MultiExportBO(Personnage[] personnageTab){
 		super();
-		int index = 0;
-		for(Personnage personnage : personnageList){
-			columns.put(personnage, new MultiExportColumn(index++));
+		for(int index=0; index<personnageTab.length; index++){
+			columns.put(personnageTab[index], new MultiExportColumn(index));
 		}
 	}
 	
-	public void addFixProperty(String title, Property[] properties){
-		MultiExportLine line = new MultiExportLine(title, properties.length);
+	public void addFullLine(String title, Property[] properties) throws IOException{
+		String[] propertyPath = title.split("#");
+		int depth = propertyPath.length-1;
+		title = propertyPath[propertyPath.length-1];
+		MultiExportLine line = new MultiExportLine(title, depth, properties.length);
 		for(int i=0; i<properties.length; i++){
-			String value = properties[i].getValue()!=null ? properties[i].getValue().getString() : null;
+			String value = getValueText(properties[i].getValue());
 			line.setValue(i, value);
 			MultiExportColumn column = columns.get(properties[i].getPersonnage());
 			column.add(value, lines.size()-1);
@@ -33,25 +37,35 @@ public class MultiExportBO {
 		lines.add(line);
 	}
 	
-	public void addMovingProperty(Property property){
-		String value = property.getValue().getString();
+	public void addSimpleElement(Property property) throws IOException{
+		String value = property.getName()+":"+getValueText(property.getValue());
 		MultiExportColumn column = columns.get(property.getPersonnage());
 		column.add(value);
 		
 		if(lines.size()<column.size()){
-			lines.add(new MultiExportLine(null, columns.size()));
+			lines.add(new MultiExportLine(null, property.getAbsoluteName().split("#").length-1, columns.size()));
 		}
 		MultiExportLine line = lines.get(column.size()-1);
 		line.setValue(column.getIndex(), value);
 	}
 	
-	
-	public void addFixProperty(String absoluteName, List<Property> propertyList) {
-		addFixProperty(absoluteName, propertyList.toArray(new Property[propertyList.size()]));
+	private String getValueText(Value value) throws IOException{
+		if(value==null){
+			return null;
+		}
+		String text = value.getString();
+		if(text.startsWith("<html>")){
+			HtmlToText htmlToText = new HtmlToText();
+			htmlToText.parse(text);
+			text = htmlToText.getString();
+		}
+		return value.getString();
 	}
 	
 	
-	
+	public List<MultiExportLine> getLines(){
+		return lines;
+	}
 	
 	
 	public static class MultiExportColumn extends ArrayList<String>{
@@ -79,11 +93,13 @@ public class MultiExportBO {
 	
 	public static class MultiExportLine {
 		private String title;
+		private int depth;
 		private String[] values;
 		
-		public MultiExportLine(String title, int length) {
+		public MultiExportLine(String title, int depth, int length) {
 			super();
 			this.title = title;
+			this.depth = depth;
 			this.values = new String[length];
 		}
 		
@@ -97,6 +113,10 @@ public class MultiExportBO {
 
 		public String[] getValues() {
 			return values;
+		}
+
+		public int getDepth() {
+			return depth;
 		}
 		
 		

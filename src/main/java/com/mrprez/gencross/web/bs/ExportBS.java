@@ -2,18 +2,18 @@ package com.mrprez.gencross.web.bs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.mrprez.gencross.Personnage;
 import com.mrprez.gencross.Property;
+import com.mrprez.gencross.PropertyOwner;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
 import com.mrprez.gencross.web.bo.MultiExportBO;
@@ -22,6 +22,8 @@ import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IExportBS;
 import com.mrprez.gencross.web.dao.face.IPersonnageDAO;
 import com.mrprez.gencross.web.dao.face.ITemplateFileResource;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class ExportBS implements IExportBS {
 	private static String GENERATOR_PACKAGE = "com.mrprez.gencross.export";
@@ -119,22 +121,89 @@ public class ExportBS implements IExportBS {
 				personnageList.add(personnageWork.getPersonnage());
 			}
 		}
-		MultiExportBO multiExportResult = new MultiExportBO(personnageList);
+		Personnage[] personnageTab = personnageList.toArray(new Personnage[personnageList.size()]);
 		
+		MultiExportBO multiExportResult = new MultiExportBO(personnageTab);
 		
-		for(Property property : personnageList.get(0).getProperties()){
-			List<Property> propertyList = new ArrayList<Property>();
-			for(Personnage personnage : personnageList){
-				propertyList.add(personnage.getProperty(property.getAbsoluteName()));
-			}
-			multiExportResult.addFixProperty(property.getAbsoluteName(), propertyList);
+		Iterator<Property>[] iterators = getSubPropertiesIterators(personnageTab);
+		Property[] emptyTab = new Property[personnageTab.length];
+		Property[] subPropertyTab;
+		while( ! Arrays.equals(subPropertyTab=nextPropertyTab(iterators), emptyTab) ){
+			addFixProperty(subPropertyTab, multiExportResult);
 		}
 		
 		return multiExportResult;
 	}
 	
 	
-
+	
+	private void addFixProperty(Property[] propertyTab, MultiExportBO multiExportResult) throws IOException{
+		multiExportResult.addFullLine(propertyTab[0].getAbsoluteName(), propertyTab);
+		
+		Iterator<Property>[] iterators = getSubPropertiesIterators(propertyTab);
+		Property[] subPropertyTab;
+		while(isFixProperty( subPropertyTab=nextPropertyTab(iterators) )){
+			addFixProperty(subPropertyTab, multiExportResult);
+		}
+		for(Property subProperty : subPropertyTab){
+			if(subProperty!=null){
+				addOptionnalProperty(subProperty, multiExportResult);
+			}
+		}
+		for(Iterator<Property> iterator : iterators){
+			while(iterator!=null && iterator.hasNext()){
+				addOptionnalProperty(iterator.next(), multiExportResult);
+			}
+		}	
+	}
+	
+	private Property[] nextPropertyTab(Iterator<Property>[] iterators){
+		Property[] propertyTab = new Property[iterators.length];
+		for(int i=0; i<iterators.length; i++){
+			if(iterators[i]!=null && iterators[i].hasNext()){
+				propertyTab[i] = iterators[i].next();
+			}
+		}
+		return propertyTab;
+	}
+	
+	private boolean isFixProperty(Property[] propertyTab){
+		String propertyName = null;
+		for(Property property : propertyTab){
+			if(property==null){
+				return false;
+			}
+			if(propertyName==null){
+				propertyName = property.getFullName();
+			}
+			if( ! propertyName.equals(property.getFullName()) ){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	private Iterator<Property>[] getSubPropertiesIterators(PropertyOwner[] propertyOwnerTab){
+		@SuppressWarnings("unchecked")
+		Iterator<Property>[] iterators = new Iterator[propertyOwnerTab.length];
+		for(int i=0; i<propertyOwnerTab.length; i++){
+			iterators[i] = propertyOwnerTab[i].iterator();
+		}
+		
+		return iterators;
+	}
+	
+	
+	private void addOptionnalProperty(Property property, MultiExportBO multiExportResult) throws IOException{
+		multiExportResult.addSimpleElement(property);
+		if(property.getSubProperties()!=null){
+			for(Property subProperty : property.getSubProperties()){
+				addOptionnalProperty(subProperty, multiExportResult);
+			}
+		}
+	}
+	
 	
 	
 	@Override

@@ -19,7 +19,7 @@
 	</div>
 	
 	<table class="exportTable">
-		<s:iterator value="export.lines">
+		<s:iterator value="export.getLines()">
 			<tr class="exportTable">
 				<th class="exportTable">
 					<s:property value="title" />
