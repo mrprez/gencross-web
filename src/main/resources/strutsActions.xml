@@ -177,6 +177,7 @@
 		</action>
 		
 		<action name="MultiExport!*" method="{1}" class="multiExportAction">
+			<interceptor-ref name="fileUpload"/>
 			<interceptor-ref name="userSecurityStack"/>
         	<result name="input">/jsp/multiExport.jsp</result>
 			<result name="error">/jsp/error.jsp</result>

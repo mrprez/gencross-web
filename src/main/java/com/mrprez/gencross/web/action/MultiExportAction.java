@@ -30,8 +30,8 @@ public class MultiExportAction extends ActionSupport {
 	private TableBO table;
 	private Map<Integer, String> pjList;
 	private Map<Integer, String> pnjList;
-	private String exportedPjList;
-	private String exportedPnjList;
+	private List<Integer> exportedPjList;
+	private List<Integer> exportedPnjList;
 	private Map<Class<? extends TemplatedFileGenerator>, List<String>> templateFiles;
 	private String fileGeneratorName = DrawerGenerator.class.getSimpleName();
 	private String selectedTemplate;
@@ -82,15 +82,19 @@ public class MultiExportAction extends ActionSupport {
 		}
 		
 		StringBuilder resultBuilder = new StringBuilder();
-//		for(String line[] : export){
-//			for(int i=0; i<line.length; i++){
-//				if(line[i]!=null){
-//					resultBuilder.append(line[i]);
-//				}
-//				resultBuilder.append(";");
-//			}
-//			resultBuilder.append("\n");
-//		}
+		for(MultiExportBO.MultiExportLine line : export.getLines()){
+			if(line.getTitle()!=null){
+				resultBuilder.append(line.getTitle());
+			}
+			resultBuilder.append(";");
+			for(String value : line.getValues()){
+				if(value!=null){
+					resultBuilder.append(value);
+				}
+				resultBuilder.append(";");
+			}
+			resultBuilder.append("\n");
+		}
 		byte csvContent[] = resultBuilder.toString().getBytes("ISO-8859-1");
 		fileSize = csvContent.length;
 		inputStream = new ByteArrayInputStream(csvContent);
@@ -108,23 +112,17 @@ public class MultiExportAction extends ActionSupport {
 			return ERROR;
 		}
 		
-		if((exportedPjList==null || exportedPjList.isEmpty()) && (exportedPnjList==null || exportedPnjList.isEmpty())){
-			addActionError("Vous devez selectionner au moins un personnage.");
-			return execute();
+		List<Integer> personnageIdList = new ArrayList<Integer>();
+		if(exportedPjList!=null){
+			personnageIdList.addAll(exportedPjList);
+		}
+		if(exportedPnjList!=null){
+			personnageIdList.addAll(exportedPnjList);
 		}
 		
-		List<Integer> personnageIdList = new ArrayList<Integer>();
-		if(exportedPjList!=null && exportedPjList.length()>0){
-			String exportedPjIdTab[] = exportedPjList.split(",");
-			for(int i=0; i<exportedPjIdTab.length; i++){
-				personnageIdList.add(Integer.valueOf(exportedPjIdTab[i].trim()));
-			}
-		}
-		if(exportedPnjList!=null && exportedPnjList.length()>0){
-			String exportedPnjIdTab[] = exportedPnjList.split(",");
-			for(int i=0; i<exportedPnjIdTab.length; i++){
-				personnageIdList.add(Integer.valueOf(exportedPnjIdTab[i].trim()));
-			}
+		if(personnageIdList.isEmpty()){
+			addActionError("Vous devez selectionner au moins un personnage.");
+			return execute();
 		}
 		
 		FileGenerator fileGenerator = exportBS.getGenerator(fileGeneratorName);
@@ -136,6 +134,10 @@ public class MultiExportAction extends ActionSupport {
 		byte export[];
 		if(selectedTemplate!=null){
 			if(selectedTemplate.equals("Uploader un fichier")){
+				if(templateFile==null){
+					super.addActionError("Vous n'avez chargé aucun fichier template.");
+					return execute();
+				}
 				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, templateFile);
 			}else{
 				export = exportBS.multiExport(personnageIdList, user, (TemplatedFileGenerator)fileGenerator, table.getType(), selectedTemplate);
@@ -160,23 +162,17 @@ public class MultiExportAction extends ActionSupport {
 			return ERROR;
 		}
 		
-		if((exportedPjList==null || exportedPjList.isEmpty()) && (exportedPnjList==null || exportedPnjList.isEmpty())){
-			addActionError("Vous devez selectionner au moins un personnage.");
-			return execute();
+		List<Integer> personnageIdList = new ArrayList<Integer>();
+		if(exportedPjList!=null){
+			personnageIdList.addAll(exportedPjList);
+		}
+		if(exportedPnjList!=null){
+			personnageIdList.addAll(exportedPnjList);
 		}
 		
-		List<Integer> personnageIdList = new ArrayList<Integer>();
-		if(exportedPjList!=null && exportedPjList.length()>0){
-			String exportedPjIdTab[] = exportedPjList.split(",");
-			for(int i=0; i<exportedPjIdTab.length; i++){
-				personnageIdList.add(Integer.valueOf(exportedPjIdTab[i].trim()));
-			}
-		}
-		if(exportedPnjList!=null && exportedPnjList.length()>0){
-			String exportedPnjIdTab[] = exportedPnjList.split(",");
-			for(int i=0; i<exportedPnjIdTab.length; i++){
-				personnageIdList.add(Integer.valueOf(exportedPnjIdTab[i].trim()));
-			}
+		if(personnageIdList.isEmpty()){
+			addActionError("Vous devez selectionner au moins un personnage.");
+			return execute();
 		}
 		
 		export = exportBS.multiExportInGrid(personnageIdList, user);
@@ -219,19 +215,19 @@ public class MultiExportAction extends ActionSupport {
 		this.pnjList = pnjList;
 	}
 
-	public String getExportedPjList() {
+	public List<Integer> getExportedPjList() {
 		return exportedPjList;
 	}
 
-	public void setExportedPjList(String exportedPjList) {
+	public void setExportedPjList(List<Integer> exportedPjList) {
 		this.exportedPjList = exportedPjList;
 	}
 	
-	public String getExportedPnjList() {
+	public List<Integer> getExportedPnjList() {
 		return exportedPnjList;
 	}
 
-	public void setExportedPnjList(String exportedPnjList) {
+	public void setExportedPnjList(List<Integer> exportedPnjList) {
 		this.exportedPnjList = exportedPnjList;
 	}
 
