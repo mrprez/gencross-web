@@ -112,6 +112,10 @@ public class ExportBS implements IExportBS {
 		return baos.toByteArray();
 	}
 	
+	
+	/**
+	 * Exporte dans une tableau synthétique les propriétés de tous les personnages. 
+	 */
 	@Override
 	public MultiExportBO multiExportInGrid(Collection<Integer> personnageIdList, UserBO user) throws Exception{
 		List<Personnage> personnageList = new ArrayList<Personnage>(personnageIdList.size());
@@ -136,7 +140,18 @@ public class ExportBS implements IExportBS {
 	}
 	
 	
-	
+	/**
+	 * Ajoute au tableau synthétique la propriété commune à tous les personnages et les éventuelles sous propriétés de celle-ci.
+	 * Ces dernières peuvent ne pas être des propriétés communes.
+	 * La méthode ouvre un tableau d'itérateurs sur les sous propriétés.
+	 * La suite du traitement est en 2 étapes:
+	 *  - Tant que ces itérateurs rencontrent des propriétés communes, ils avancent de concert. 
+	 *    On rappelle cette même méthode {@link #addFixProperty(Property[], MultiExportBO)} pour chaque propriété commune
+	 *  - Puis pour toutes les propriétés restantes, à partir de la première propriété non commune, on ppelle la méthode {@link #addOptionnalProperty(Property, MultiExportBO)}
+	 * @param propertyTab
+	 * @param multiExportResult
+	 * @throws IOException
+	 */
 	private void addFixProperty(Property[] propertyTab, MultiExportBO multiExportResult) throws IOException{
 		multiExportResult.addFullLine(propertyTab[0].getAbsoluteName(), propertyTab);
 		
@@ -157,6 +172,12 @@ public class ExportBS implements IExportBS {
 		}	
 	}
 	
+	/**
+	 * Appelle la méthode next pour chaque itérateur et construit un tableau à partir de ces résultats.
+	 * Pour les itérateur null ou ayant atteint leur limite, on laisse l'élément correspondant du tableau à null.
+	 * @param iterators
+	 * @return le tableau de résultat de l'appelle de la méthode next() pour chaque itérateur.
+	 */
 	private Property[] nextPropertyTab(Iterator<Property>[] iterators){
 		Property[] propertyTab = new Property[iterators.length];
 		for(int i=0; i<iterators.length; i++){
@@ -167,6 +188,10 @@ public class ExportBS implements IExportBS {
 		return propertyTab;
 	}
 	
+	/**
+	 * @param propertyTab tableau des Property à comparer
+	 * @return true si aucune Property du tableau n'est null et que chaque Property à la même nom (fullName). False sinon.
+	 */
 	private boolean isFixProperty(Property[] propertyTab){
 		String propertyName = null;
 		for(Property property : propertyTab){
@@ -184,6 +209,12 @@ public class ExportBS implements IExportBS {
 	}
 	
 	
+	/**
+	 * Construit un tableau d'itérateurs sur les sous propriétés des PropertyOwner passé en paramêtre.
+	 * Attention, les Property (qui implémentent PropertyOwner) renvoie un itérateur null s'il n'a pas de de liste de sous propriétés.
+	 * @param propertyOwnerTab
+	 * @return
+	 */
 	private Iterator<Property>[] getSubPropertiesIterators(PropertyOwner[] propertyOwnerTab){
 		@SuppressWarnings("unchecked")
 		Iterator<Property>[] iterators = new Iterator[propertyOwnerTab.length];
@@ -194,7 +225,12 @@ public class ExportBS implements IExportBS {
 		return iterators;
 	}
 	
-	
+	/**
+	 * Ajoute une propriété non commune au tableau synthétique d'export des personnages.
+	 * @param property la propriété à ajouter
+	 * @param multiExportResult
+	 * @throws IOException
+	 */
 	private void addOptionnalProperty(Property property, MultiExportBO multiExportResult) throws IOException{
 		multiExportResult.addSimpleElement(property);
 		if(property.getSubProperties()!=null){
@@ -203,7 +239,6 @@ public class ExportBS implements IExportBS {
 			}
 		}
 	}
-	
 	
 	
 	@Override

@@ -23,10 +23,6 @@
 	<s:submit value="Valider"/>
 </s:form>
 
-<script type="text/javascript">
-	selectGenerator();
-</script>
-
 <div id="backToEditDiv">
 	<s:a action="Edit">
 		<s:param name="personnageId">

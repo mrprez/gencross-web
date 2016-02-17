@@ -23,7 +23,22 @@
 			</ul>
 		</s:if>
 		<s:else>
-			<s:checkboxlist theme="GcrTheme" label="PNJ" list="pnjList" name="exportedPnjList" cssClass="exportedList"/>
+			<ul class="exportedList">
+				<span class="checkboxlistLabel">
+					<input type="checkbox" onchange="javascript:allSelection(this);">
+					PNJ
+				</span>
+				<s:iterator value="pnjList">
+					<li>
+						<s:checkbox name="exportedPnjList" cssClass="exportedList" theme="simple" fieldValue="%{key}" value="%{exportedPnjList.contains(key)}">
+							<s:param name="id">exportedPnjList-${key}</s:param>
+						</s:checkbox>
+						<label for="exportedPnjList-${key}" class="checkboxLabel">
+							<s:property value="value"/>
+						</label>
+					</li>
+				</s:iterator>
+			</ul>
 		</s:else>
 		
 		<s:if test="pjList.isEmpty()">
@@ -36,7 +51,22 @@
 			</ul>
 		</s:if>
 		<s:else>
-			<s:checkboxlist theme="GcrTheme" label="PJ" list="pjList" name="exportedPjList" cssClass="exportedList"/>
+			<ul class="exportedList">
+				<span class="checkboxlistLabel">
+					<input type="checkbox" onchange="javascript:allSelection(this);">
+					PJ
+				</span>
+				<s:iterator value="pjList">
+					<li>
+						<s:checkbox name="exportedPjList" cssClass="exportedList" theme="simple" fieldValue="%{key}" value="%{exportedPjList.contains(key)}">
+							<s:param name="id">exportedPjList-${key}</s:param>
+						</s:checkbox>
+						<label for="exportedPjList-${key}" class="checkboxLabel">
+							<s:property value="value"/>
+						</label>
+					</li>
+				</s:iterator>
+			</ul>
 		</s:else>
 		<div>
 			<s:submit theme="simple" action="MultiExport!export" value="Export Web" id="export"/>
@@ -49,17 +79,13 @@
 			<s:iterator value="templateFiles">
 				<span id="${key.simpleName}_templatesEl" class="templateFileList">
 					<label for="${key.simpleName}_templates">Fichier template: </label>
-					<s:select id="%{key.simpleName}_templates" name="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
+					<s:select id="%{key.simpleName}_templates" name="%{selectedTemplate}" value="%{selectedTemplate}" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
 				</span>
 			</s:iterator>
+			<s:file id="uploadTemplateFile" name="templateFile" theme="simple"/>
 			<s:submit theme="simple" action="MultiExport!exportZip" value="Export Zip" id="zipExport"/>
 		</div>
 	</s:form>
-	
-	<script type="text/javascript">
-		selectGenerator();
-		$("[name='selectedTemplate']").children("[value='<s:property value="selectedTemplate"/>']").attr("selected", "true");
-	</script>
 	
 	<div id="backToEditDiv">
 		<s:a action="EditTable">
