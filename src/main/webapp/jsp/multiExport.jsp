@@ -79,7 +79,7 @@
 			<s:iterator value="templateFiles">
 				<span id="${key.simpleName}_templatesEl" class="templateFileList">
 					<label for="${key.simpleName}_templates">Fichier template: </label>
-					<s:select id="%{key.simpleName}_templates" name="%{selectedTemplate}" value="" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
+					<s:select id="%{key.simpleName}_templates" name="%{selectedTemplate}" value="%{selectedTemplate}" list="value" theme="simple" cssClass="selectTemplate" onchange="javascript:selectTemplateFile(this)"/>
 				</span>
 			</s:iterator>
 			<s:file id="uploadTemplateFile" name="templateFile" theme="simple"/>
