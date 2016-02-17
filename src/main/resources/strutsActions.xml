@@ -11,9 +11,11 @@
 			<interceptor name="fileUpload" class="org.apache.struts2.interceptor.FileUploadInterceptor"/>
 			<interceptor name="maintenance" class="com.mrprez.gencross.web.action.interceptor.MaintenanceInterceptor"/>
 			<interceptor name="trace" class="com.mrprez.gencross.web.action.interceptor.TraceInterceptor"/>
+			<interceptor name="version" class="com.mrprez.gencross.web.action.interceptor.VersionNumberInterceptor"/>
 			
 			<interceptor-stack name="gencrossStack">
 				<interceptor-ref name="basicStack"/>
+				<interceptor-ref name="version"/>
 				<interceptor-ref name="trace"/>
 				<interceptor-ref name="maintenance"/>
 				<interceptor-ref name="exception">
