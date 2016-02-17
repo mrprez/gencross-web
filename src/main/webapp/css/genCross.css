@@ -201,6 +201,9 @@ td.summaryTableLine{
 	font-size: small;
 	color: gray;
 	margin-top: 25px;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
 }
 
 #backToEditDiv{
