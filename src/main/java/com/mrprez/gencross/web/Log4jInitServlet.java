@@ -18,7 +18,6 @@ public class Log4jInitServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		try{
-			@SuppressWarnings("unchecked")
 			Enumeration<String> parameterNameList = this.getServletContext().getInitParameterNames();
 			ILoggerBS loggerBS = (ILoggerBS) ContextLoader.getCurrentWebApplicationContext().getBean("loggerBS");
 			while(parameterNameList.hasMoreElements()){
