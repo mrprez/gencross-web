@@ -1,10 +1,7 @@
 package com.mrprez.gencross.web.action.interceptor;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
-
-import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -24,32 +21,26 @@ public class VersionNumberInterceptor implements Interceptor {
 
 	@Override
 	public void init() {
-		gencrossWebVersion = findPomVersion("/META-INF/maven/com.mrprez.gencross/gencross-web/pom.properties");
-		gencrossVersion = findPomVersion("/META-INF/maven/com.mrprez.gencross/gencross/pom.properties");
-	}
-	
-	private String findPomVersion(String propertiesPomPath){
-		try{
-			InputStream is = getClass().getResourceAsStream(propertiesPomPath);
-			if(is==null){
-				return null;
-			}
-			Properties properties = new Properties();
-			properties.load(is);
-			return properties.getProperty("version");
-		}catch(IOException ioe){
-			Logger.getLogger(this.getClass()).error("Cannot load file "+propertiesPomPath, ioe);
-			return "Cannot load file "+propertiesPomPath;
+		Properties properties = new Properties();
+		try {
+			properties.load(getClass().getResourceAsStream("versions.properties"));
+		} catch (IOException ioe) {
+			throw new RuntimeException("Cannot load versions.properties file", ioe);
 		}
+		gencrossWebVersion = properties.getProperty("com.mrprez.gencross.gencross-web.version");
+		gencrossVersion = properties.getProperty("com.mrprez.gencross.gencross.version");
 	}
 	
-
+	
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
-		ActionContext.getContext().getSession().put("gencrossWebVersion", gencrossWebVersion);
-		ActionContext.getContext().getSession().put("gencrossVersion", gencrossVersion);
-		String result = actionInvocation.invoke();
-		return result;
+		if( ! ActionContext.getContext().getApplication().containsKey("gencrossWebVersion") ){
+			ActionContext.getContext().getApplication().put("gencrossWebVersion", gencrossWebVersion);
+		}
+		if( ! ActionContext.getContext().getApplication().containsKey("gencrossVersion") ){
+			ActionContext.getContext().getApplication().put("gencrossVersion", gencrossVersion);
+		}
+		return actionInvocation.invoke();
 	}
 
 }

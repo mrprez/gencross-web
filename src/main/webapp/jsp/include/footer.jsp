@@ -3,12 +3,8 @@
 		</div>
 		<div id="footer">
 			<center>
-				<s:if test="#session.gencrossVersion!=null">
-					Version de Gencross:<s:property value="#session.gencrossVersion"/>, 
-				</s:if>
-				<s:if test="#session.gencrossWebVersion!=null">
-					Version de Gencross-Web:${version}<s:property value="#session.gencrossWebVersion"/>
-				</s:if>
+				Version de Gencross:<s:property value="#attr.gencrossVersion"/>, 
+				Version de Gencross-Web:<s:property value="#attr.gencrossWebVersion"/>
 			</center>
 		</div>
 	</body>
