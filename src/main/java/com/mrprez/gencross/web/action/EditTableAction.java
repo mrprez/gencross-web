@@ -237,6 +237,9 @@ public class EditTableAction extends ActionSupport {
 		return message;
 	}
 	public void setMessage(String message) {
+		if(message!=null){
+			message = message.replaceAll("(<p>\\s*(&nbsp;)*\\s*</p>\\s*)+$", "");
+		}
 		this.message = message;
 	}
 	public Integer getMessageId() {
