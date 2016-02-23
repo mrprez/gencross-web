@@ -103,6 +103,7 @@
 	<bean id="editTableAction" class="com.mrprez.gencross.web.action.EditTableAction" scope="prototype">
 		<property name="personnageBS" ref="personnageBS"/>
 		<property name="tableBS" ref="tableBS"/>
+		<property name="adminBS" ref="adminBS"/>
 	</bean>
 	
 	<bean id="exceptionAction" class="com.mrprez.gencross.web.action.ExceptionAction" scope="prototype"></bean>
@@ -229,6 +230,10 @@
 	<bean id="planGameBS" class="com.mrprez.gencross.web.bs.PlanGameBS" scope="singleton">
 		<property name="mailResource" ref="MailResource"/>
 		<property name="tableDao" ref="TableDAO"/>
+	</bean>
+	
+	<bean id="adminBS" class="com.mrprez.gencross.web.bs.AdminBS" scope="singleton">
+		<property name="mailResource" ref="MailResource"/>
 	</bean>
 	
 	<bean id="gencrossUiPackagerBS" class="com.mrprez.gencross.web.bs.GencrossUiPackagerBS" scope="singleton">

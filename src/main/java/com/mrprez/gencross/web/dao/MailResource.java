@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -26,7 +27,11 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FlagTerm;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.owasp.html.HtmlChangeListener;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
@@ -35,6 +40,8 @@ import com.mrprez.gencross.web.dao.face.IParamDAO;
 
 public class MailResource implements IMailResource {
 	private static final String INBOX = "INBOX"; 
+	private static PolicyFactory messagePolicyFactory = 
+				Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.LINKS).and(Sanitizers.STYLES).and(Sanitizers.TABLES);
 	
 	private IParamDAO paramDAO;
 	
@@ -147,17 +154,29 @@ public class MailResource implements IMailResource {
 		send(internetAddresses, new InternetAddress(fromAddress), subject, text, attachmentName, attachment);
 	}
 	
+	
+	@Override
+	public void sendAdminMail(String subject, String message) throws Exception {
+		ParamBO paramAdress = paramDAO.getParam(ParamBO.ADMIN_ADRESS);
+		if(paramAdress==null){
+			return;
+		}
+		String address = (String) paramAdress.getValue();
+		
+		send(address, subject, message);
+	}
+	
 	@Override
 	public void sendError(Exception exception) throws Exception {
 		ParamBO paramAdress = paramDAO.getParam(ParamBO.ADMIN_ADRESS);
 		if(paramAdress==null){
 			return;
 		}
-		String adress = (String) paramAdress.getValue();
+		String address = (String) paramAdress.getValue();
 		String subject = exception.getClass().getSimpleName()+": "+exception.getMessage();
 		StringBuilder text = new StringBuilder("Exception levée à "+new Date()+"\n\n");
 		writeException(exception, text);
-		send(adress, subject, text.toString());
+		send(address, subject, text.toString());
 	}
 	
 	private void writeException(Throwable exception, StringBuilder text){
@@ -190,14 +209,22 @@ public class MailResource implements IMailResource {
 			Message mailTab[] =  folder.search(new FlagTerm(new Flags(Flags.Flag.SEEN), false));
 			for(int i=0; i<mailTab.length; i++){
 				Message mail = mailTab[i];
-				TableMessageBO tableMessage = new TableMessageBO();
-				tableMessage.setDate(mail.getReceivedDate());
-				tableMessage.setData(getText(mail));
 				if(mail.getFrom().length == 0){
 					sendError(new Exception("Mail sans auteur "+mail.getSubject()));
 				}else{
+					TableMessageBO tableMessage = new TableMessageBO();
 					InternetAddress from = (InternetAddress) mail.getFrom()[0];
 					tableMessage.setSenderMail(from.getAddress());
+					tableMessage.setDate(mail.getReceivedDate());
+					String messageText = getText(mail);
+					List<String> intrusions = new ArrayList<String>();
+					messageText = sanitize(messageText, intrusions);
+					tableMessage.setData(messageText);
+					if( ! intrusions.isEmpty() ){
+						sendAdminMail("Mail recu avec des tentatives d'intrusion", 
+								"Message de "+from+" à "+mail.getReceivedDate()+" avec les intrusions :\n"
+								+StringUtils.join(intrusions, "\n"));
+					}
 					tableMessage.setSubject(mail.getSubject());
 					if(tableMessage.getTableId()!=null){
 						mail.setFlag(Flags.Flag.SEEN, true);
@@ -205,7 +232,7 @@ public class MailResource implements IMailResource {
 					}else{
 						send(tableMessage.getSenderMail(), (String) paramDAO.getParam(ParamBO.TABLE_ADRESS).getValue(),
 								"Invalid subject: " + tableMessage.getSubject(), 
-								"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]')." + "\n\n\n\n" + tableMessage.getData());
+								"Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]')." + "\n\n" + tableMessage.getData());
 					}
 				}
 			}
@@ -220,6 +247,12 @@ public class MailResource implements IMailResource {
 		}
 	}
 	
+	
+	private String sanitize(String text, List<String> detections) {
+		MailSanitizeListener mailSanitizeListener = new MailSanitizeListener(detections);
+		return messagePolicyFactory.sanitize(text, mailSanitizeListener, null);
+	}
+
 	private String getText(Message message) throws IOException, MessagingException{
 		Object content = message.getContent();
 		if(content instanceof Multipart){
@@ -253,6 +286,25 @@ public class MailResource implements IMailResource {
 		this.paramDAO = paramDAO;
 	}
 	
-	
+	private static class MailSanitizeListener implements HtmlChangeListener<String>{
+		private final List<String> intrusionDescriptions;
+
+		public MailSanitizeListener(List<String> intrusionDescriptions) {
+			super();
+			this.intrusionDescriptions = intrusionDescriptions;
+		}
+
+		@Override
+		public void discardedAttributes(String context, String tagName, String... attributeNames) {
+			intrusionDescriptions.add("Tag &lt;"+tagName+"&gt; and attributes ["+StringUtils.join(attributeNames, ", ")+"]");
+			
+		}
+
+		@Override
+		public void discardedTag(String context, String tagName) {
+			intrusionDescriptions.add("Tag &lt;"+tagName+"&gt;");
+		}
+		
+	}
 
 }

@@ -118,7 +118,11 @@
 			<artifactId>dwr</artifactId>
 			<version>3.0.0-RELEASE</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+			<artifactId>owasp-java-html-sanitizer</artifactId>
+			<version>20160203.1</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -213,6 +217,16 @@
 		<resources>
 			<resource>
 				<directory>${project.basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>com/mrprez/gencross/web/action/interceptor/*</exclude>
+				</excludes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<includes>
+					<include>com/mrprez/gencross/web/action/interceptor/*</include>
+				</includes>
 				<filtering>true</filtering>
 			</resource>
 	    </resources>

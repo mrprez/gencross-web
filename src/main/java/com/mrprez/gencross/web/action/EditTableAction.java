@@ -6,12 +6,16 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 
 import com.mrprez.gencross.web.action.util.PersonnageWorkComparator;
+import com.mrprez.gencross.web.action.util.TableMessageSecurityListener;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
 import com.mrprez.gencross.web.bo.UserBO;
+import com.mrprez.gencross.web.bs.face.IAdminBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 import com.opensymphony.xwork2.ActionContext;
@@ -19,6 +23,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class EditTableAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
+	
+	private static PolicyFactory messagePolicyFactory = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.LINKS);
 	private Integer id;
 	private TableBO table;
 	private String personnageName;
@@ -42,6 +48,7 @@ public class EditTableAction extends ActionSupport {
 	
 	private ITableBS tableBS;
 	private IPersonnageBS personnageBS;
+	private IAdminBS adminBS;
 	
 	
 	@Override
@@ -123,6 +130,15 @@ public class EditTableAction extends ActionSupport {
 	
 	public String newMessage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
+		TableMessageSecurityListener securityListener = new TableMessageSecurityListener();
+		message = messagePolicyFactory.sanitize(message, securityListener, user); // Sanitize message to avoid XSS security breaches.
+		if( securityListener.hasIntrusionAttempts() ){
+			super.addActionError("Tentative d'intrusion détectée");
+			adminBS.sendMail("Tentative d'intrusion détectée", StringUtils.join(securityListener.getIntrusionAttempts(), "<br/>"));
+			return ERROR;
+		}
+		message = message.replaceAll("(<p>\\s*(&nbsp;)*\\s*</p>\\s*)+$", ""); // remove empty line at the message end
+		
 		if(addMessage!=null){
 			tableBS.addMessageToTable(message, id, user);
 		}else if(sendMessage!=null){
@@ -237,9 +253,6 @@ public class EditTableAction extends ActionSupport {
 		return message;
 	}
 	public void setMessage(String message) {
-		if(message!=null){
-			message = message.replaceAll("(<p>\\s*(&nbsp;)*\\s*</p>\\s*)+$", "");
-		}
 		this.message = message;
 	}
 	public Integer getMessageId() {
@@ -283,6 +296,14 @@ public class EditTableAction extends ActionSupport {
 
 	public void setLoadedMessageNumber(Integer loadedMessageNumber) {
 		this.loadedMessageNumber = loadedMessageNumber;
+	}
+
+	public IAdminBS getAdminBS() {
+		return adminBS;
+	}
+
+	public void setAdminBS(IAdminBS adminBS) {
+		this.adminBS = adminBS;
 	}
 
 

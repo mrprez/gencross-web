@@ -20,10 +20,13 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
+import com.mrprez.gencross.Property;
 import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.SimpleTxtGenerator;
 import com.mrprez.gencross.export.TemplatedFileGenerator;
+import com.mrprez.gencross.web.bo.MultiExportBO;
+import com.mrprez.gencross.web.bo.MultiExportBO.MultiExportLine;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.ExportBS;
@@ -188,37 +191,44 @@ public class ExportBSTest {
 		}
 	}
 	
-//	@Test
-//	public void testMultiExportInGrid() throws Exception{
-//		// Prepare
-//		UserBO user = AuthentificationBSTest.buildUser("batman");
-//		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
-//		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
-//		personnageWork1.setId(1);
-//		personnageWork1.setPlayer(user);
-//		personnageWork1.setName("Perso1");
-//		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork1);
-//		PersonnageWorkBO personnageWork2 = PersonnageWorkBSTest.buildPersonnageWork();
-//		personnageWork2.setId(2);
-//		personnageWork2.setGameMaster(user);
-//		personnageWork2.setName("Perso2");
-//		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(2)).thenReturn(personnageWork2);
-//		PersonnageWorkBO personnageWork3 = PersonnageWorkBSTest.buildPersonnageWork();
-//		personnageWork3.setId(3);
-//		personnageWork3.setPlayer(otherUser);
-//		personnageWork3.setName("Perso3");
-//		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
-//		
-//		// Execute
-//		List<String[]> result = exportBS.multiExportInGrid(Arrays.asList(1, 2, 3), user);
-//		
-//		// Check
-//		for(String[] stringTab : result){
-//			Assert.assertEquals(3, stringTab.length);
-//			Assert.assertEquals(stringTab[1], stringTab[2]);
-//			Assert.assertTrue(stringTab[0].length() > 0);
-//		}
-//	}
+	@Test
+	public void testMultiExportInGrid() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
+		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork1.setId(1);
+		personnageWork1.setPlayer(user);
+		personnageWork1.setName("Perso1");
+		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(1)).thenReturn(personnageWork1);
+		PersonnageWorkBO personnageWork2 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork2.getPersonnage().addPropertyToMotherProperty(personnageWork2.getPersonnage().getProperty("Compétences#Connaissance spécialisée").getSubProperties().getOptions().get("Droit"));
+		personnageWork2.setId(2);
+		personnageWork2.setGameMaster(user);
+		personnageWork2.setName("Perso2");
+		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(2)).thenReturn(personnageWork2);
+		PersonnageWorkBO personnageWork3 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork3.getPersonnage().addPropertyToMotherProperty(personnageWork3.getPersonnage().getProperty("Compétences#Connaissance spécialisée").getSubProperties().getOptions().get("Géographie"));
+		personnageWork3.setId(3);
+		personnageWork3.setPlayer(user);
+		personnageWork3.setName("Perso3");
+		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
+		PersonnageWorkBO personnageWork4 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork1.setId(4);
+		personnageWork1.setPlayer(otherUser);
+		personnageWork1.setName("Perso4");
+		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(4)).thenReturn(personnageWork4);
+		
+		// Execute
+		MultiExportBO result = exportBS.multiExportInGrid(Arrays.asList(1, 2, 3, 4), user);
+		
+		// Check
+		for(MultiExportLine line : result.getLines()){
+			Assert.assertEquals(3, line.getValues().length);
+			Assert.assertNotNull(line.getTitle());
+			
+		}
+	}
 	
 	@Test
 	public void testGetTemplateFiles() throws Exception{

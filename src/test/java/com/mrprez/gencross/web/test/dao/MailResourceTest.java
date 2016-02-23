@@ -294,6 +294,44 @@ public class MailResourceTest {
 		Assert.assertNull(MockTransport.getMockTransport(MAIL_MOCK_NAME));
 	}
 	
+	@Test
+	public void testSendAdminMail_Success() throws Exception{
+		// Prepare
+		IParamDAO paramDAO = Mockito.mock(IParamDAO.class);
+		mailResource.setParamDAO(paramDAO);
+		ParamBO adminAddressParam = new ParamBO();
+		adminAddressParam.setKey(ParamBO.ADMIN_ADRESS);
+		adminAddressParam.setType(ParamBO.STRING_TYPE);
+		adminAddressParam.setValue("gothamMayor@mail.com");
+		Mockito.when(paramDAO.getParam(ParamBO.ADMIN_ADRESS)).thenReturn(adminAddressParam);
+		String subject = "Admin mail";
+		String text = "Message to administrator";
+		
+		// Execute
+		mailResource.sendAdminMail(subject, text);
+		
+		// Check
+		MockTransport mockTransport = MockTransport.getMockTransport(MAIL_MOCK_NAME);
+		Assert.assertEquals(1, mockTransport.getSendMessageRequestList().size());
+		SendMessageRequest sendMessageRequest = mockTransport.getSendMessageRequestList().get(0);
+		
+		checkSendMessageRequest(sendMessageRequest, subject, text, "defaultFromAddress@mail.com", null, null, "gothamMayor@mail.com");
+	}
+	
+	
+	@Test
+	public void testSendAdminMail_Fail() throws Exception{
+		// Prepare
+		IParamDAO paramDAO = Mockito.mock(IParamDAO.class);
+		mailResource.setParamDAO(paramDAO);
+		
+		// Execute
+		mailResource.sendAdminMail("subject", "text");
+		
+		// Check
+		Assert.assertNull(MockTransport.getMockTransport(MAIL_MOCK_NAME));
+	}
+	
 	
 	@Test
 	public void testGetMails_Success() throws Exception{
@@ -338,8 +376,55 @@ public class MailResourceTest {
 		Assert.assertEquals(1, mockTransport.getSendMessageRequestList().size());
 		
 		SendMessageRequest sendMessageRequest = mockTransport.getSendMessageRequestList().get(0);
-		String text = "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\n\n\nWhy so serious?";
+		String text = "Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').\n\nWhy so serious?";
 		checkSendMessageRequest(sendMessageRequest, "Invalid subject: Ha ha ha", text, (String)param.getValue(), null, null, "joker@mail.com");
+		
+		Assert.assertFalse(folder.isOpen());
+		Assert.assertFalse(MockStore.getMockStore(MAIL_MOCK_NAME).isConnected());
+	}
+	
+	
+	@Test
+	public void testGetMails_Success_XssIntrusion() throws Exception{
+		// Prepare
+		IParamDAO paramDao = Mockito.mock(IParamDAO.class);
+		ParamBO adminAddressParam = new ParamBO();
+		adminAddressParam.setKey(ParamBO.ADMIN_ADRESS);
+		adminAddressParam.setType(ParamBO.STRING_TYPE);
+		adminAddressParam.setValue("gothamMayor@mail.com");
+		Mockito.when(paramDao.getParam(ParamBO.ADMIN_ADRESS)).thenReturn(adminAddressParam);
+		ParamBO tableAddressParam = new ParamBO();
+		tableAddressParam.setKey(ParamBO.TABLE_ADRESS);
+		tableAddressParam.setType(ParamBO.STRING_TYPE);
+		tableAddressParam.setValue("table.address@mail.com");
+		Mockito.when(paramDao.getParam(ParamBO.TABLE_ADRESS)).thenReturn(tableAddressParam);
+		mailResource.setParamDAO(paramDao);
+		
+		MockStore.getMockStore(MAIL_MOCK_NAME).installFolder("INBOX");
+		MockFolder folder = (MockFolder) MockStore.getMockStore(MAIL_MOCK_NAME).getFolder("INBOX");
+		
+		folder.addMessage(buildMessage("joker@mail.com", "table@mail.com", "[5]Ha ha ha", "Why so<script>alert('Malicious script');</script> <b onclick='gohome()'>serious?</b>"));
+		
+		// Execute
+		Collection<TableMessageBO> tableMessageList = mailResource.getMails();
+		
+		// Check
+		Assert.assertEquals(1, tableMessageList.size());
+		Iterator<TableMessageBO> tableMessageIt = tableMessageList.iterator();
+		
+		TableMessageBO tableMessage = tableMessageIt.next();
+		Assert.assertEquals("Why so <b>serious?</b>", tableMessage.getData());
+		Assert.assertEquals("joker@mail.com", tableMessage.getSenderMail());
+		Assert.assertEquals(new Integer(5), tableMessage.getTableId());
+		Assert.assertEquals("Ha ha ha", tableMessage.getTitle());
+		Assert.assertEquals("[5]Ha ha ha", tableMessage.getSubject());
+		
+		MockTransport mockTransport = MockTransport.getMockTransport(MAIL_MOCK_NAME);
+		Assert.assertEquals(1, mockTransport.getSendMessageRequestList().size());
+		
+		SendMessageRequest sendMessageRequest = mockTransport.getSendMessageRequestList().get(0);
+		String text = "Message de joker@mail.com à null avec les intrusions :\nTag &lt;script&gt;\nTag &lt;b&gt; and attributes [onclick]";
+		checkSendMessageRequest(sendMessageRequest, "Mail recu avec des tentatives d'intrusion", text, "defaultFromAddress@mail.com", null, null, "gothamMayor@mail.com");
 		
 		Assert.assertFalse(folder.isOpen());
 		Assert.assertFalse(MockStore.getMockStore(MAIL_MOCK_NAME).isConnected());
@@ -409,7 +494,7 @@ public class MailResourceTest {
 			}
 		});
 		Exception thrownException = new MessagingException("Test Exception");
-		Mockito.when(message.getReceivedDate()).thenThrow(thrownException);
+		Mockito.when(message.getFrom()).thenThrow(thrownException);
 		folder.addMessage(message);
 		
 		// Execute

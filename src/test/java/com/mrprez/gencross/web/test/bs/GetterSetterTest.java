@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.mrprez.gencross.disk.PersonnageFactory;
+import com.mrprez.gencross.web.bs.AdminBS;
 import com.mrprez.gencross.web.bs.AuthentificationBS;
 import com.mrprez.gencross.web.bs.ExportBS;
 import com.mrprez.gencross.web.bs.GcrFileBS;
@@ -21,6 +22,10 @@ import com.mrprez.gencross.web.dao.face.IUserDAO;
 
 public class GetterSetterTest {
 
+	@Test
+	public void testAdminBS() throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException{
+		testAllGetterSetter(AdminBS.class);
+	}
 	
 	@Test
 	public void testAuthentificationBS() throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException{
