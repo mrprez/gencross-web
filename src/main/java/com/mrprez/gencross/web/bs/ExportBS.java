@@ -143,11 +143,9 @@ public class ExportBS implements IExportBS {
 	/**
 	 * Ajoute au tableau synthétique la propriété commune à tous les personnages et les éventuelles sous propriétés de celle-ci.
 	 * Ces dernières peuvent ne pas être des propriétés communes.
-	 * La méthode ouvre un tableau d'itérateurs sur les sous propriétés.
-	 * La suite du traitement est en 2 étapes:
-	 *  - Tant que ces itérateurs rencontrent des propriétés communes, ils avancent de concert. 
-	 *    On rappelle cette même méthode {@link #addFixProperty(Property[], MultiExportBO)} pour chaque propriété commune
-	 *  - Puis pour toutes les propriétés restantes, à partir de la première propriété non commune, on ppelle la méthode {@link #addOptionnalProperty(Property, MultiExportBO)}
+	 * La méthode ouvre un tableau d'itérateurs sur les sous propriétés et itère dessus. Pour chaque itération:
+	 * - soit toutes les propriétés sont !=null et ont le même nom, et dans ce cas on rappelle cette méthode avec un nouveau tableau de propriétés issu de cette itération
+	 * - sinon on ajoute unitairement toutes les propriétés non null de cette itération
 	 * @param propertyTab
 	 * @param multiExportResult
 	 * @throws IOException
@@ -156,20 +154,28 @@ public class ExportBS implements IExportBS {
 		multiExportResult.addFullLine(propertyTab[0].getAbsoluteName(), propertyTab);
 		
 		Iterator<Property>[] iterators = getSubPropertiesIterators(propertyTab);
-		Property[] subPropertyTab;
-		while(isFixProperty( subPropertyTab=nextPropertyTab(iterators) )){
-			addFixProperty(subPropertyTab, multiExportResult);
-		}
-		for(Property subProperty : subPropertyTab){
-			if(subProperty!=null){
-				addOptionnalProperty(subProperty, multiExportResult);
+		while(hasNext(iterators)){
+			Property[] subPropertyTab = nextPropertyTab(iterators);
+			if(isFixProperty(subPropertyTab)){
+				addFixProperty(subPropertyTab, multiExportResult);
+			}else{
+				for(Property subProperty : subPropertyTab){
+					if(subProperty!=null){
+						addOptionnalProperty(subProperty, multiExportResult);
+					}
+				}
 			}
 		}
+	}
+	
+	
+	private boolean hasNext(Iterator<Property>[] iterators){
 		for(Iterator<Property> iterator : iterators){
-			while(iterator!=null && iterator.hasNext()){
-				addOptionnalProperty(iterator.next(), multiExportResult);
+			if(iterator!=null && iterator.hasNext()){
+				return true;
 			}
-		}	
+		}
+		return false;
 	}
 	
 	/**

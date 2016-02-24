@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import com.mrprez.gencross.Property;
 import com.mrprez.gencross.export.DrawerGenerator;
 import com.mrprez.gencross.export.FileGenerator;
 import com.mrprez.gencross.export.SimpleTxtGenerator;
@@ -197,6 +197,7 @@ public class ExportBSTest {
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		UserBO otherUser = AuthentificationBSTest.buildUser("robin");
 		PersonnageWorkBO personnageWork1 = PersonnageWorkBSTest.buildPersonnageWork();
+		personnageWork1.getPersonnage().addPropertyToMotherProperty(personnageWork1.getPersonnage().getProperty("Compétences#Connaissance spécialisée").getSubProperties().getOptions().get("Histoire"));
 		personnageWork1.setId(1);
 		personnageWork1.setPlayer(user);
 		personnageWork1.setName("Perso1");
@@ -214,19 +215,41 @@ public class ExportBSTest {
 		personnageWork3.setName("Perso3");
 		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(3)).thenReturn(personnageWork3);
 		PersonnageWorkBO personnageWork4 = PersonnageWorkBSTest.buildPersonnageWork();
-		personnageWork1.setId(4);
-		personnageWork1.setPlayer(otherUser);
-		personnageWork1.setName("Perso4");
+		personnageWork4.setId(4);
+		personnageWork4.setPlayer(otherUser);
+		personnageWork4.setName("Perso4");
 		Mockito.when(exportBS.getPersonnageDAO().loadPersonnageWork(4)).thenReturn(personnageWork4);
 		
 		// Execute
 		MultiExportBO result = exportBS.multiExportInGrid(Arrays.asList(1, 2, 3, 4), user);
 		
 		// Check
+		int count = 0;
+		Assert.assertEquals(215, result.getLines().size());
 		for(MultiExportLine line : result.getLines()){
 			Assert.assertEquals(3, line.getValues().length);
-			Assert.assertNotNull(line.getTitle());
-			
+			if(line.getTitle()==null){
+				switch (count++) {
+				case 0:
+					Assert.assertArrayEquals(new String[]{"Histoire:1","Droit:1","Géographie:1"}, line.getValues());
+					break;
+				case 1:
+					Assert.assertArrayEquals(new String[]{"Attribut 1:Erudition","Attribut 1:Erudition","Attribut 1:Erudition"}, line.getValues());
+					break;
+				case 2:
+					Assert.assertArrayEquals(new String[]{"Attribut 2:Erudition","Attribut 2:Erudition","Attribut 2:Erudition"}, line.getValues());
+					break;
+				case 3:
+					Assert.assertArrayEquals(new String[]{"Apprentissage:0","Apprentissage:0","Apprentissage:0"}, line.getValues());
+					break;
+				default:
+					Assert.fail("Too many lines without title: "+StringUtils.join(line.getValues(),","));
+					break;
+				}
+			}else{
+				Assert.assertEquals(line.getValues()[0], line.getValues()[1]);
+				Assert.assertEquals(line.getValues()[1], line.getValues()[2]);
+			}
 		}
 	}
 	
