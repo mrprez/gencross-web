@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.ChangePasswordAction;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestChangePasswordAction {
+public class ChangePasswordActionTest extends AbstractActionTest {
 
 	@Mock
 	private IAuthentificationBS authentificationBS;
@@ -29,9 +29,10 @@ public class TestChangePasswordAction {
 		changePasswordAction.setConfirm("string_3");
 
 		// Execute
-		changePasswordAction.execute();
+		String result = changePasswordAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", changePasswordAction.getNewPassword());
 		Assert.assertEquals("failTest", changePasswordAction.getPassword());
 		Assert.assertEquals("failTest", changePasswordAction.getConfirm());
@@ -47,9 +48,10 @@ public class TestChangePasswordAction {
 		changePasswordAction.setConfirm("string_3");
 
 		// Execute
-		changePasswordAction.changePassword();
+		String result = changePasswordAction.changePassword();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", changePasswordAction.getNewPassword());
 		Assert.assertEquals("failTest", changePasswordAction.getPassword());
 		Assert.assertEquals("failTest", changePasswordAction.getConfirm());

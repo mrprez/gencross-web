@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.LoginAction;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestLoginAction {
+public class LoginActionTest extends AbstractActionTest {
 
 	@Mock
 	private IAuthentificationBS authentificationBS;
@@ -28,9 +28,10 @@ public class TestLoginAction {
 		loginAction.setUsername("string_2");
 
 		// Execute
-		loginAction.execute();
+		String result = loginAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", loginAction.getPassword());
 		Assert.assertEquals("failTest", loginAction.getUsername());
 	}
@@ -43,9 +44,10 @@ public class TestLoginAction {
 		loginAction.setUsername("string_2");
 
 		// Execute
-		loginAction.disconnect();
+		String result = loginAction.disconnect();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", loginAction.getPassword());
 		Assert.assertEquals("failTest", loginAction.getUsername());
 	}

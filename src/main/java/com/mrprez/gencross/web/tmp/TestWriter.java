@@ -25,7 +25,7 @@ public class TestWriter {
 	}
 	
 	public void writeTestFile() throws IOException{
-		String testClassName = "Test"+clazz.getSimpleName();
+		String testClassName = clazz.getSimpleName()+"Test";
 		File file = new File("M:/workspace/gencross-web/src/test/java/com/mrprez/gencross/web/test/action", testClassName+".java");
 		if(file.exists()){
 			file.delete();
@@ -57,7 +57,7 @@ public class TestWriter {
 		}
 		writeLine("");
 		writeLine("@RunWith(MockitoJUnitRunner.class)");
-		writeLine("public class Test"+clazz.getSimpleName()+" {");
+		writeLine("public class "+clazz.getSimpleName()+"Test extends AbstractActionTest {");
 		for(Class<?> businessInterface : businessInterfaces){
 			writeLine("");
 			writeLine("\t@Mock");
@@ -93,7 +93,7 @@ public class TestWriter {
 		
 		writeLine("");
 		writeLine("\t\t// Execute");
-		writeLine("\t\t"+instanceName+"."+method.getName()+"();");
+		writeLine("\t\tString result = "+instanceName+"."+method.getName()+"();");
 		
 		writeLine("");
 		writeLine("\t\t// Check");
@@ -116,6 +116,7 @@ public class TestWriter {
 	
 	
 	private void writeCheck(Method method) throws IOException{
+		writeLine("\t\tAssert.assertEquals(\"input\", result);");
 		for(Method getter : getters){
 			Class<?> parameterType = getter.getReturnType();
 			if(parameterType.isPrimitive()){
@@ -173,7 +174,6 @@ public class TestWriter {
 	
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
-		new TestWriter("com.mrprez.gencross.web.action.AttributeGameMasterAction").writeTestFile();
 		new TestWriter("com.mrprez.gencross.web.action.AttributePlayerAction").writeTestFile();
 		new TestWriter("com.mrprez.gencross.web.action.BackgroundAction").writeTestFile();
 		new TestWriter("com.mrprez.gencross.web.action.ChangeMailAction").writeTestFile();

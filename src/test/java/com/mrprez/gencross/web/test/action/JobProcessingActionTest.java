@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.JobProcessingAction;
 import com.mrprez.gencross.web.bs.face.IJobBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestJobProcessingAction {
+public class JobProcessingActionTest extends AbstractActionTest {
 
 	@Mock
 	private IJobBS jobBS;
@@ -27,9 +27,10 @@ public class TestJobProcessingAction {
 		jobProcessingAction.setJobName("string_1");
 
 		// Execute
-		jobProcessingAction.execute();
+		String result = jobProcessingAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", jobProcessingAction.getJobList());
 		Assert.assertEquals("failTest", jobProcessingAction.getJobName());
 		Assert.assertEquals("failTest", jobProcessingAction.getExceptions());
@@ -44,9 +45,10 @@ public class TestJobProcessingAction {
 		jobProcessingAction.setJobName("string_1");
 
 		// Execute
-		jobProcessingAction.schedule();
+		String result = jobProcessingAction.schedule();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", jobProcessingAction.getJobList());
 		Assert.assertEquals("failTest", jobProcessingAction.getJobName());
 		Assert.assertEquals("failTest", jobProcessingAction.getExceptions());

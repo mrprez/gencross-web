@@ -8,17 +8,17 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.PersonnageListAction;
-import com.mrprez.gencross.web.bs.face.IGcrFileBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
+import com.mrprez.gencross.web.bs.face.IGcrFileBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestPersonnageListAction {
-
-	@Mock
-	private IGcrFileBS gcrFileBS;
+public class PersonnageListActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
+
+	@Mock
+	private IGcrFileBS gcrFileBS;
 
 	@InjectMocks
 	private PersonnageListAction personnageListAction;
@@ -34,9 +34,10 @@ public class TestPersonnageListAction {
 		personnageListAction.setGameMasterPersonnageSort("string_4");
 
 		// Execute
-		personnageListAction.sort();
+		String result = personnageListAction.sort();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", personnageListAction.getPlayerPersonnageComparator());
 		Assert.assertEquals("failTest", personnageListAction.getInputStream());
 		Assert.assertEquals("failTest", personnageListAction.getPlayerSortDir());
@@ -58,9 +59,10 @@ public class TestPersonnageListAction {
 		personnageListAction.setGameMasterPersonnageSort("string_4");
 
 		// Execute
-		personnageListAction.execute();
+		String result = personnageListAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", personnageListAction.getPlayerPersonnageComparator());
 		Assert.assertEquals("failTest", personnageListAction.getInputStream());
 		Assert.assertEquals("failTest", personnageListAction.getPlayerSortDir());
@@ -82,9 +84,10 @@ public class TestPersonnageListAction {
 		personnageListAction.setGameMasterPersonnageSort("string_4");
 
 		// Execute
-		personnageListAction.deletePersonnage();
+		String result = personnageListAction.deletePersonnage();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", personnageListAction.getPlayerPersonnageComparator());
 		Assert.assertEquals("failTest", personnageListAction.getInputStream());
 		Assert.assertEquals("failTest", personnageListAction.getPlayerSortDir());
@@ -106,9 +109,10 @@ public class TestPersonnageListAction {
 		personnageListAction.setGameMasterPersonnageSort("string_4");
 
 		// Execute
-		personnageListAction.downloadAsPlayer();
+		String result = personnageListAction.downloadAsPlayer();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", personnageListAction.getPlayerPersonnageComparator());
 		Assert.assertEquals("failTest", personnageListAction.getInputStream());
 		Assert.assertEquals("failTest", personnageListAction.getPlayerSortDir());
@@ -130,9 +134,10 @@ public class TestPersonnageListAction {
 		personnageListAction.setGameMasterPersonnageSort("string_4");
 
 		// Execute
-		personnageListAction.downloadAsGameMaster();
+		String result = personnageListAction.downloadAsGameMaster();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", personnageListAction.getPlayerPersonnageComparator());
 		Assert.assertEquals("failTest", personnageListAction.getInputStream());
 		Assert.assertEquals("failTest", personnageListAction.getPlayerSortDir());

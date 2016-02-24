@@ -8,17 +8,17 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.UploadAction;
-import com.mrprez.gencross.web.bs.face.IGcrFileBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
+import com.mrprez.gencross.web.bs.face.IGcrFileBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestUploadAction {
-
-	@Mock
-	private IGcrFileBS gcrFileBS;
+public class UploadActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
+
+	@Mock
+	private IGcrFileBS gcrFileBS;
 
 	@InjectMocks
 	private UploadAction uploadAction;
@@ -33,9 +33,10 @@ public class TestUploadAction {
 		uploadAction.setPersonnageId(3);
 
 		// Execute
-		uploadAction.execute();
+		String result = uploadAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", uploadAction.getPersonnageName());
 		Assert.assertEquals("failTest", uploadAction.getPersonnageId());
 	}
@@ -49,9 +50,10 @@ public class TestUploadAction {
 		uploadAction.setPersonnageId(3);
 
 		// Execute
-		uploadAction.upload();
+		String result = uploadAction.upload();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", uploadAction.getPersonnageName());
 		Assert.assertEquals("failTest", uploadAction.getPersonnageId());
 	}
@@ -65,9 +67,10 @@ public class TestUploadAction {
 		uploadAction.setPersonnageId(3);
 
 		// Execute
-		uploadAction.isGm();
+		String result = uploadAction.isGm();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", uploadAction.getPersonnageName());
 		Assert.assertEquals("failTest", uploadAction.getPersonnageId());
 	}

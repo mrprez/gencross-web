@@ -12,7 +12,7 @@ import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestEditPersonnageAction {
+public class EditPersonnageActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
@@ -34,9 +34,10 @@ public class TestEditPersonnageAction {
 		editPersonnageAction.setPointPoolName("string_4");
 
 		// Execute
-		editPersonnageAction.save();
+		String result = editPersonnageAction.save();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
 		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
 		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());
@@ -60,61 +61,10 @@ public class TestEditPersonnageAction {
 		editPersonnageAction.setPointPoolName("string_4");
 
 		// Execute
-		editPersonnageAction.execute();
+		String result = editPersonnageAction.execute();
 
 		// Check
-		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
-		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
-		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());
-		Assert.assertEquals(10, editPersonnageAction.getIsGameMaster());
-		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItemIndex());
-		Assert.assertEquals("failTest", editPersonnageAction.getProperty());
-		Assert.assertEquals("failTest", editPersonnageAction.getErrorList());
-		Assert.assertEquals("failTest", editPersonnageAction.getPointPoolName());
-		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItem());
-		Assert.assertEquals("failTest", editPersonnageAction.getPointPool());
-		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageWork());
-	}
-
-
-	@Test
-	public void testValidatePersonnage() throws Exception {
-		// Prepare
-		editPersonnageAction.setHistoryItemIndex(1);
-		editPersonnageAction.setPersonnageId(2);
-		editPersonnageAction.setPropertyAbsoluteName("string_3");
-		editPersonnageAction.setPointPoolName("string_4");
-
-		// Execute
-		editPersonnageAction.validatePersonnage();
-
-		// Check
-		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
-		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
-		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());
-		Assert.assertEquals(10, editPersonnageAction.getIsGameMaster());
-		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItemIndex());
-		Assert.assertEquals("failTest", editPersonnageAction.getProperty());
-		Assert.assertEquals("failTest", editPersonnageAction.getErrorList());
-		Assert.assertEquals("failTest", editPersonnageAction.getPointPoolName());
-		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItem());
-		Assert.assertEquals("failTest", editPersonnageAction.getPointPool());
-		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageWork());
-	}
-
-
-	@Test
-	public void testUnvalidatePersonnage() throws Exception {
-		// Prepare
-		editPersonnageAction.setHistoryItemIndex(1);
-		editPersonnageAction.setPersonnageId(2);
-		editPersonnageAction.setPropertyAbsoluteName("string_3");
-		editPersonnageAction.setPointPoolName("string_4");
-
-		// Execute
-		editPersonnageAction.unvalidatePersonnage();
-
-		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
 		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
 		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());
@@ -138,9 +88,64 @@ public class TestEditPersonnageAction {
 		editPersonnageAction.setPointPoolName("string_4");
 
 		// Execute
-		editPersonnageAction.nextPhase();
+		String result = editPersonnageAction.nextPhase();
 
 		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
+		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
+		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());
+		Assert.assertEquals(10, editPersonnageAction.getIsGameMaster());
+		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItemIndex());
+		Assert.assertEquals("failTest", editPersonnageAction.getProperty());
+		Assert.assertEquals("failTest", editPersonnageAction.getErrorList());
+		Assert.assertEquals("failTest", editPersonnageAction.getPointPoolName());
+		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItem());
+		Assert.assertEquals("failTest", editPersonnageAction.getPointPool());
+		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageWork());
+	}
+
+
+	@Test
+	public void testValidatePersonnage() throws Exception {
+		// Prepare
+		editPersonnageAction.setHistoryItemIndex(1);
+		editPersonnageAction.setPersonnageId(2);
+		editPersonnageAction.setPropertyAbsoluteName("string_3");
+		editPersonnageAction.setPointPoolName("string_4");
+
+		// Execute
+		String result = editPersonnageAction.validatePersonnage();
+
+		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
+		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
+		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());
+		Assert.assertEquals(10, editPersonnageAction.getIsGameMaster());
+		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItemIndex());
+		Assert.assertEquals("failTest", editPersonnageAction.getProperty());
+		Assert.assertEquals("failTest", editPersonnageAction.getErrorList());
+		Assert.assertEquals("failTest", editPersonnageAction.getPointPoolName());
+		Assert.assertEquals("failTest", editPersonnageAction.getHistoryItem());
+		Assert.assertEquals("failTest", editPersonnageAction.getPointPool());
+		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageWork());
+	}
+
+
+	@Test
+	public void testUnvalidatePersonnage() throws Exception {
+		// Prepare
+		editPersonnageAction.setHistoryItemIndex(1);
+		editPersonnageAction.setPersonnageId(2);
+		editPersonnageAction.setPropertyAbsoluteName("string_3");
+		editPersonnageAction.setPointPoolName("string_4");
+
+		// Execute
+		String result = editPersonnageAction.unvalidatePersonnage();
+
+		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editPersonnageAction.getPropertyAbsoluteName());
 		Assert.assertEquals("failTest", editPersonnageAction.getPersonnageId());
 		Assert.assertEquals("failTest", editPersonnageAction.getHelpFileInputStream());

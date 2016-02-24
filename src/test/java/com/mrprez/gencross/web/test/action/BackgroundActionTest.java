@@ -12,7 +12,7 @@ import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestBackgroundAction {
+public class BackgroundActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
@@ -32,9 +32,10 @@ public class TestBackgroundAction {
 		backgroundAction.setPersonnageId(2);
 
 		// Execute
-		backgroundAction.save();
+		String result = backgroundAction.save();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", backgroundAction.getBackground());
 		Assert.assertEquals("failTest", backgroundAction.getPersonnageWork());
 		Assert.assertEquals("failTest", backgroundAction.getPersonnageId());
@@ -49,9 +50,10 @@ public class TestBackgroundAction {
 		backgroundAction.setPersonnageId(2);
 
 		// Execute
-		backgroundAction.execute();
+		String result = backgroundAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", backgroundAction.getBackground());
 		Assert.assertEquals("failTest", backgroundAction.getPersonnageWork());
 		Assert.assertEquals("failTest", backgroundAction.getPersonnageId());

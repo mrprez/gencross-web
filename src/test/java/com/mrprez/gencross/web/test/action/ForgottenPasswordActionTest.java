@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.ForgottenPasswordAction;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestForgottenPasswordAction {
+public class ForgottenPasswordActionTest extends AbstractActionTest {
 
 	@Mock
 	private IAuthentificationBS authentificationBS;
@@ -27,9 +27,10 @@ public class TestForgottenPasswordAction {
 		forgottenPasswordAction.setUsername("string_1");
 
 		// Execute
-		forgottenPasswordAction.execute();
+		String result = forgottenPasswordAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", forgottenPasswordAction.getUsername());
 		Assert.assertEquals("failTest", forgottenPasswordAction.getSuccessLink());
 		Assert.assertEquals("failTest", forgottenPasswordAction.getSuccessMessage());

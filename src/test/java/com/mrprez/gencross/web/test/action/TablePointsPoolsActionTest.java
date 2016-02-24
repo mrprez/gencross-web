@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.TablePointsPoolsAction;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestTablePointsPoolsAction {
+public class TablePointsPoolsActionTest extends AbstractActionTest {
 
 	@Mock
 	private ITableBS tableBS;
@@ -29,29 +29,10 @@ public class TestTablePointsPoolsAction {
 		tablePointsPoolsAction.setPointPoolName("string_3");
 
 		// Execute
-		tablePointsPoolsAction.execute();
+		String result = tablePointsPoolsAction.execute();
 
 		// Check
-		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolName());
-		Assert.assertEquals("failTest", tablePointsPoolsAction.getTable());
-		Assert.assertEquals("failTest", tablePointsPoolsAction.getPjList());
-		Assert.assertEquals("failTest", tablePointsPoolsAction.getId());
-		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolList());
-		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolModification());
-	}
-
-
-	@Test
-	public void testFindMinMaxPjPoints() throws Exception {
-		// Prepare
-		tablePointsPoolsAction.setPointPoolModification("string_1");
-		tablePointsPoolsAction.setId(2);
-		tablePointsPoolsAction.setPointPoolName("string_3");
-
-		// Execute
-		tablePointsPoolsAction.findMinMaxPjPoints();
-
-		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolName());
 		Assert.assertEquals("failTest", tablePointsPoolsAction.getTable());
 		Assert.assertEquals("failTest", tablePointsPoolsAction.getPjList());
@@ -69,9 +50,31 @@ public class TestTablePointsPoolsAction {
 		tablePointsPoolsAction.setPointPoolName("string_3");
 
 		// Execute
-		tablePointsPoolsAction.addPoints();
+		String result = tablePointsPoolsAction.addPoints();
 
 		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolName());
+		Assert.assertEquals("failTest", tablePointsPoolsAction.getTable());
+		Assert.assertEquals("failTest", tablePointsPoolsAction.getPjList());
+		Assert.assertEquals("failTest", tablePointsPoolsAction.getId());
+		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolList());
+		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolModification());
+	}
+
+
+	@Test
+	public void testFindMinMaxPjPoints() throws Exception {
+		// Prepare
+		tablePointsPoolsAction.setPointPoolModification("string_1");
+		tablePointsPoolsAction.setId(2);
+		tablePointsPoolsAction.setPointPoolName("string_3");
+
+		// Execute
+		String result = tablePointsPoolsAction.findMinMaxPjPoints();
+
+		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", tablePointsPoolsAction.getPointPoolName());
 		Assert.assertEquals("failTest", tablePointsPoolsAction.getTable());
 		Assert.assertEquals("failTest", tablePointsPoolsAction.getPjList());

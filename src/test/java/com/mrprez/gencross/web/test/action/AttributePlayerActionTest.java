@@ -8,17 +8,17 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.AttributePlayerAction;
-import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
+import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestAttributePlayerAction {
-
-	@Mock
-	private IAuthentificationBS authentificationBS;
+public class AttributePlayerActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
+
+	@Mock
+	private IAuthentificationBS authentificationBS;
 
 	@InjectMocks
 	private AttributePlayerAction attributePlayerAction;
@@ -36,15 +36,16 @@ public class TestAttributePlayerAction {
 		attributePlayerAction.setSuccessLink("string_6");
 
 		// Execute
-		attributePlayerAction.execute();
+		String result = attributePlayerAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", attributePlayerAction.getPersonnageId());
 		Assert.assertEquals("failTest", attributePlayerAction.getTableId());
 		Assert.assertEquals("failTest", attributePlayerAction.getNewPlayerName());
 		Assert.assertEquals("failTest", attributePlayerAction.getNoPlayerKey());
-		Assert.assertEquals("failTest", attributePlayerAction.getSuccessLinkLabel());
 		Assert.assertEquals("failTest", attributePlayerAction.getUserList());
+		Assert.assertEquals("failTest", attributePlayerAction.getSuccessLinkLabel());
 		Assert.assertEquals("failTest", attributePlayerAction.getPersonnageWork());
 		Assert.assertEquals("failTest", attributePlayerAction.getSuccessMessage());
 		Assert.assertEquals("failTest", attributePlayerAction.getSuccessLink());
@@ -62,15 +63,16 @@ public class TestAttributePlayerAction {
 		attributePlayerAction.setSuccessLink("string_6");
 
 		// Execute
-		attributePlayerAction.attribute();
+		String result = attributePlayerAction.attribute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", attributePlayerAction.getPersonnageId());
 		Assert.assertEquals("failTest", attributePlayerAction.getTableId());
 		Assert.assertEquals("failTest", attributePlayerAction.getNewPlayerName());
 		Assert.assertEquals("failTest", attributePlayerAction.getNoPlayerKey());
-		Assert.assertEquals("failTest", attributePlayerAction.getSuccessLinkLabel());
 		Assert.assertEquals("failTest", attributePlayerAction.getUserList());
+		Assert.assertEquals("failTest", attributePlayerAction.getSuccessLinkLabel());
 		Assert.assertEquals("failTest", attributePlayerAction.getPersonnageWork());
 		Assert.assertEquals("failTest", attributePlayerAction.getSuccessMessage());
 		Assert.assertEquals("failTest", attributePlayerAction.getSuccessLink());

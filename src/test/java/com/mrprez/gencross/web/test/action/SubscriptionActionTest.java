@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.SubscriptionAction;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestSubscriptionAction {
+public class SubscriptionActionTest extends AbstractActionTest {
 
 	@Mock
 	private IAuthentificationBS authentificationBS;
@@ -30,9 +30,10 @@ public class TestSubscriptionAction {
 		subscriptionAction.setMail("string_4");
 
 		// Execute
-		subscriptionAction.execute();
+		String result = subscriptionAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", subscriptionAction.getConfirmPassword());
 		Assert.assertEquals("failTest", subscriptionAction.getPassword());
 		Assert.assertEquals("failTest", subscriptionAction.getUsername());
@@ -49,9 +50,10 @@ public class TestSubscriptionAction {
 		subscriptionAction.setMail("string_4");
 
 		// Execute
-		subscriptionAction.authentification();
+		String result = subscriptionAction.authentification();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", subscriptionAction.getConfirmPassword());
 		Assert.assertEquals("failTest", subscriptionAction.getPassword());
 		Assert.assertEquals("failTest", subscriptionAction.getUsername());

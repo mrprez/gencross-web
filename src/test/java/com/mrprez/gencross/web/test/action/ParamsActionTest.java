@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.ParamsAction;
 import com.mrprez.gencross.web.bs.face.IParamsBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestParamsAction {
+public class ParamsActionTest extends AbstractActionTest {
 
 	@Mock
 	private IParamsBS paramsBS;
@@ -33,9 +33,10 @@ public class TestParamsAction {
 		paramsAction.setDay("string_7");
 
 		// Execute
-		paramsAction.execute();
+		String result = paramsAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", paramsAction.getMilliSeconds());
 		Assert.assertEquals("failTest", paramsAction.getMinutes());
 		Assert.assertEquals("failTest", paramsAction.getHour());
@@ -59,9 +60,10 @@ public class TestParamsAction {
 		paramsAction.setDay("string_7");
 
 		// Execute
-		paramsAction.edit();
+		String result = paramsAction.edit();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", paramsAction.getMilliSeconds());
 		Assert.assertEquals("failTest", paramsAction.getMinutes());
 		Assert.assertEquals("failTest", paramsAction.getHour());

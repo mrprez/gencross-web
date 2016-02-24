@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.ChangeMailAction;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestChangeMailAction {
+public class ChangeMailActionTest extends AbstractActionTest {
 
 	@Mock
 	private IAuthentificationBS authentificationBS;
@@ -27,9 +27,10 @@ public class TestChangeMailAction {
 		changeMailAction.setMail("string_1");
 
 		// Execute
-		changeMailAction.execute();
+		String result = changeMailAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", changeMailAction.getMail());
 	}
 
@@ -40,9 +41,10 @@ public class TestChangeMailAction {
 		changeMailAction.setMail("string_1");
 
 		// Execute
-		changeMailAction.changeMail();
+		String result = changeMailAction.changeMail();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", changeMailAction.getMail());
 	}
 }

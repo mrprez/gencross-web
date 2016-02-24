@@ -10,7 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.mrprez.gencross.web.action.ExceptionAction;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestExceptionAction {
+public class ExceptionActionTest extends AbstractActionTest {
 
 	@InjectMocks
 	private ExceptionAction exceptionAction;
@@ -22,8 +22,9 @@ public class TestExceptionAction {
 		// Prepare
 
 		// Execute
-		exceptionAction.execute();
+		String result = exceptionAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 	}
 }

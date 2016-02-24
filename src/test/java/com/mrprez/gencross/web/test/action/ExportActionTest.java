@@ -12,7 +12,7 @@ import com.mrprez.gencross.web.bs.face.IExportBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestExportAction {
+public class ExportActionTest extends AbstractActionTest {
 
 	@Mock
 	private IExportBS exportBS;
@@ -35,9 +35,10 @@ public class TestExportAction {
 		exportAction.setPersonnageId(5);
 
 		// Execute
-		exportAction.execute();
+		String result = exportAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", exportAction.getFileName());
 		Assert.assertEquals("failTest", exportAction.getFileGeneratorName());
 		Assert.assertEquals("failTest", exportAction.getTemplateFile());
@@ -60,9 +61,10 @@ public class TestExportAction {
 		exportAction.setPersonnageId(5);
 
 		// Execute
-		exportAction.export();
+		String result = exportAction.export();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", exportAction.getFileName());
 		Assert.assertEquals("failTest", exportAction.getFileGeneratorName());
 		Assert.assertEquals("failTest", exportAction.getTemplateFile());

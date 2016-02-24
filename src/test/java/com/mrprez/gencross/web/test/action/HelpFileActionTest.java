@@ -10,7 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.mrprez.gencross.web.action.HelpFileAction;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestHelpFileAction {
+public class HelpFileActionTest extends AbstractActionTest {
 
 	@InjectMocks
 	private HelpFileAction helpFileAction;
@@ -23,9 +23,10 @@ public class TestHelpFileAction {
 		helpFileAction.setPersonnageWorkId(1);
 
 		// Execute
-		helpFileAction.execute();
+		String result = helpFileAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", helpFileAction.getContentDisposition());
 		Assert.assertEquals("failTest", helpFileAction.getContentLength());
 		Assert.assertEquals("failTest", helpFileAction.getHelpFileInputStream());

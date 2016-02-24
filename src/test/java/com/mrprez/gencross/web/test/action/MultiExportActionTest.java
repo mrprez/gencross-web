@@ -12,7 +12,7 @@ import com.mrprez.gencross.web.bs.face.IExportBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestMultiExportAction {
+public class MultiExportActionTest extends AbstractActionTest {
 
 	@Mock
 	private IExportBS exportBS;
@@ -35,17 +35,18 @@ public class TestMultiExportAction {
 		multiExportAction.setSelectedTemplate("string_5");
 
 		// Execute
-		multiExportAction.execute();
+		String result = multiExportAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", multiExportAction.getExportedPjList());
-		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getPjList());
+		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getTable());
 		Assert.assertEquals("failTest", multiExportAction.getTableId());
 		Assert.assertEquals("failTest", multiExportAction.getSelectedTemplate());
-		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getFileName());
+		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getExportedPnjList());
 		Assert.assertEquals("failTest", multiExportAction.getTemplateFile());
 		Assert.assertEquals("failTest", multiExportAction.getFileGeneratorName());
@@ -66,17 +67,18 @@ public class TestMultiExportAction {
 		multiExportAction.setSelectedTemplate("string_5");
 
 		// Execute
-		multiExportAction.export();
+		String result = multiExportAction.export();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", multiExportAction.getExportedPjList());
-		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getPjList());
+		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getTable());
 		Assert.assertEquals("failTest", multiExportAction.getTableId());
 		Assert.assertEquals("failTest", multiExportAction.getSelectedTemplate());
-		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getFileName());
+		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getExportedPnjList());
 		Assert.assertEquals("failTest", multiExportAction.getTemplateFile());
 		Assert.assertEquals("failTest", multiExportAction.getFileGeneratorName());
@@ -97,17 +99,18 @@ public class TestMultiExportAction {
 		multiExportAction.setSelectedTemplate("string_5");
 
 		// Execute
-		multiExportAction.exportCsv();
+		String result = multiExportAction.exportCsv();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", multiExportAction.getExportedPjList());
-		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getPjList());
+		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getTable());
 		Assert.assertEquals("failTest", multiExportAction.getTableId());
 		Assert.assertEquals("failTest", multiExportAction.getSelectedTemplate());
-		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getFileName());
+		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getExportedPnjList());
 		Assert.assertEquals("failTest", multiExportAction.getTemplateFile());
 		Assert.assertEquals("failTest", multiExportAction.getFileGeneratorName());
@@ -128,17 +131,18 @@ public class TestMultiExportAction {
 		multiExportAction.setSelectedTemplate("string_5");
 
 		// Execute
-		multiExportAction.exportZip();
+		String result = multiExportAction.exportZip();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", multiExportAction.getExportedPjList());
-		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getPjList());
+		Assert.assertEquals("failTest", multiExportAction.getFileSize());
 		Assert.assertEquals("failTest", multiExportAction.getTable());
 		Assert.assertEquals("failTest", multiExportAction.getTableId());
 		Assert.assertEquals("failTest", multiExportAction.getSelectedTemplate());
-		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getFileName());
+		Assert.assertEquals("failTest", multiExportAction.getExport());
 		Assert.assertEquals("failTest", multiExportAction.getExportedPnjList());
 		Assert.assertEquals("failTest", multiExportAction.getTemplateFile());
 		Assert.assertEquals("failTest", multiExportAction.getFileGeneratorName());

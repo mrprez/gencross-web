@@ -8,17 +8,17 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.CreatePersonnageAction;
-import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
+import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestCreatePersonnageAction {
-
-	@Mock
-	private IAuthentificationBS authentificationBS;
+public class CreatePersonnageActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
+
+	@Mock
+	private IAuthentificationBS authentificationBS;
 
 	@InjectMocks
 	private CreatePersonnageAction createPersonnageAction;
@@ -35,9 +35,10 @@ public class TestCreatePersonnageAction {
 		createPersonnageAction.setRole("string_5");
 
 		// Execute
-		createPersonnageAction.create();
+		String result = createPersonnageAction.create();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", createPersonnageAction.getSelectedPersonnageTypeName());
 		Assert.assertEquals("failTest", createPersonnageAction.getNoGmKey());
 		Assert.assertEquals("failTest", createPersonnageAction.getPlayerName());
@@ -61,9 +62,10 @@ public class TestCreatePersonnageAction {
 		createPersonnageAction.setRole("string_5");
 
 		// Execute
-		createPersonnageAction.execute();
+		String result = createPersonnageAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", createPersonnageAction.getSelectedPersonnageTypeName());
 		Assert.assertEquals("failTest", createPersonnageAction.getNoGmKey());
 		Assert.assertEquals("failTest", createPersonnageAction.getPlayerName());

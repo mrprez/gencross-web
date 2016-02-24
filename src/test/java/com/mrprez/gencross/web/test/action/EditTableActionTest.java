@@ -8,21 +8,21 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.EditTableAction;
-import com.mrprez.gencross.web.bs.face.IAdminBS;
 import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
+import com.mrprez.gencross.web.bs.face.IAdminBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestEditTableAction {
-
-	@Mock
-	private IAdminBS adminBS;
+public class EditTableActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
 
 	@Mock
 	private ITableBS tableBS;
+
+	@Mock
+	private IAdminBS adminBS;
 
 	@InjectMocks
 	private EditTableAction editTableAction;
@@ -40,13 +40,14 @@ public class TestEditTableAction {
 		editTableAction.setPointPoolModification(6);
 		editTableAction.setId(7);
 		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
 
 		// Execute
-		editTableAction.execute();
+		String result = editTableAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editTableAction.getPjList());
 		Assert.assertEquals("failTest", editTableAction.getMessageId());
 		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
@@ -61,8 +62,8 @@ public class TestEditTableAction {
 		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
 		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
 		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
 		Assert.assertEquals("failTest", editTableAction.getPnjList());
 		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
@@ -80,13 +81,14 @@ public class TestEditTableAction {
 		editTableAction.setPointPoolModification(6);
 		editTableAction.setId(7);
 		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
 
 		// Execute
-		editTableAction.transformInPNJ();
+		String result = editTableAction.transformInPNJ();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editTableAction.getPjList());
 		Assert.assertEquals("failTest", editTableAction.getMessageId());
 		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
@@ -101,8 +103,8 @@ public class TestEditTableAction {
 		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
 		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
 		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
 		Assert.assertEquals("failTest", editTableAction.getPnjList());
 		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
@@ -120,13 +122,14 @@ public class TestEditTableAction {
 		editTableAction.setPointPoolModification(6);
 		editTableAction.setId(7);
 		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
 
 		// Execute
-		editTableAction.bindPersonnage();
+		String result = editTableAction.bindPersonnage();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editTableAction.getPjList());
 		Assert.assertEquals("failTest", editTableAction.getMessageId());
 		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
@@ -141,128 +144,8 @@ public class TestEditTableAction {
 		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
 		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
 		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
-		Assert.assertEquals("failTest", editTableAction.getPnjList());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
-	}
-
-
-	@Test
-	public void testAddPersonnage() throws Exception {
-		// Prepare
-		editTableAction.setLoadedMessageNumber(1);
-		editTableAction.setPointPoolName("string_2");
-		editTableAction.setPersonnageId(3);
-		editTableAction.setMessage("string_4");
-		editTableAction.setAddMessage("string_5");
-		editTableAction.setPointPoolModification(6);
-		editTableAction.setId(7);
-		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
-
-		// Execute
-		editTableAction.addPersonnage();
-
-		// Check
-		Assert.assertEquals("failTest", editTableAction.getPjList());
-		Assert.assertEquals("failTest", editTableAction.getMessageId());
-		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getSendMessage());
-		Assert.assertEquals("failTest", editTableAction.getMessage());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
-		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
-		Assert.assertEquals("failTest", editTableAction.getTable());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
-		Assert.assertEquals("failTest", editTableAction.getId());
-		Assert.assertEquals("failTest", editTableAction.getAddMessage());
-		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
-		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
 		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
-		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
-		Assert.assertEquals("failTest", editTableAction.getPnjList());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
-	}
-
-
-	@Test
-	public void testNewMessage() throws Exception {
-		// Prepare
-		editTableAction.setLoadedMessageNumber(1);
-		editTableAction.setPointPoolName("string_2");
-		editTableAction.setPersonnageId(3);
-		editTableAction.setMessage("string_4");
-		editTableAction.setAddMessage("string_5");
-		editTableAction.setPointPoolModification(6);
-		editTableAction.setId(7);
-		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
-
-		// Execute
-		editTableAction.newMessage();
-
-		// Check
-		Assert.assertEquals("failTest", editTableAction.getPjList());
-		Assert.assertEquals("failTest", editTableAction.getMessageId());
-		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getSendMessage());
-		Assert.assertEquals("failTest", editTableAction.getMessage());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
-		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
-		Assert.assertEquals("failTest", editTableAction.getTable());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
-		Assert.assertEquals("failTest", editTableAction.getId());
-		Assert.assertEquals("failTest", editTableAction.getAddMessage());
-		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
-		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
-		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
-		Assert.assertEquals("failTest", editTableAction.getPnjList());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
-	}
-
-
-	@Test
-	public void testRemoveMessage() throws Exception {
-		// Prepare
-		editTableAction.setLoadedMessageNumber(1);
-		editTableAction.setPointPoolName("string_2");
-		editTableAction.setPersonnageId(3);
-		editTableAction.setMessage("string_4");
-		editTableAction.setAddMessage("string_5");
-		editTableAction.setPointPoolModification(6);
-		editTableAction.setId(7);
-		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
-
-		// Execute
-		editTableAction.removeMessage();
-
-		// Check
-		Assert.assertEquals("failTest", editTableAction.getPjList());
-		Assert.assertEquals("failTest", editTableAction.getMessageId());
-		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getSendMessage());
-		Assert.assertEquals("failTest", editTableAction.getMessage());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
-		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
-		Assert.assertEquals("failTest", editTableAction.getTable());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
-		Assert.assertEquals("failTest", editTableAction.getId());
-		Assert.assertEquals("failTest", editTableAction.getAddMessage());
-		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
-		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
-		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
 		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
 		Assert.assertEquals("failTest", editTableAction.getPnjList());
 		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
@@ -280,13 +163,14 @@ public class TestEditTableAction {
 		editTableAction.setPointPoolModification(6);
 		editTableAction.setId(7);
 		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
 
 		// Execute
-		editTableAction.unbindPersonnage();
+		String result = editTableAction.unbindPersonnage();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editTableAction.getPjList());
 		Assert.assertEquals("failTest", editTableAction.getMessageId());
 		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
@@ -301,8 +185,8 @@ public class TestEditTableAction {
 		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
 		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
 		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
 		Assert.assertEquals("failTest", editTableAction.getPnjList());
 		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
@@ -320,13 +204,14 @@ public class TestEditTableAction {
 		editTableAction.setPointPoolModification(6);
 		editTableAction.setId(7);
 		editTableAction.setPersonnageName("string_8");
-		editTableAction.setSendMessage("string_9");
-		editTableAction.setMessageId(10);
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
 
 		// Execute
-		editTableAction.refreshMessages();
+		String result = editTableAction.refreshMessages();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", editTableAction.getPjList());
 		Assert.assertEquals("failTest", editTableAction.getMessageId());
 		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
@@ -341,8 +226,131 @@ public class TestEditTableAction {
 		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
 		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
 		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
+		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
+		Assert.assertEquals("failTest", editTableAction.getPnjList());
+		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
+	}
+
+
+	@Test
+	public void testAddPersonnage() throws Exception {
+		// Prepare
+		editTableAction.setLoadedMessageNumber(1);
+		editTableAction.setPointPoolName("string_2");
+		editTableAction.setPersonnageId(3);
+		editTableAction.setMessage("string_4");
+		editTableAction.setAddMessage("string_5");
+		editTableAction.setPointPoolModification(6);
+		editTableAction.setId(7);
+		editTableAction.setPersonnageName("string_8");
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
+
+		// Execute
+		String result = editTableAction.addPersonnage();
+
+		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", editTableAction.getPjList());
+		Assert.assertEquals("failTest", editTableAction.getMessageId());
+		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getSendMessage());
+		Assert.assertEquals("failTest", editTableAction.getMessage());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
+		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
+		Assert.assertEquals("failTest", editTableAction.getTable());
+		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
+		Assert.assertEquals("failTest", editTableAction.getId());
+		Assert.assertEquals("failTest", editTableAction.getAddMessage());
+		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
+		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
+		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
+		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
+		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
+		Assert.assertEquals("failTest", editTableAction.getPnjList());
+		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
+	}
+
+
+	@Test
+	public void testNewMessage() throws Exception {
+		// Prepare
+		editTableAction.setLoadedMessageNumber(1);
+		editTableAction.setPointPoolName("string_2");
+		editTableAction.setPersonnageId(3);
+		editTableAction.setMessage("string_4");
+		editTableAction.setAddMessage("string_5");
+		editTableAction.setPointPoolModification(6);
+		editTableAction.setId(7);
+		editTableAction.setPersonnageName("string_8");
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
+
+		// Execute
+		String result = editTableAction.newMessage();
+
+		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", editTableAction.getPjList());
+		Assert.assertEquals("failTest", editTableAction.getMessageId());
+		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getSendMessage());
+		Assert.assertEquals("failTest", editTableAction.getMessage());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
+		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
+		Assert.assertEquals("failTest", editTableAction.getTable());
+		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
+		Assert.assertEquals("failTest", editTableAction.getId());
+		Assert.assertEquals("failTest", editTableAction.getAddMessage());
+		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
+		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
+		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
+		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
+		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
+		Assert.assertEquals("failTest", editTableAction.getPnjList());
+		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
+	}
+
+
+	@Test
+	public void testRemoveMessage() throws Exception {
+		// Prepare
+		editTableAction.setLoadedMessageNumber(1);
+		editTableAction.setPointPoolName("string_2");
+		editTableAction.setPersonnageId(3);
+		editTableAction.setMessage("string_4");
+		editTableAction.setAddMessage("string_5");
+		editTableAction.setPointPoolModification(6);
+		editTableAction.setId(7);
+		editTableAction.setPersonnageName("string_8");
+		editTableAction.setMessageId(9);
+		editTableAction.setSendMessage("string_10");
+
+		// Execute
+		String result = editTableAction.removeMessage();
+
+		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", editTableAction.getPjList());
+		Assert.assertEquals("failTest", editTableAction.getMessageId());
+		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getSendMessage());
+		Assert.assertEquals("failTest", editTableAction.getMessage());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
+		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
+		Assert.assertEquals("failTest", editTableAction.getTable());
+		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
+		Assert.assertEquals("failTest", editTableAction.getId());
+		Assert.assertEquals("failTest", editTableAction.getAddMessage());
+		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
+		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
+		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
+		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
+		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
 		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
 		Assert.assertEquals("failTest", editTableAction.getPnjList());
 		Assert.assertEquals("failTest", editTableAction.getPersonnageName());

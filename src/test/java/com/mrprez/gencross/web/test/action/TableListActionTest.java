@@ -12,7 +12,7 @@ import com.mrprez.gencross.web.bs.face.IPersonnageBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestTableListAction {
+public class TableListActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPersonnageBS personnageBS;
@@ -34,34 +34,14 @@ public class TestTableListAction {
 		tableListAction.setTableName("string_4");
 
 		// Execute
-		tableListAction.execute();
+		String result = tableListAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", tableListAction.getTableId());
-		Assert.assertEquals("failTest", tableListAction.getTableList());
 		Assert.assertEquals("failTest", tableListAction.getPersonnageDeletion());
 		Assert.assertEquals("failTest", tableListAction.getTableTypeList());
-		Assert.assertEquals("failTest", tableListAction.getTableType());
-		Assert.assertEquals("failTest", tableListAction.getTableName());
-	}
-
-
-	@Test
-	public void testRemoveTable() throws Exception {
-		// Prepare
-		tableListAction.setPersonnageDeletion("string_1");
-		tableListAction.setTableType("string_2");
-		tableListAction.setTableId(3);
-		tableListAction.setTableName("string_4");
-
-		// Execute
-		tableListAction.removeTable();
-
-		// Check
-		Assert.assertEquals("failTest", tableListAction.getTableId());
 		Assert.assertEquals("failTest", tableListAction.getTableList());
-		Assert.assertEquals("failTest", tableListAction.getPersonnageDeletion());
-		Assert.assertEquals("failTest", tableListAction.getTableTypeList());
 		Assert.assertEquals("failTest", tableListAction.getTableType());
 		Assert.assertEquals("failTest", tableListAction.getTableName());
 	}
@@ -76,13 +56,36 @@ public class TestTableListAction {
 		tableListAction.setTableName("string_4");
 
 		// Execute
-		tableListAction.addTable();
+		String result = tableListAction.addTable();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", tableListAction.getTableId());
-		Assert.assertEquals("failTest", tableListAction.getTableList());
 		Assert.assertEquals("failTest", tableListAction.getPersonnageDeletion());
 		Assert.assertEquals("failTest", tableListAction.getTableTypeList());
+		Assert.assertEquals("failTest", tableListAction.getTableList());
+		Assert.assertEquals("failTest", tableListAction.getTableType());
+		Assert.assertEquals("failTest", tableListAction.getTableName());
+	}
+
+
+	@Test
+	public void testRemoveTable() throws Exception {
+		// Prepare
+		tableListAction.setPersonnageDeletion("string_1");
+		tableListAction.setTableType("string_2");
+		tableListAction.setTableId(3);
+		tableListAction.setTableName("string_4");
+
+		// Execute
+		String result = tableListAction.removeTable();
+
+		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals("failTest", tableListAction.getTableId());
+		Assert.assertEquals("failTest", tableListAction.getPersonnageDeletion());
+		Assert.assertEquals("failTest", tableListAction.getTableTypeList());
+		Assert.assertEquals("failTest", tableListAction.getTableList());
 		Assert.assertEquals("failTest", tableListAction.getTableType());
 		Assert.assertEquals("failTest", tableListAction.getTableName());
 	}

@@ -12,7 +12,7 @@ import com.mrprez.gencross.web.bs.face.IPlanGameBS;
 import com.mrprez.gencross.web.bs.face.ITableBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestPlanGameAction {
+public class PlanGameActionTest extends AbstractActionTest {
 
 	@Mock
 	private IPlanGameBS planGameBS;
@@ -31,9 +31,10 @@ public class TestPlanGameAction {
 		planGameAction.setTableId(1);
 
 		// Execute
-		planGameAction.execute();
+		String result = planGameAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", planGameAction.getTableId());
 		Assert.assertEquals("failTest", planGameAction.getTable());
 		Assert.assertEquals("failTest", planGameAction.getPlannedGamesList());
@@ -46,9 +47,10 @@ public class TestPlanGameAction {
 		planGameAction.setTableId(1);
 
 		// Execute
-		planGameAction.loadPlannedGames();
+		String result = planGameAction.loadPlannedGames();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", planGameAction.getTableId());
 		Assert.assertEquals("failTest", planGameAction.getTable());
 		Assert.assertEquals("failTest", planGameAction.getPlannedGamesList());

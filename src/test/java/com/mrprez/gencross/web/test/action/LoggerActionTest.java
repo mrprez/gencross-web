@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.LoggerAction;
 import com.mrprez.gencross.web.bs.face.ILoggerBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestLoggerAction {
+public class LoggerActionTest extends AbstractActionTest {
 
 	@Mock
 	private ILoggerBS loggerBS;
@@ -29,9 +29,10 @@ public class TestLoggerAction {
 		loggerAction.setLevelName("string_3");
 
 		// Execute
-		loggerAction.execute();
+		String result = loggerAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", loggerAction.getInputStream());
 		Assert.assertEquals("failTest", loggerAction.getAppenderName());
 		Assert.assertEquals("failTest", loggerAction.getAppenders());
@@ -50,9 +51,10 @@ public class TestLoggerAction {
 		loggerAction.setLevelName("string_3");
 
 		// Execute
-		loggerAction.download();
+		String result = loggerAction.download();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", loggerAction.getInputStream());
 		Assert.assertEquals("failTest", loggerAction.getAppenderName());
 		Assert.assertEquals("failTest", loggerAction.getAppenders());
@@ -71,9 +73,10 @@ public class TestLoggerAction {
 		loggerAction.setLevelName("string_3");
 
 		// Execute
-		loggerAction.changeLevel();
+		String result = loggerAction.changeLevel();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", loggerAction.getInputStream());
 		Assert.assertEquals("failTest", loggerAction.getAppenderName());
 		Assert.assertEquals("failTest", loggerAction.getAppenders());

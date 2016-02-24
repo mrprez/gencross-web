@@ -11,7 +11,7 @@ import com.mrprez.gencross.web.action.DownloadAction;
 import com.mrprez.gencross.web.bs.face.IGencrossUiPackagerBS;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestDownloadAction {
+public class DownloadActionTest extends AbstractActionTest {
 
 	@Mock
 	private IGencrossUiPackagerBS gencrossUiPackagerBS;
@@ -27,9 +27,10 @@ public class TestDownloadAction {
 		downloadAction.setFileName("string_1");
 
 		// Execute
-		downloadAction.execute();
+		String result = downloadAction.execute();
 
 		// Check
+		Assert.assertEquals("input", result);
 		Assert.assertEquals("failTest", downloadAction.getFileName());
 		Assert.assertEquals("failTest", downloadAction.getGenCrossUI());
 		Assert.assertEquals("failTest", downloadAction.getInputStream());
