@@ -30,8 +30,6 @@ To: guillaume.gagneret@gmail.com;
 Subject: Invalid subject: Sujet non conforme
 Votre message n'a pas pu être associé à une table. Il faut que l'objet du mail contienne le numéro de la table entre crochet ('[<numero_table>]').
 
-
-
 Message sans aucune importance.
 
 

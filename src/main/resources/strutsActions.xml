@@ -62,7 +62,7 @@
 		<global-results>
 			<result name="Exception">/jsp/exception.jsp</result>
 			<result name="">Login</result>
-			<result name="Login">/jsp/login.jsp</result>
+			<result name="Login" type="chain">Login</result>
 			<result name="Forbiden">/jsp/403.jsp</result>
 			<result name="Maintenance">/jsp/maintenance.jsp</result>
 		</global-results>

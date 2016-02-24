@@ -70,7 +70,7 @@ public class ExportTest extends WebAbstractTest {
 		driver.findElement(By.id("export")).click();
 		pageTester.testPage(driver, "export3");
 		driver.findElement(By.linkText("Retour")).click();
-		pageTester.testPage(driver, "export1");
+		pageTester.testPage(driver, "export4");
 	}
 	
 	

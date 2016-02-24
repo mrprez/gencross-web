@@ -10,6 +10,7 @@
 		<script charset="utf-8" src="/gencross-web/js/jquery.ui.datepicker-fr.js" type="text/javascript" language="JavaScript"/>
 		<script src="/gencross-web/dwr/engine.js" type="text/javascript" language="JavaScript"/>
 		<script charset="utf-8" src="/gencross-web/js/script.js" type="text/javascript" language="JavaScript"/>
+		<script charset="utf-8" src="/gencross-web/js/multiExport.js" type="text/javascript" language="JavaScript"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/genCross.css"/>
 		<link type="text/css" rel="stylesheet" href="/gencross-web/css/jquery-ui-1.10.3.custom.css"/>
 		<link href="/gencross-web/img/icone_GenCross.jpg" type="image/jpeg" rel="icon"/>
@@ -105,19 +106,19 @@
 						</span>
 					</li>
 					<li>
-						<input class="exportedList" id="exportedPnjList-1" value="3" name="exportedPnjList" type="checkbox"/>
-						<label class="checkboxLabel" for="exportedPnjList-1">Test Export 3</label>
+						<input class="exportedList" id="exportedPnjList-3" value="3" name="exportedPnjList" type="checkbox"/>
+						<input value="3" name="__checkbox_exportedPnjList" id="__checkbox_exportedPnjList-3" type="hidden"/>
+						<label class="checkboxLabel" for="exportedPnjList-3">Test Export 3</label>
 					</li>
 					<li>
-						<input class="exportedList" id="exportedPnjList-2" value="4" name="exportedPnjList" type="checkbox"/>
-						<label class="checkboxLabel" for="exportedPnjList-2">Test Export 4</label>
+						<input class="exportedList" id="exportedPnjList-4" value="4" name="exportedPnjList" type="checkbox"/>
+						<input value="4" name="__checkbox_exportedPnjList" id="__checkbox_exportedPnjList-4" type="hidden"/>
+						<label class="checkboxLabel" for="exportedPnjList-4">Test Export 4</label>
 					</li>
 					<li>
-						<input class="exportedList" id="exportedPnjList-3" value="5" name="exportedPnjList" type="checkbox"/>
-						<label class="checkboxLabel" for="exportedPnjList-3">Test Export 5</label>
-					</li>
-					<li style="list-style: none">
-						<input value="" name="__multiselect_exportedPnjList" id="__multiselect_MultiExport!export_exportedPnjList" type="hidden"/>
+						<input class="exportedList" id="exportedPnjList-5" value="5" name="exportedPnjList" type="checkbox"/>
+						<input value="5" name="__checkbox_exportedPnjList" id="__checkbox_exportedPnjList-5" type="hidden"/>
+						<label class="checkboxLabel" for="exportedPnjList-5">Test Export 5</label>
 					</li>
 				</ul>
 				<ul class="exportedList">
@@ -128,14 +129,13 @@
 					</li>
 					<li>
 						<input class="exportedList" id="exportedPjList-1" value="1" name="exportedPjList" type="checkbox"/>
+						<input value="1" name="__checkbox_exportedPjList" id="__checkbox_exportedPjList-1" type="hidden"/>
 						<label class="checkboxLabel" for="exportedPjList-1">Test Export 1 (mrprez)</label>
 					</li>
 					<li>
 						<input class="exportedList" id="exportedPjList-2" value="2" name="exportedPjList" type="checkbox"/>
+						<input value="2" name="__checkbox_exportedPjList" id="__checkbox_exportedPjList-2" type="hidden"/>
 						<label class="checkboxLabel" for="exportedPjList-2">Test Export 2 (azerty)</label>
-					</li>
-					<li style="list-style: none">
-						<input value="" name="__multiselect_exportedPjList" id="__multiselect_MultiExport!export_exportedPjList" type="hidden"/>
 					</li>
 				</ul>
 				<div>
@@ -159,7 +159,8 @@
 					<span style="display: inline;" class="templateFileList" id="DrawerGenerator_templatesEl">
 						<label for="DrawerGenerator_templates">Fichier template:</label>
 						<select onchange="javascript:selectTemplateFile(this)" class="selectTemplate" id="DrawerGenerator_templates" name="selectedTemplate">
-							<option selected="selected" value="Uploader un fichier">Uploader un fichier</option>
+							<option selected="selected" value="PavillonNoir.gcd">PavillonNoir.gcd</option>
+							<option value="Uploader un fichier">Uploader un fichier</option>
 						</select>
 					</span>
 					<span style="display: none;" class="templateFileList" id="EncodedXmlGenerator_templatesEl">
@@ -186,11 +187,11 @@
 							<option value="Uploader un fichier">Uploader un fichier</option>
 						</select>
 					</span>
+					<input style="display: none;" id="uploadTemplateFile" value="" name="templateFile" type="file"/>
 					<input value="Export Zip" name="action:MultiExport!exportZip" id="zipExport" type="submit"/>
 				</div>
 				<input id="MultiExport!export_tableId" value="1" name="tableId" type="hidden"/>
 			</form>
-			<script type="text/javascript">selectGenerator(); $("[name='selectedTemplate']").children("[value='Uploader un fichier']").attr("selected", "true");</script>
 			<div id="backToEditDiv">
 				<a href="/gencross-web/EditTable.action?id=1">
 					<img src="/gencross-web/img/left_arrow.png" class="straddling" alt="&lt;=="/>Retour

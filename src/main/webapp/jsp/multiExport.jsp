@@ -30,9 +30,7 @@
 				</span>
 				<s:iterator value="pnjList">
 					<li>
-						<s:checkbox name="exportedPnjList" cssClass="exportedList" theme="simple" fieldValue="%{key}" value="%{exportedPnjList.contains(key)}">
-							<s:param name="id">exportedPnjList-${key}</s:param>
-						</s:checkbox>
+						<s:checkbox name="exportedPnjList" cssClass="exportedList" theme="simple" fieldValue="%{key}" value="%{exportedPnjList.contains(key)}" id="exportedPnjList-%{key}"/>
 						<label for="exportedPnjList-${key}" class="checkboxLabel">
 							<s:property value="value"/>
 						</label>
@@ -58,9 +56,7 @@
 				</span>
 				<s:iterator value="pjList">
 					<li>
-						<s:checkbox name="exportedPjList" cssClass="exportedList" theme="simple" fieldValue="%{key}" value="%{exportedPjList.contains(key)}">
-							<s:param name="id">exportedPjList-${key}</s:param>
-						</s:checkbox>
+						<s:checkbox name="exportedPjList" cssClass="exportedList" theme="simple" fieldValue="%{key}" value="%{exportedPjList.contains(key)}" id="exportedPjList-%{key}"/>
 						<label for="exportedPjList-${key}" class="checkboxLabel">
 							<s:property value="value"/>
 						</label>
