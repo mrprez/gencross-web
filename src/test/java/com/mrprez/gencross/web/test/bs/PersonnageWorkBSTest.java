@@ -65,6 +65,28 @@ public class PersonnageWorkBSTest {
 		personnageWork.setPersonnageData(personnageData);
 		return personnageWork;
 	}
+	
+	public static PersonnageWorkBO buildPersonnageWorkMock(Integer id, String name, UserBO player, UserBO gm) throws Exception{
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setId(id);
+		personnageWork.setName(name);
+		personnageWork.setPlayer(player);
+		personnageWork.setGameMaster(gm);
+		return personnageWork;
+	}
+	
+	public static PersonnageWorkBO buildPersonnageWorkMock(Integer id, String name, String player, String gm) throws Exception{
+		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
+		personnageWork.setId(id);
+		personnageWork.setName(name);
+		if(player!=null){
+			personnageWork.setPlayer(AuthentificationBSTest.buildUser(player));
+		}
+		if(gm!=null){
+			personnageWork.setGameMaster(AuthentificationBSTest.buildUser(gm));
+		}
+		return personnageWork;
+	}
 
 	@Test
 	public void testCreatePersonnageAsPlayer_WithoutGM() throws Exception{

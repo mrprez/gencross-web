@@ -7,7 +7,7 @@
 
 
 <script language="Javascript">
-	personnageWorkId = <s:property value="personnageWork.id" escape="false" escapeJavaScript="true"/>;
+	personnageWorkId = <s:property value="personnageWork.id"/>;
 </script>
 
 
@@ -141,7 +141,7 @@
 				
 				<s:if test="actionMessage!=null">
 					<script language="Javascript">
-						showAlertMessage('<s:property value="actionMessage" escape="false"/>');
+						showAlertMessage('<s:property value="actionMessage"/>');
 					</script> 
 				</s:if>
 			</td>

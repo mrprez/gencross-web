@@ -1,8 +1,9 @@
 package com.mrprez.gencross.web.test.action;
 
 import org.junit.Assert;
-import org.junit.runner.RunWith;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -10,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.mrprez.gencross.web.action.LoginAction;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
 
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class LoginActionTest extends AbstractActionTest {
 
