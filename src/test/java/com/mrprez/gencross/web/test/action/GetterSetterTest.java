@@ -33,6 +33,7 @@ import com.mrprez.gencross.web.action.TableListAction;
 import com.mrprez.gencross.web.action.TablePointsPoolsAction;
 import com.mrprez.gencross.web.action.UploadAction;
 
+
 public class GetterSetterTest {
 
 	@Test
@@ -183,23 +184,14 @@ public class GetterSetterTest {
 	public void testUploadAction() throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException{
 		testAllGetterSetter(UploadAction.class);
 	}
-
-
-	
-	private void testGetterSetter(Class<?> clazz, String propertyName, Class<?> propertyClass) throws InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException{
-		Object object = clazz.newInstance();
-		Method setterMethod = clazz.getMethod("set"+propertyName, propertyClass);
-		Method getterMethod = clazz.getMethod("get"+propertyName);
-		testGetterSetter(object, setterMethod, getterMethod);
-	}
 	
 	
 	private void testAllGetterSetter(Class<?> clazz) throws InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException{
 		Object object = clazz.newInstance();
-		for(Method method : clazz.getMethods()){
-			if(method.getName().startsWith("set")){
+		for(Method method : clazz.getDeclaredMethods()){
+			if(method.getName().startsWith("set") && method.getParameterTypes().length==1){
 				String propertyName = method.getName().substring(3);
-				if(clazz.getMethod("get"+propertyName)!=null){
+				if(methodExist(clazz, "get"+propertyName, method.getParameterTypes()[0])){
 					testGetterSetter(object, method, clazz.getMethod("get"+propertyName));
 				}
 			}
@@ -208,12 +200,22 @@ public class GetterSetterTest {
 		
 	}
 	
+	private boolean methodExist(Class<?> clazz, String methodName, Class<?> returnedType, Class<?>... parameterTypes){
+		try{
+			return clazz.getMethod(methodName, parameterTypes).getReturnType().isAssignableFrom(returnedType);
+		}catch(NoSuchMethodException nsme){
+			return false;
+		}
+	}
+	
 	
 	private void testGetterSetter(Object object, Method setterMethod, Method getterMethod) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Class<?> propertyClass = setterMethod.getParameterTypes()[0];
 		Object parameter;
 		if(propertyClass.isAssignableFrom(Integer.class)){
 			parameter = new Integer(10);
+		} else if(propertyClass.isAssignableFrom(String.class)){
+			parameter = "a simple string";
 		}else{
 			parameter = Mockito.mock(propertyClass);
 		}

@@ -70,7 +70,7 @@ public class PersonnageListAction extends ActionSupport {
 			}
 			ActionContext.getContext().getSession().put(GM_PERONNAGE_SORT_KEY, comparator);
 		}
-		return SUCCESS;
+		return execute();
 	}
 	
 	
