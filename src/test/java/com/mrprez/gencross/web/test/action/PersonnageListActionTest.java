@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.PersonnageListAction;
+import com.mrprez.gencross.web.action.util.PersonnageNameComparator;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IGcrFileBS;
@@ -172,6 +173,38 @@ public class PersonnageListActionTest extends AbstractActionTest {
 		Assert.assertEquals("Green_Lantern.gcr", personnageListAction.getFileName());
 	}
 	
+	
+	@Test
+	public void testSort_NoSort() throws Exception {
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		List<PersonnageWorkBO> playerPersonnageList = new ArrayList<PersonnageWorkBO>();
+		playerPersonnageList.add(PersonnageWorkBSTest.buildPersonnageWorkMock(1, "B", user, null));
+		playerPersonnageList.add(PersonnageWorkBSTest.buildPersonnageWorkMock(2, "A", user, null));
+		playerPersonnageList.add(PersonnageWorkBSTest.buildPersonnageWorkMock(3, "C", user, null));
+		List<PersonnageWorkBO> gameMasterPersonnageList = new ArrayList<PersonnageWorkBO>();
+		gameMasterPersonnageList.add(PersonnageWorkBSTest.buildPersonnageWorkMock(1, "G", user, null));
+		gameMasterPersonnageList.add(PersonnageWorkBSTest.buildPersonnageWorkMock(2, "F", user, null));
+		gameMasterPersonnageList.add(PersonnageWorkBSTest.buildPersonnageWorkMock(3, "D", user, null));
+		ActionContext.getContext().getSession().put("user", user);
+		Mockito.when(personnageBS.getPlayerPersonnageList(user)).thenReturn(playerPersonnageList);
+		Mockito.when(personnageBS.getGameMasterPersonnageList(user)).thenReturn(gameMasterPersonnageList);
+		
+		// Execute
+		String result = personnageListAction.sort();
+
+		// Check
+		Assert.assertEquals("input", result);
+		Assert.assertEquals(3, personnageListAction.getPlayerPersonnageList().size());
+		Assert.assertEquals("A", personnageListAction.getPlayerPersonnageList().get(0).getName());
+		Assert.assertEquals("B", personnageListAction.getPlayerPersonnageList().get(1).getName());
+		Assert.assertEquals("C", personnageListAction.getPlayerPersonnageList().get(2).getName());
+		Assert.assertEquals(3, personnageListAction.getGameMasterPersonnageList().size());
+		Assert.assertEquals("D", personnageListAction.getGameMasterPersonnageList().get(0).getName());
+		Assert.assertEquals("F", personnageListAction.getGameMasterPersonnageList().get(1).getName());
+		Assert.assertEquals("G", personnageListAction.getGameMasterPersonnageList().get(2).getName());
+	}
+	
 
 	@Test
 	public void testSort() throws Exception {
@@ -244,6 +277,96 @@ public class PersonnageListActionTest extends AbstractActionTest {
 		Assert.assertNull(personnageListAction.getGameMasterPersonnageList().get(0).getPlayer());
 		Assert.assertEquals("Y", personnageListAction.getGameMasterPersonnageList().get(1).getPlayer().getUsername());
 		Assert.assertEquals("X", personnageListAction.getGameMasterPersonnageList().get(2).getPlayer().getUsername());
+	}
+	
+	
+	@Test
+	public void testGetGameMasterSortDir_Success_Asc(){
+		// Prepare
+		ActionContext.getContext().getSession().put("gameMasterPersonnageSort", new PersonnageNameComparator(1));
+		
+		// Execute
+		String result = personnageListAction.getGameMasterSortDir();
+		
+		// Check
+		Assert.assertEquals("asc", result);
+	}
+	
+	
+	@Test
+	public void testGetGameMasterSortDir_Success_Desc(){
+		// Prepare
+		ActionContext.getContext().getSession().put("gameMasterPersonnageSort", new PersonnageNameComparator(-1));
+		
+		// Execute
+		String result = personnageListAction.getGameMasterSortDir();
+		
+		// Check
+		Assert.assertEquals("dec", result);
+	}
+	
+	
+	@Test
+	public void testGetGameMasterSortDir_Fail(){
+		// Prepare
+		ActionContext.getContext().getSession().put("gameMasterPersonnageSort", new PersonnageNameComparator(0));
+		
+		// Execute
+		IllegalArgumentException exception = null;
+		try{
+			personnageListAction.getGameMasterSortDir();
+		}catch(IllegalArgumentException iae){
+			exception = iae;
+		}
+		
+		// Check
+		Assert.assertNotNull("desc", exception);
+		Assert.assertEquals("Direction should be 1 or -1", exception.getMessage());
+	}
+	
+	
+	@Test
+	public void testGetPlayerSortDir_Success_Asc(){
+		// Prepare
+		ActionContext.getContext().getSession().put("playerPersonnageSort", new PersonnageNameComparator(1));
+		
+		// Execute
+		String result = personnageListAction.getPlayerSortDir();
+		
+		// Check
+		Assert.assertEquals("asc", result);
+	}
+	
+	
+	@Test
+	public void testGetPlayerSortDir_Success_Desc(){
+		// Prepare
+		ActionContext.getContext().getSession().put("playerPersonnageSort", new PersonnageNameComparator(-1));
+		
+		// Execute
+		String result = personnageListAction.getPlayerSortDir();
+		
+		// Check
+		Assert.assertEquals("dec", result);
+	}
+	
+	
+	@Test
+	public void testGetPlayerSortDir_Fail(){
+		// Prepare
+		ActionContext.getContext().getSession().put("playerPersonnageSort", new PersonnageNameComparator(0));
+		
+		// Execute
+		IllegalArgumentException exception = null;
+		try{
+			personnageListAction.getPlayerSortDir();
+		}catch(IllegalArgumentException iae){
+			exception = iae;
+		}
+		
+		// Check
+		Assert.assertNotNull("desc", exception);
+		Assert.assertEquals("Direction should be 1 or -1", exception.getMessage());
 	}
 	
 }
