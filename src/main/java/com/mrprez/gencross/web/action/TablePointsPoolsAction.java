@@ -95,6 +95,9 @@ public class TablePointsPoolsAction extends ActionSupport {
 	public Collection<PersonnageWorkBO> getPjList() {
 		return pjList;
 	}
+	public void setPjList(SortedSet<PersonnageWorkBO> pjList) {
+		this.pjList = pjList;
+	}
 	public String getPointPoolName() {
 		return pointPoolName;
 	}
@@ -129,5 +132,7 @@ public class TablePointsPoolsAction extends ActionSupport {
 			return arg0.getName().compareTo(arg1.getName());
 		}
 	}
+
+
 
 }

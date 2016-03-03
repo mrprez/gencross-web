@@ -2,6 +2,8 @@ package com.mrprez.gencross.web.action;
 
 import java.util.Collection;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -25,7 +27,7 @@ public class TableListAction extends ActionSupport {
 	
 	
 	public String addTable() throws Exception {
-		if(tableName==null || tableName.isEmpty()){
+		if(StringUtils.isBlank(tableName)){
 			super.addActionError("Le nom de la table à créer ne doit pas être vide");
 			execute();
 			return ERROR;
