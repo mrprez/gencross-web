@@ -220,7 +220,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		Integer id = 2;
 		Integer personnageId = 3;
 		PersonnageWorkBO personnageWork = new PersonnageWorkBO();
-		Mockito.when(tableBS.addPersonnageToTable(id, personnageId, user)).thenReturn(personnageWork);
+		Mockito.when(tableBS.removePersonnageFromTable(id, personnageId, user)).thenReturn(personnageWork);
 		
 		// Execute
 		editTableAction.setId(id);
@@ -228,7 +228,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		String result = editTableAction.unbindPersonnage();
 
 		// Check
-		Assert.assertEquals("error", result);
+		Assert.assertEquals("success", result);
 		Mockito.verify(tableBS).removePersonnageFromTable(id, personnageId, user);
 	}
 
@@ -316,45 +316,61 @@ public class EditTableActionTest extends AbstractActionTest {
 		Mockito.verify(tableBS).addNewPersonnageToTable(id, personnageName, user);
 	}
 
-	@Ignore
 	@Test
-	public void testNewMessage() throws Exception {
+	public void testNewMessage_Fail_IntrusionAttempts() throws Exception {
 		// Prepare
-		editTableAction.setLoadedMessageNumber(1);
-		editTableAction.setPointPoolName("string_2");
-		editTableAction.setPersonnageId(3);
-		editTableAction.setMessage("string_4");
-		editTableAction.setAddMessage("string_5");
-		editTableAction.setPointPoolModification(6);
-		editTableAction.setId(7);
-		editTableAction.setPersonnageName("string_8");
-		editTableAction.setMessageId(9);
-		editTableAction.setSendMessage("string_10");
-
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		String message = "<script>alert('');</script>";
+		
 		// Execute
+		editTableAction.setMessage(message);
 		String result = editTableAction.newMessage();
 
 		// Check
-		Assert.assertEquals("input", result);
-		Assert.assertEquals("failTest", editTableAction.getPjList());
-		Assert.assertEquals("failTest", editTableAction.getMessageId());
-		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getSendMessage());
-		Assert.assertEquals("failTest", editTableAction.getMessage());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
-		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
-		Assert.assertEquals("failTest", editTableAction.getTable());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
-		Assert.assertEquals("failTest", editTableAction.getId());
-		Assert.assertEquals("failTest", editTableAction.getAddMessage());
-		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
-		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
-		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
-		Assert.assertEquals("failTest", editTableAction.getPnjList());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
+		Assert.assertEquals("error", result);
+		Assert.assertTrue(editTableAction.getActionErrors().contains("Tentative d'intrusion détectée"));
+		Mockito.verify(adminBS).sendMail("Tentative d'intrusion détectée", "batman attempt to break-in system with table message containing tag <script>");
+	}
+	
+	
+	@Test
+	public void testNewMessage_Success_AddMessage() throws Exception {
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		String message = "Bonjour<p></p><p>&nbsp;</p>";
+		Integer tableId = 2;
+		
+		// Execute
+		editTableAction.setMessage(message);
+		editTableAction.setId(tableId);
+		editTableAction.setAddMessage("addMessage");
+		String result = editTableAction.newMessage();
+
+		// Check
+		Assert.assertEquals("success", result);
+		Mockito.verify(tableBS).addMessageToTable("Bonjour", tableId, user);
+	}
+	
+	
+	@Test
+	public void testNewMessage_Success_SendMessage() throws Exception {
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		String message = "Bonjour<p></p><p>&nbsp;</p>";
+		Integer tableId = 2;
+		
+		// Execute
+		editTableAction.setMessage(message);
+		editTableAction.setId(tableId);
+		editTableAction.setSendMessage("sendMessage");
+		String result = editTableAction.newMessage();
+
+		// Check
+		Assert.assertEquals("success", result);
+		Mockito.verify(tableBS).addSendMessage("Bonjour", tableId, user);
 	}
 
 	@Ignore

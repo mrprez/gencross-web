@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.UserBO;
@@ -48,7 +50,7 @@ public class CreatePersonnageAction extends ActionSupport {
 	}
 	
 	public String create() throws Exception {
-		if(personnageName==null || personnageName.trim().isEmpty()){
+		if(StringUtils.isBlank(personnageName)){
 			this.addActionError("Veuillez renseigner un nom pour ce personnage.");
 			execute();
 			return ERROR;

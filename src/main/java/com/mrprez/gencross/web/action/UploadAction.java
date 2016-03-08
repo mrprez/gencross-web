@@ -26,11 +26,8 @@ public class UploadAction extends ActionSupport {
 	public String execute() throws Exception {
 		if(personnageId!=null){
 			UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-			PersonnageWorkBO personnageWork = personnageBS.loadPersonnageAsGameMaster(personnageId, user);
-			gm = (personnageWork!=null);
-			if(!gm){
-				personnageWork = personnageBS.loadPersonnageAsPlayer(personnageId, user);
-			}
+			PersonnageWorkBO personnageWork = personnageBS.loadPersonnage(personnageId, user);
+			gm = user.equals(personnageWork.getGameMaster());
 			personnageName = personnageWork.getName();
 		}
 		return INPUT;
