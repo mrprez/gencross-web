@@ -27,6 +27,7 @@ public class HelpFileAction extends ActionSupport {
 		}
 		fileLength = personnageWork.getPersonnage().getPluginDescriptor().getHelpFileSize();
 		helpFileInputStream = personnageWork.getPersonnage().getHelpFileInputStream();
+		helpFileName= personnageWork.getPersonnage().getPluginDescriptor().getHelpFileName();
 		
 		return SUCCESS;
 	}

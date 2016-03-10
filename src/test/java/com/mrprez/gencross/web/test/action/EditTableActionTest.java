@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -339,7 +338,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		// Prepare
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		ActionContext.getContext().getSession().put("user", user);
-		String message = "Bonjour<p></p><p>&nbsp;</p>";
+		String message = "<p>Bonjour</p><p></p><p>nouveau message</p><p></p><p>&nbsp;</p>";
 		Integer tableId = 2;
 		
 		// Execute
@@ -350,7 +349,7 @@ public class EditTableActionTest extends AbstractActionTest {
 
 		// Check
 		Assert.assertEquals("success", result);
-		Mockito.verify(tableBS).addMessageToTable("Bonjour", tableId, user);
+		Mockito.verify(tableBS).addMessageToTable("<p>Bonjour</p><p></p><p>nouveau message</p>", tableId, user);
 	}
 	
 	
@@ -373,44 +372,21 @@ public class EditTableActionTest extends AbstractActionTest {
 		Mockito.verify(tableBS).addSendMessage("Bonjour", tableId, user);
 	}
 
-	@Ignore
 	@Test
 	public void testRemoveMessage() throws Exception {
 		// Prepare
-		editTableAction.setLoadedMessageNumber(1);
-		editTableAction.setPointPoolName("string_2");
-		editTableAction.setPersonnageId(3);
-		editTableAction.setMessage("string_4");
-		editTableAction.setAddMessage("string_5");
-		editTableAction.setPointPoolModification(6);
-		editTableAction.setId(7);
-		editTableAction.setPersonnageName("string_8");
-		editTableAction.setMessageId(9);
-		editTableAction.setSendMessage("string_10");
-
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		Integer messageId = 10;
+		Integer tableId = 2;
+		
 		// Execute
+		editTableAction.setMessageId(messageId);
+		editTableAction.setId(tableId);
 		String result = editTableAction.removeMessage();
 
 		// Check
-		Assert.assertEquals("input", result);
-		Assert.assertEquals("failTest", editTableAction.getPjList());
-		Assert.assertEquals("failTest", editTableAction.getMessageId());
-		Assert.assertEquals("failTest", editTableAction.getMinPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getSendMessage());
-		Assert.assertEquals("failTest", editTableAction.getMessage());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolName());
-		Assert.assertEquals("failTest", editTableAction.getAddablePersonnage());
-		Assert.assertEquals("failTest", editTableAction.getTable());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageId());
-		Assert.assertEquals("failTest", editTableAction.getId());
-		Assert.assertEquals("failTest", editTableAction.getAddMessage());
-		Assert.assertEquals("failTest", editTableAction.getLoadedMessageNumber());
-		Assert.assertEquals("failTest", editTableAction.getMaxPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMinPnjPoints());
-		Assert.assertEquals("failTest", editTableAction.getMaxPjPoints());
-		Assert.assertEquals("failTest", editTableAction.getPointPoolModification());
-		Assert.assertEquals("failTest", editTableAction.getPoolPointList());
-		Assert.assertEquals("failTest", editTableAction.getPnjList());
-		Assert.assertEquals("failTest", editTableAction.getPersonnageName());
+		Assert.assertEquals("success", result);
+		Mockito.verify(tableBS).removeMessageFromTable(messageId, tableId, user);
 	}
 }

@@ -137,7 +137,7 @@ public class EditTableAction extends ActionSupport {
 			adminBS.sendMail("Tentative d'intrusion détectée", StringUtils.join(securityListener.getIntrusionAttempts(), "<br/>"));
 			return ERROR;
 		}
-		message = message.replaceAll("(<p>\\s*(&nbsp;)*\\s*</p>\\s*)+$", ""); // remove empty line at the message end
+		message = message.replaceAll("(<p>[\\s\\xA0]*</p>[\\s\\xA0]*)+$", ""); // remove empty line at the message end
 		
 		if(addMessage!=null){
 			tableBS.addMessageToTable(message, id, user);
