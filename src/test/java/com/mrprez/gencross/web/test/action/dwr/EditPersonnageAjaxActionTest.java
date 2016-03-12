@@ -167,7 +167,8 @@ public class EditPersonnageAjaxActionTest extends AbstractActionTest {
 		int personnageWorkId = 2;
 		String propertyAbsoluteName = "Attributs#Carrure";
 		String newValue = "3";
-		buildMocksResponses(personnageWorkId, user, personnageBS.setNewValue(personnageWork, newValue, propertyAbsoluteName));
+		buildMocksResponses(personnageWorkId, user);
+		Mockito.when(personnageBS.setNewValue(personnageWork, newValue, propertyAbsoluteName)).then(buildBusinessAnswer());
 		
 		// Execute
 		PersonnageChange result = editPersonnageAjaxAction.updateValue(personnageWorkId, propertyAbsoluteName, newValue);
@@ -177,19 +178,13 @@ public class EditPersonnageAjaxActionTest extends AbstractActionTest {
 	}
 	
 	
-	private <T> void buildMocksResponses(int personnageWorkId, UserBO user, T businessMethodCall) throws Exception{
+	private void buildMocksResponses(int personnageWorkId, UserBO user) throws Exception{
 		Mockito.when(personnageBS.loadPersonnage(personnageWorkId, user)).thenReturn(personnageWork);
 		Mockito.when(personnageWork.getPersonnage()).thenReturn(personnage);
+		personnage.getPhaseList().add("Création");
+		clone.getPhaseList().add("Création");
 		Mockito.when(personnage.clone()).thenReturn(clone);
-		
-		Mockito.when(businessMethodCall).thenAnswer(new Answer<T>() {
-			@Override
-			public T answer(InvocationOnMock invocation) throws Throwable {
-				personnage.setActionMessage(actionMessage);
-				personnage.getHistory().addAll(newHistoryList);
-				return null;
-			}
-		});
+		Mockito.when(clone.phaseFinished()).thenReturn(phaseFinishedBefore);
 		
 		Mockito.when(personnageComparatorBS.findPropertiesDifferences(personnage, clone))
 				.thenReturn(new HashSet<String>(propertiesDifference));
@@ -202,12 +197,34 @@ public class EditPersonnageAjaxActionTest extends AbstractActionTest {
 	}
 	
 	
+	private <T> Answer<T> buildBusinessAnswer(){
+		return new Answer<T>() {
+			@Override
+			public T answer(InvocationOnMock invocation) throws Throwable {
+				personnage.setActionMessage(actionMessage);
+				personnage.getHistory().addAll(newHistoryList);
+				Mockito.when(personnage.phaseFinished()).thenReturn(phaseFinishedAfter);
+				return null;
+			}
+		};
+	}
+	
+	
 	private void checkChanges(PersonnageChange change){
 		Assert.assertEquals(propertiesDifference, change.getPropertyNames());
-		Assert.assertEquals(hasSameErrors, change.getErrorChanges());
+		Assert.assertEquals(! hasSameErrors, change.getErrorChanges());
 		Assert.assertEquals(pointPoolDifferences, change.getPointPoolNames());
-		
-		// TODO
+		Assert.assertEquals(actionMessage, change.getActionMessage());
+		Assert.assertNull(personnage.getActionMessage());
+		if(phaseFinishedAfter==phaseFinishedBefore){
+			Assert.assertNull(change.getPhaseFinished());
+		}else{
+			Assert.assertEquals(phaseFinishedAfter, change.getPhaseFinished());
+		}
+		Assert.assertEquals(newHistoryList.size(), change.getNewHistoryIndexes().size());
+		for(int index=0; index<newHistoryList.size(); index++){
+			Assert.assertEquals(index, change.getNewHistoryIndexes().get(index).intValue());
+		}
 	}
 	
 }
