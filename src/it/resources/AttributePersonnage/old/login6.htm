@@ -68,9 +68,7 @@
 			<div id="obstructionMask"/>
 			<div id="modalDiv">
 				<div id="modalDivText"/>
-				<div id="modalDivButton">
-					<button id="modalDivButton"/>
-				</div>
+				<div id="modalDivButton"/>
 			</div>
 			<table class="personnageListContainer">
 				<tbody>
@@ -130,7 +128,32 @@
 								</thead>
 								<tbody>
 									<tr class="genCrossTable">
-										<td colspan="5" class="genCrossTable">Aucun personnage</td>
+										<td title="ID=1" class="genCrossTable">
+											<a href="/gencross-web/Edit.action?personnageId=1">Test attibution</a>
+										</td>
+										<td class="genCrossTable">Changelin</td>
+										<td class="genCrossTable">qwerty</td>
+										<td title="ID=NA" class="genCrossTable"/>
+										<td class="genCrossTable">
+											<a title="Editer" href="/gencross-web/Edit.action?personnageId=1">
+												<img alt="Fermer" src="/gencross-web/img/edit.png"/>
+											</a>
+											<a title="Attribuer un PJ" href="/gencross-web/AttributePlayer.action?personnageId=1">
+												<img alt="Fermer" src="/gencross-web/img/attributePlayer.png"/>
+											</a>
+											<form class="imgForm" method="post" action="/gencross-web/List!downloadAsGameMaster.action" onsubmit="Javascript:askMJPassword(this)" name="List!downloadAsGameMaster" id="List!downloadAsGameMaster">
+												<input id="List!downloadAsGameMaster_personnageId" value="1" name="personnageId" type="hidden"/>
+												<input id="List!downloadAsGameMaster_password" value="" name="password" type="hidden"/>
+												<input title="Télécharger au format gcr" value="Télécharger" id="List!downloadAsGameMaster_0" src="/gencross-web/img/download.png" alt="Télécharger" type="image"/>
+											</form>
+											<a title="Charger au format gcr" href="/gencross-web/Upload.action?personnageId=1">
+												<img onclick="Javascript:uploadPersonnage(this)" alt="Charger" src="/gencross-web/img/upload.png"/>
+											</a>
+											<form class="imgForm" method="post" action="/gencross-web/List!deletePersonnage.action" name="List!deletePersonnage" id="List!deletePersonnage">
+												<input id="List!deletePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
+												<img onclick="javascript:deletePersonnageMJ(this);" alt="Supprimer" class="editImg" src="/gencross-web/img/remove.png"/>
+											</form>
+										</td>
 									</tr>
 								</tbody>
 							</table>

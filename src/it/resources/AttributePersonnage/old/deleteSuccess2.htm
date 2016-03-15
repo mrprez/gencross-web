@@ -68,9 +68,7 @@
 			<div id="obstructionMask"/>
 			<div id="modalDiv">
 				<div id="modalDivText"/>
-				<div id="modalDivButton">
-					<button id="modalDivButton"/>
-				</div>
+				<div id="modalDivButton"/>
 			</div>
 			<table class="personnageListContainer">
 				<tbody>
@@ -102,30 +100,7 @@
 								</thead>
 								<tbody>
 									<tr class="genCrossTable">
-										<td title="ID=1" class="genCrossTable">
-											<a href="/gencross-web/Edit.action?personnageId=1">Test attibution</a>
-										</td>
-										<td class="genCrossTable">Changelin</td>
-										<td class="genCrossTable"/>
-										<td class="genCrossTable"/>
-										<td class="genCrossTable">
-											<a title="Editer" href="/gencross-web/Edit.action?personnageId=1">
-												<img alt="Fermer" src="/gencross-web/img/edit.png"/>
-											</a>
-											<a title="Attribuer un MJ" href="/gencross-web/AttributeGameMaster.action?personnageId=1">
-												<img src="/gencross-web/img/attributeGM.png"/>
-											</a>
-											<a title="Télécharger au format gcr" href="/gencross-web/List!downloadAsPlayer.action?personnageId=1">
-												<img alt="Télécharger" src="/gencross-web/img/download.png"/>
-											</a>
-											<a title="Charger au format gcr" href="/gencross-web/Upload.action?personnageId=1">
-												<img onclick="Javascript:uploadPersonnage(this)" alt="Charger" src="/gencross-web/img/upload.png"/>
-											</a>
-											<form class="imgForm" method="post" action="/gencross-web/List!deletePersonnage.action" name="List!deletePersonnage" id="List!deletePersonnage">
-												<input id="List!deletePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
-												<img onclick="javascript:deletePersonnagePJ(this);" alt="Supprimer" class="editImg" src="/gencross-web/img/remove.png"/>
-											</form>
-										</td>
+										<td colspan="5" class="genCrossTable">Aucun personnage</td>
 									</tr>
 								</tbody>
 							</table>

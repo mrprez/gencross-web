@@ -159,16 +159,5 @@ public class WebElementProxy implements WebElement {
 	public Rectangle getRect() {
 		return webElement.getRect();
 	}
-
-//	@Override
-//	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//		if(method.getName().equals("click")){
-//			Thread.sleep(2000);
-//			webElement.click();
-//			return null;
-//		}else{
-//			return method.invoke(webElement, args);
-//		}
-//	}
-
+	
 }

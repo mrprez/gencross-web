@@ -85,37 +85,12 @@
 			<div id="obstructionMask"/>
 			<div id="modalDiv">
 				<div id="modalDivText"/>
-				<div id="modalDivButton">
-					<button id="modalDivButton"/>
-				</div>
+				<div id="modalDivButton"/>
 			</div>
-			<div class="attributionFormContainer">
-				<form class="attributionForm" method="post" action="/gencross-web/AttributePlayer!attribute.action" name="AttributePlayer!attribute" id="AttributePlayer!attribute">
-					<p>Attribuer le personnage
-						<span id="attributedPersonnageName">Test attibution</span>au Joueur:
-						<select id="AttributePlayer!attribute_newPlayerName" name="newPlayerName">
-							<option value="_no_player_">Aucun</option>
-							<option value="azerty">azerty</option>
-							<option value="mrprez">mrprez</option>
-							<option value="qwerty">qwerty</option>
-						</select>
-					</p>
-					<p>Le Joueur actuel est
-						<span id="currentValue">azerty</span>.
-					</p>
-					<input id="AttributePlayer!attribute_personnageId" value="1" name="personnageId" type="hidden"/>
-					<table class="attributionForm">
-						<tbody>
-							<tr>
-								<td colspan="2">
-									<div align="right">
-										<input class="attributionButton" value="Valider" id="AttributePlayer!attribute_0" type="submit"/>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
+			<div id="successContent">
+				<span>Opération réalisée avec succès</span>
+				<h3>Le personnage a été attribué à: qwerty.</h3>
+				<a href="/gencross-web/List.action">Retourner à la liste des Personnages.</a>
 			</div>
 		</div>
 		<div id="footer">

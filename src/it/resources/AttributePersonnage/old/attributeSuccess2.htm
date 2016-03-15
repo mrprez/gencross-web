@@ -22,7 +22,6 @@
 				</a>
 				<script language="Javascript" type="text/javascript">$('#personnageMenu').mouseleave(function(){$('#personnageMenu').children('ul').hide('slow');});</script>
 				<script language="Javascript" type="text/javascript">$('#accountManagementMenu').mouseleave(function(){$('#accountManagementMenu').children('ul').hide('slow');});</script>
-				<script language="Javascript" type="text/javascript">$('#administrationMenu').mouseleave(function(){$('#administrationMenu').children('ul').hide('slow');});</script>
 				<table class="menu">
 					<tbody>
 						<tr>
@@ -54,29 +53,12 @@
 							<td class="menu">
 								<a class="menu" href="/gencross-web/Download.action">Téléchargements</a>
 							</td>
-							<td onclick="javascript:showSubMenu(this)" class="menu" id="administrationMenu">
-								<span class="menu">Administration</span>
-								<ul class="subMenu">
-									<li class="subMenu">
-										<a href="/gencross-web/ListUser.action">Liste des utilisateurs</a>
-									</li>
-									<li class="subMenu">
-										<a href="/gencross-web/Params.action">Gestion des paramètres</a>
-									</li>
-									<li class="subMenu">
-										<a href="/gencross-web/JobProcessing.action">Traitements programmés</a>
-									</li>
-									<li class="subMenu">
-										<a href="/gencross-web/Logger.action">Gestion des logs</a>
-									</li>
-								</ul>
-							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div id="headerRight">
-				<span id="username">mrprez</span>
+				<span id="username">qwerty</span>
 				<br/>
 				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
 			</div>
@@ -87,64 +69,11 @@
 				<div id="modalDivText"/>
 				<div id="modalDivButton"/>
 			</div>
-			<table class="genCrossTable">
-				<tbody>
-					<tr class="genCrossTable">
-						<th class="genCrossTable">Nom du Job</th>
-						<th class="genCrossTable">Dernière exécution</th>
-						<th class="genCrossTable">Action</th>
-					</tr>
-					<tr class="genCrossTable">
-						<td class="genCrossTable">Recupération des mails envoyés sur la boite mail des tables</td>
-						<td class="genCrossTable"/>
-						<td class="genCrossTable">
-							<form method="post" action="/gencross-web/JobProcessing!schedule.action" name="JobProcessing!schedule" id="JobProcessing!schedule">
-								<input id="JobProcessing!schedule_jobName" value="get-table-mails-job" name="jobName" type="hidden"/>
-								<table class="wwFormTable">
-									<tbody>
-										<tr>
-											<td colspan="2">
-												<div align="right">
-													<input value="Exécuter" name="action:JobProcessing!schedule" id="schedule-get-table-mails-job" type="submit"/>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-						</td>
-					</tr>
-					<tr class="genCrossTable">
-						<td class="genCrossTable">Sauvegarde des personnages en fichiers</td>
-						<td class="genCrossTable"/>
-						<td class="genCrossTable">
-							<form method="post" action="/gencross-web/JobProcessing!schedule.action" name="JobProcessing!schedule" id="JobProcessing!schedule">
-								<input id="JobProcessing!schedule_jobName" value="save-personnage-job" name="jobName" type="hidden"/>
-								<table class="wwFormTable">
-									<tbody>
-										<tr>
-											<td colspan="2">
-												<div align="right">
-													<input value="Exécuter" name="action:JobProcessing!schedule" id="schedule-save-personnage-job" type="submit"/>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-						</td>
-					</tr>
-					<tr class="genCrossTable">
-						<td class="genCrossTable">Envoi des personnages par mail</td>
-						<td class="genCrossTable">00/00/0000 00:00:00</td>
-						<td class="genCrossTable">Running...
-							<a href="/gencross-web/JobProcessing.action">
-								<img title="Recharger la page" height="20" width="20" alt="Recharger la page" src="/gencross-web/img/refresh.png"/>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div id="successContent">
+				<span>Opération réalisée avec succès</span>
+				<h3>Le personnage a un nouveau MJ: azerty.</h3>
+				<a href="/gencross-web/.action"/>
+			</div>
 		</div>
 		<div id="footer">
 			<center>Version de Gencross:1.17, Version de Gencross-Web:1.11.1-SNAPSHOT</center>

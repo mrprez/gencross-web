@@ -67,9 +67,7 @@
 			<div id="obstructionMask"/>
 			<div id="modalDiv">
 				<div id="modalDivText"/>
-				<div id="modalDivButton">
-					<button id="modalDivButton"/>
-				</div>
+				<div id="modalDivButton"/>
 			</div>
 			<div class="attributionFormContainer">
 				<form method="post" action="/gencross-web/AttributeGameMaster!attribute.action" name="AttributeGameMaster!attribute" id="AttributeGameMaster!attribute">
@@ -81,6 +79,9 @@
 							<option value="mrprez">mrprez</option>
 							<option value="qwerty">qwerty</option>
 						</select>
+					</p>
+					<p>Le Maître de Jeu actuel est
+						<span id="currentValue">mrprez</span>.
 					</p>
 					<input id="AttributeGameMaster!attribute_personnageId" value="1" name="personnageId" type="hidden"/>
 					<table class="wwFormTable">

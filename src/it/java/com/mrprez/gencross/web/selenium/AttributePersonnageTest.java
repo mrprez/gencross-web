@@ -39,12 +39,11 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		driver.findElement(By.id("Login_password")).sendKeys("hlttclm");
 		driver.findElement(By.id("Login_0")).click();
 		pageTester.testPage(driver, "login2");
-		driver.findElement(By.xpath("(//img[@alt='Fermer'])[2]")).click();
+		driver.findElement(By.xpath("(//img[@alt='Attribuer un Joueur'])")).click();
 		pageTester.testPage(driver, "attribute1");
 		new Select(driver.findElement(By.id("AttributePlayer!attribute_newPlayerName"))).selectByVisibleText("qwerty");
 		driver.findElement(By.id("AttributePlayer!attribute_0")).click();
 		pageTester.testPage(driver, "attributeSuccess1");
-		driver.findElement(By.linkText("Retourner à la liste des Personnages.")).click();
 		driver.findElement(By.id("disconnect")).click();
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("azerty");
@@ -59,12 +58,11 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		driver.findElement(By.id("Login_password")).sendKeys("qwerty");
 		driver.findElement(By.id("Login_0")).click();
 		pageTester.testPage(driver, "login4");
-		driver.findElement(By.cssSelector("a[title=\"Attribuer un MJ\"] > img")).click();
+		driver.findElement(By.cssSelector("img[alt=\"Attribuer un MJ\"]")).click();
 		pageTester.testPage(driver, "attribute2");
 		new Select(driver.findElement(By.id("AttributeGameMaster!attribute_newGameMasterName"))).selectByVisibleText("azerty");
 		driver.findElement(By.id("AttributeGameMaster!attribute_0")).click();
 		pageTester.testPage(driver, "attributeSuccess2");
-		driver.findElement(By.cssSelector("img")).click();
 		driver.findElement(By.id("disconnect")).click();
 		driver.findElement(By.id("usernameField")).clear();
 		driver.findElement(By.id("usernameField")).sendKeys("mrprez");
@@ -92,8 +90,9 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		driver.findElement(By.id("Login_password")).sendKeys("qwerty");
 		driver.findElement(By.id("Login_0")).click();
 		pageTester.testPage(driver, "login7");
-		driver.findElement(By.cssSelector("a[title=\"Attribuer un MJ\"] > img")).click();
+		driver.findElement(By.cssSelector("img[alt=\"Attribuer un MJ\"]")).click();
 		pageTester.testPage(driver, "attribute3");
+		driver.findElement(By.id("cancelAttribution")).click();
 		driver.findElement(By.cssSelector("span.menu")).click();
 		driver.findElement(By.linkText("Liste des personnages")).click();
 		driver.findElement(By.cssSelector("img[alt=Supprimer]")).click();
@@ -102,7 +101,6 @@ public class AttributePersonnageTest extends WebAbstractTest {
 		
 		pageTester.testPage(driver, "deleteSuccess2");
 		mailTester.test("mail");
-		
 		
 	}
 

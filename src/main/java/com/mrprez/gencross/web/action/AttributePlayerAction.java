@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class AttributePlayerAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	private static final String NO_PLAYER_KEY = "_no_player_";
+	public static final String NO_PLAYER_KEY = "_no_player_";
 	
 	private IPersonnageBS personnageBS;
 	private IAuthentificationBS authentificationBS;
