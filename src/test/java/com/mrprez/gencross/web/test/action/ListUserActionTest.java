@@ -1,17 +1,21 @@
 package com.mrprez.gencross.web.test.action;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.ListUserAction;
+import com.mrprez.gencross.web.bo.UserBO;
 import com.mrprez.gencross.web.bs.face.IAuthentificationBS;
+import com.mrprez.gencross.web.test.bs.AuthentificationBSTest;
 
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class ListUserActionTest extends AbstractActionTest {
 
@@ -26,29 +30,32 @@ public class ListUserActionTest extends AbstractActionTest {
 	@Test
 	public void testRemove() throws Exception {
 		// Prepare
-		listUserAction.setUsername("string_1");
-
+		String username = "robin";
+		
 		// Execute
+		listUserAction.setUsername(username);
 		String result = listUserAction.remove();
 
 		// Check
 		Assert.assertEquals("input", result);
-		Assert.assertEquals("failTest", listUserAction.getUserList());
-		Assert.assertEquals("failTest", listUserAction.getUsername());
+		Mockito.verify(authentificationBS).removeUser(username);
 	}
 
 
 	@Test
 	public void testExecute() throws Exception {
 		// Prepare
-		listUserAction.setUsername("string_1");
+		List<UserBO> userList = Arrays.asList(
+				AuthentificationBSTest.buildUser("batman"),
+				AuthentificationBSTest.buildUser("robin"),
+				AuthentificationBSTest.buildUser("alfred"));
+		Mockito.when(authentificationBS.getUserList()).thenReturn(userList);
 
 		// Execute
 		String result = listUserAction.execute();
 
 		// Check
 		Assert.assertEquals("input", result);
-		Assert.assertEquals("failTest", listUserAction.getUserList());
-		Assert.assertEquals("failTest", listUserAction.getUsername());
+		Assert.assertEquals(userList, listUserAction.getUserList());
 	}
 }

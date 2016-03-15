@@ -32,6 +32,7 @@ import com.mrprez.gencross.web.action.SubscriptionAction;
 import com.mrprez.gencross.web.action.TableListAction;
 import com.mrprez.gencross.web.action.TablePointsPoolsAction;
 import com.mrprez.gencross.web.action.UploadAction;
+import com.mrprez.gencross.web.action.dwr.EditPersonnageAjaxAction;
 
 
 public class GetterSetterTest {
@@ -183,6 +184,12 @@ public class GetterSetterTest {
 	@Test
 	public void testUploadAction() throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException{
 		testAllGetterSetter(UploadAction.class);
+	}
+	
+	
+	@Test
+	public void testEditPersonnageAjaxAction() throws SecurityException, IllegalArgumentException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException{
+		testAllGetterSetter(EditPersonnageAjaxAction.class);
 	}
 	
 	

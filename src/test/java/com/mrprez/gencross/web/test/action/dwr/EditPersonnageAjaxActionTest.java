@@ -175,6 +175,230 @@ public class EditPersonnageAjaxActionTest extends AbstractActionTest {
 		
 		// Check
 		checkChanges(result);
+		Mockito.verify(personnageBS).setNewValue(personnageWork, newValue, propertyAbsoluteName);
+	}
+	
+	
+	@Test
+	public void testAddPropertyFromOption_Fail() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String motherPropertyName = "Equipement";
+		String optionName = "Cape";
+		String specification = "Noire";
+		
+		// Execute
+		Exception exception = null;
+		try{
+			editPersonnageAjaxAction.addPropertyFromOption(personnageWorkId, motherPropertyName, optionName, specification);
+		}catch(Exception e){
+			exception = e;
+		}
+		
+		// Check
+		Assert.assertNotNull(exception);
+		Assert.assertEquals("Personnage not loaded", exception.getMessage());
+	}
+	
+	
+	@Test
+	public void testAddPropertyFromOption_Success() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String motherPropertyName = "Equipement";
+		String optionName = "Cape";
+		String specification = "Noire";
+		HistoryItem historyItem = new HistoryItem();
+		historyItem.setAbsoluteName("Equipement#Cape - Noire");
+		newHistoryList.add(historyItem);
+		buildMocksResponses(personnageWorkId, user);
+		Mockito.when(personnageBS.addPropertyFromOption(personnageWork, motherPropertyName, optionName, specification)).then(buildBusinessAnswer());
+		
+		// Execute
+		PersonnageChange result = editPersonnageAjaxAction.addPropertyFromOption(personnageWorkId, motherPropertyName, optionName, specification);
+		
+		// Check
+		checkChanges(result);
+		Mockito.verify(personnageBS).addPropertyFromOption(personnageWork, motherPropertyName, optionName, specification);
+	}
+	
+	
+	@Test
+	public void testAddFreeProperty_Fail() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String motherPropertyName = "Compétences";
+		String newPropertyName = "Enquête";
+		
+		// Execute
+		Exception exception = null;
+		try{
+			editPersonnageAjaxAction.addFreeProperty(personnageWorkId, motherPropertyName, newPropertyName);
+		}catch(Exception e){
+			exception = e;
+		}
+		
+		// Check
+		Assert.assertNotNull(exception);
+		Assert.assertEquals("Personnage not loaded", exception.getMessage());
+	}
+	
+	
+	@Test
+	public void testAddFreeProperty_Success() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String motherPropertyName = "Compétences";
+		String newPropertyName = "Enquête";
+		phaseFinishedAfter = true;
+		sameNextPhaseAvaibility = false;
+		buildMocksResponses(personnageWorkId, user);
+		Mockito.when(personnageBS.addFreeProperty(personnageWork, motherPropertyName, newPropertyName)).then(buildBusinessAnswer());
+		
+		// Execute
+		PersonnageChange result = editPersonnageAjaxAction.addFreeProperty(personnageWorkId, motherPropertyName, newPropertyName);
+		
+		// Check
+		checkChanges(result);
+		Mockito.verify(personnageBS).addFreeProperty(personnageWork, motherPropertyName, newPropertyName);
+	}
+	
+	
+	@Test
+	public void testRemoveProperty_Fail() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String absolutePropertyName = "Compétences#Enquête";
+		
+		// Execute
+		Exception exception = null;
+		try{
+			editPersonnageAjaxAction.removeProperty(personnageWorkId, absolutePropertyName);
+		}catch(Exception e){
+			exception = e;
+		}
+		
+		// Check
+		Assert.assertNotNull(exception);
+		Assert.assertEquals("Personnage not loaded", exception.getMessage());
+	}
+	
+	
+	@Test
+	public void testRemoveProperty_Success() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String absolutePropertyName = "Compétences#Enquête";
+		hasSameErrors = false;
+		buildMocksResponses(personnageWorkId, user);
+		Mockito.when(personnageBS.removeProperty(personnageWork, absolutePropertyName)).then(buildBusinessAnswer());
+		
+		// Execute
+		PersonnageChange result = editPersonnageAjaxAction.removeProperty(personnageWorkId, absolutePropertyName);
+		
+		// Check
+		checkChanges(result);
+		Mockito.verify(personnageBS).removeProperty(personnageWork, absolutePropertyName);
+	}
+	
+	
+	@Test
+	public void testModifyPointPool_Fail() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String poolName = "Expérience";
+		int addedValue = 10;
+		
+		// Execute
+		Exception exception = null;
+		try{
+			editPersonnageAjaxAction.modifyPointPool(personnageWorkId, poolName, addedValue);
+		}catch(Exception e){
+			exception = e;
+		}
+		
+		// Check
+		Assert.assertNotNull(exception);
+		Assert.assertEquals("Personnage not loaded", exception.getMessage());
+	}
+	
+	
+	@Test
+	public void testModifyPointPool_Success() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String poolName = "Expérience";
+		int addedValue = 10;
+		buildMocksResponses(personnageWorkId, user);
+		Mockito.doAnswer(buildBusinessAnswer()).when(personnageBS).modifyPointPool(personnageWork, poolName, addedValue);
+		
+		// Execute
+		PersonnageChange result = editPersonnageAjaxAction.modifyPointPool(personnageWorkId, poolName, addedValue);
+		
+		// Check
+		checkChanges(result);
+		Mockito.verify(personnageBS).modifyPointPool(personnageWork, poolName, addedValue);
+	}
+	
+	
+	@Test
+	public void testModifyHistory_Fail() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String poolName = "Expérience";
+		int historyIndex = 4;
+		int cost = 2;
+		
+		// Execute
+		Exception exception = null;
+		try{
+			editPersonnageAjaxAction.modifyHistory(personnageWorkId, historyIndex, poolName, cost);
+		}catch(Exception e){
+			exception = e;
+		}
+		
+		// Check
+		Assert.assertNotNull(exception);
+		Assert.assertEquals("Personnage not loaded", exception.getMessage());
+	}
+	
+	
+	@Test
+	public void testModifyHistory_Success() throws Exception{
+		// Prepare
+		UserBO user = AuthentificationBSTest.buildUser("batman");
+		ActionContext.getContext().getSession().put("user", user);
+		int personnageWorkId = 2;
+		String poolName = "Expérience";
+		int historyIndex = 4;
+		int cost = 2;
+		buildMocksResponses(personnageWorkId, user);
+		Mockito.doAnswer(buildBusinessAnswer()).when(personnageBS).modifyHistory(personnageWork, poolName, cost, historyIndex);
+		
+		// Execute
+		PersonnageChange result = editPersonnageAjaxAction.modifyHistory(personnageWorkId, historyIndex, poolName, cost);
+		
+		// Check
+		checkChanges(result);
+		Mockito.verify(personnageBS).modifyHistory(personnageWork, poolName, cost, historyIndex);
 	}
 	
 	

@@ -22,7 +22,7 @@ public class ExceptionAction extends ActionSupport {
 		for(int i=0; i<stackTrace.length; i++){
 			Logger.getLogger(this.getClass()).error("\t"+stackTrace[i].toString());
 		}
-		if(exception.getCause()!=exception){
+		if(exception.getCause()!=null && exception.getCause()!=exception){
 			Logger.getLogger(this.getClass()).error("Caused by:");
 			logException(exception.getCause());
 		}

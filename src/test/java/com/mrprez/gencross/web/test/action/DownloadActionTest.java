@@ -1,17 +1,16 @@
 package com.mrprez.gencross.web.test.action;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mrprez.gencross.web.action.DownloadAction;
 import com.mrprez.gencross.web.bs.face.IGencrossUiPackagerBS;
 
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class DownloadActionTest extends AbstractActionTest {
 
@@ -25,16 +24,30 @@ public class DownloadActionTest extends AbstractActionTest {
 
 	@Test
 	public void testExecute() throws Exception {
-		// Prepare
-		downloadAction.setFileName("string_1");
-
 		// Execute
 		String result = downloadAction.execute();
 
 		// Check
 		Assert.assertEquals("input", result);
-		Assert.assertEquals("failTest", downloadAction.getFileName());
-		Assert.assertEquals("failTest", downloadAction.getGenCrossUI());
-		Assert.assertEquals("failTest", downloadAction.getInputStream());
+	}
+	
+	
+	@Test
+	public void testGetGenCrossUI() throws Exception {
+		// Prepare
+		byte[] bytes = new byte[]{0,1,2,3,4,5,6,7,8,9};
+		Mockito.when(gencrossUiPackagerBS.buildGencrossUiPackage()).thenReturn(bytes);
+		
+		// Execute
+		String result = downloadAction.getGenCrossUI();
+
+		// Check
+		Assert.assertEquals("success", result);
+		Assert.assertNotNull(downloadAction.getInputStream());
+		for(byte b : bytes){
+			Assert.assertEquals(b, (byte)downloadAction.getInputStream().read());
+		}
+		Assert.assertTrue(downloadAction.getInputStream().read() < 0);
+		Assert.assertEquals("GencrossUI.zip", downloadAction.getFileName());
 	}
 }
