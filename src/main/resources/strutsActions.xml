@@ -241,14 +241,18 @@
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="error">/jsp/listPersonnage.jsp</result>
 			<result name="input">/jsp/attributeGameMaster.jsp</result>
-			<result name="success">/jsp/success.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">List</param>
+			</result>
 		</action>
 		
 		<action name="AttributePlayer!*" method="{1}" class="attributePlayerAction">
 			<interceptor-ref name="userSecurityStack"/>
 			<result name="error">/jsp/listPersonnage.jsp</result>
 			<result name="input">/jsp/attributePlayer.jsp</result>
-			<result name="success">/jsp/success.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">List</param>
+			</result>
 		</action>
 		
 		<action name="AttributePlayerInTable!*" method="{1}" class="attributePlayerAction">

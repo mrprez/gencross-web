@@ -1,4 +1,19 @@
 
+function attributePlayer(personnageId, tableId){
+	var data = new Object();
+	data.personnageId = personnageId;
+	data.tableId = tableId;
+	$('#modalDiv').load(context+'/AttributePlayerInTable', data);
+	$('#obstructionMask').show();
+	$('#modalDiv').show();
+}
+
+function cancelAttribution(){
+	$('#modalDiv').hide();
+	$('#obstructionMask').hide();
+	$('#modalDiv').empty();
+}
+
 
 function showHideMessage(authorSpan){
 	var messageContent = $(authorSpan).parent().parent().children('.messageContent');

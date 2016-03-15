@@ -24,3 +24,25 @@ function deletePersonnageMJ(imageForm){
 			validCallback
 	);
 }
+
+function attributeGameMaster(personnageId){
+	var data = new Object();
+	data.personnageId = personnageId;
+	$('#modalDiv').load(context+'/AttributeGameMaster', data);
+	$('#obstructionMask').show();
+	$('#modalDiv').show();
+}
+
+function attributePlayer(personnageId){
+	var data = new Object();
+	data.personnageId = personnageId;
+	$('#modalDiv').load(context+'/AttributePlayer', data);
+	$('#obstructionMask').show();
+	$('#modalDiv').show();
+}
+
+function cancelAttribution(){
+	$('#modalDiv').hide();
+	$('#obstructionMask').hide();
+	$('#modalDiv').empty();
+}

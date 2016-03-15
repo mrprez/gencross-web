@@ -3,20 +3,16 @@
 <%@ taglib uri="/gencross-taglib-URI" prefix="gcr"%>
 
 <gcr:security-redirection target="/jsp/login.jsp"/>
-<s:include value="include/header.jsp"/>
 
-<div class="attributionFormContainer">
-	<s:form action="AttributePlayerInTable!attribute" cssClass="attributionForm">
-		<h2>Attribuer "<s:property value="personnageWork.name"/>" à un Joueur</h2>
-		
-		<s:if test="personnageWork.player!=null">
-			<span class="currentOwner">Joueur actuel: <span class="currentOwnerUsername"><s:property value="personnageWork.player.username"/></span></span>
-		</s:if>
-		<s:select name="newPlayerName" label="Nouveau Joueur" list="userList" listKey="username" listValue="username"/>
-		<s:hidden name="personnageId" value="%{personnageWork.id}"/>
-		<s:hidden name="tableId"/>
+<s:form action="AttributePlayerInTable!attribute" theme="simple">
+	<p>
+		Attribuer le personnage <span id="attributedPersonnageName"><s:property value="personnageWork.name"/></span> au Joueur:
+		<s:select name="newPlayerName" label="Nouveau Joueur" list="userList" theme="simple" listKey="username" listValue="username"/>
+	</p>
+	<s:hidden name="personnageId" value="%{personnageWork.id}"/>
+	<s:hidden name="tableId" value="%{tableId}"/>
+	<div>
 		<s:submit cssClass="attributionButton" value="Valider"/>
-	</s:form>
-</div>
-
-<s:include value="include/footer.jsp"/>
+		<button type="button" onclick="Javascript:cancelAttribution();">Annuler</button>
+	</div>
+</s:form>

@@ -3,22 +3,20 @@
 <%@ taglib uri="/gencross-taglib-URI" prefix="gcr"%>
 
 <gcr:security-redirection target="/jsp/login.jsp"/>
-<s:include value="include/header.jsp"/>
 
-<div class="attributionFormContainer">
-	<s:form action="AttributePlayer!attribute" cssClass="attributionForm">
+<s:form action="AttributePlayer!attribute" theme="simple">
+	<s:if test="personnageWork.player!=null">
 		<p>
-			Attribuer le personnage <span id="attributedPersonnageName"><s:property value="personnageWork.name"/></span> au Joueur:
-			<s:select name="newPlayerName" label="Nouveau Joueur" list="userList" theme="simple" listKey="username" listValue="username" headerKey="_no_player_" headerValue="Aucun"/>
+			Le Joueur actuel est <span id="currentValue"><s:property value="personnageWork.player.username"/></span>.
 		</p>
-		<s:if test="personnageWork.player!=null">
-			<p>
-				Le Joueur actuel est <span id="currentValue"><s:property value="personnageWork.player.username"/></span>.
-			</p>
-		</s:if>
-		<s:hidden name="personnageId" value="%{personnageWork.id}"/>
+	</s:if>
+	<p>
+		Attribuer le personnage <span id="attributedPersonnageName"><s:property value="personnageWork.name"/></span> au Joueur:
+		<s:select name="newPlayerName" label="Nouveau Joueur" list="userList" theme="simple" listKey="username" listValue="username" headerKey="_no_player_" headerValue="Aucun"/>
+	</p>
+	<s:hidden name="personnageId" value="%{personnageWork.id}"/>
+	<div>
 		<s:submit cssClass="attributionButton" value="Valider"/>
-	</s:form>
-</div>
-
-<s:include value="include/footer.jsp"/>
+		<button type="button" onclick="Javascript:cancelAttribution();">Annuler</button>
+	</div>
+</s:form>

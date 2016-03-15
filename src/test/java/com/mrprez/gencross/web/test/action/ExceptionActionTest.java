@@ -1,14 +1,8 @@
 package com.mrprez.gencross.web.test.action;
 
-import org.apache.log4j.Appender;
 import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.ErrorHandler;
-import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

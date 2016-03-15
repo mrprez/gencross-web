@@ -83,12 +83,7 @@
 									</s:param>
 									<img src="<s:url value="/img/edit.png"/>" alt="Fermer"/>
 								</s:a>
-								<s:a action="AttributeGameMaster" title="Attribuer un MJ">
-									<s:param name="personnageId">
-										<s:property value="id"/>
-									</s:param>
-									<img src="<s:url value="/img/attributeGM.png"/>"/>
-								</s:a>
+								<img class="editImg" src="<s:url value="/img/attributeGM.png"/>" alt="Attribuer un MJ" onclick="Javascript:attributeGameMaster(<s:property value="id"/>);"/>
 								<s:a action="List" method="downloadAsPlayer" title="Télécharger au format gcr">
 									<s:param name="personnageId">
 										<s:property value="id"/>
@@ -198,12 +193,7 @@
 									</s:param>
 									<img src="<s:url value="/img/edit.png"/>" alt="Fermer"/>
 								</s:a>
-								<s:a action="AttributePlayer" title="Attribuer un PJ">
-									<s:param name="personnageId">
-										<s:property value="id"/>
-									</s:param>
-									<img src="<s:url value="/img/attributePlayer.png"/>" alt="Fermer"/>
-								</s:a>
+								<img class="editImg" src="<s:url value="/img/attributePlayer.png"/>" alt="Attribuer un Joueur" onclick="Javascript:attributePlayer(<s:property value="id"/>);"/>
 								<s:form onsubmit="Javascript:askMJPassword(this)" cssClass="imgForm" action="List!downloadAsGameMaster" method="post" theme="simple">
 									<s:hidden name="personnageId" value="%{id}"/>
 									<s:hidden name="password"/>

@@ -20,9 +20,6 @@ public class AttributePlayerAction extends ActionSupport {
 	private Integer tableId;
 	private PersonnageWorkBO personnageWork;
 	private String newPlayerName;
-	private String successMessage;
-	private String successLink = "List";
-	private String successLinkLabel = "Retourner à la liste des Personnages.";
 	
 	
 	
@@ -45,7 +42,6 @@ public class AttributePlayerAction extends ActionSupport {
 		
 		if(newPlayerName.equals(NO_PLAYER_KEY)){
 			personnageBS.attribute(personnageWork, null, personnageWork.getGameMaster());
-			successMessage = "Le personnage n'est plus associé à aucun joueur.";
 		}else{
 			UserBO newPlayer = authentificationBS.getUser(newPlayerName);
 			if(newPlayer==null){
@@ -53,7 +49,6 @@ public class AttributePlayerAction extends ActionSupport {
 			}
 			
 			personnageBS.attribute(personnageWork, newPlayer, personnageWork.getGameMaster());
-			successMessage = "Le personnage a été attribué à: "+newPlayer.getUsername()+".";
 		}
 		
 		return SUCCESS;
@@ -81,24 +76,6 @@ public class AttributePlayerAction extends ActionSupport {
 	}
 	public void setNewPlayerName(String newPlayerName) {
 		this.newPlayerName = newPlayerName;
-	}
-	public String getSuccessMessage() {
-		return successMessage;
-	}
-	public void setSuccessMessage(String successMessage) {
-		this.successMessage = successMessage;
-	}
-	public String getSuccessLink() {
-		return successLink;
-	}
-	public void setSuccessLink(String successLink) {
-		this.successLink = successLink;
-	}
-	public String getSuccessLinkLabel() {
-		return successLinkLabel;
-	}
-	public void setSuccessLinkLabel(String successLinkLabel) {
-		this.successLinkLabel = successLinkLabel;
 	}
 	public Integer getTableId() {
 		return tableId;

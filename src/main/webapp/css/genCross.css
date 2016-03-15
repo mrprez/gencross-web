@@ -504,7 +504,7 @@ form.editForm{
 	z-index: 20;
 	left: 50%;
 	margin-left: -150px;
-	top: 50%;
+	top: 250px;
 	margin-top: -70px;
 	background-color: white;
 	text-align: center;
@@ -627,17 +627,12 @@ table.pointPool{
 
 /* Attribution */
 
-.attributionFormContainer{
-	margin-left: 100px;
-}
-
 .attributionButton{
 	margin-top: 10px;
 }
 
 #attributedPersonnageName{
 	font-weight: bold;
-	text-decoration: underline;
 }
 
 #currentValue{

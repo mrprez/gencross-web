@@ -43,15 +43,8 @@
 								</s:a>
 							</td>
 							<td class="genCrossTable">
-								<s:a action="AttributePlayerInTable" title="Attribuer un PJ">
-									<s:param name="personnageId">
-										<s:property value="id"/>
-									</s:param>
-									<s:param name="tableId">
-										<s:property value="table.id"/>
-									</s:param>
-									<img src="<s:url value="/img/attributePlayer.png"/>" alt="Attribuer à un joueur"/>
-								</s:a>
+								<img class="editImg" src="<s:url value="/img/attributePlayer.png"/>" alt="Attribuer un Joueur" 
+										onclick="Javascript:attributePlayer(<s:property value="id"/>, <s:property value="table.id"/>);"/>
 								<s:a action="EditTable!unbindPersonnage" title="Exclure de la table">
 									<s:param name="personnageId">
 										<s:property value="id"/>

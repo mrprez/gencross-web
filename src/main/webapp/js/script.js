@@ -17,6 +17,9 @@ dwr.engine.setErrorHandler(
 
 function showConfirm(message, validCallback, cancelCallback, validText, cancelText){
 	$('#obstructionMask').show();
+	$('#modalDiv').empty();
+	$('#modalDiv').append("<div id=\"modalDivText\"></div>");
+	$('#modalDiv').append("<div id=\"modalDivButton\"></div>");
 	$('#modalDivText').html(message);
 	if(validText==null){
 		validText = 'Valider';
@@ -42,6 +45,9 @@ function showConfirm(message, validCallback, cancelCallback, validText, cancelTe
 
 function showAlertMessage(message, actionText, callback){
 	$('#obstructionMask').show();
+	$('#modalDiv').empty();
+	$('#modalDiv').append("<div id=\"modalDivText\"></div>");
+	$('#modalDiv').append("<div id=\"modalDivButton\"></div>");
 	$('#modalDivText').html(message);
 	$('#modalDivButton');
 	if(actionText==null){

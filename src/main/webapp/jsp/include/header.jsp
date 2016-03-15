@@ -38,9 +38,7 @@
 			
 			<div id="modalDiv">
 				<div id="modalDivText"></div>
-				<div id="modalDivButton">
-					<button id="modalDivButton"></button>
-				</div>
+				<div id="modalDivButton"></div>
 			</div>
 			
 			

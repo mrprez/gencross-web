@@ -19,7 +19,6 @@ public class AttributeGameMasterAction extends ActionSupport {
 	private Integer personnageId;
 	private PersonnageWorkBO personnageWork;
 	private String newGameMasterName;
-	private String successMessage;
 	
 	
 	public String execute() throws Exception {
@@ -41,14 +40,12 @@ public class AttributeGameMasterAction extends ActionSupport {
 		
 		if(newGameMasterName.equals(NO_GM_KEY)){
 			personnageBS.attribute(personnageWork, personnageWork.getPlayer(), null);
-			successMessage = "Le personnage n'a plus de MJ.";
 		}else{
 			UserBO newGameMaster = authentificationBS.getUser(newGameMasterName);
 			if(newGameMaster==null){
 				return ERROR;
 			}
 			personnageBS.attribute(personnageWork, personnageWork.getPlayer(), newGameMaster);
-			successMessage = "Le personnage a un nouveau MJ: "+newGameMaster.getUsername()+".";
 		}
 		
 		return SUCCESS;
@@ -76,12 +73,6 @@ public class AttributeGameMasterAction extends ActionSupport {
 	}
 	public void setNewGameMasterName(String newGameMasterName) {
 		this.newGameMasterName = newGameMasterName;
-	}
-	public String getSuccessMessage() {
-		return successMessage;
-	}
-	public void setSuccessMessage(String successMessage) {
-		this.successMessage = successMessage;
 	}
 	public static String getNoGmKey() {
 		return NO_GM_KEY;
