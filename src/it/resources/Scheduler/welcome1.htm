@@ -128,9 +128,7 @@
 											<a title="Editer" href="/gencross-web/Edit.action?personnageId=2">
 												<img alt="Fermer" src="/gencross-web/img/edit.png"/>
 											</a>
-											<a title="Attribuer un MJ" href="/gencross-web/AttributeGameMaster.action?personnageId=2">
-												<img src="/gencross-web/img/attributeGM.png"/>
-											</a>
+											<img onclick="Javascript:attributeGameMaster(2);" alt="Attribuer un MJ" src="/gencross-web/img/attributeGM.png" class="editImg"/>
 											<a title="Télécharger au format gcr" href="/gencross-web/List!downloadAsPlayer.action?personnageId=2">
 												<img alt="Télécharger" src="/gencross-web/img/download.png"/>
 											</a>
@@ -181,9 +179,7 @@
 											<a title="Editer" href="/gencross-web/Edit.action?personnageId=1">
 												<img alt="Fermer" src="/gencross-web/img/edit.png"/>
 											</a>
-											<a title="Attribuer un PJ" href="/gencross-web/AttributePlayer.action?personnageId=1">
-												<img alt="Fermer" src="/gencross-web/img/attributePlayer.png"/>
-											</a>
+											<img onclick="Javascript:attributePlayer(1);" alt="Attribuer un Joueur" src="/gencross-web/img/attributePlayer.png" class="editImg"/>
 											<form class="imgForm" method="post" action="/gencross-web/List!downloadAsGameMaster.action" onsubmit="Javascript:askMJPassword(this)" name="List!downloadAsGameMaster" id="List!downloadAsGameMaster">
 												<input id="List!downloadAsGameMaster_personnageId" value="1" name="personnageId" type="hidden"/>
 												<input id="List!downloadAsGameMaster_password" value="" name="password" type="hidden"/>

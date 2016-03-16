@@ -67,11 +67,22 @@
 		<div id="content">
 			<div style="display: block;" id="obstructionMask"/>
 			<div style="display: block;" id="modalDiv">
-				<div id="modalDivText">Voulez-vous supprimer ce personnage? Si ce personnage a un Maître de Jeux autre que vous, il ne sera pas supprimer pour celui-ci.</div>
-				<div id="modalDivButton">
-					<button id="modalDivValidButton">Valider</button>
-					<button id="modalDivCancelButton">Annuler</button>
-				</div>
+				<form method="post" action="/gencross-web/AttributeGameMaster!attribute.action" name="AttributeGameMaster!attribute" id="AttributeGameMaster!attribute">
+					<p>Attribuer le personnage
+						<span id="attributedPersonnageName">Test attibution</span>au Maître de Jeu:
+						<select id="AttributeGameMaster!attribute_newGameMasterName" name="newGameMasterName">
+							<option value="_no_gm_">Aucun</option>
+							<option value="azerty">azerty</option>
+							<option value="mrprez">mrprez</option>
+							<option value="qwerty">qwerty</option>
+						</select>
+					</p>
+					<input id="AttributeGameMaster!attribute_personnageId" value="1" name="personnageId" type="hidden"/>
+					<div>
+						<input class="attributionButton" value="Valider" id="AttributeGameMaster!attribute_0" type="submit"/>
+						<button id="cancelAttribution" type="button">Annuler</button>
+					</div>
+				</form>
 			</div>
 			<table class="personnageListContainer">
 				<tbody>

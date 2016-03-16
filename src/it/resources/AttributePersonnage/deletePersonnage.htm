@@ -59,7 +59,7 @@
 				</table>
 			</div>
 			<div id="headerRight">
-				<span id="username">qwerty</span>
+				<span id="username">azerty</span>
 				<br/>
 				<a href="/gencross-web/Disconnect.action" id="disconnect">Déconnexion</a>
 			</div>
@@ -67,7 +67,7 @@
 		<div id="content">
 			<div style="display: block;" id="obstructionMask"/>
 			<div style="display: block;" id="modalDiv">
-				<div id="modalDivText">Voulez-vous supprimer ce personnage? Si ce personnage a un Maître de Jeux autre que vous, il ne sera pas supprimer pour celui-ci.</div>
+				<div id="modalDivText">Voulez-vous supprimer ce personnage? Si ce personnage a un Joueur autre que vous, il ne sera pas supprimer pour celui-ci.</div>
 				<div id="modalDivButton">
 					<button id="modalDivValidButton">Valider</button>
 					<button id="modalDivCancelButton">Annuler</button>
@@ -103,28 +103,7 @@
 								</thead>
 								<tbody>
 									<tr class="genCrossTable">
-										<td title="ID=1" class="genCrossTable">
-											<a href="/gencross-web/Edit.action?personnageId=1">Test attibution</a>
-										</td>
-										<td class="genCrossTable">Changelin</td>
-										<td class="genCrossTable"/>
-										<td class="genCrossTable"/>
-										<td class="genCrossTable">
-											<a title="Editer" href="/gencross-web/Edit.action?personnageId=1">
-												<img alt="Fermer" src="/gencross-web/img/edit.png"/>
-											</a>
-											<img onclick="Javascript:attributeGameMaster(1);" alt="Attribuer un MJ" src="/gencross-web/img/attributeGM.png" class="editImg"/>
-											<a title="Télécharger au format gcr" href="/gencross-web/List!downloadAsPlayer.action?personnageId=1">
-												<img alt="Télécharger" src="/gencross-web/img/download.png"/>
-											</a>
-											<a title="Charger au format gcr" href="/gencross-web/Upload.action?personnageId=1">
-												<img onclick="Javascript:uploadPersonnage(this)" alt="Charger" src="/gencross-web/img/upload.png"/>
-											</a>
-											<form class="imgForm" method="post" action="/gencross-web/List!deletePersonnage.action" name="List!deletePersonnage" id="List!deletePersonnage">
-												<input id="List!deletePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
-												<img onclick="javascript:deletePersonnagePJ(this);" alt="Supprimer" class="editImg" src="/gencross-web/img/remove.png"/>
-											</form>
-										</td>
+										<td colspan="5" class="genCrossTable">Aucun personnage</td>
 									</tr>
 								</tbody>
 							</table>
@@ -152,7 +131,30 @@
 								</thead>
 								<tbody>
 									<tr class="genCrossTable">
-										<td colspan="5" class="genCrossTable">Aucun personnage</td>
+										<td title="ID=1" class="genCrossTable">
+											<a href="/gencross-web/Edit.action?personnageId=1">Test attibution</a>
+										</td>
+										<td class="genCrossTable">Changelin</td>
+										<td class="genCrossTable">qwerty</td>
+										<td title="ID=NA" class="genCrossTable"/>
+										<td class="genCrossTable">
+											<a title="Editer" href="/gencross-web/Edit.action?personnageId=1">
+												<img alt="Fermer" src="/gencross-web/img/edit.png"/>
+											</a>
+											<img onclick="Javascript:attributePlayer(1);" alt="Attribuer un Joueur" src="/gencross-web/img/attributePlayer.png" class="editImg"/>
+											<form class="imgForm" method="post" action="/gencross-web/List!downloadAsGameMaster.action" onsubmit="Javascript:askMJPassword(this)" name="List!downloadAsGameMaster" id="List!downloadAsGameMaster">
+												<input id="List!downloadAsGameMaster_personnageId" value="1" name="personnageId" type="hidden"/>
+												<input id="List!downloadAsGameMaster_password" value="" name="password" type="hidden"/>
+												<input title="Télécharger au format gcr" value="Télécharger" id="List!downloadAsGameMaster_0" src="/gencross-web/img/download.png" alt="Télécharger" type="image"/>
+											</form>
+											<a title="Charger au format gcr" href="/gencross-web/Upload.action?personnageId=1">
+												<img onclick="Javascript:uploadPersonnage(this)" alt="Charger" src="/gencross-web/img/upload.png"/>
+											</a>
+											<form class="imgForm" method="post" action="/gencross-web/List!deletePersonnage.action" name="List!deletePersonnage" id="List!deletePersonnage">
+												<input id="List!deletePersonnage_personnageId" value="1" name="personnageId" type="hidden"/>
+												<img onclick="javascript:deletePersonnageMJ(this);" alt="Supprimer" class="editImg" src="/gencross-web/img/remove.png"/>
+											</form>
+										</td>
 									</tr>
 								</tbody>
 							</table>

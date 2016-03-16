@@ -73,7 +73,7 @@ public class TableTest extends WebAbstractTest{
 		driver.findElement(By.id("EditTable!addPersonnage_personnageName")).sendKeys("Table INS 4");
 		driver.findElement(By.id("EditTable!addPersonnage_0")).click();
 		pageTester.testPage(driver, "editTable03");
-		driver.findElement(By.cssSelector("img[alt=\"Attribuer à un joueur\"]")).click();
+		driver.findElement(By.cssSelector("img[alt=\"Attribuer un Joueur\"]")).click();
 		pageTester.testPage(driver, "attributePlayer1");
 		new Select(driver.findElement(By.id("AttributePlayerInTable!attribute_newPlayerName"))).selectByVisibleText("azerty");
 		driver.findElement(By.id("AttributePlayerInTable!attribute_0")).click();
@@ -106,7 +106,7 @@ public class TableTest extends WebAbstractTest{
 		driver.findElement(By.id("EditTable!addPersonnage_personnageName")).sendKeys("Table INS 7");
 		driver.findElement(By.id("EditTable!addPersonnage_0")).click();
 		pageTester.testPage(driver, "editTable09");
-		driver.findElement(By.xpath("(//img[@alt='Attribuer à un joueur'])[2]")).click();
+		driver.findElement(By.xpath("(//img[@alt='Attribuer un Joueur'])[2]")).click();
 		pageTester.testPage(driver, "attributePlayer2");
 		new Select(driver.findElement(By.id("AttributePlayerInTable!attribute_newPlayerName"))).selectByVisibleText("azerty");
 		driver.findElement(By.id("AttributePlayerInTable!attribute_0")).click();

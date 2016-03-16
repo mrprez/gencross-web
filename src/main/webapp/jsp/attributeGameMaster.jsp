@@ -17,6 +17,6 @@
 	<s:hidden name="personnageId" value="%{personnageWork.id}"/>
 	<div>
 		<s:submit cssClass="attributionButton" value="Valider"/>
-		<button type="button" onclick="Javascript:cancelAttribution();" id="cancelAttribution">Annuler</button>
+		<button type="button" id="cancelAttribution">Annuler</button>
 	</div>
 </s:form>

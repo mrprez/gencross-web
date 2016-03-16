@@ -25,24 +25,32 @@ function deletePersonnageMJ(imageForm){
 	);
 }
 
-function attributeGameMaster(personnageId){
-	var data = new Object();
-	data.personnageId = personnageId;
-	$('#modalDiv').load(context+'/AttributeGameMaster', data);
-	$('#obstructionMask').show();
-	$('#modalDiv').show();
-}
-
-function attributePlayer(personnageId){
-	var data = new Object();
-	data.personnageId = personnageId;
-	$('#modalDiv').load(context+'/AttributePlayer', data);
-	$('#obstructionMask').show();
-	$('#modalDiv').show();
-}
-
 function cancelAttribution(){
 	$('#modalDiv').hide();
 	$('#obstructionMask').hide();
 	$('#modalDiv').empty();
+}
+
+function attributeGameMaster(personnageId){
+	$('#obstructionMask').show();
+	$('#modalDiv').append('<img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="35" height="35"/>');
+	$('#modalDiv').show();
+	
+	var data = new Object();
+	data.personnageId = personnageId;
+	$('#modalDiv').load(context+'/AttributeGameMaster', data, function(){
+		$("#cancelAttribution").on("click", cancelAttribution);
+	});
+}
+
+function attributePlayer(personnageId){
+	$('#obstructionMask').show();
+	$('#modalDiv').append('<img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="35" height="35"/>');
+	$('#modalDiv').show();
+	
+	var data = new Object();
+	data.personnageId = personnageId;
+	$('#modalDiv').load(context+'/AttributePlayer', data,  function(){
+		$("#cancelAttribution").on("click", cancelAttribution);
+	});
 }

@@ -1,12 +1,17 @@
 
 function attributePlayer(personnageId, tableId){
+	$('#obstructionMask').show();
+	$('#modalDiv').append('<img src="'+context+'/img/wait.gif" class="waitImg" alt="Attente Serveur..." width="35" height="35"/>');
+	$('#modalDiv').show();
+	
 	var data = new Object();
 	data.personnageId = personnageId;
 	data.tableId = tableId;
-	$('#modalDiv').load(context+'/AttributePlayerInTable', data);
-	$('#obstructionMask').show();
-	$('#modalDiv').show();
+	$('#modalDiv').load(context+'/AttributePlayerInTable', data,  function(){
+		$("#cancelAttribution").on("click", cancelAttribution);
+	});
 }
+
 
 function cancelAttribution(){
 	$('#modalDiv').hide();
