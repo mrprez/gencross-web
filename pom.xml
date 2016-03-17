@@ -35,7 +35,7 @@
 		<dependency>
 			<artifactId>gencross-ws-api</artifactId>
 			<groupId>com.mrprez.gencross</groupId>
-			<version>1.0</version>
+			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<artifactId>xml-apis</artifactId>
