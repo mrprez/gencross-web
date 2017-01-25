@@ -329,7 +329,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		// Check
 		Assert.assertEquals("error", result);
 		Assert.assertTrue(editTableAction.getActionErrors().contains("Tentative d'intrusion détectée"));
-		Mockito.verify(adminBS).sendMail("Tentative d'intrusion détectée", "batman attempt to break-in system with table message containing tag <script>");
+		Mockito.verify(adminBS).sendMail(Mockito.eq("Tentative d'intrusion détectée dans un message de batman"), Mockito.anyString());
 	}
 	
 	
@@ -349,7 +349,7 @@ public class EditTableActionTest extends AbstractActionTest {
 
 		// Check
 		Assert.assertEquals("success", result);
-		Mockito.verify(tableBS).addMessageToTable("<p>Bonjour</p><p></p><p>nouveau message</p>", tableId, user);
+		Mockito.verify(tableBS).addMessageToTable(Mockito.contains("Bonjour"), Mockito.eq(tableId), Mockito.eq(user));
 	}
 	
 	

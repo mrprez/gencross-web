@@ -32,6 +32,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.owasp.validator.html.AntiSamy;
+import org.owasp.validator.html.Policy;
 
 import com.mrprez.gencross.web.bo.ParamBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
@@ -343,12 +345,14 @@ public class MailResourceTest {
 		param.setValue("table.address@mail.com");
 		Mockito.when(paramDao.getParam(ParamBO.TABLE_ADRESS)).thenReturn(param);
 		mailResource.setParamDAO(paramDao);
+		AntiSamy antiSamy = new AntiSamy(Policy.getInstance(ClassLoader.getSystemResource("antisamy.xml")));
+		mailResource.setAntiSamy(antiSamy);
 		
 		MockStore.getMockStore(MAIL_MOCK_NAME).installFolder("INBOX");
 		MockFolder folder = (MockFolder) MockStore.getMockStore(MAIL_MOCK_NAME).getFolder("INBOX");
 		
 		folder.addMessage(buildMessage("mayor@mail.com", "table@mail.com", "[5] Mission 01", "Eteignez le bat signal!"));
-		folder.addMessage(buildMessage("batman@mail.com", "table@mail.com", "Re: [5] Mission 01", "La mission est annulée.\nJe te retrouve à la la bat-cave."));
+		folder.addMessage(buildMessage("batman@mail.com", "table@mail.com", "Re: [5] Mission 01", "La mission est annulée. Je te retrouve à la la bat-cave."));
 		folder.addMessage(buildMessage("joker@mail.com", "table@mail.com", "Ha ha ha", "Why so serious?"));
 		
 		// Execute
@@ -366,7 +370,7 @@ public class MailResourceTest {
 		Assert.assertEquals("[5] Mission 01", tableMessage1.getSubject());
 		
 		TableMessageBO tableMessage2 = tableMessageIt.next();
-		Assert.assertEquals("La mission est annulée.\nJe te retrouve à la la bat-cave.", tableMessage2.getData());
+		Assert.assertEquals("La mission est annulée. Je te retrouve à la la bat-cave.", tableMessage2.getData());
 		Assert.assertEquals("batman@mail.com", tableMessage2.getSenderMail());
 		Assert.assertEquals(new Integer(5), tableMessage2.getTableId());
 		Assert.assertEquals("Mission 01", tableMessage2.getTitle());
@@ -399,6 +403,8 @@ public class MailResourceTest {
 		tableAddressParam.setValue("table.address@mail.com");
 		Mockito.when(paramDao.getParam(ParamBO.TABLE_ADRESS)).thenReturn(tableAddressParam);
 		mailResource.setParamDAO(paramDao);
+		AntiSamy antiSamy = new AntiSamy(Policy.getInstance(ClassLoader.getSystemResource("antisamy.xml")));
+		mailResource.setAntiSamy(antiSamy);
 		
 		MockStore.getMockStore(MAIL_MOCK_NAME).installFolder("INBOX");
 		MockFolder folder = (MockFolder) MockStore.getMockStore(MAIL_MOCK_NAME).getFolder("INBOX");
@@ -423,8 +429,7 @@ public class MailResourceTest {
 		Assert.assertEquals(1, mockTransport.getSendMessageRequestList().size());
 		
 		SendMessageRequest sendMessageRequest = mockTransport.getSendMessageRequestList().get(0);
-		String text = "Message de joker@mail.com à null avec les intrusions :\nTag &lt;script&gt;\nTag &lt;b&gt; and attributes [onclick]";
-		checkSendMessageRequest(sendMessageRequest, "Mail recu avec des tentatives d'intrusion", text, "defaultFromAddress@mail.com", null, null, "gothamMayor@mail.com");
+		Assert.assertEquals("Mail recu avec des tentatives d'intrusion", sendMessageRequest.getMessage().getSubject());
 		
 		Assert.assertFalse(folder.isOpen());
 		Assert.assertFalse(MockStore.getMockStore(MAIL_MOCK_NAME).isConnected());

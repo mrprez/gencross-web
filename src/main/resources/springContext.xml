@@ -100,10 +100,17 @@
 		<property name="tableBS" ref="tableBS"/>
 	</bean>
 	
+	<bean id="tableMessageAntiSamyPolicy" class="org.owasp.validator.html.Policy" factory-method="getInstance" scope="singleton">
+		<constructor-arg value="classpath:antisamy.xml"/>
+	</bean>
+	<bean id="tableMessageAntiSamy" class="org.owasp.validator.html.AntiSamy" scope="singleton">
+		<constructor-arg ref="tableMessageAntiSamyPolicy"/>
+	</bean>
 	<bean id="editTableAction" class="com.mrprez.gencross.web.action.EditTableAction" scope="prototype">
 		<property name="personnageBS" ref="personnageBS"/>
 		<property name="tableBS" ref="tableBS"/>
 		<property name="adminBS" ref="adminBS"/>
+		<property name="antiSamy" ref="tableMessageAntiSamy"/>
 	</bean>
 	
 	<bean id="exceptionAction" class="com.mrprez.gencross.web.action.ExceptionAction" scope="prototype"></bean>
@@ -266,14 +273,19 @@
 	</bean>
 	
 	<jee:jndi-lookup id="mailSenderSession" jndi-name="java:comp/env/mail/SenderSession"/>
-	
 	<jee:jndi-lookup id="mailReceiverSession" jndi-name="java:comp/env/mail/ReceiverSession"/>
-	
+	<bean id="mailAntiSamyPolicy" class="org.owasp.validator.html.Policy" factory-method="getInstance" scope="singleton">
+		<constructor-arg value="classpath:antisamy.xml"/>
+	</bean>
+	<bean id="mailAntiSamy" class="org.owasp.validator.html.AntiSamy" scope="singleton">
+		<constructor-arg ref="mailAntiSamyPolicy"/>
+	</bean>
 	<bean id="MailResource" class="com.mrprez.gencross.web.dao.MailResource" scope="singleton">
 		<constructor-arg><ref bean="mailSenderSession"/></constructor-arg>
 		<constructor-arg><ref bean="mailReceiverSession"/></constructor-arg>
 		<property name="defaultFromAdress" value="genCrossBackup@mrprez.com"/>
 		<property name="paramDAO" ref="ParamDAO"/>
+		<property name="antiSamy" ref="mailAntiSamy"/>
 	</bean>
 	
 	<bean id="TemplateFileResource" class="com.mrprez.gencross.web.dao.TemplateFileResource" scope="singleton"/>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="file" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
+		</layout>
+	</appender>
+	
+	<appender name="quartzFile" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
+		</layout>
+	</appender>
+	
+	<appender name="delayFile" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
+		</layout>
+	</appender>
+	
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %d{dd/MM/yyyy HH:mm:ss,SSS} - %m (%c)%n" />
+		</layout>
+	</appender>
+	
+	<logger name="com.mrprez.gencross">
+		<level value="INFO"/>
+		<appender-ref ref="file"/>
+	</logger>
+	
+	<logger name="responseDelay">
+		<level value="TRACE"/>
+		<appender-ref ref="delayFile"/>
+	</logger>
+	
+	<logger name="org.springframework">
+		<level value="WARN"/>
+		<appender-ref ref="file"/>
+	</logger>
+	
+	<logger name="org.hibernate">
+		<level value="WARN"/>
+		<appender-ref ref="file"/>
+	</logger>
+	
+	<logger name="com.opensymphony">
+		<level value="INFO"/>
+		<appender-ref ref="console"/>
+	</logger>
+	
+	<logger name="org.apache.struts2">
+		<level value="INFO"/>
+		<appender-ref ref="console"/>
+	</logger>
+	
+	<logger name="org.directwebremoting">
+		<level value="INFO"/>
+		<appender-ref ref="console"/>
+	</logger>
+	
+	<logger name="org.quartz">
+		<level value="INFO"/>
+		<appender-ref ref="quartzFile"/>
+	</logger>
+	
+	<logger name="senderJob">
+		<level value="INFO"/>
+		<appender-ref ref="quartzFile"/>
+	</logger>
+	
+	<logger name="quartz">
+		<level value="INFO"/>
+		<appender-ref ref="quartzFile"/>
+	</logger>
+	
+	<root>
+		<level value="INFO"/>
+		<appender-ref ref="console"/>				  	  
+	</root>
+	
+</log4j:configuration>

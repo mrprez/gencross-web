@@ -75,16 +75,6 @@ public class LoggerBSTest {
 	
 	
 	@Test
-	public void testGetFileInputStream_Success() throws Exception{
-		// Execute
-		FileInputStream result = loggerBS.getFileInputStream("quartzFile");
-		
-		// Check
-		Assert.assertNotNull(result);
-	}
-	
-	
-	@Test
 	public void testGetFileInputStream_Fail() throws Exception{
 		// Execute
 		FileInputStream result = loggerBS.getFileInputStream("console");

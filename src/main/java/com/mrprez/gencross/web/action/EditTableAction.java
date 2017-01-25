@@ -6,11 +6,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
-import org.owasp.html.PolicyFactory;
-import org.owasp.html.Sanitizers;
+import org.owasp.validator.html.AntiSamy;
+import org.owasp.validator.html.CleanResults;
 
 import com.mrprez.gencross.web.action.util.PersonnageWorkComparator;
-import com.mrprez.gencross.web.action.util.TableMessageSecurityListener;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
 import com.mrprez.gencross.web.bo.TableBO;
 import com.mrprez.gencross.web.bo.TableMessageBO;
@@ -24,7 +23,6 @@ import com.opensymphony.xwork2.ActionSupport;
 public class EditTableAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
-	private static PolicyFactory messagePolicyFactory = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.LINKS);
 	private Integer id;
 	private TableBO table;
 	private String personnageName;
@@ -49,6 +47,7 @@ public class EditTableAction extends ActionSupport {
 	private ITableBS tableBS;
 	private IPersonnageBS personnageBS;
 	private IAdminBS adminBS;
+	private AntiSamy antiSamy;
 	
 	
 	@Override
@@ -130,13 +129,13 @@ public class EditTableAction extends ActionSupport {
 	
 	public String newMessage() throws Exception {
 		UserBO user = (UserBO) ActionContext.getContext().getSession().get("user");
-		TableMessageSecurityListener securityListener = new TableMessageSecurityListener();
-		message = messagePolicyFactory.sanitize(message, securityListener, user); // Sanitize message to avoid XSS security breaches.
-		if( securityListener.hasIntrusionAttempts() ){
+		CleanResults messageScanResult = antiSamy.scan(message); // Sanitize message to avoid XSS security breaches.
+		if (messageScanResult.getNumberOfErrors() > 0) {
 			super.addActionError("Tentative d'intrusion détectée");
-			adminBS.sendMail("Tentative d'intrusion détectée", StringUtils.join(securityListener.getIntrusionAttempts(), "<br/>"));
+			adminBS.sendMail("Tentative d'intrusion détectée dans un message de " + user.getUsername(), StringUtils.join(messageScanResult.getErrorMessages(), "<br/>") + "<br/>" + message);
 			return ERROR;
 		}
+		message = messageScanResult.getCleanHTML();
 		message = message.replaceAll("(<p>[\\s\\xA0]*</p>[\\s\\xA0]*)+$", ""); // remove empty line at the message end
 		
 		if(addMessage!=null){
@@ -304,6 +303,14 @@ public class EditTableAction extends ActionSupport {
 
 	public void setAdminBS(IAdminBS adminBS) {
 		this.adminBS = adminBS;
+	}
+
+	public AntiSamy getAntiSamy() {
+		return antiSamy;
+	}
+
+	public void setAntiSamy(AntiSamy antiSamy) {
+		this.antiSamy = antiSamy;
 	}
 
 
