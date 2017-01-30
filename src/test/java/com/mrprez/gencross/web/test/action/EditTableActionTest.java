@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.owasp.validator.html.AntiSamy;
+import org.owasp.validator.html.Policy;
 
 import com.mrprez.gencross.web.action.EditTableAction;
 import com.mrprez.gencross.web.bo.PersonnageWorkBO;
@@ -36,9 +38,11 @@ public class EditTableActionTest extends AbstractActionTest {
 	@Mock
 	private IAdminBS adminBS;
 
+	@Mock
+	private AntiSamy antiSamy;
+
 	@InjectMocks
 	private EditTableAction editTableAction;
-
 
 
 	@Test
@@ -321,6 +325,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		UserBO user = AuthentificationBSTest.buildUser("batman");
 		ActionContext.getContext().getSession().put("user", user);
 		String message = "<script>alert('');</script>";
+		Mockito.when(antiSamy.scan(message)).thenReturn(new AntiSamy(Policy.getInstance(ClassLoader.getSystemResourceAsStream("antisamy.xml"))).scan(message));
 		
 		// Execute
 		editTableAction.setMessage(message);
@@ -340,6 +345,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		ActionContext.getContext().getSession().put("user", user);
 		String message = "<p>Bonjour</p><p></p><p>nouveau message</p><p></p><p>&nbsp;</p>";
 		Integer tableId = 2;
+		Mockito.when(antiSamy.scan(message)).thenReturn(new AntiSamy(Policy.getInstance(ClassLoader.getSystemResourceAsStream("antisamy.xml"))).scan(message));
 		
 		// Execute
 		editTableAction.setMessage(message);
@@ -360,6 +366,7 @@ public class EditTableActionTest extends AbstractActionTest {
 		ActionContext.getContext().getSession().put("user", user);
 		String message = "Bonjour<p></p><p>&nbsp;</p>";
 		Integer tableId = 2;
+		Mockito.when(antiSamy.scan(message)).thenReturn(new AntiSamy(Policy.getInstance(ClassLoader.getSystemResourceAsStream("antisamy.xml"))).scan(message));
 		
 		// Execute
 		editTableAction.setMessage(message);
