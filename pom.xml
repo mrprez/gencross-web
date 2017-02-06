@@ -235,7 +235,7 @@
 								<artifactItem>
 									<groupId>com.mrprez.gencross</groupId>
 									<artifactId>gencross-ui</artifactId>
-									<version>1.11</version>
+									<version>1.12</version>
 									<classifier>build-zip</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
