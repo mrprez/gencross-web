@@ -15,7 +15,7 @@
 	</parent>
 	
 	<properties>
-		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<org.springframework.version>6.0.0</org.springframework.version>
 		<plugins-repository.version>1.8</plugins-repository.version>
 		<gencross.version>1.18</gencross.version>
 	</properties>
